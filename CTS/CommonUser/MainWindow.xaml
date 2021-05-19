@@ -1,0 +1,56 @@
+﻿<Window x:Class="CommonUser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommonUser"
+        mc:Ignorable="d"
+        Title="用户操作" Height="650" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <!--GIF背景-->
+        <Grid.Background>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+        </Grid.Background>
+        <!--Grid定义-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <!--时间显示-->
+        <Image Margin="114.6,8.6,1024,558.4" Source="ImageResources\图标(黑)_时间.png" Stretch="Fill" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock Name="TextBlock_Time"  VerticalAlignment="Center" 
+                 Text="获取当前时间中" FontSize="26" Margin="154.6,8.6,600,558.4" Grid.Column="1" Grid.Row="1" />
+        <!--欢迎显示-->
+        <Image Margin="614.6,8.6,524,558.4" Source="ImageResources\图标(黑)_欢迎.png" Stretch="Fill" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="-16.291,0.785"/>
+        <TextBlock x:Name="TextBlock_Hello"  VerticalAlignment="Center"
+                   Text="欢迎您！用户："  FontSize="26" Margin="649.6,8.6,0,558.4" Grid.Column="1" Grid.Row="1" />
+
+        <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="10,60,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154">
+            <TabItem Height="100" Width="100" Header="TabItem" 
+                     MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave">
+                <Grid>
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Height="100" Width="100" Header="TabItem"
+                     MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Height="100" Width="100" Header="TabItem"
+                     MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Height="100" Width="100" Header="TabItem"
+                     MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
