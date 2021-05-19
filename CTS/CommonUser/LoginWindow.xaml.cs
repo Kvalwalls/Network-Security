@@ -37,7 +37,7 @@ namespace CommonUser
 			((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
 		}
 
-		private void Comfirm(object sender, RoutedEventArgs e)
+		private void Button_Login_Click(object sender, RoutedEventArgs e)
 		{
 			id = TextBox_id.Text;
 			if (id == "")

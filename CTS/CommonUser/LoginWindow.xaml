@@ -40,7 +40,8 @@
             </TextBox.Style>
         </TextBox>
         <!--密码TextBox-->
-        <TextBox Name="TextBox_pwd"  VerticalContentAlignment="Center"  TextChanged="TextBox_pwd_TextChanged"  FontFamily="Courier New" Foreground="Black" FontSize="24" Margin="151,160,93.6,150.4" >
+        <TextBox Name="TextBox_pwd"  VerticalContentAlignment="Center"  TextChanged="TextBox_pwd_TextChanged"  
+                 FontFamily="Courier New" Foreground="Black" FontSize="24" Margin="151,160,93.6,150.4">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -65,7 +66,7 @@
         <Button Content="登录" FontSize="22"  Margin="91,253,93.6,70.4" Foreground="White" 
                 MouseEnter="Button_MouseEnter"
                 MouseLeave="Button_MouseLeave"
-                Click="Comfirm" >
+                Click="Button_Login_Click" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">

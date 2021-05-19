@@ -157,5 +157,8 @@
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_欢迎.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\背景_选项卡静态.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

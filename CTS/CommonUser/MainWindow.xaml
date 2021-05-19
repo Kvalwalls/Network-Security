@@ -30,27 +30,68 @@
         <Image Margin="614.6,8.6,524,558.4" Source="ImageResources\图标(黑)_欢迎.png" Stretch="Fill" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="-16.291,0.785"/>
         <TextBlock x:Name="TextBlock_Hello"  VerticalAlignment="Center"
                    Text="欢迎您！用户："  FontSize="26" Margin="649.6,8.6,0,558.4" Grid.Column="1" Grid.Row="1" />
-
+        <!--TabControl-->
         <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="10,60,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154">
-            <TabItem Height="100" Width="100" Header="TabItem" 
-                     MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave">
-                <Grid>
+            <!--TabItem1-->
+            <TabItem Height="75" Width="150" Header="个人中心">
+                <Grid Background="Gainsboro" Margin="0,0,913,481">
+                </Grid>
+            </TabItem>
+            <!--TabItem2-->
+            <TabItem Height="75" Width="150" Header="购票中心">
+                <Grid Background="Gainsboro">
                     
                 </Grid>
             </TabItem>
-            <TabItem Height="100" Width="100" Header="TabItem"
-                     MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave">
-                <Grid Background="#FFE5E5E5"/>
+            <!--TabItem3-->
+            <TabItem Height="75" Width="150" Header="票务中心">
+                <Grid Background="#FFE5E5E5">
+                </Grid>
             </TabItem>
-            <TabItem Height="100" Width="100" Header="TabItem"
-                     MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Height="100" Width="100" Header="TabItem"
-                     MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave">
-                <Grid Background="#FFE5E5E5"/>
+            <!--TabItem4-->
+            <TabItem Height="75" Width="150" Header="意见反馈">
+                <Grid Background="#FFE5E5E5">
+                </Grid>
             </TabItem>
         </TabControl>
-
     </Grid>
+    
+    <Window.Resources>
+        <!--TabItem的样式-->
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <!--  主Border  -->
+                            <Border
+                                Name="border"
+                                Margin="5,10,5,0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="White"
+                                BorderThickness="3"
+                                CornerRadius="15"
+                                MouseEnter="X_MouseEnter" 
+                                MouseLeave="X_MouseLeave">
+                                <ContentPresenter
+                                    Margin="20,10"
+                                    VerticalAlignment="Center"
+                                    ContentSource="Header" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="2" />
+                                <Setter TargetName="border" Property="Margin" Value="0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Gainsboro" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+    </Window.Resources>
 </Window>
