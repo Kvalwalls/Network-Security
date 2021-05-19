@@ -44,7 +44,7 @@
             </Button.Template>
         </Button>
         <!--账号TextBox-->
-        <TextBox Name="TextBox_id" VerticalContentAlignment="Center" FontFamily="Courier New" FontSize="20" Margin="81,61,53.6,309">
+        <TextBox Name="TextBox_id" VerticalContentAlignment="Center" FontSize="20" Margin="81,61,53.6,309">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -66,7 +66,7 @@
             </TextBox.Style>
         </TextBox>
         <!--用户名TextBox-->
-        <TextBox Name="TextBox_name" VerticalContentAlignment="Center" FontFamily="Courier New" FontSize="20" Margin="81,130,53.6,240">
+        <TextBox Name="TextBox_name" VerticalContentAlignment="Center" FontSize="20" Margin="81,130,53.6,240">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -88,7 +88,7 @@
             </TextBox.Style>
         </TextBox>
         <!--密码TextBox-->
-        <TextBox x:Name="TextBox_pwdInput" VerticalContentAlignment="Center" FontFamily="Courier New" FontSize="20" Margin="81,200,53.6,170"
+        <TextBox x:Name="TextBox_pwdInput" VerticalContentAlignment="Center" FontSize="20" Margin="81,200,53.6,170"
                  TextChanged="TextBox_pwdInput_TextChanged">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
@@ -111,7 +111,7 @@
             </TextBox.Style>
         </TextBox>
         <!--确认密码TextBox-->
-        <TextBox x:Name="TextBox_pwdCheck" VerticalContentAlignment="Center" FontFamily="Courier New" FontSize="20" Margin="81,270,53.6,100"
+        <TextBox x:Name="TextBox_pwdCheck" VerticalContentAlignment="Center" FontSize="20" Margin="81,270,53.6,100"
                  TextChanged="TextBox_pwdCheck_TextChanged">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">

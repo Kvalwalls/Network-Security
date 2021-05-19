@@ -38,3 +38,9 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.Prop
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.GenerateResource.cache
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.exe
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.pdb
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\AliPayWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\AliPayWindow.baml

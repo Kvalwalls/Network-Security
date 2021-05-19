@@ -19,6 +19,7 @@ namespace CommonUser
     /// </summary>
     public partial class RegisterWindow : Window
     {
+        private User user;
         private string id = "";
         private string name = "";
         private string pwdInput = "";

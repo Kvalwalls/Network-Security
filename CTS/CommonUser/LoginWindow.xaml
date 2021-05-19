@@ -18,7 +18,7 @@
         <!--登录Label-->
         <Label HorizontalAlignment="Center" Foreground="White" Content="登录"   VerticalAlignment="Top" FontSize="36"/>
         <!--账号TextBox-->
-        <TextBox Name="TextBox_id" VerticalContentAlignment="Center" FontFamily="Courier New" Foreground="Black" FontSize="24" Margin="151,80,93.6,230.4">
+        <TextBox Name="TextBox_id" VerticalContentAlignment="Center" Foreground="Black" FontSize="24" Margin="151,80,93.6,230.4">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -41,7 +41,7 @@
         </TextBox>
         <!--密码TextBox-->
         <TextBox Name="TextBox_pwd"  VerticalContentAlignment="Center"  TextChanged="TextBox_pwd_TextChanged"  
-                 FontFamily="Courier New" Foreground="Black" FontSize="24" Margin="151,160,93.6,150.4">
+                 Foreground="Black" FontSize="24" Margin="151,160,93.6,150.4">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>

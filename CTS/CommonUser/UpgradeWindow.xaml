@@ -1,0 +1,132 @@
+﻿<Window x:Class="CommonUser.UpgradeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommonUser"
+        mc:Ignorable="d"
+        Title="UpgradeWindow" Height="450" Width="400" ResizeMode="NoResize">
+    <Grid>
+        <!--GIF背景-->
+        <Grid.Background>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+        </Grid.Background>
+        <!--升级权限Label-->
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="升级权限" VerticalAlignment="Top" FontSize="36"/>
+        <!--确定Button-->
+        <Button Name="Button_Upgrade" Content="确定" FontSize="22"  Margin="10,354,249.6,10" Foreground="White" 
+                MouseEnter="Button_MouseEnter"
+                MouseLeave="Button_MouseLeave"
+                Click="Button_Upgrade_Click" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>#FF69B4</Border.Background>
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <!--取消Button-->
+        <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="250,354,9.6,10" Foreground="White" 
+            MouseEnter="Button_MouseEnter"
+            MouseLeave="Button_MouseLeave"
+            Click="Button_Cancel_Click" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FF69B4</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Image Margin="28,65,324.6,315" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
+        <Image Margin="28,135,324.6,245" Source="ImageResources\图标(黑)_权限.png" Stretch="Fill"/>
+        <Image Margin="28,210,324.6,170" Source="ImageResources\图标(黑)_选择.png" Stretch="Fill" RenderTransformOrigin="0.539,0.755"/>
+        <TextBlock Name="TextBlock_Id" Text="账号：" VerticalAlignment="Center" FontSize="22" Margin="81,61,53.6,309"/>
+        <TextBlock Name="TextBlock_Access" Text="权限："  VerticalAlignment="Center" FontSize="22" Margin="81,130,53.6,240"/>
+        <ComboBox Name="ComboBox_Access" FontSize="26" Opacity="1"
+                  Text="请选择权限：" SelectedIndex="-1" Margin="81,205,73.6,165">
+            <ComboBoxItem Name="Access_VIP" Content="VIP用户" 
+                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                          Width="200" Height="30" FontSize="24"/>
+            <ComboBoxItem Name="Access_SVIP" Content="SVIP用户" 
+                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                          Width="200" Height="30" FontSize="24"/>
+        </ComboBox>
+    </Grid>
+    <Window.Resources>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid x:Name="grid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Stretch" x:Name="Rectangle" 
+                           VerticalAlignment="Stretch" Width="Auto" Height="Auto" RadiusX="3" RadiusY="3" Fill="#cccccc" />
+                <!--Combobox控件外壳-->
+                <Rectangle Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
+                           RadiusX="3" RadiusY="3" Fill="#999999" />
+                <!--除开下拉按钮的其他部分-->
+                <Border Margin="2,2,2,2" Grid.Column="1" Background="#cccccc" Width="Auto" 
+                        CornerRadius="3,3,3,3" x:Name="drop_border" />
+                <Path Grid.Column="1" HorizontalAlignment="Center" Width="Auto" x:Name="Arrow" 
+                      VerticalAlignment="Center" Fill="{x:Null}" Data="M0.5,0.5 L3,6.5 5.5,0.5" Stroke="Black" 
+                      Margin="5,0,5,0" Height="7" StrokeThickness="2" Stretch="Fill" />
+                <!--Border 和 Path为下拉按钮-->
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="drop_border" Property="Background" Value="White" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Border BorderBrush="Orange" x:Name="border">
+                            <Grid x:Name="grid">
+                                <ToggleButton Template="{StaticResource ComboBoxToggleButton}" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" />
+                                <ContentPresenter Margin="5,0,0,0" HorizontalAlignment="Left" x:Name="ContentSite" VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False" />
+                                <TextBox Visibility="Hidden" Margin="2,2,22,2" x:Name="PART_EditableTextBox" Style="{x:Null}" VerticalAlignment="Center" Focusable="True" IsReadOnly="{TemplateBinding IsReadOnly}" Foreground="Black" HorizontalAlignment="Stretch" Background="Azure" />
+                                <!--文本输入框，当IsEditable为true 才显示-->
+                                <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Slide">
+                                    <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                        <Border x:Name="DropDownBorder" Background="WhiteSmoke" CornerRadius="3,3,3,3" />
+                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Foreground="{StaticResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}">
+                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter Property="MinHeight" Value="95" TargetName="DropDownBorder" />
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <Trigger Property="AllowsTransparency" SourceName="Popup" Value="true">
+                                <Setter Property="Margin" Value="0,2,0,0" TargetName="DropDownBorder" />
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false" />
+                                <Setter Property="Visibility" Value="Visible" TargetName="PART_EditableTextBox" />
+                                <Setter Property="Visibility" Value="Hidden" TargetName="ContentSite" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+</Window>

@@ -67,3 +67,37 @@ F:\My FILS\大三\lotSafe\Network-Security\CommonUser\UI_simplify_version\obj\De
 F:\My FILS\大三\lotSafe\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UI_simplify_version.csprojAssemblyReference.cache
 F:\My FILS\大三\lotSafe\Network-Security\CommonUser\UI_simplify_version\obj\Debug\MainWindow.g.cs
 F:\My FILS\大三\lotSafe\Network-Security\CommonUser\UI_simplify_version\obj\Debug\MainWindow.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\bin\Debug\UI_simplify_version.exe.config
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\bin\Debug\UI_simplify_version.exe
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\bin\Debug\UI_simplify_version.pdb
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UI_simplify_version.csprojAssemblyReference.cache
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\MainWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Reback.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Register.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\test.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Operate.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Change.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Recharge.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UpdateAuthority.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Payment.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\SelectSeat.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\SelectOnMovie.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\App.g.cs
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UI_simplify_version_MarkupCompile.cache
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UI_simplify_version_MarkupCompile.lref
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\MainWindow.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Reback.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Register.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\test.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Operate.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Change.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Recharge.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UpdateAuthority.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\Payment.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\SelectSeat.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\SelectOnMovie.baml
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UI_simplify_version.g.resources
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UI_simplify_version.Properties.Resources.resources
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UI_simplify_version.csproj.GenerateResource.cache
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UI_simplify_version.exe
+C:\Users\19705\Desktop\Network-Security\CommonUser\UI_simplify_version\obj\Debug\UI_simplify_version.pdb

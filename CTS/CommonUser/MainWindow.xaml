@@ -21,26 +21,140 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions> 
         <!--时间显示-->
         <Image Margin="114.6,8.6,1024,558.4" Source="ImageResources\图标(黑)_时间.png" Stretch="Fill" Grid.Column="1" Grid.Row="1"/>
         <TextBlock Name="TextBlock_Time"  VerticalAlignment="Center" 
                  Text="获取当前时间中" FontSize="26" Margin="154.6,8.6,600,558.4" Grid.Column="1" Grid.Row="1" />
         <!--欢迎显示-->
-        <Image Margin="614.6,8.6,524,558.4" Source="ImageResources\图标(黑)_欢迎.png" Stretch="Fill" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="-16.291,0.785"/>
+        <Image Margin="614.6,8.6,524,558.4" Name="Image_common" Opacity="0" Source="ImageResources\图标(黑)_欢迎.png" Stretch="Fill" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="-16.291,0.785"/>
+        <Image Margin="578.6,0,514,540.4" Name="Image_vip" Opacity="0" Source="ImageResources\图标(黑)_vip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
+        <Image Margin="583.6,0,514,540.4" Name="Image_svip" Opacity="0" Source="ImageResources\图标(黑)_svip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
         <TextBlock x:Name="TextBlock_Hello"  VerticalAlignment="Center"
-                   Text="欢迎您！用户："  FontSize="26" Margin="649.6,8.6,0,558.4" Grid.Column="1" Grid.Row="1" />
+                   FontSize="26" Margin="654.6,8.6,0,558.4" Grid.Column="1" Grid.Row="1" />
         <!--TabControl-->
         <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="10,60,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154">
             <!--TabItem1-->
             <TabItem Height="75" Width="150" Header="个人中心">
-                <Grid Background="Gainsboro" Margin="0,0,913,481">
+                <Grid Background="Gainsboro">
+                    <Image Margin="64,32,862,423" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
+                    <Image Margin="64,106,862,349" Source="ImageResources\图标(黑)_用户名.png" Stretch="Fill"/>
+                    <Image Margin="64,180,862,275" Source="ImageResources\图标(黑)_密码.png" Stretch="Fill"/>
+                    <Image Margin="64,254,862,198" Source="ImageResources\图标(黑)_权限.png" Stretch="Fill"/>
+                    <Image Margin="64,331,862,127" Source="ImageResources\图标(黑)_余额.png" Stretch="Fill"/>
+                    <Image Margin="704,106,222,349" Source="ImageResources\图标(黑)_对.png" 
+                           Name="Image_NameTrue" Opacity="0" Stretch="Fill"/>
+                    <Image Margin="704,106,212,344" Source="ImageResources/图标(黑)_错.png" 
+                           Name="Image_NameFalse" Opacity="0" Stretch="Fill"/>
+                    <Image Margin="704,180,222,275" Source="ImageResources\图标(黑)_对.png" 
+                           Name="Image_PwdTrue" Opacity="0" Stretch="Fill"/>
+                    <Image Margin="704,180,212,270" Source="ImageResources\图标(黑)_错.png"
+                           Name="Image_PwdFalse" Opacity="0" Stretch="Fill"/>
+                    <Image Margin="704,180,222,275" Source="ImageResources\图标(黑)_闭眼.png" Name="Image_Eye"
+                           MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" MouseLeftButtonDown="Image_Pwd" Stretch="Fill" RenderTransformOrigin="0.503,0.819"/>
+
+                    <Label Content="账号" Margin="139,32,737,423" FontSize="28"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label Content="用户名" Margin="139,106,737,349" FontSize="28" 
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label Content="密码" Margin="139,180,737,275" FontSize="28" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label Content="权限" Margin="139,254,737,198" FontSize="28" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label Content="余额" Margin="139,331,737,121" FontSize="28" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                    <TextBox  Margin="264,32,297,423" FontSize="28" IsReadOnly="True" Name="TextBox_Id"
+                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBox  Margin="264,106,297,349"  FontSize="28"  IsReadOnly="True" Name="TextBox_Name"
+                              TextChanged="TextBox_Name_TextChanged"
+                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBox  Margin="264,180,297,275"  FontSize="28"  IsReadOnly="True" Name="TextBox_Pwd"
+                              TextChanged="TextBox_Pwd_TextChanged"
+                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBox  Margin="264,254,297,201"  FontSize="28"  IsReadOnly="True" Name="TextBox_Access"
+                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBox  Margin="264,328,297,127"  FontSize="28"  IsReadOnly="True" Name="TextBox_Money"
+                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                    <Button Name="Button_ModName" Content="修改用户名" FontSize="22"  Margin="104,436,772,10" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="Button_ModName_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Name="Button_ModPwd" Content="修改密码" FontSize="22"  Margin="284,436,592,10" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="Button_ModPwd_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="Button_ModAccess" Content="升级权限" FontSize="22"  Margin="464,436,412,10" Foreground="White" 
+                        MouseEnter="X_MouseEnter"
+                        MouseLeave="X_MouseLeave"
+                        Click="Button_ModAccess_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>
+                                        <Brush>Gray</Brush>
+                                    </Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="Button_ModMoney" Content="余额充值" FontSize="22"  Margin="644,436,232,10" Foreground="White" 
+                        MouseEnter="X_MouseEnter"
+                        MouseLeave="X_MouseLeave"
+                        Click="Button_ModMoney_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>
+                                        <Brush>Gray</Brush>
+                                    </Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="824,436,52,10" Foreground="White" 
+                        Opacity="0" IsEnabled="False"
+                        MouseEnter="X_MouseEnter"
+                        MouseLeave="X_MouseLeave"
+                        Click="Button_Cancel_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>
+                                        <Brush>Gray</Brush>
+                                    </Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
             </TabItem>
             <!--TabItem2-->
             <TabItem Height="75" Width="150" Header="购票中心">
                 <Grid Background="Gainsboro">
-                    
+
                 </Grid>
             </TabItem>
             <!--TabItem3-->
@@ -55,7 +169,7 @@
             </TabItem>
         </TabControl>
     </Grid>
-    
+
     <Window.Resources>
         <!--TabItem的样式-->
         <Style TargetType="{x:Type TabItem}">

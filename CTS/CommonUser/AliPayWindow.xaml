@@ -1,0 +1,34 @@
+﻿<Window x:Class="CommonUser.AliPayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommonUser"
+        mc:Ignorable="d"
+        Title="AliPayWindow" Height="450" Width="400" ResizeMode="NoResize">
+    <Grid>
+        <!--GIF背景-->
+        <Grid.Background>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+        </Grid.Background>
+        <!--账户充值Label-->
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="账户充值" VerticalAlignment="Top" FontSize="36"/>
+        <!--确定Button-->
+        <Button Name="Button_Ok" Content="支付完毕" FontSize="22"  Margin="10,354,9.6,10" Foreground="White" 
+                MouseEnter="Button_MouseEnter"
+                MouseLeave="Button_MouseLeave" 
+                Click="Button_Ok_Click">
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>#FF69B4</Border.Background>
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Image Margin="28,65,324.6,315" Source="ImageResources\图标(黑)_支付.png" Stretch="Fill"/>
+        <TextBlock Name="TextBlock_Pay" Text="您需要支付：" VerticalAlignment="Center" FontSize="22" Margin="81,61,53.6,309"/>
+        <Image Margin="81,110,81,70" Source="ImageResources\装饰(无)_支付宝.jpg" Stretch="Fill"/>
+    </Grid>
+</Window>

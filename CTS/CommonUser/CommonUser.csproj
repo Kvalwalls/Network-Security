@@ -56,9 +56,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AliPayWindow.xaml.cs">
+      <DependentUpon>AliPayWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RechargeWindow.xaml.cs">
+      <DependentUpon>RechargeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RefindWindow.xaml.cs">
       <DependentUpon>RefindWindow.xaml</DependentUpon>
@@ -66,6 +72,13 @@
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpgradeWindow.xaml.cs">
+      <DependentUpon>UpgradeWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AliPayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,11 +95,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RechargeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RefindWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpgradeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -159,6 +180,40 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageResources\背景_选项卡静态.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_权限.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_余额.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_svip.png" />
+    <Resource Include="ImageResources\图标%28黑%29_vip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_对.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_闭眼.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_错.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_输入.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_支付.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\装饰%28无%29_支付宝.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_选择.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
