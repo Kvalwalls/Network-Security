@@ -1,0 +1,51 @@
+﻿<Window x:Class="Keberos_UI.退票"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Keberos_UI"
+        mc:Ignorable="d"
+        Title="退票" Height="600" Width="1000" WindowStyle="None">
+    <Grid Margin="0,0,-6.4,-6.4">
+        <Grid.Background>
+            <ImageBrush ImageSource="white-abstract-background_23-2148810113.jpg">
+
+            </ImageBrush>
+        </Grid.Background>
+        <ListView Name="listview" HorizontalAlignment="Left" Height="439" Margin="84,104,0,0" VerticalAlignment="Top" Width="845">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header=" 用户名 " Width="200"/>
+                    <GridViewColumn Header=" 电影名" Width="100"/>
+                    <GridViewColumn Header=" 影厅 " Width="60"/>
+                    <GridViewColumn Header=" 座位号 " Width="100"/>
+                    <GridViewColumn Header=" 购买日期 " Width="180"/>
+                    <GridViewColumn Header=" 付款金额 " Width="100"/>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Refund" HorizontalAlignment="Left" VerticalAlignment="Top" Height="94" Width="392" FontSize="66" FontFamily="Curlz MT" FontWeight="Bold" Foreground="#FF4C2020" Margin="395,-16,0,0"/>
+        <Label Content="退票" HorizontalAlignment="Left" Margin="474,62,0,0" VerticalAlignment="Top" Height="42" Width="154" FontSize="24" FontFamily="黑体" FontWeight="Bold" Foreground="#FF4C2020"/>
+        <Button Content="返回" FontSize="24"  Margin="884,551,15.6,10.6" Click="Back" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>#FFDDDDDD</Border.Background>
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Content="退票" FontSize="24"  Margin="760,551,139.6,10.6" Click="Refund" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>#FFDDDDDD</Border.Background>
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</Window>

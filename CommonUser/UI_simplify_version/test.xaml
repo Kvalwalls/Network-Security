@@ -1,0 +1,43 @@
+﻿<Window x:Class="UI_simplify_version.test"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI_simplify_version"
+        mc:Ignorable="d"
+        Title="test" Height="450" Width="800">
+    <Grid>
+        <Label Content="时间：" HorizontalAlignment="Left" Margin="12,2,0,0" VerticalAlignment="Top" Width="41"/>
+        <Label Content="2021/5/11 16:12" HorizontalAlignment="Left" Margin="58,2,0,0" VerticalAlignment="Top" Width="109" IsEnabled="False"/>
+        <Label Content="欢迎您：" HorizontalAlignment="Left" Margin="330,0,0,0" VerticalAlignment="Top" Width="55"/>
+        <Label Content="汪帮传" HorizontalAlignment="Left" Margin="390,0,0,0" VerticalAlignment="Top" Width="109" IsEnabled="False"/>
+    
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="101,36,0,0" VerticalAlignment="Top" Width="423"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="101,157,0,0" VerticalAlignment="Top" Width="423"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="101,281,0,0" VerticalAlignment="Top" Width="423"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="101,58,0,0" VerticalAlignment="Top" Width="423"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="66" Margin="101,86,0,0" VerticalAlignment="Top" Width="423"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="26" Margin="101,180,0,0" VerticalAlignment="Top" Width="423"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="70" Margin="101,206,0,0" VerticalAlignment="Top" Width="423"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="29" Margin="101,304,0,0" VerticalAlignment="Top" Width="423"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="67" Margin="101,333,0,0" VerticalAlignment="Top" Width="423"/>
+        <Label Content="类型：爱情、青春" HorizontalAlignment="Left" Margin="101,35,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="地区：中国" HorizontalAlignment="Left" Margin="279,35,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="时长：115分钟" HorizontalAlignment="Left" Margin="428,35,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="你的婚礼" HorizontalAlignment="Left" Margin="264,54,0,0" VerticalAlignment="Top" Height="32" FontSize="20"/>
+        <Label Content="游泳特长生周潇齐（许光汉 饰）在一次打架事件中，对初来乍到的转校生尤咏慈（章若楠 饰）一见钟情，周潇齐对尤&#xA;咏慈默默守护，接踵而至的却是女孩的不告而别。随后的人生，周潇齐并没有考上大学，在做网管的间隙突然发现了尤&#xA;咏慈的踪迹，于是周潇齐复读考上了尤咏慈的大学，为的只是再次站在她面前再续前缘。两人的相遇并没有像想象中那&#xA;种甜蜜，恋爱的时机总是不属于周潇齐，尽管死党张放（丁冠森 饰）等人想尽办法帮助周潇齐追爱，可尤咏慈的身边&#xA;已经有了学长（梁靖康 饰）的陪伴。毕业后的两人天各一方，命运却再次让他们相遇，此后的人生，15年的爱情长跑。&#xA;你的婚礼，也是我的成人礼。" HorizontalAlignment="Left" Margin="98,83,0,0" VerticalAlignment="Top" Height="70" FontSize="8" Width="426"/>
+        <Label Content="类型：悬疑、惊悚" HorizontalAlignment="Left" Margin="101,155,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="地区：中国" HorizontalAlignment="Left" Margin="279,155,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="时长：111分钟" HorizontalAlignment="Left" Margin="428,155,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="秘密访客" HorizontalAlignment="Left" Margin="264,175,0,0" VerticalAlignment="Top" Height="32" FontSize="20"/>
+        <Label Content="校车司机于困樵（段奕宏 饰）因失职酿成了一起重大的校车车祸，困樵拼死救出了似与车祸背后真相息息相关的汪楚&#xA;祺（荣梓杉 饰），校车上的其他学生无人生还。&#xA;得知此事家境显赫的汪父（郭富城 饰）为了隐藏这个秘密，不得不把困樵藏在自己家的地下室里长达三年，却处处暗&#xA;示困樵何时自首。随着访客的到来，这个原本温馨和睦的四口之家变得越来越诡异，母亲（许玮甯 饰）整日惴惴不安，&#xA;姐姐（张子枫 饰）举止一反常态，家人个个心怀鬼胎，怪事频出，这个家背后不可告人的秘密似乎即将浮出水面……" HorizontalAlignment="Left" Margin="99,203,0,0" VerticalAlignment="Top" Height="70" FontSize="8" Width="426"/>
+        <Label Content="类型：剧情、推理" HorizontalAlignment="Left" Margin="101,279,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="地区：中国" HorizontalAlignment="Left" Margin="279,279,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="时长：111分钟" HorizontalAlignment="Left" Margin="428,279,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="悬崖之上" HorizontalAlignment="Left" Margin="264,300,0,0" VerticalAlignment="Top" Height="32" FontSize="20"/>
+        <Label Content="上世纪三十年代，四位曾在苏联接受特训的共产党特工组成任务小队，回国执行代号为乌特拉\的秘密行动。由于叛徒&#xA;的出卖，他们从跳伞降落的第一刻起， 就已置身于敌人布下的罗网之中。同志能否脱身，任务能否完成，雪一直下，&#xA;立于悬崖之上的行动小组面临严峻考验。" HorizontalAlignment="Left" Margin="99,330,0,0" VerticalAlignment="Top" Height="70" FontSize="8" Width="426"/>
+        <Button Content="购票" HorizontalAlignment="Left" Margin="552,125,0,0" VerticalAlignment="Top" Width="66" Height="27"/>
+        <Button Content="筛选" HorizontalAlignment="Left" Margin="552,249,0,0" VerticalAlignment="Top" Width="66" Height="27"/>
+
+    </Grid>
+</Window>
