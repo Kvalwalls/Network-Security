@@ -42,7 +42,5 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.g
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\AliPayWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\AliPayWindow.baml

@@ -67,7 +67,7 @@ namespace CommonUser
                 MessageBox.Show("请选择更高的权限！", "选择错误");
                 return;
             }
-            new MyPayWIndow(newAccess*199).ShowDialog();
+            new AliPayWindow(newAccess*199).ShowDialog();
             /*发送请求*/
             MessageBox.Show("升级成功！", "提示");
             Close();

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CommonUser"
         mc:Ignorable="d"
-        Title="账户充值" Height="450" Width="400" ResizeMode="NoResize">
+        Title="RechargeWindow" Height="450" Width="400" ResizeMode="NoResize">
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
