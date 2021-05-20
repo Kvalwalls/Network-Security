@@ -5,6 +5,7 @@ using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace CommonUser
 {
@@ -14,6 +15,7 @@ namespace CommonUser
     public partial class MainWindow : Window
     {
         private User user;
+        private List<Movie> movies;
         private bool isEyeOpen;
         private bool modNameSure;
         private bool modPwdSure;
@@ -89,6 +91,10 @@ namespace CommonUser
                     TextBox_Access.Text = "普通用户";
                     break;
             }
+        }
+
+        private void InitMovies()
+        {
         }
 
         private void X_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -323,6 +329,31 @@ namespace CommonUser
         private static bool HasChinese(string str)
         {
             return Regex.IsMatch(str, @"[\u4e00-\u9fa5]");
+        }
+
+        private void Button_Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Commit_Click(object sender, RoutedEventArgs e)
+        {
+            if(TextBox_Feedback.Text.Equals(""))
+            {
+                MessageBox.Show("请您输入反馈意见内容！", "输入错误");
+                return;
+            }
+            else
+            {
+                /*发送请求*/
+                MessageBox.Show("感谢您的反馈！", "提示");
+                TextBox_Feedback.Text = null;
+            }
+        }
+
+        private void Button_Flush_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox_Feedback.Text = null;
         }
     }
 }

@@ -14,67 +14,68 @@
         <!--Grid定义-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="695*"/>
+            <ColumnDefinition Width="479*"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
-        </Grid.RowDefinitions> 
+        </Grid.RowDefinitions>
         <!--时间显示-->
-        <Image Margin="114.6,8.6,1024,558.4" Source="ImageResources\图标(黑)_时间.png" Stretch="Fill" Grid.Column="1" Grid.Row="1"/>
+        <Image Margin="114.6,8.6,545,558.4" Source="ImageResources\图标(黑)_时间.png" Stretch="Fill" Grid.Column="1" Grid.Row="1"/>
         <TextBlock Name="TextBlock_Time"  VerticalAlignment="Center" 
-                 Text="获取当前时间中" FontSize="26" Margin="154.6,8.6,600,558.4" Grid.Column="1" Grid.Row="1" />
+                 Text="获取当前时间中" FontSize="26" Margin="154.6,8.6,121,557.4" Grid.Column="1" Grid.Row="1" />
         <!--欢迎显示-->
-        <Image Margin="614.6,8.6,524,558.4" Name="Image_common" Opacity="0" Source="ImageResources\图标(黑)_欢迎.png" Stretch="Fill" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="-16.291,0.785"/>
-        <Image Margin="578.6,0,514,540.4" Name="Image_vip" Opacity="0" Source="ImageResources\图标(黑)_vip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
-        <Image Margin="583.6,0,514,540.4" Name="Image_svip" Opacity="0" Source="ImageResources\图标(黑)_svip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
+        <Image Margin="614.6,8.6,45,558.4" Name="Image_common" Opacity="0" Source="ImageResources\图标(黑)_欢迎.png" Stretch="Fill" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="-16.291,0.785"/>
+        <Image Margin="578.6,0,35,540.4" Name="Image_vip" Opacity="0" Source="ImageResources\图标(黑)_vip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
+        <Image Margin="583.6,0,35,540.4" Name="Image_svip" Opacity="0" Source="ImageResources\图标(黑)_svip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
         <TextBlock x:Name="TextBlock_Hello"  VerticalAlignment="Center"
-                   FontSize="26" Margin="654.6,8.6,0,558.4" Grid.Column="1" Grid.Row="1" />
+                   FontSize="26" Margin="654.6,8.6,0,557.4" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" />
         <!--TabControl-->
-        <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="10,60,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154">
+        <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="9.6,59.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154" Grid.ColumnSpan="2">
             <!--TabItem1-->
             <TabItem Height="75" Width="150" Header="个人中心">
                 <Grid Background="Gainsboro">
-                    <Image Margin="64,32,862,423" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
-                    <Image Margin="64,106,862,349" Source="ImageResources\图标(黑)_用户名.png" Stretch="Fill"/>
-                    <Image Margin="64,180,862,275" Source="ImageResources\图标(黑)_密码.png" Stretch="Fill"/>
-                    <Image Margin="64,254,862,198" Source="ImageResources\图标(黑)_权限.png" Stretch="Fill"/>
-                    <Image Margin="64,331,862,127" Source="ImageResources\图标(黑)_余额.png" Stretch="Fill"/>
-                    <Image Margin="704,106,222,349" Source="ImageResources\图标(黑)_对.png" 
+                    <Image Margin="110,31,816,424" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
+                    <Image Margin="110,105,816,350" Source="ImageResources\图标(黑)_用户名.png" Stretch="Fill"/>
+                    <Image Margin="110,179,816,276" Source="ImageResources\图标(黑)_密码.png" Stretch="Fill"/>
+                    <Image Margin="110,253,816,199" Source="ImageResources\图标(黑)_权限.png" Stretch="Fill"/>
+                    <Image Margin="110,330,816,128" Source="ImageResources\图标(黑)_余额.png" Stretch="Fill"/>
+                    <Image Margin="750,105,176,350" Source="ImageResources\图标(黑)_对.png" 
                            Name="Image_NameTrue" Opacity="0" Stretch="Fill"/>
-                    <Image Margin="704,106,212,344" Source="ImageResources/图标(黑)_错.png" 
+                    <Image Margin="750,105,166,345" Source="ImageResources/图标(黑)_错.png" 
                            Name="Image_NameFalse" Opacity="0" Stretch="Fill"/>
-                    <Image Margin="704,180,222,275" Source="ImageResources\图标(黑)_对.png" 
+                    <Image Margin="750,179,176,276" Source="ImageResources\图标(黑)_对.png" 
                            Name="Image_PwdTrue" Opacity="0" Stretch="Fill"/>
-                    <Image Margin="704,180,212,270" Source="ImageResources\图标(黑)_错.png"
+                    <Image Margin="750,179,166,271" Source="ImageResources\图标(黑)_错.png"
                            Name="Image_PwdFalse" Opacity="0" Stretch="Fill"/>
-                    <Image Margin="704,180,222,275" Source="ImageResources\图标(黑)_闭眼.png" Name="Image_Eye"
+                    <Image Margin="750,179,176,276" Source="ImageResources\图标(黑)_闭眼.png" Name="Image_Eye"
                            MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" MouseLeftButtonDown="Image_Pwd" Stretch="Fill" RenderTransformOrigin="0.503,0.819"/>
 
-                    <Label Content="账号" Margin="139,32,737,423" FontSize="28"
+                    <Label Content="账号" Margin="185,31,691,424" FontSize="28"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <Label Content="用户名" Margin="139,106,737,349" FontSize="28" 
+                    <Label Content="用户名" Margin="185,105,691,350" FontSize="28" 
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <Label Content="密码" Margin="139,180,737,275" FontSize="28" 
+                    <Label Content="密码" Margin="185,179,691,276" FontSize="28" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <Label Content="权限" Margin="139,254,737,198" FontSize="28" 
+                    <Label Content="权限" Margin="185,253,691,199" FontSize="28" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <Label Content="余额" Margin="139,331,737,121" FontSize="28" 
+                    <Label Content="余额" Margin="185,330,691,122" FontSize="28" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-                    <TextBox  Margin="264,32,297,423" FontSize="28" IsReadOnly="True" Name="TextBox_Id"
+                    <TextBox  Margin="310,31,251,424" FontSize="28" IsReadOnly="True" Name="TextBox_Id"
                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <TextBox  Margin="264,106,297,349"  FontSize="28"  IsReadOnly="True" Name="TextBox_Name"
+                    <TextBox  Margin="310,105,251,350"  FontSize="28"  IsReadOnly="True" Name="TextBox_Name"
                               TextChanged="TextBox_Name_TextChanged"
                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <TextBox  Margin="264,180,297,275"  FontSize="28"  IsReadOnly="True" Name="TextBox_Pwd"
+                    <TextBox  Margin="310,179,251,276"  FontSize="28"  IsReadOnly="True" Name="TextBox_Pwd"
                               TextChanged="TextBox_Pwd_TextChanged"
                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <TextBox  Margin="264,254,297,201"  FontSize="28"  IsReadOnly="True" Name="TextBox_Access"
+                    <TextBox  Margin="310,254,251,201"  FontSize="28"  IsReadOnly="True" Name="TextBox_Access"
                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <TextBox  Margin="264,328,297,127"  FontSize="28"  IsReadOnly="True" Name="TextBox_Money"
+                    <TextBox  Margin="310,327,251,128"  FontSize="28"  IsReadOnly="True" Name="TextBox_Money"
                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
                     <Button Name="Button_ModName" Content="修改用户名" FontSize="22"  Margin="104,436,772,10" Foreground="White" 
@@ -155,16 +156,136 @@
             <TabItem Height="75" Width="150" Header="购票中心">
                 <Grid Background="Gainsboro">
 
+                    <Image Margin="79,14,882,475" Source="ImageResources\图标(黑)_搜索.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
+
+                    <TextBox  Margin="119,10,442,468" FontSize="28" Name="TextBox_Search" VerticalContentAlignment="Center">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock  FontSize="28" Text="查询影片" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <Button x:Name="Button_Search" Content="确定" FontSize="22"  Margin="559,10,367,468" Foreground="White" 
+                        MouseEnter="X_MouseEnter"
+                        MouseLeave="X_MouseLeave"
+                        Click="Button_Search_Click" >
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>
+                                        <Brush>Gray</Brush>
+                                    </Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <ListView Name="ListView_Movies" ItemsSource="{Binding Path=movies}" Margin="10,60,10,10" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#FF9376E1" BorderThickness="1">
+                                    <Grid Width="300">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="250"/>
+                                            <RowDefinition Height="50"/>
+                                            <RowDefinition Height="50"/>
+                                            <RowDefinition Height="50"/>
+                                            <RowDefinition Height="50"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding Path=id}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="0"/>
+                                        <TextBlock Text="{Binding Path=name}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="1"/>
+                                        <TextBlock Text="{Binding Path=comment}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="2"/>
+                                        <TextBlock Text="{Binding Path=type}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="3"/>
+                                        <TextBlock Text="{Binding Path=Remark}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="4"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </TabItem>
             <!--TabItem3-->
             <TabItem Height="75" Width="150" Header="票务中心">
-                <Grid Background="#FFE5E5E5">
+                <Grid Background="Gainsboro">
                 </Grid>
             </TabItem>
             <!--TabItem4-->
-            <TabItem Height="75" Width="150" Header="意见反馈">
-                <Grid Background="#FFE5E5E5">
+            <TabItem Height="75" Width="150" Header="反馈中心">
+                <Grid Background="Gainsboro">
+                    <Image Margin="60,45,866,410" Source="ImageResources/图标(黑)_反馈.png" Stretch="Fill"/>
+                    <TextBox  Margin="150,45,10,113" FontSize="28" Name="TextBox_Feedback" IsReadOnly="False"
+                              TextWrapping="Wrap" VerticalScrollBarVisibility="Auto">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None">
+                                <VisualBrush.Visual>
+                                    <TextBlock  FontSize="28" Text="请提出您宝贵的意见！" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Button x:Name="Button_Commit" Content="确认提交" FontSize="30"  Margin="185,431,621,10" Foreground="White" 
+                        MouseEnter="X_MouseEnter"
+                        MouseLeave="X_MouseLeave"
+                        Click="Button_Commit_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>
+                                        <Brush>Gray</Brush>
+                                    </Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="Button_Flush" Content="清空内容" FontSize="30"  Margin="796,431,10,10" Foreground="White" 
+                        MouseEnter="X_MouseEnter"
+                        MouseLeave="X_MouseLeave"
+                        Click="Button_Flush_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>
+                                        <Brush>Gray</Brush>
+                                    </Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
             </TabItem>
         </TabControl>
