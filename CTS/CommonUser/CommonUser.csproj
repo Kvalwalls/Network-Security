@@ -56,8 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LockingWindow.xaml.cs">
+      <DependentUpon>LockingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MovieInfoWindow.xaml.cs">
       <DependentUpon>MovieInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MsgShowWindow.xaml.cs">
+      <DependentUpon>MsgShowWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyPayWindow.xaml.cs">
       <DependentUpon>MyPayWindow.xaml</DependentUpon>
@@ -75,10 +81,27 @@
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SelectOnMovieWindow.xaml.cs">
+      <DependentUpon>SelectOnMovieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SelectSeatWindow.xaml.cs">
+      <DependentUpon>SelectSeatWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UpgradeWindow.xaml.cs">
       <DependentUpon>UpgradeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WaitPayWindow.xaml.cs">
+      <DependentUpon>WaitPayWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LockingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MovieInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MsgShowWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,7 +137,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SelectOnMovieWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SelectSeatWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UpgradeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WaitPayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -95,6 +95,10 @@ namespace CommonUser
 
         private void InitMovies()
         {
+            Movie temp = new Movie("0001", "让子弹飞", "0001", 100, 9, "0001", "0001");
+            movies.Add(temp);
+            temp = new Movie("0002", "让子弹飞2", "0002", 100, 9, "0002", "0002");
+            movies.Add(temp);
         }
 
         private void X_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
