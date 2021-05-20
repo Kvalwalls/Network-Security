@@ -50,3 +50,9 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWi
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LockingWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitPayWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LockingWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitPayWindow.baml

@@ -38,6 +38,7 @@
             <!--TabItem1-->
             <TabItem Height="75" Width="150" Header="个人中心">
                 <Grid Background="Gainsboro">
+                    <!--图标-->
                     <Image Margin="110,31,816,424" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
                     <Image Margin="110,105,816,350" Source="ImageResources\图标(黑)_用户名.png" Stretch="Fill"/>
                     <Image Margin="110,179,816,276" Source="ImageResources\图标(黑)_密码.png" Stretch="Fill"/>
@@ -53,7 +54,7 @@
                            Name="Image_PwdFalse" Opacity="0" Stretch="Fill"/>
                     <Image Margin="750,179,176,276" Source="ImageResources\图标(黑)_闭眼.png" Name="Image_Eye"
                            MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" MouseLeftButtonDown="Image_Pwd" Stretch="Fill" RenderTransformOrigin="0.503,0.819"/>
-
+                    <!--文字Label-->
                     <Label Content="账号" Margin="185,31,691,424" FontSize="28"
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                     <Label Content="用户名" Margin="185,105,691,350" FontSize="28" 
@@ -64,7 +65,7 @@
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                     <Label Content="余额" Margin="185,330,691,122" FontSize="28" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
+                    <!--显示信息TextBox-->
                     <TextBox  Margin="310,31,251,424" FontSize="28" IsReadOnly="True" Name="TextBox_Id"
                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                     <TextBox  Margin="310,105,251,350"  FontSize="28"  IsReadOnly="True" Name="TextBox_Name"
@@ -77,7 +78,7 @@
                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                     <TextBox  Margin="310,327,251,128"  FontSize="28"  IsReadOnly="True" Name="TextBox_Money"
                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
+                    <!--修改用户名Button-->
                     <Button Name="Button_ModName" Content="修改用户名" FontSize="22"  Margin="104,436,772,10" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
@@ -91,6 +92,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
+                    <!--修改密码Button-->
                     <Button Name="Button_ModPwd" Content="修改密码" FontSize="22"  Margin="284,436,592,10" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
@@ -104,6 +106,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
+                    <!--升级权限Button-->
                     <Button x:Name="Button_ModAccess" Content="升级权限" FontSize="22"  Margin="464,436,412,10" Foreground="White" 
                         MouseEnter="X_MouseEnter"
                         MouseLeave="X_MouseLeave"
@@ -119,6 +122,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
+                    <!--余额充值Button-->
                     <Button x:Name="Button_ModMoney" Content="余额充值" FontSize="22"  Margin="644,436,232,10" Foreground="White" 
                         MouseEnter="X_MouseEnter"
                         MouseLeave="X_MouseLeave"
@@ -134,6 +138,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
+                    <!--取消Button-->
                     <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="824,436,52,10" Foreground="White" 
                         Opacity="0" IsEnabled="False"
                         MouseEnter="X_MouseEnter"
@@ -155,9 +160,9 @@
             <!--TabItem2-->
             <TabItem Height="75" Width="150" Header="购票中心">
                 <Grid Background="Gainsboro">
-
+                    <!--搜索图标-->
                     <Image Margin="79,14,882,475" Source="ImageResources\图标(黑)_搜索.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
-
+                    <!--搜索TextBox-->
                     <TextBox  Margin="119,10,442,468" FontSize="28" Name="TextBox_Search" VerticalContentAlignment="Center">
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
@@ -179,7 +184,7 @@
                             </Style>
                         </TextBox.Style>
                     </TextBox>
-
+                    <!--搜索Button-->
                     <Button x:Name="Button_Search" Content="确定" FontSize="22"  Margin="559,10,367,468" Foreground="White" 
                         MouseEnter="X_MouseEnter"
                         MouseLeave="X_MouseLeave"
@@ -195,8 +200,9 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-
-                    <ListView Name="ListView_Movies" ItemsSource="{Binding Path=movies}" Margin="10,60,10,10" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                    <!--ListView-->
+                    <ListView Name="ListView_Movies" Margin="13,60,14,10" ItemsSource="{Binding}"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Visible">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
@@ -204,20 +210,34 @@
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="#FF9376E1" BorderThickness="1">
-                                    <Grid Width="300">
+                                <Border BorderBrush="Cornsilk" BorderThickness="3">
+                                    <Grid Width="300" MouseDown="MouseDown_GetMoreMovieInfo" >
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="250"/>
-                                            <RowDefinition Height="50"/>
-                                            <RowDefinition Height="50"/>
-                                            <RowDefinition Height="50"/>
+                                            <RowDefinition Height="70"/>
+                                            <RowDefinition Height="20"/>
+                                            <RowDefinition Height="20"/>
                                             <RowDefinition Height="50"/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding Path=id}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="0"/>
-                                        <TextBlock Text="{Binding Path=name}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="1"/>
-                                        <TextBlock Text="{Binding Path=comment}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="2"/>
-                                        <TextBlock Text="{Binding Path=type}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="3"/>
-                                        <TextBlock Text="{Binding Path=Remark}" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="4"/>
+                                        <Image Source="{Binding Path=picture}" VerticalAlignment="Center" Grid.Row="0"/>
+                                        <TextBlock Text="{Binding Path=name}" FontSize="28" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="1" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Path=comment}" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="2"/>
+                                        <TextBlock Text="{Binding Path=type}" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="3"/>
+                                        <!--购票Button-->
+                                        <Button x:Name="Button_Buy" Content="购票" FontSize="22" Foreground="White" Grid.Row="4"
+                                                Width="160" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" Click="Button_Buy_Click" >
+                                            <Button.Template >
+                                                <ControlTemplate TargetType="{x:Type Button}" >
+                                                    <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                                        <Border.Background>
+                                                            <Brush>Gray</Brush>
+                                                        </Border.Background>
+                                                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -330,3 +350,5 @@
         </Style>
     </Window.Resources>
 </Window>
+
+<!-- -->

@@ -26,13 +26,13 @@
 
     public class Movie
     {
-        public string id;
-        public string name;
-        public string type;
-        public int time;
-        public float comment;
-        public string picture;
-        public string description;
+        public string id { get; set; }
+        public string name { get; set; }
+        public string type { get; set; }
+        public int time { get; set; }
+        public float comment { get; set; }
+        public string picture { get; set; }
+        public string description { get; set; }
 
         public Movie(string id, string name, string type, int time, float comment, string picture, string description)
         {

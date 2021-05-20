@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\App.xaml
-10-353474060
+131791607486
 
-15-586543164
+18-1535623949
 141066371409
-MovieInfoWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;UpgradeWindow.xaml;
+LockingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;UpgradeWindow.xaml;WaitPayWindow.xaml;
 
 False
 

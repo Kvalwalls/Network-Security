@@ -6,6 +6,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 
 namespace CommonUser
 {
@@ -15,7 +17,7 @@ namespace CommonUser
     public partial class MainWindow : Window
     {
         private User user;
-        private List<Movie> movies;
+        private List<Movie> movies = new List<Movie>();
         private bool isEyeOpen;
         private bool modNameSure;
         private bool modPwdSure;
@@ -27,6 +29,7 @@ namespace CommonUser
             InitTextBlock_Time();
             InitTextBlock_Hello();
             InitPersonalInfo();
+            InitMovies();
         }
 
         private void InitTextBlock_Time()
@@ -95,10 +98,47 @@ namespace CommonUser
 
         private void InitMovies()
         {
-            Movie temp = new Movie("0001", "让子弹飞", "0001", 100, 9, "0001", "0001");
+            Movie temp = null;
+            temp = ReadMovie("..\\..\\FileInfo\\M00001.txt");
             movies.Add(temp);
-            temp = new Movie("0002", "让子弹飞2", "0002", 100, 9, "0002", "0002");
+            temp = ReadMovie("..\\..\\FileInfo\\M00002.txt");
             movies.Add(temp);
+            temp = ReadMovie("..\\..\\FileInfo\\M00003.txt");
+            movies.Add(temp);
+            temp = ReadMovie("..\\..\\FileInfo\\M00004.txt");
+            movies.Add(temp);
+            temp = ReadMovie("..\\..\\FileInfo\\M00005.txt");
+            movies.Add(temp);
+            temp = ReadMovie("..\\..\\FileInfo\\M00006.txt");
+            movies.Add(temp);
+            temp = ReadMovie("..\\..\\FileInfo\\M00007.txt");
+            movies.Add(temp);
+            temp = ReadMovie("..\\..\\FileInfo\\M00008.txt");
+            movies.Add(temp);
+            ListView_Movies.DataContext = movies;
+        }
+
+        private Movie ReadMovie(string fileName)
+        {
+            Movie movie = new Movie();
+            try
+            {
+                using (StreamReader sr = new StreamReader(File.OpenRead(fileName)))
+                {
+                    movie.id = sr.ReadLine();
+                    movie.name = sr.ReadLine();
+                    movie.type = sr.ReadLine();
+                    movie.time = int.Parse(sr.ReadLine());
+                    movie.comment = float.Parse(sr.ReadLine());
+                    movie.picture = "MoviePictures\\" + movie.id + ".jpg";
+                    movie.description = sr.ReadLine();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return movie;
         }
 
         private void X_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -358,6 +398,21 @@ namespace CommonUser
         private void Button_Flush_Click(object sender, RoutedEventArgs e)
         {
             TextBox_Feedback.Text = null;
+        }
+
+        private void Button_Buy_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Movie movie = button.DataContext as Movie;
+            MessageBox.Show(movie.id);
+        }
+
+        private void MouseDown_GetMoreMovieInfo(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                new MovieInfoWindow().Show();
+            }
         }
     }
 }

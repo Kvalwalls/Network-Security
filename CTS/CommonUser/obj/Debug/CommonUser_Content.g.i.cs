@@ -8,6 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("imageresources/%e5%9b%be%e6%a0%87(%e9%bb%91)_%e5%8f%8d%e9%a6%88.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("moviepictures/m00001.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("moviepictures/m00002.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("moviepictures/m00003.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("moviepictures/m00004.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("moviepictures/m00005.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("moviepictures/m00006.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("moviepictures/m00007.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("moviepictures/m00008.jpg")]
 
 
