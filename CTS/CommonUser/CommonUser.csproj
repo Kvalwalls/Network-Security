@@ -56,8 +56,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AliPayWindow.xaml.cs">
-      <DependentUpon>AliPayWindow.xaml</DependentUpon>
+    <Compile Include="MovieInfoWindow.xaml.cs">
+      <DependentUpon>MovieInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyPayWindow.xaml.cs">
+      <DependentUpon>MyPayWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -75,7 +78,11 @@
     <Compile Include="UpgradeWindow.xaml.cs">
       <DependentUpon>UpgradeWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="AliPayWindow.xaml">
+    <Page Include="MovieInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyPayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,6 +221,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_选择.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_反馈.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_搜索.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MoviePictures\0001.jpg" />
+    <Resource Include="MoviePictures\0002.jpg" />
+    <Resource Include="MoviePictures\0003.png" />
+    <Resource Include="MoviePictures\0004.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -54,7 +54,7 @@ namespace CommonUser
             }
             else
             {
-                new AliPayWindow(number).ShowDialog();
+                new MyPayWIndow(number).ShowDialog();
                 /*发送请求*/
                 MessageBox.Show("充值成功！", "提示");
                 Close();

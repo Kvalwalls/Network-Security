@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CommonUser"
         mc:Ignorable="d"
-        Title="UpgradeWindow" Height="450" Width="400" ResizeMode="NoResize">
+        Title="升级权限" Height="450" Width="400" ResizeMode="NoResize">
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
