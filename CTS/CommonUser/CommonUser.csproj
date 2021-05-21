@@ -88,6 +88,9 @@
     <Compile Include="SelectSeatWindow.xaml.cs">
       <DependentUpon>SelectSeatWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShowTicketInfo.xaml.cs">
+      <DependentUpon>ShowTicketInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UpgradeWindow.xaml.cs">
       <DependentUpon>UpgradeWindow.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SelectSeatWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowTicketInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -264,7 +271,9 @@
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_搜索.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="ImageResources\背景_界面静态_云朵.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="MoviePictures\M00001.jpg" />
     <Resource Include="MoviePictures\M00002.jpg" />

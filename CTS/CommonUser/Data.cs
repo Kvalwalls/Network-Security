@@ -50,4 +50,18 @@
 
         }
     }
+	public class Ticket
+	{
+		public string U_Id { get; set; }
+		public string S_Id { get; set; }
+		public string O_Id { get; set; }
+		public string R_Time { get; set; }
+		public float R_Price { get; set; }
+		public string R_Status { get; set; }
+		public string O_BeginTime { get; set; }
+		public string O_EndTime { get; set; }
+		public string M_Name { get; set; }
+		public string T_Id { get; set; }
+		
+	}
 }

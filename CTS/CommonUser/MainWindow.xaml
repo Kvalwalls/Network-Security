@@ -9,7 +9,7 @@
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg"/>
         </Grid.Background>
         <!--Grid定义-->
         <Grid.ColumnDefinitions>
@@ -37,7 +37,11 @@
         <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="9.6,59.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154" Grid.ColumnSpan="2">
             <!--TabItem1-->
             <TabItem Height="75" Width="150" Header="个人中心">
-                <Grid Background="Gainsboro">
+                <Grid>
+                    <!--背景-->
+                    <Grid.Background>
+                        <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Stretch="UniformToFill" Opacity="0.8"/>
+                    </Grid.Background>
                     <!--图标-->
                     <Image Margin="110,31,816,424" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
                     <Image Margin="110,105,816,350" Source="ImageResources\图标(黑)_用户名.png" Stretch="Fill"/>
@@ -159,7 +163,11 @@
             </TabItem>
             <!--TabItem2-->
             <TabItem Height="75" Width="150" Header="购票中心">
-                <Grid Background="Gainsboro">
+                <Grid>
+                    <!--背景-->
+                    <Grid.Background>
+                        <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Stretch="UniformToFill" Opacity="0.8"/>
+                    </Grid.Background>
                     <!--搜索图标-->
                     <Image Margin="79,14,882,475" Source="ImageResources\图标(黑)_搜索.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
                     <!--搜索TextBox-->
@@ -247,12 +255,74 @@
             </TabItem>
             <!--TabItem3-->
             <TabItem Height="75" Width="150" Header="票务中心">
-                <Grid Background="Gainsboro">
+                <Grid>
+                    <!--背景-->
+                    <Grid.Background>
+                        <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Opacity="0.8" Stretch="UniformToFill"/>
+                    </Grid.Background>
+                    <ListView x:Name="listview" HorizontalAlignment="Left" Height="514" Margin="10,10,0,0" VerticalAlignment="Top" Width="835" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header=" 场次号 " DisplayMemberBinding="{Binding Path=O_Id}" Width="200"/>
+                                <GridViewColumn Header=" 座位" DisplayMemberBinding="{Binding Path=S_Id}" Width="150"/>
+                                <GridViewColumn Header=" 购票时间" DisplayMemberBinding="{Binding Path=R_Time}" Width="250"/>
+                                <GridViewColumn Header=" 实际价格 " DisplayMemberBinding="{Binding Path=R_Price}" Width="100"/>
+                                <GridViewColumn Header=" 状态 "  DisplayMemberBinding="{Binding Path=R_Status}" Width="100"/>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <!--查看票务详细内容按钮-->
+                    <Button Name="Button_ShowTicketInfo" Content="查看" FontSize="22"  Margin="866,197,10,249" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="Button_ShowTicketInfo_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!--退票按钮-->
+                    <Button Name="Button_Refund" Content="退票" FontSize="22"  Margin="866,339,10,107" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="Button_Refund_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!--查看票务详细内容按钮-->
+                    <Button Name="Button_ShowList" Content="显示" FontSize="22"  Margin="866,67,10,379" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="Button_ShowList_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
             </TabItem>
             <!--TabItem4-->
             <TabItem Height="75" Width="150" Header="反馈中心">
-                <Grid Background="Gainsboro">
+                <Grid>
+                    <!--背景-->
+                    <Grid.Background>
+                        <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Opacity="0.8" Stretch="UniformToFill"/>
+                    </Grid.Background>
                     <Image Margin="60,45,866,410" Source="ImageResources/图标(黑)_反馈.png" Stretch="Fill"/>
                     <TextBox  Margin="150,45,10,113" FontSize="28" Name="TextBox_Feedback" IsReadOnly="False"
                               TextWrapping="Wrap" VerticalScrollBarVisibility="Auto">
@@ -312,6 +382,11 @@
     </Grid>
 
     <Window.Resources>
+        <!--listview样式-->
+        <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
         <!--TabItem的样式-->
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Template">

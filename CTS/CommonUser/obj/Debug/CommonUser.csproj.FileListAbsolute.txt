@@ -56,3 +56,43 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitPayWindow.g
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LockingWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitPayWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\LockingWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\LoginWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MainWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\RefindWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\RegisterWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\ShowTicketInfo.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\WaitPayWindow.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\App.g.cs
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser_MarkupCompile.cache
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser_MarkupCompile.lref
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.exe
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.pdb
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.exe.config
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.exe
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.pdb
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\LockingWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\LoginWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MainWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\RefindWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\RegisterWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\ShowTicketInfo.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\WaitPayWindow.baml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.g.resources
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.Properties.Resources.resources
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.GenerateResource.cache
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.CoreCompileInputs.cache

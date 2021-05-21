@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\App.xaml
-131791607486
+14123560693
 
-221024200954
+23-1211276895
 14-799888181
-LockingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;UpgradeWindow.xaml;WaitPayWindow.xaml;
+LockingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;ShowTicketInfo.xaml;UpgradeWindow.xaml;WaitPayWindow.xaml;
 
-False
+True
 

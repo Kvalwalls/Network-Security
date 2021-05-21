@@ -414,5 +414,32 @@ namespace CommonUser
                 new MovieInfoWindow().Show();
             }
         }
-    }
+
+		private void Button_ShowList_Click(object sender, RoutedEventArgs e)
+		{
+			listview.ItemsSource = new Ticket[] { new Ticket { O_BeginTime = "11:30", O_EndTime = "13.15", R_Price = 30, R_Status = "已支付", R_Time = "2020-9-4 20:02:10", O_Id = "0002", T_Id = "2", S_Id = "0706", M_Name = "你的婚礼" } };
+		}
+
+		private void Button_Refund_Click(object sender, RoutedEventArgs e)
+		{
+			Ticket u = listview.SelectedItem as Ticket;
+			DateTime dt1 = Convert.ToDateTime(u.R_Time);
+			DateTime dt2 = DateTime.Now;
+			if(DateTime.Compare(dt1,dt2)<0)
+			{
+				MessageBox.Show("电影已开场，无法退票！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			else
+			{
+				MessageBox.Show("已成功为您退票，退款会在十五分钟内退回您的账户！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+			}
+		}
+
+		private void Button_ShowTicketInfo_Click(object sender, RoutedEventArgs e)
+		{
+			Ticket u = listview.SelectedItem as Ticket;
+			Window a = new ShowTicketInfo(u);
+			a.ShowDialog();
+		}
+	}
 }
