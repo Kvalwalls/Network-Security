@@ -9,7 +9,7 @@
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
         <!--Grid定义-->
         <Grid.ColumnDefinitions>
@@ -211,8 +211,6 @@
                         </Button.Template>
                     </Button>
                     <!--刷新Image-->
-                    <Image Margin="937,10,14,469" Source="ImageResources\图标(黑)_刷新.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"
-                           MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" MouseDown="Image_Refresh_MouseDown"/>    
                     <!--ListView-->
                     <ListView Name="ListView_Movies" Margin="13,60,14,10" ItemsSource="{Binding}"
                               ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Visible">
@@ -232,10 +230,10 @@
                                             <RowDefinition Height="20"/>
                                             <RowDefinition Height="50"/>
                                         </Grid.RowDefinitions>
-                                        <Image Source="{Binding Path=picture}" VerticalAlignment="Center" Grid.Row="0"/>
-                                        <TextBlock Text="{Binding Path=name}" FontSize="28" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="1" TextWrapping="Wrap"/>
-                                        <TextBlock Text="{Binding Path=comment}" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="2"/>
-                                        <TextBlock Text="{Binding Path=type}" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="3"/>
+                                        <Image Source="{Binding Path=Mpicture}" VerticalAlignment="Center" Grid.Row="0"/>
+                                        <TextBlock Text="{Binding Path=Mname}" FontSize="28" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="1" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Path=Mcomment}" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="2"/>
+                                        <TextBlock Text="{Binding Path=Mtype}" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="3"/>
                                         <!--购票Button-->
                                         <Button x:Name="Button_Buy" Content="购票" FontSize="22" Foreground="White" Grid.Row="4"
                                                 Width="160" VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -256,6 +254,21 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    
+                    <Button x:Name="Button_RefreshMList" Content="刷新" FontSize="22"  Margin="912,10,14,469" Foreground="White" 
+                        MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave"
+                        Click="Button_RefreshMList_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>
+                                        <Brush>Gray</Brush>
+                                    </Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
             </TabItem>
             <!--TabItem3-->
@@ -265,20 +278,36 @@
                     <Grid.Background>
                         <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Opacity="0.8" Stretch="UniformToFill"/>
                     </Grid.Background>
-                    <ListView x:Name="listview" HorizontalAlignment="Left" Height="514" Margin="10,10,0,0" VerticalAlignment="Top" Width="835" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
+                    
+                    <ListView x:Name="ListView_Records" HorizontalAlignment="Left" Height="504" Margin="10,10,0,0" VerticalAlignment="Top" Width="815" 
+                            VerticalContentAlignment="Center"  HorizontalContentAlignment="Center">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Height" Value="60" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
                         <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header=" 场次号 " DisplayMemberBinding="{Binding Path=O_Id}" Width="200"/>
-                                <GridViewColumn Header=" 座位" DisplayMemberBinding="{Binding Path=S_Id}" Width="150"/>
-                                <GridViewColumn Header=" 购票时间" DisplayMemberBinding="{Binding Path=R_Time}" Width="250"/>
-                                <GridViewColumn Header=" 实际价格 " DisplayMemberBinding="{Binding Path=R_Price}" Width="100"/>
-                                <GridViewColumn Header=" 状态 "  DisplayMemberBinding="{Binding Path=R_Status}" Width="100"/>
-
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn Header="场次号" DisplayMemberBinding="{Binding Path=Oid}" Width="160"/>
+                                <GridViewColumn Header="座位号" DisplayMemberBinding="{Binding Path=Sid}" Width="160"/>
+                                <GridViewColumn Header="购票时间" DisplayMemberBinding="{Binding Path=Rtime}" Width="280"/>
+                                <GridViewColumn Header="实际价格" DisplayMemberBinding="{Binding Path=Rprice}" Width="100"/>
+                                <GridViewColumn Header="当前状态"  DisplayMemberBinding="{Binding Path=Rstatus}" Width="100"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Label Content="场次号" Margin="10,1,823,488" FontSize="20" 
+                           VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Background="AliceBlue"/>
+                    <Label Content="座位号" Margin="170,1,663,488" FontSize="20" 
+                           VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="AliceBlue"/>
+                    <Label Content="购票时间" Margin="333,2,383,487" FontSize="20" 
+                        VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="AliceBlue"/>
+                    <Label Content="实际价格" Margin="613,2,283,487" FontSize="20" 
+                        VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="AliceBlue"/>
+                    <Label Content="当前状态" Margin="713,2,171,487" FontSize="20" 
+                        VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="AliceBlue"/>
                     <!--查看票务详细内容按钮-->
-                    <Button Name="Button_ShowTicketInfo" Content="查看" FontSize="22"  Margin="866,197,10,249" Foreground="White" 
+                    <Button Name="Button_ShowTicketInfo" Content="查看" FontSize="28"  Margin="866,197,10,249" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
                             Click="Button_ShowTicketInfo_Click">
@@ -292,7 +321,7 @@
                         </Button.Template>
                     </Button>
                     <!--退票按钮-->
-                    <Button Name="Button_Refund" Content="退票" FontSize="22"  Margin="866,339,10,107" Foreground="White" 
+                    <Button Name="Button_Refund" Content="退票" FontSize="28"  Margin="866,339,10,107" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
                             Click="Button_Refund_Click">
@@ -306,10 +335,9 @@
                         </Button.Template>
                     </Button>
                     <!--查看票务详细内容按钮-->
-                    <Button Name="Button_ShowList" Content="显示" FontSize="22"  Margin="866,67,10,379" Foreground="White" 
-                            MouseEnter="X_MouseEnter"
-                            MouseLeave="X_MouseLeave"
-                            Click="Button_ShowList_Click">
+                    <Button Name="Button_Refresh_RList" Content="刷新" FontSize="28"  Margin="866,67,10,379" Foreground="White" 
+                            MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave"
+                            Click="Button_Refresh_RList_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -319,6 +347,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
+                    
                 </Grid>
             </TabItem>
             <!--TabItem4-->

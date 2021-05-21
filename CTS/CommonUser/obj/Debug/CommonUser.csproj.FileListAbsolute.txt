@@ -46,16 +46,8 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.g.c
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LockingWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitPayWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LockingWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitPayWindow.baml
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\LockingWindow.g.cs
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.g.cs
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.g.cs
@@ -96,3 +88,7 @@ F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.g
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.Properties.Resources.resources
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.GenerateResource.cache
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.CoreCompileInputs.cache
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RecordInfoWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RecordInfoWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.baml

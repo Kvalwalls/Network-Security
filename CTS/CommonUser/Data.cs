@@ -2,19 +2,19 @@
 {
     public class User
     {
-        public string id;
-        public string name;
-        public string password;
-        public string access;
-        public float money;
+        public string Uid { get; set; }
+        public string Uname { get; set; }
+        public string Upassword { get; set; }
+        public string Uaccess { get; set; }
+        public float Umoney { get; set; }
 
-        public User(string id,string name,string password,string access,float money)
+        public User(string uid, string uname, string upassword, string uaccess, float umoney)
         {
-            this.id = id;
-            this.name = name;
-            this.password = password;
-            this.access = access;
-            this.money = money;
+            Uid = uid;
+            Uname = uname;
+            Upassword = upassword;
+            Uaccess = uaccess;
+            Umoney = umoney;
         }
 
         public User()
@@ -26,23 +26,23 @@
 
     public class Movie
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string type { get; set; }
-        public int time { get; set; }
-        public float comment { get; set; }
-        public string picture { get; set; }
-        public string description { get; set; }
+        public string Mid { get; set; }
+        public string Mname { get; set; }
+        public string Mtype { get; set; }
+        public int Mtime { get; set; }
+        public float Mcomment { get; set; }
+        public string Mpicture { get; set; }
+        public string Mdescription { get; set; }
 
-        public Movie(string id, string name, string type, int time, float comment, string picture, string description)
+        public Movie(string mid, string mname, string mtype, int mtime, float mcomment, string mpicture, string mdescription)
         {
-            this.id = id;
-            this.name = name;
-            this.type = type;
-            this.time = time;
-            this.comment = comment;
-            this.picture = picture;
-            this.description = description;
+            Mid = mid;
+            Mname = mname;
+            Mtype = mtype;
+            Mtime = mtime;
+            Mcomment = mcomment;
+            Mpicture = mpicture;
+            Mdescription = mdescription;
         }
 
         public Movie()
@@ -50,18 +50,36 @@
 
         }
     }
-	public class Ticket
+	public class Record
 	{
-		public string U_Id { get; set; }
-		public string S_Id { get; set; }
-		public string O_Id { get; set; }
-		public string R_Time { get; set; }
-		public float R_Price { get; set; }
-		public string R_Status { get; set; }
-		public string O_BeginTime { get; set; }
-		public string O_EndTime { get; set; }
-		public string M_Name { get; set; }
-		public string T_Id { get; set; }
-		
-	}
+		public string Uid { get; set; }
+		public string Sid { get; set; }
+		public string Oid { get; set; }
+        public string Tid { get; set; }
+        public string Rtime { get; set; }
+		public float Rprice { get; set; }
+		public string Rstatus { get; set; }
+		public string Obegin { get; set; }
+		public string Oend { get; set; }
+		public string Mname { get; set; }
+
+        public Record(string uid, string sid, string oid, string tid, string rtime, float rprice, string rstatus, string obegin, string oend, string mname)
+        {
+            Uid = uid;
+            Sid = sid;
+            Oid = oid;
+            Tid = tid;
+            Rtime = rtime;
+            Rprice = rprice;
+            Rstatus = rstatus;
+            Obegin = obegin;
+            Oend = oend;
+            Mname = mname;
+        }
+
+        public Record()
+        {
+
+        }
+    }
 }

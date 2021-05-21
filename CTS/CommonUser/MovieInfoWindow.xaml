@@ -5,22 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CommonUser"
         mc:Ignorable="d"
-        Title="影片信息" Height="600" Width="600">
+        Title="影片信息" Height="600" Width="600" ResizeMode="NoResize">
     <Grid x:Name="Grid_Info" DataContext="{Binding}">
         <!--GIF背景-->
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
-        <Image Source="{Binding Path=picture}" Margin="10,10,363.6,300.4"/>
-        <TextBlock Text="{Binding Path=name}" FontSize="28" Margin="235,10,9.6,490.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+        <Image Source="{Binding Path=Mpicture}" Margin="10,10,363.6,300.4"/>
+        <TextBlock Text="{Binding Path=Mname}" FontSize="28" Margin="235,10,9.6,490.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
                    VerticalAlignment="Center" HorizontalAlignment="Center" Width="349" Height="70"/>
-        <TextBlock Text="{Binding Path=type}" FontSize="24" Margin="346,85,0,445.4"
+        <TextBlock Text="{Binding Path=Mtype}" FontSize="24" Margin="346,85,0,445.4"
                    VerticalAlignment="Center" HorizontalAlignment="Left" Width="178" Height="40"/>
-        <TextBlock Text="{Binding Path=time}" FontSize="24" Margin="346,125,0,402.4"
+        <TextBlock Text="{Binding Path=Mtime}" FontSize="24" Margin="346,125,0,402.4"
                    VerticalAlignment="Center" HorizontalAlignment="Left" Width="46" Height="43"/>
-        <TextBlock Text="{Binding Path=comment}" FontSize="24" Margin="346,168,0,361.4" RenderTransformOrigin="0.731,-0.364"
+        <TextBlock Text="{Binding Path=Mcomment}" FontSize="24" Margin="346,168,0,361.4" RenderTransformOrigin="0.731,-0.364"
                    VerticalAlignment="Center" HorizontalAlignment="Left" Width="46" Height="41"/>
-        <TextBox Text="{Binding Path=description}" FontSize="18" Margin="10,275,9.6,10.4" IsReadOnly="True"
+        <TextBox Text="{Binding Path=Mdescription}" FontSize="18" Margin="10,275,9.6,10.4" IsReadOnly="True"
                   VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap"/>
         <TextBlock Text="类型：" FontSize="24" Margin="274,85,0,445.4"
                    VerticalAlignment="Center" HorizontalAlignment="Left" Height="40"/>

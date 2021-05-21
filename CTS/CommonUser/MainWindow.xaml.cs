@@ -18,6 +18,7 @@ namespace CommonUser
     {
         private User user;
         private List<Movie> movies = new List<Movie>();
+        private List<Record> records = new List<Record>();
         private bool isEyeOpen;
         private bool modNameSure;
         private bool modPwdSure;
@@ -30,6 +31,7 @@ namespace CommonUser
             InitTextBlock_Hello();
             InitPersonalInfo();
             InitMovies();
+            InitRecords();
         }
 
         private void InitTextBlock_Time()
@@ -49,7 +51,7 @@ namespace CommonUser
         private void InitTextBlock_Hello()
         {
             TextBlock_Hello.Text = "欢迎您！";
-            switch (user.access)
+            switch (user.Uaccess)
             {
                 case "01":
                     {
@@ -70,19 +72,19 @@ namespace CommonUser
                         break;
                     }
             }
-            TextBlock_Hello.Text += user.name;
+            TextBlock_Hello.Text += user.Uname;
         }
 
         private void InitPersonalInfo()
         {
-            TextBox_Id.Text = user.id;
-            TextBox_Name.Text = user.name;
+            TextBox_Id.Text = user.Uid;
+            TextBox_Name.Text = user.Uname;
             string temp = "";
-            for (int i = 0; i < user.password.Length; i++)
+            for (int i = 0; i < user.Upassword.Length; i++)
                 temp += "*";
             TextBox_Pwd.Text = temp;
-            TextBox_Money.Text = user.money + "元";
-            switch (user.access)
+            TextBox_Money.Text = user.Umoney + "元";
+            switch (user.Uaccess)
             {
                 case "01":
                     TextBox_Access.Text = "VIP用户";
@@ -118,6 +120,15 @@ namespace CommonUser
             ListView_Movies.DataContext = movies;
         }
 
+        private void InitRecords()
+        {
+            records.Add(new Record("U00001", "001002", "O00001", "T00001", DateTime.Now.ToString(), 37, "购票成功", "17:00", "18:45", "肖申克的救赎"));
+            records.Add(new Record("U00001", "001003", "O00001", "T00001", DateTime.Now.ToString(), 37, "购票成功", "17:00", "18:45", "肖申克的救赎"));
+            records.Add(new Record("U00001", "001004", "O00001", "T00001", DateTime.Now.ToString(), 37, "购票成功", "17:00", "18:45", "肖申克的救赎"));
+            records.Add(new Record("U00001", "001005", "O00001", "T00001", DateTime.Now.ToString(), 37, "购票成功", "17:00", "18:45", "肖申克的救赎"));
+            ListView_Records.ItemsSource = records;
+        }
+
         private Movie ReadMovie(string fileName)
         {
             Movie movie = new Movie();
@@ -125,13 +136,13 @@ namespace CommonUser
             {
                 using (StreamReader sr = new StreamReader(File.OpenRead(fileName)))
                 {
-                    movie.id = sr.ReadLine();
-                    movie.name = sr.ReadLine();
-                    movie.type = sr.ReadLine();
-                    movie.time = int.Parse(sr.ReadLine());
-                    movie.comment = float.Parse(sr.ReadLine());
-                    movie.picture = "MoviePictures\\" + movie.id + ".jpg";
-                    movie.description = sr.ReadLine();
+                    movie.Mid = sr.ReadLine();
+                    movie.Mname = sr.ReadLine();
+                    movie.Mtype = sr.ReadLine();
+                    movie.Mtime = int.Parse(sr.ReadLine());
+                    movie.Mcomment = float.Parse(sr.ReadLine());
+                    movie.Mpicture = "MoviePictures\\" + movie.Mid + ".jpg";
+                    movie.Mdescription = sr.ReadLine();
                 }
             }
             catch (Exception e)
@@ -221,7 +232,7 @@ namespace CommonUser
                 modPwdSure = true;
                 Image_PwdTrue.Opacity = 1;
                 Image_Eye.Opacity = 0;
-                TextBox_Pwd.Text = user.password;
+                TextBox_Pwd.Text = user.Upassword;
                 TextBox_Pwd.IsReadOnly = false;
                 TextBox_Pwd.Focus();
                 TextBox_Pwd.SelectAll();
@@ -268,7 +279,7 @@ namespace CommonUser
                 Button_ModMoney.IsEnabled = true;
                 Button_Cancel.Opacity = 0;
                 Button_Cancel.IsEnabled = false;
-                TextBox_Name.Text = user.name;
+                TextBox_Name.Text = user.Uname;
             }
             else if(modPwdSure)
             {
@@ -287,7 +298,7 @@ namespace CommonUser
                 Button_Cancel.Opacity = 0;
                 Button_Cancel.IsEnabled = false;
                 string temp = "";
-                for (int i = 0; i < user.password.Length; i++)
+                for (int i = 0; i < user.Upassword.Length; i++)
                     temp += "*";
                 TextBox_Pwd.Text = temp;
             }
@@ -312,7 +323,7 @@ namespace CommonUser
                 isEyeOpen = false;
                 ChangeImageSource(Image_Eye, "ImageResources\\图标(黑)_闭眼.png", true);
                 string temp = "";
-                for (int i = 0; i < user.password.Length; i++)
+                for (int i = 0; i < user.Upassword.Length; i++)
                     temp += "*";
                 TextBox_Pwd.Text = temp;
             }
@@ -320,7 +331,7 @@ namespace CommonUser
             {
                 isEyeOpen = true;
                 ChangeImageSource(Image_Eye, "ImageResources\\图标(黑)_眼睛.png", true);
-                TextBox_Pwd.Text = user.password;
+                TextBox_Pwd.Text = user.Upassword;
             }
         }
 
@@ -404,7 +415,7 @@ namespace CommonUser
         {
             Button button = sender as Button;
             Movie movie = button.DataContext as Movie;
-            new SelectOnMovieWindow(movie).Show(); 
+            //new SelectOnMovieWindow(movie).Show(); 
         }
 
         private void MouseDown_GetMoreMovieInfo(object sender, MouseButtonEventArgs e)
@@ -416,22 +427,20 @@ namespace CommonUser
             }
         }
 
-<<<<<<< HEAD
-        private void Image_Refresh_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Button_RefreshMList_Click(object sender, RoutedEventArgs e)
         {
-            /*更新*/
+            /*刷新*/
         }
-    }
-=======
-		private void Button_ShowList_Click(object sender, RoutedEventArgs e)
+
+        private void Button_ReShowList_Click(object sender, RoutedEventArgs e)
 		{
-			listview.ItemsSource = new Ticket[] { new Ticket { O_BeginTime = "11:30", O_EndTime = "13.15", R_Price = 30, R_Status = "已支付", R_Time = "2020-9-4 20:02:10", O_Id = "0002", T_Id = "2", S_Id = "0706", M_Name = "你的婚礼" } };
+			
 		}
 
 		private void Button_Refund_Click(object sender, RoutedEventArgs e)
 		{
-			Ticket u = listview.SelectedItem as Ticket;
-			DateTime dt1 = Convert.ToDateTime(u.R_Time);
+			Record u = ListView_Records.SelectedItem as Record;
+			DateTime dt1 = Convert.ToDateTime(u.Rtime);
 			DateTime dt2 = DateTime.Now;
 			if(DateTime.Compare(dt1,dt2)<0)
 			{
@@ -445,10 +454,14 @@ namespace CommonUser
 
 		private void Button_ShowTicketInfo_Click(object sender, RoutedEventArgs e)
 		{
-			Ticket u = listview.SelectedItem as Ticket;
-			Window a = new ShowTicketInfo(u);
+			Record u = ListView_Records.SelectedItem as Record;
+			Window a = new RecordInfoWindow(u);
 			a.ShowDialog();
 		}
-	}
->>>>>>> 0b7d176dc9628379f728679a1317576e667f40c1
+
+        private void Button_Refresh_RList_Click(object sender, RoutedEventArgs e)
+        {
+            InitRecords();
+        }
+    }
 }

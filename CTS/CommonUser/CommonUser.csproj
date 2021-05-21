@@ -57,8 +57,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="LockingWindow.xaml.cs">
-      <DependentUpon>LockingWindow.xaml</DependentUpon>
+    <Compile Include="SelectOnMovieWindow.xaml.cs">
+      <DependentUpon>SelectOnMovieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WaitingWindow.xaml.cs">
+      <DependentUpon>WaitingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MovieInfoWindow.xaml.cs">
       <DependentUpon>MovieInfoWindow.xaml</DependentUpon>
@@ -82,22 +85,17 @@
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SelectOnMovieWindow.xaml.cs">
-      <DependentUpon>SelectOnMovieWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SelectSeatWindow.xaml.cs">
-      <DependentUpon>SelectSeatWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShowTicketInfo.xaml.cs">
-      <DependentUpon>ShowTicketInfo.xaml</DependentUpon>
+    <Compile Include="RecordInfoWindow.xaml.cs">
+      <DependentUpon>RecordInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UpgradeWindow.xaml.cs">
       <DependentUpon>UpgradeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WaitPayWindow.xaml.cs">
-      <DependentUpon>WaitPayWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="LockingWindow.xaml">
+    <Page Include="SelectOnMovieWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WaitingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,23 +139,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SelectOnMovieWindow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="RecordInfoWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SelectSeatWindow.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShowTicketInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UpgradeWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="WaitPayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -271,12 +257,6 @@
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_搜索.png" />
   </ItemGroup>
-<<<<<<< HEAD
-=======
-  <ItemGroup>
-    <Resource Include="ImageResources\背景_界面静态_云朵.jpg" />
-  </ItemGroup>
->>>>>>> 0b7d176dc9628379f728679a1317576e667f40c1
   <ItemGroup>
     <Resource Include="MoviePictures\M00001.jpg" />
     <Resource Include="MoviePictures\M00002.jpg" />
@@ -298,6 +278,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_刷新.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\背景_界面静态_云朵.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

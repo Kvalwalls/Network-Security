@@ -25,8 +25,8 @@ namespace CommonUser
         {
             this.user = user;
             InitializeComponent();
-            TextBlock_Id.Text += user.id;
-            TextBlock_Money.Text += (user.money + "元");
+            TextBlock_Id.Text += user.Uid;
+            TextBlock_Money.Text += (user.Umoney + "元");
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)

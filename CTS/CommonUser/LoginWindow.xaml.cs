@@ -52,11 +52,11 @@ namespace CommonUser
 			}
 			MessageBox.Show("账号：" + id + "\n密码：" + password);
 			User user = new User();
-			user.id = id;
-			user.password = password;
-			user.name = "汪帮传";
-			user.money = 1000;
-			user.access = "01";
+			user.Uid = id;
+			user.Upassword = password;
+			user.Uname = "汪帮传";
+			user.Umoney = 1000;
+			user.Uaccess = "01";
 			new MainWindow(user).Show();
 			Close();
 		}

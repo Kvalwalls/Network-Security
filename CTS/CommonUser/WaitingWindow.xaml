@@ -1,0 +1,13 @@
+﻿<Window x:Class="CommonUser.WaitingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommonUser"
+        mc:Ignorable="d"
+        Title="购票等待" Height="350" Width="400" ResizeMode="NoResize">
+    <Grid Background="Black">
+        <MediaElement  Name="mediaElement" MediaEnded="MediaElement_MediaEnded" Stretch="Uniform" Margin="-55,-55,-55,-55"/>
+        <Label HorizontalAlignment="Center" Foreground="White" Content="锁定座位中" VerticalAlignment="Top" FontSize="36"/>
+    </Grid>
+</Window>

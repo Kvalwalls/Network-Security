@@ -24,8 +24,8 @@ namespace CommonUser
         {
             InitializeComponent();
             this.user = user;
-            TextBlock_Id.Text += user.id;
-            switch (user.access)
+            TextBlock_Id.Text += user.Uid;
+            switch (user.Uaccess)
             {
                 case "01":
                     TextBlock_Access.Text += "VIP用户";
@@ -62,7 +62,7 @@ namespace CommonUser
                 MessageBox.Show("请选择正确的权限！", "选择错误");
                 return;
             }
-            if (newAccess <= int.Parse(user.access))
+            if (newAccess <= int.Parse(user.Uaccess))
             {
                 MessageBox.Show("请选择更高的权限！", "选择错误");
                 return;

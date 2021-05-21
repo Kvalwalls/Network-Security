@@ -23,22 +23,24 @@ namespace CommonUser
         {
             InitializeComponent();
             Grid_Info.DataContext = movie;
-            if (movie.comment >= 2)
+            if (movie.Mcomment >= 2)
                 Image_Star1.Opacity = 1;
-            if (movie.comment >= 4)
+            if (movie.Mcomment >= 4)
                 Image_Star2.Opacity = 1;
-            if (movie.comment >= 6)
+            if (movie.Mcomment >= 6)
                 Image_Star3.Opacity = 1;
-            if (movie.comment >= 8)
+            if (movie.Mcomment >= 8)
                 Image_Star4.Opacity = 1;
-            if (movie.comment >= 10)
+            if (movie.Mcomment >= 10)
                 Image_Star5.Opacity = 1;
         }
 
         private void Button_Buy_Click(object sender, RoutedEventArgs e)
         {
+            Button button = sender as Button;
+            Movie movie = button.DataContext as Movie;
+            //new SelectOnMovieWindow(movie).Show();
             Close();
-            new SelectOnMovieWindow().Show();
         }
 
         private void Button_Back_Click(object sender, RoutedEventArgs e)
