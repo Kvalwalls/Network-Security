@@ -9,12 +9,19 @@ CommonUser
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\App.xaml
 131791607486
 
 191061898118
-14-799888181
-LockingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;UpgradeWindow.xaml;WaitPayWindow.xaml;
+=======
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\App.xaml
+14123560693
 
-False
+23-1211276895
+>>>>>>> 0b7d176dc9628379f728679a1317576e667f40c1
+14-799888181
+LockingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;ShowTicketInfo.xaml;UpgradeWindow.xaml;WaitPayWindow.xaml;
+
+True
 
