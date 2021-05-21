@@ -264,7 +264,6 @@
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_搜索.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="MoviePictures\M00001.jpg" />
     <Resource Include="MoviePictures\M00002.jpg" />
@@ -274,6 +273,18 @@
     <Resource Include="MoviePictures\M00006.jpg" />
     <Resource Include="MoviePictures\M00007.jpg" />
     <Resource Include="MoviePictures\M00008.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_时长.png" />
+    <Resource Include="ImageResources\图标%28黑%29_类型.png" />
+    <Resource Include="ImageResources\图标%28黑%29_评分.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黄%29_星星.png" />
+    <Resource Include="ImageResources\图标%28黑%29_星星.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_刷新.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

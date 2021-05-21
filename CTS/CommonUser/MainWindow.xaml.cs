@@ -404,15 +404,21 @@ namespace CommonUser
         {
             Button button = sender as Button;
             Movie movie = button.DataContext as Movie;
-            MessageBox.Show(movie.id);
+            new SelectOnMovieWindow(movie).Show(); 
         }
 
         private void MouseDown_GetMoreMovieInfo(object sender, MouseButtonEventArgs e)
         {
+            Movie movie = ListView_Movies.SelectedItem as Movie;
             if (e.ClickCount == 2)
             {
-                new MovieInfoWindow().Show();
+                new MovieInfoWindow(movie).Show();
             }
+        }
+
+        private void Image_Refresh_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            /*更新*/
         }
     }
 }

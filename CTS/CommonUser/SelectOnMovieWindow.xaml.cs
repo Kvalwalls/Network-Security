@@ -19,7 +19,7 @@ namespace CommonUser
     /// </summary>
     public partial class SelectOnMovieWindow : Window
     {
-        public SelectOnMovieWindow()
+        public SelectOnMovieWindow(Movie movie)
         {
             InitializeComponent();
         }

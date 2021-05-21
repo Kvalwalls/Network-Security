@@ -14,7 +14,9 @@
         <!--Grid定义-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="695*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="520*"/>
+            <ColumnDefinition Width="130*"/>
             <ColumnDefinition Width="479*"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
@@ -24,17 +26,17 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <!--时间显示-->
-        <Image Margin="114.6,8.6,545,558.4" Source="ImageResources\图标(黑)_时间.png" Stretch="Fill" Grid.Column="1" Grid.Row="1"/>
+        <Image Margin="70,8.6,415.2,558.4" Source="ImageResources\图标(黑)_时间.png" Stretch="Fill" Grid.Column="2" Grid.Row="1"/>
         <TextBlock Name="TextBlock_Time"  VerticalAlignment="Center" 
-                 Text="获取当前时间中" FontSize="26" Margin="154.6,8.6,121,557.4" Grid.Column="1" Grid.Row="1" />
+                 Text="获取当前时间中" FontSize="26" Margin="110,8.6,120.8,557.4" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" />
         <!--欢迎显示-->
-        <Image Margin="614.6,8.6,45,558.4" Name="Image_common" Opacity="0" Source="ImageResources\图标(黑)_欢迎.png" Stretch="Fill" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="-16.291,0.785"/>
-        <Image Margin="578.6,0,35,540.4" Name="Image_vip" Opacity="0" Source="ImageResources\图标(黑)_vip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
-        <Image Margin="583.6,0,35,540.4" Name="Image_svip" Opacity="0" Source="ImageResources\图标(黑)_svip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
+        <Image Margin="49.8,8.6,44.8,558.4" Name="Image_common" Opacity="0" Source="ImageResources\图标(黑)_欢迎.png" Stretch="Fill" Grid.Column="3" Grid.Row="1" RenderTransformOrigin="-16.291,0.785"/>
+        <Image Margin="13.8,0,34.8,540.4" Name="Image_vip" Opacity="0" Source="ImageResources\图标(黑)_vip.png" Stretch="Fill" Grid.Column="3" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
+        <Image Margin="18.8,0,34.8,540.4" Name="Image_svip" Opacity="0" Source="ImageResources\图标(黑)_svip.png" Stretch="Fill" Grid.Column="3" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
         <TextBlock x:Name="TextBlock_Hello"  VerticalAlignment="Center"
-                   FontSize="26" Margin="654.6,8.6,0,557.4" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" />
+                   FontSize="26" Margin="89.8,8.6,0,557.4" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2" />
         <!--TabControl-->
-        <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="9.6,59.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154" Grid.ColumnSpan="2">
+        <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="9.6,59.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154" Grid.ColumnSpan="4">
             <!--TabItem1-->
             <TabItem Height="75" Width="150" Header="个人中心">
                 <Grid Background="Gainsboro">
@@ -200,6 +202,9 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
+                    <!--刷新Image-->
+                    <Image Margin="937,10,14,469" Source="ImageResources\图标(黑)_刷新.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"
+                           MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" MouseDown="Image_Refresh_MouseDown"/>    
                     <!--ListView-->
                     <ListView Name="ListView_Movies" Margin="13,60,14,10" ItemsSource="{Binding}"
                               ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Visible">
