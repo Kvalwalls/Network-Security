@@ -1,0 +1,50 @@
+﻿<Window x:Class="服务器UI.UserSta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:服务器UI"
+        mc:Ignorable="d"
+        Title="UserSta" Height="450" Width="400" ResizeMode="NoResize">
+    <Grid>
+        <!--GIF背景-->
+        <Grid.Background>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+        </Grid.Background>
+        <!--用户统计Label-->
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="用户统计" VerticalAlignment="Top" FontSize="36"/>
+        <!--返回Button-->
+        <Button x:Name="Button_Return" Content="返回" FontSize="22"  Margin="250,354,9.6,10" Foreground="White" 
+            MouseEnter="Button_MouseEnter"
+            MouseLeave="Button_MouseLeave"
+            Click="Button_Return_Click" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FF69B4</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <ListView Name="UserStaList" HorizontalAlignment="Left" Height="231" Margin="10,118,0,0" VerticalAlignment="Top" Width="374">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="座位号" Width="75" DisplayMemberBinding="{Binding sid}"></GridViewColumn>
+                    <GridViewColumn Header="场次号" Width="75" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
+                    <GridViewColumn Header="购票时间" Width="75" DisplayMemberBinding="{Binding time}"></GridViewColumn>
+                    <GridViewColumn Header="实际价格" Width="75" DisplayMemberBinding="{Binding price}"></GridViewColumn>
+                    <GridViewColumn Header="状态" Width="74" DisplayMemberBinding="{Binding status}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBlock x:Name="User"  Margin="109,61,110.6,307" TextWrapping="Wrap" VerticalAlignment="Center"  Height="52" Width="174" FontSize="22" Text="用户号："/>
+        <TextBlock x:Name="Money"  Margin="10,354,209.6,14" TextWrapping="Wrap" VerticalAlignment="Center"  Height="52" Width="174" FontSize="22" Text="总消费金额："/>
+
+    </Grid>
+</Window>
+

@@ -1,0 +1,613 @@
+﻿<Window x:Class="服务器UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:服务器UI"
+        mc:Ignorable="d"
+        Title="ManageUser" Height="650" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <!--GIF背景-->
+        <Grid.Background>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+        </Grid.Background>
+        <!--Grid定义-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <!--时间显示-->
+        <Image Margin="114.6,8.6,1024,558.4" Source="ImageResources\图标(黑)_时间.png" Stretch="Fill" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock Name="TextBlock_Time"  VerticalAlignment="Center" 
+                 Text="获取当前时间中" FontSize="26" Margin="154.6,8.6,600,558.4" Grid.Column="1" Grid.Row="1" />
+        <!--欢迎显示-->
+        <Image Margin="614.6,8.6,524,558.4" Name="Image_common" Opacity="0" Source="ImageResources\图标(黑)_欢迎.png" Stretch="Fill" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="-16.291,0.785"/>
+        <Image Margin="578.6,0,514,540.4" Name="Image_vip" Opacity="0" Source="ImageResources\图标(黑)_vip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
+        <Image Margin="583.6,0,514,540.4" Name="Image_svip" Opacity="0" Source="ImageResources\图标(黑)_svip.png" Stretch="Fill" Grid.Column="1" RenderTransformOrigin="-16.291,0.785" Grid.RowSpan="2"/>
+        <TextBlock x:Name="TextBlock_Hello"  VerticalAlignment="Center" FontSize="26" Margin="654.6,8.6,0,558.4" Grid.Column="1" Grid.Row="1" />
+        <!--TabControl-->
+        <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="10,60,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154">
+            <!--TabItem1-->
+            <TabItem Height="75" Width="150" Header="用户管理">
+                <Grid Background="Gainsboro">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="433*"/>
+                        <ColumnDefinition Width="563*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView Name="UserList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851" Grid.ColumnSpan="2" GridViewColumnHeader.Click="UserList_Click">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="用户号" Width="170" DisplayMemberBinding="{Binding id}"></GridViewColumn>
+                                <GridViewColumn Header="用户名称" Width="170" DisplayMemberBinding="{Binding name}"></GridViewColumn>
+                                <GridViewColumn Header="用户密码" Width="170" DisplayMemberBinding="{Binding password}"></GridViewColumn>
+                                <GridViewColumn Header="用户权限" Width="170" DisplayMemberBinding="{Binding access}"></GridViewColumn>
+                                <GridViewColumn Header="用户余额" Width="170" DisplayMemberBinding="{Binding money}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button x:Name="UserSearch" Content="查询" FontSize="22"  Margin="432.6,79,10,367" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="UserSearch_Click" Grid.Column="1">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="UserAdd" Content="添加" FontSize="22"  Margin="433.2,245,9,201" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="UserAdd_Click" Grid.Column="1">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="UserDelete" Content="删除" FontSize="22"  Margin="432.6,436,10,10" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="UserDelete_Click" Grid.Column="1">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <TextBox x:Name="TextBox_UserSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,561,450" TextChanged="TextBox_UserSearchid_TextChanged" Grid.ColumnSpan="2">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入用户号" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <ComboBox Name="ComboBox_Access" FontSize="32" Opacity="1" Text="用户权限" SelectedIndex="-1" Margin="7.2,10,135,450" Grid.Column="1">
+                        <ComboBoxItem Content="用户权限" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="32"/>
+                        <ComboBoxItem Name="Access_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="Access_CommonUser" Content="普通用户" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="Access_VIP" Content="VIP用户" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="Access_SVIP" Content="SVIP用户" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="Access_CommonManager" Content="普通管理员" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                    </ComboBox>
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Height="75" Width="150" Header="影厅管理">
+                <Grid Background="Gainsboro">
+
+                    <ListView Name="TheaterList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="影厅号" Width="283" DisplayMemberBinding="{Binding id}"></GridViewColumn>
+                                <GridViewColumn Header="影厅类型" Width="283" DisplayMemberBinding="{Binding type}"></GridViewColumn>
+                                <GridViewColumn Header="影厅大小" Width="283" DisplayMemberBinding="{Binding size}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button x:Name="TheaterSearch" Content="查询" FontSize="22"  Margin="866,79,10,367" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="TheaterSearch_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="TheaterAdd" Content="添加" FontSize="22"  Margin="866,245,10,201" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="TheaterAdd_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="TheaterDelete" Content="删除" FontSize="22"  Margin="866,436,10,10" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="TheaterDelete_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <TextBox x:Name="TextBox_TheaterSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,707,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入影厅号" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                  
+
+                    <ComboBox Name="ComboBox_TheaterType" FontSize="32" Opacity="1" Text="影厅类型" SelectedIndex="-1" Margin="294,10,419,450">
+                        <ComboBoxItem Content="影厅类型" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterType_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterType_Common" Content="普通影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterType_VIP" Content="VIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterType_SVIP" Content="SVIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                    </ComboBox>
+
+                    <ComboBox Name="ComboBox_TheaterSize" FontSize="32" Opacity="1" Text="影厅大小" SelectedIndex="-1" Margin="582,10,135,450">
+                        <ComboBoxItem Content="影厅大小" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterSize_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterSize_Sma" Content="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterSize_Mid" Content="32" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterSize_Lar" Content="64" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                    </ComboBox>
+          
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="影片管理" Height="75" Width="150">
+                <Grid Background="#FFE5E5E5">
+
+                    <ListView Name="MovieList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851" MouseDoubleClick="MovieList_MouseDoubleClick">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="影片号" Width="170" DisplayMemberBinding="{Binding id}"></GridViewColumn>
+                                <GridViewColumn Header="影片名称" Width="170" DisplayMemberBinding="{Binding name}"></GridViewColumn>
+                                <GridViewColumn Header="影片类型" Width="170" DisplayMemberBinding="{Binding type}"></GridViewColumn>
+                                <GridViewColumn Header="影片评分" Width="170" DisplayMemberBinding="{Binding time}"></GridViewColumn>
+                                <GridViewColumn Header="影片时长" Width="170" DisplayMemberBinding="{Binding comment}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button x:Name="MovieSearch" Content="查询" FontSize="22"  Margin="866,79,10,367" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="MovieSearch_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="MovieAdd" Content="添加" FontSize="22"  Margin="866,245,10,201" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="MovieAdd_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="MovieDelete" Content="删除" FontSize="22"  Margin="866,436,10,10" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="MovieDelete_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <TextBox x:Name="TextBox_MovieSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,569,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入影片号" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <TextBox x:Name="TextBox_MovieSearchname" VerticalContentAlignment="Center" FontSize="32" Margin="432,10,135,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入影片名称" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                </Grid>
+            </TabItem>
+            <TabItem Height="75" Width="150" Header="场次管理">
+                <Grid Background="#FFE5E5E5">
+
+                    <ListView Name="OnMovieList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="场次号" Width="141" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
+                                <GridViewColumn Header="影片号" Width="141" DisplayMemberBinding="{Binding mid}"></GridViewColumn>
+                                <GridViewColumn Header="影厅号" Width="141" DisplayMemberBinding="{Binding tid}"></GridViewColumn>
+                                <GridViewColumn Header="开始时间" Width="141" DisplayMemberBinding="{Binding begintime}"></GridViewColumn>
+                                <GridViewColumn Header="结束时间" Width="141" DisplayMemberBinding="{Binding endtime}"></GridViewColumn>
+                                <GridViewColumn Header="票价" Width="141" DisplayMemberBinding="{Binding price}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button x:Name="OnMovieSearch" Content="查询" FontSize="22"  Margin="866,79,10,367" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="OnMovieSearch_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="OnMovieAdd" Content="添加" FontSize="22"  Margin="866,245,10,201" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="OnMovieAdd_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="OnMovieDelete" Content="删除" FontSize="22"  Margin="866,436,10,10" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="OnMovieDelete_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <TextBox x:Name="TextBox_OnMovieSearchoid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,706,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入场次号" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <TextBox x:Name="TextBox_OnMovieSearchmid" VerticalContentAlignment="Center" FontSize="32" Margin="295,10,421,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入影片号" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <TextBox x:Name="TextBox_OnMovieSearchpid" VerticalContentAlignment="Center" FontSize="32" Margin="580,10,135,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入影厅号" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Height="75" Width="150" Header="票务管理">
+                <Grid Background="#FFE5E5E5">
+
+                    <ListView Name="TicketList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="用户号" Width="141" DisplayMemberBinding="{Binding uid}"></GridViewColumn>
+                                <GridViewColumn Header="座位号" Width="141" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
+                                <GridViewColumn Header="场次号" Width="141" DisplayMemberBinding="{Binding sid}"></GridViewColumn>
+                                <GridViewColumn Header="购票时间" Width="141" DisplayMemberBinding="{Binding time}"></GridViewColumn>
+                                <GridViewColumn Header="实际价格" Width="141" DisplayMemberBinding="{Binding price}"></GridViewColumn>
+                                <GridViewColumn Header="状态" Width="141" DisplayMemberBinding="{Binding status}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button x:Name="TicketSearch" Content="查询" FontSize="22"  Margin="866,79,10,367" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="TicketSearch_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="TicketUserSta" Content="用户统计" FontSize="22"  Margin="866,245,10,201" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="TicketUserSta_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="TicketOnMovieSta" Content="场次统计" FontSize="22"  Margin="866,436,10,10" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="TicketOnMovieSta_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <TextBox x:Name="TextBox_TicketSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,707,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入用户号" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <TextBox x:Name="TextBox_TicketSearchoid" VerticalContentAlignment="Center" FontSize="32" Margin="294,10,421,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入场次号" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <ComboBox Name="ComboBox_TicketStatus" FontSize="32" Opacity="1" Text="支付状态" SelectedIndex="-1" Margin="582,10,135,450">
+                        <ComboBoxItem Content="支付状态" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="32"/>
+                        <ComboBoxItem Name="TicketStatus_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TicketStatus_no" Content="未支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TicketStatus_wait" Content="待支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TicketStatus_yes" Content="已支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                    </ComboBox>
+                    
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+
+    <Window.Resources>
+        <!--TabItem的样式-->
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <!--  主Border  -->
+                            <Border
+                                Name="border"
+                                Margin="5,10,5,0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="White"
+                                BorderThickness="3"
+                                CornerRadius="15"
+                                MouseEnter="X_MouseEnter" 
+                                MouseLeave="X_MouseLeave">
+                                <ContentPresenter
+                                    Margin="20,10"
+                                    VerticalAlignment="Center"
+                                    ContentSource="Header" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="2" />
+                                <Setter TargetName="border" Property="Margin" Value="0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Gainsboro" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+    </Window.Resources>
+
+</Window>
