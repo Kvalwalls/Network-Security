@@ -39,7 +39,7 @@ namespace CommonUser
         {
             Button button = sender as Button;
             Movie movie = button.DataContext as Movie;
-            //new SelectOnMovieWindow(movie).Show();
+            new SelectOnMovieWindow(movie).Show();
             Close();
         }
 

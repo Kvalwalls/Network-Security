@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="账户充值" Height="450" Width="400" ResizeMode="NoResize">
     <Grid>
-        <!--GIF背景-->
+        <!--背景-->
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>

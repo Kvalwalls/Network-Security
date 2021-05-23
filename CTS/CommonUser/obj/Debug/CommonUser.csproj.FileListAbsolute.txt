@@ -92,3 +92,5 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RecordInfoWindo
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RecordInfoWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWindow.baml

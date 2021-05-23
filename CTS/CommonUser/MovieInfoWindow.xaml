@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="影片信息" Height="600" Width="600" ResizeMode="NoResize">
     <Grid x:Name="Grid_Info" DataContext="{Binding}">
-        <!--GIF背景-->
+        <!--背景-->
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>

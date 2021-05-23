@@ -280,7 +280,7 @@
                     </Grid.Background>
                     
                     <ListView x:Name="ListView_Records" HorizontalAlignment="Left" Height="504" Margin="10,10,0,0" VerticalAlignment="Top" Width="815" 
-                            VerticalContentAlignment="Center"  HorizontalContentAlignment="Center">
+                            VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" ItemsSource="{Binding}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Height" Value="60" />
@@ -307,7 +307,7 @@
                     <Label Content="当前状态" Margin="713,2,171,487" FontSize="20" 
                         VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="AliceBlue"/>
                     <!--查看票务详细内容按钮-->
-                    <Button Name="Button_ShowTicketInfo" Content="查看" FontSize="28"  Margin="866,197,10,249" Foreground="White" 
+                    <Button Name="Button_ShowTicketInfo" Content="查看" FontSize="28"  Margin="856,170,10,278" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
                             Click="Button_ShowTicketInfo_Click">
@@ -321,10 +321,10 @@
                         </Button.Template>
                     </Button>
                     <!--退票按钮-->
-                    <Button Name="Button_Refund" Content="退票" FontSize="28"  Margin="866,339,10,107" Foreground="White" 
+                    <Button Name="Button_Refund" Content="退票" FontSize="28"  Margin="856,331,10,118" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="Button_Refund_Click">
+                            Click="Button_Refund_Click" RenderTransformOrigin="0.493,-0.162">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -335,7 +335,7 @@
                         </Button.Template>
                     </Button>
                     <!--查看票务详细内容按钮-->
-                    <Button Name="Button_Refresh_RList" Content="刷新" FontSize="28"  Margin="866,67,10,379" Foreground="White" 
+                    <Button Name="Button_Refresh_RList" Content="刷新" FontSize="28"  Margin="856,10,10,438" Foreground="White" 
                             MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave"
                             Click="Button_Refresh_RList_Click">
                         <Button.Template >

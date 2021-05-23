@@ -50,6 +50,31 @@
 
         }
     }
+
+    public class OnMovie
+    {
+        public string Oid { get; set; }
+        public string Mid { get; set; }
+        public string Tid { get; set; }
+        public string Obegin { get; set; }
+        public string Oend { get; set; }
+        public float Oprice { get; set; }
+
+        public OnMovie(string oid, string mid, string tid, string obegin, string oend, float oprice)
+        {
+            Oid = oid;
+            Mid = mid;
+            Tid = tid;
+            Obegin = obegin;
+            Oend = oend;
+            Oprice = oprice;
+        }
+
+        public OnMovie()
+        {
+        }
+    }
+
 	public class Record
 	{
 		public string Uid { get; set; }
