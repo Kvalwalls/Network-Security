@@ -22,32 +22,14 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.exe.
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.exe
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.pdb
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csprojAssemblyReference.cache
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LoginWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MainWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RefindWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RegisterWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\App.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser_MarkupCompile.cache
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser_MarkupCompile.lref
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LoginWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MainWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RefindWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RegisterWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.g.resources
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.Properties.Resources.resources
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.GenerateResource.cache
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.exe
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.pdb
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.baml
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\LockingWindow.g.cs
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.g.cs
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.g.cs
@@ -88,9 +70,29 @@ F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.g
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.Properties.Resources.resources
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.GenerateResource.cache
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.CoreCompileInputs.cache
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RecordInfoWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RecordInfoWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LoginWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MainWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RefindWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RegisterWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RecordInfoWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LoginWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MainWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RechargeWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RefindWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RegisterWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RecordInfoWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.baml

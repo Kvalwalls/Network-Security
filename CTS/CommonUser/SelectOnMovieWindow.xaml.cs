@@ -64,16 +64,6 @@ namespace CommonUser
             return myOnMovies;
         }
 
-        private void Button_Buy_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void Button_Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         private void X_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Cursor = Cursors.Hand;
@@ -85,6 +75,11 @@ namespace CommonUser
         }
 
         private void Tab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Close();
+        }
+
+        private void Image_Back_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Close();
         }

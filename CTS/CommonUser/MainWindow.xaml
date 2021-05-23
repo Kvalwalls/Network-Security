@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="用户操作" Height="650" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <!--GIF背景-->
+        <!--背景-->
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>

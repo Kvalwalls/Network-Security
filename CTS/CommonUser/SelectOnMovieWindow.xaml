@@ -11,52 +11,20 @@
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
-        <Image Source="{Binding Path=Mpicture}" Margin="364,10,9.6,360.4"/>
-        <TextBlock Text="{Binding Path=Mname}" FontSize="28" Margin="10,9,182.6,491.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
-                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="349" Height="70"/>
-        <TextBlock Text="{Binding Mtype}" FontSize="24" Margin="10,79,291.6,440.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="240" Height="51"/>
-        <TextBlock Text="{Binding Mcomment}" FontSize="24" Margin="255,79,182.6,440.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="104" Height="51"/>
-        <!--确定Button-->
-        <Button x:Name="Button_Buy" Content="确定" FontSize="28"  Margin="10,495,376.6,10.4" Foreground="White" 
-                        MouseEnter="X_MouseEnter"
-                        MouseLeave="X_MouseLeave"
-                        Click="Button_Buy_Click" >
-            <Button.Template >
-                <ControlTemplate TargetType="{x:Type Button}" >
-                    <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
-                        <Border.Background>
-                            <Brush>Gray</Brush>
-                        </Border.Background>
-                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <!--返回Button-->
-        <Button x:Name="Button_Cancel" Content="取消" FontSize="28"  Margin="377,495,9.6,10.4" Foreground="White" 
-                        MouseEnter="X_MouseEnter"
-                        MouseLeave="X_MouseLeave"
-                        Click="Button_Cancel_Click" >
-            <Button.Template >
-                <ControlTemplate TargetType="{x:Type Button}" >
-                    <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
-                        <Border.Background>
-                            <Brush>Gray</Brush>
-                        </Border.Background>
-                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <TabControl HorizontalAlignment="Stretch" Height="355" Margin="0,135,-0.4,0" VerticalAlignment="Top">
+        <Image Source="{Binding Path=Mpicture}" Margin="364,10,9.6,335.4"/>
+        <TextBlock Text="{Binding Path=Mname}" FontSize="28" Margin="10,75,182.6,430.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="349" Height="65"/>
+        <TextBlock Text="{Binding Mtype}" FontSize="24" Margin="10,140,291.6,395.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="240" Height="35"/>
+        <TextBlock Text="{Binding Mcomment}" FontSize="24" Margin="255,140,182.6,395.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="104" Height="35"/>
+        <TabControl HorizontalAlignment="Stretch" Height="380" Margin="0,180,10,0" VerticalAlignment="Top">
             <TabItem Name="Tab_Today" Header="今天" MouseDoubleClick="Tab_MouseDoubleClick">
                 <Grid>
                     <Grid.Background>
                         <ImageBrush ImageSource="/ImageResources/背景_界面静态_云朵.jpg"/>
                     </Grid.Background>
-                    <ListView x:Name="ListView_OnMoviesToday" HorizontalAlignment="Left" Height="248" VerticalAlignment="Top" Width="516" 
+                    <ListView x:Name="ListView_OnMoviesToday" HorizontalAlignment="Left" Height="309" VerticalAlignment="Top" Width="516" 
                                 VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" Margin="10,0,0,0" ItemsSource="{Binding}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -80,7 +48,7 @@
                     <Grid.Background>
                         <ImageBrush ImageSource="/ImageResources/背景_界面静态_云朵.jpg"/>
                     </Grid.Background>
-                    <ListView x:Name="ListView_OnMoviesTomo" HorizontalAlignment="Left" Height="248" VerticalAlignment="Top" Width="516" 
+                    <ListView x:Name="ListView_OnMoviesTomo" HorizontalAlignment="Left" Height="309" VerticalAlignment="Top" Width="516" 
                                 VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" Margin="10,0,0,0" ItemsSource="{Binding}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -104,7 +72,7 @@
                     <Grid.Background>
                         <ImageBrush ImageSource="/ImageResources/背景_界面静态_云朵.jpg"/>
                     </Grid.Background>
-                    <ListView x:Name="ListView_OnMoviesAfTomo" HorizontalAlignment="Left" Height="248" VerticalAlignment="Top" Width="516" 
+                    <ListView x:Name="ListView_OnMoviesAfTomo" HorizontalAlignment="Left" Height="309" VerticalAlignment="Top" Width="516" 
                             VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" Margin="10,0,0,0" ItemsSource="{Binding}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -124,7 +92,8 @@
                 </Grid>
             </TabItem>
         </TabControl>
-
+        <Image Margin="10,10,466.6,495.4" Source="ImageResources\图标(黑)_返回.png" Stretch="Fill"
+               MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" MouseDown="Image_Back_MouseDown"/>
     </Grid>
     <Window.Resources>
         <!--TabItem的样式-->
