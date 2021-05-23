@@ -76,6 +76,7 @@ namespace CommonUser
 
         private void Tab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            MessageBox.Show("1");
             OnMovie onMovie = sender as OnMovie;
             new SelectSeatWindow(onMovie).Show();
             Close();

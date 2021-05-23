@@ -19,7 +19,7 @@
         <TextBlock Text="{Binding Mcomment}" FontSize="23" Margin="255,145,182.6,395.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
             VerticalAlignment="Center" HorizontalAlignment="Center" Width="104" Height="30"/>
         <TabControl HorizontalAlignment="Stretch" Height="380" Margin="0,180,10,0" VerticalAlignment="Top">
-            <TabItem Name="Tab_Today" Header="今天" MouseDoubleClick="Tab_MouseDoubleClick">
+            <TabItem Name="Tab_Today" Header="今天">
                 <Grid>
                     <Grid.Background>
                         <ImageBrush ImageSource="/ImageResources/背景_界面静态_云朵.jpg"/>
@@ -30,6 +30,7 @@
                             <Style TargetType="ListViewItem">
                                 <Setter Property="FontSize" Value="16"/>
                                 <Setter Property="Height" Value="50" />
+                                <EventSetter Event="MouseDoubleClick" Handler="Tab_MouseDoubleClick" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>
@@ -54,6 +55,7 @@
                             <Style TargetType="ListViewItem">
                                 <Setter Property="FontSize" Value="16"/>
                                 <Setter Property="Height" Value="50" />
+                                <EventSetter Event="MouseDoubleClick" Handler="Tab_MouseDoubleClick" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>
@@ -73,11 +75,12 @@
                         <ImageBrush ImageSource="/ImageResources/背景_界面静态_云朵.jpg"/>
                     </Grid.Background>
                     <ListView x:Name="ListView_OnMoviesAfTomo" HorizontalAlignment="Left" Height="309" VerticalAlignment="Top" Width="516" 
-                            VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" Margin="10,0,0,0" ItemsSource="{Binding}">
+                                VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" Margin="10,0,0,0" ItemsSource="{Binding}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="FontSize" Value="16"/>
                                 <Setter Property="Height" Value="50" />
+                                <EventSetter Event="MouseDoubleClick" Handler="Tab_MouseDoubleClick" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>

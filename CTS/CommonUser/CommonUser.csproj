@@ -298,5 +298,9 @@
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_返回.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_可选座位.png" />
+    <Resource Include="ImageResources\图标%28黑%29_已选座位.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

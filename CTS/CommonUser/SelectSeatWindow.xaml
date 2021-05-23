@@ -31,5 +31,13 @@
         <TextBox Name="TextBox_Selected" HorizontalAlignment="Left" Height="80" Margin="10,330,0,0" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"
                 VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Disabled" 
                  Text="已选座位：&#13;....." VerticalAlignment="Top"  VerticalContentAlignment="Center" Width="565"/>
+        <CheckBox Margin="135,80,626.6,0" VerticalAlignment="Top" Height="32" Width="32">
+        </CheckBox>
+        <CheckBox Margin="225,93,536.6,0" VerticalAlignment="Top" Height="32" Width="32"/>
+        <CheckBox Margin="145,130,616.6,0" VerticalAlignment="Top" Height="32" Width="32">
+            <Image Source="ImageResources\图标(黑)_可选座位.png" Height="32" Width="22" />
+        </CheckBox>
+        <CheckBox Margin="488,130,273.6,0" VerticalAlignment="Top" Height="32" Width="32"/>
+        <CheckBox Margin="380,145,381.6,0" VerticalAlignment="Top" Height="32" Width="32"/>
     </Grid>
 </Window>

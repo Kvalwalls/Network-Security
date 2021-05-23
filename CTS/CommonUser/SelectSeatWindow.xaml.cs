@@ -40,5 +40,10 @@ namespace CommonUser
         {
             Cursor = Cursors.Arrow;
         }
+
+        private void Image_Back_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Close();
+        }
     }
 }
