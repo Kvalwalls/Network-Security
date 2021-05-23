@@ -12,12 +12,12 @@
             <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
         <Image Source="{Binding Path=Mpicture}" Margin="364,10,9.6,335.4"/>
-        <TextBlock Text="{Binding Path=Mname}" FontSize="28" Margin="10,75,182.6,430.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
-                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="349" Height="65"/>
-        <TextBlock Text="{Binding Mtype}" FontSize="24" Margin="10,140,291.6,395.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="240" Height="35"/>
-        <TextBlock Text="{Binding Mcomment}" FontSize="24" Margin="255,140,182.6,395.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="104" Height="35"/>
+        <TextBlock Text="{Binding Path=Mname}" FontSize="30" Margin="10,75,182.6,425.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="349" Height="70"/>
+        <TextBlock Text="{Binding Mtype}" FontSize="23" Margin="10,145,291.6,395.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="240" Height="30"/>
+        <TextBlock Text="{Binding Mcomment}" FontSize="23" Margin="255,145,182.6,395.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="104" Height="30"/>
         <TabControl HorizontalAlignment="Stretch" Height="380" Margin="0,180,10,0" VerticalAlignment="Top">
             <TabItem Name="Tab_Today" Header="今天" MouseDoubleClick="Tab_MouseDoubleClick">
                 <Grid>

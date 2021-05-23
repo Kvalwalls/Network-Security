@@ -19,9 +19,26 @@ namespace CommonUser
     /// </summary>
     public partial class SelectSeatWindow : Window
     {
-        public SelectSeatWindow()
+        private OnMovie OnMovie;
+        public SelectSeatWindow(OnMovie onMovie)
         {
+            this.OnMovie = onMovie;
             InitializeComponent();
+        }
+
+        private void Button_Buy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void X_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void X_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Cursor = Cursors.Arrow;
         }
     }
 }

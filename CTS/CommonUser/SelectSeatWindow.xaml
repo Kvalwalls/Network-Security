@@ -10,11 +10,11 @@
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
-        <!--确定Button-->
-       <!-- <Button Name="Button_Register" Content="确定" FontSize="22"  Margin="10,354,613.6,10" Foreground="White" 
-                MouseEnter="Button_MouseEnter"
-                MouseLeave="Button_MouseLeave"
-                Click="Button_Register_Click" >
+        <!--购票Button-->
+        <Button Name="Button_Buy" Content="确定" FontSize="40"  Margin="580,330,9.6,10" Foreground="White" 
+                MouseEnter="X_MouseEnter"
+                MouseLeave="X_MouseLeave"
+                Click="Button_Buy_Click" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -24,21 +24,12 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        取消Button
-        <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="544,354,9.6,10" Foreground="White" 
-            MouseEnter="Button_MouseEnter"
-            MouseLeave="Button_MouseLeave"
-            Click="Button_Cancel_Click" >
-            <Button.Template >
-                <ControlTemplate TargetType="{x:Type Button}" >
-                    <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
-                        <Border.Background>
-                            <Brush>#FF69B4</Brush>
-                        </Border.Background>
-                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>-->
+        <Image Margin="10,10,718.6,345" Source="ImageResources\图标(黑)_返回.png" Stretch="Fill"
+               MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" MouseDown="Image_Back_MouseDown"/>
+        <TextBlock Text="{Binding Path=Mname}" FontSize="30" Margin="135,10,309.6,345"  TextWrapping="Wrap" Block.TextAlignment="Center"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="349" Height="65"/>
+        <TextBox Name="TextBox_Selected" HorizontalAlignment="Left" Height="80" Margin="10,330,0,0" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"
+                VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Disabled" 
+                 Text="已选座位：&#13;....." VerticalAlignment="Top"  VerticalContentAlignment="Center" Width="565"/>
     </Grid>
 </Window>
