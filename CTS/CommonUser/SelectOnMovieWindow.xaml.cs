@@ -76,9 +76,10 @@ namespace CommonUser
 
         private void Tab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("1");
             OnMovie onMovie = sender as OnMovie;
-            new SelectSeatWindow(onMovie).Show();
+            /*发送请求*/
+            Theater theater = new Theater("T00001", TheaterType.SVIP, 64);
+            new SelectSeatWindow(onMovie,movie,theater).Show();
             Close();
         }
 

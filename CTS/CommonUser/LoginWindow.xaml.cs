@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Configuration;
+using System.Collections.Generic;
 
 namespace CommonUser
 {
@@ -21,7 +22,7 @@ namespace CommonUser
 			InitializeComponent();
 			mediaElement.Source = new Uri(
 				GetParentDirectory(System.AppDomain.CurrentDomain.BaseDirectory, 3)
-				+ ConfigurationManager.AppSettings["loginBgImg"]
+				+ "\\ImageResources\\背景_登录动态.gif"
 				);
 		}
 

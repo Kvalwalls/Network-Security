@@ -51,6 +51,42 @@
         }
     }
 
+    public class Seat
+    {
+        public string Sid { get; set; }
+        public string Oid { get; set; }
+        public SeatStatus Sstatus { get; set; }
+
+        public Seat(string sid, string oid, SeatStatus sstatus)
+        {
+            Sid = sid;
+            Oid = oid;
+            Sstatus = sstatus;
+        }
+
+        public Seat()
+        {
+        }
+    }
+
+    public class Theater
+    {
+        public string Tid { get; set; }
+        public TheaterType Ttype { get; set; }
+        public int Tsize { get; set; }
+
+        public Theater(string tid, TheaterType ttype, int tsize)
+        {
+            Tid = tid;
+            Ttype = ttype;
+            Tsize = tsize;
+        }
+
+        public Theater()
+        {
+        }
+    }
+
     public class OnMovie
     {
         public string Oid { get; set; }

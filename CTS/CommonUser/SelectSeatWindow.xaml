@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CommonUser"
         mc:Ignorable="d"
-        Title="在线选座" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="在线选座" Height="600" Width="960" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
         <!--购票Button-->
-        <Button Name="Button_Buy" Content="确定" FontSize="40"  Margin="580,330,9.6,10" Foreground="White" 
+        <Button Name="Button_Buy" Content="确定" FontSize="40"  Margin="800,480,9.6,10.4" Foreground="White" 
                 MouseEnter="X_MouseEnter"
                 MouseLeave="X_MouseLeave"
                 Click="Button_Buy_Click" >
@@ -24,20 +24,30 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Image Margin="10,10,718.6,345" Source="ImageResources\图标(黑)_返回.png" Stretch="Fill"
+        <Image Margin="10,10,878.6,495.4" Source="ImageResources\图标(黑)_返回.png" Stretch="Fill"
                MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" MouseDown="Image_Back_MouseDown"/>
-        <TextBlock Text="{Binding Path=Mname}" FontSize="30" Margin="135,10,309.6,345"  TextWrapping="Wrap" Block.TextAlignment="Center"
-                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="349" Height="65"/>
-        <TextBox Name="TextBox_Selected" HorizontalAlignment="Left" Height="80" Margin="10,330,0,0" TextWrapping="Wrap" FontSize="20" IsReadOnly="True"
+
+        <TextBlock Name="TextBlock_Info" FontSize="30" Margin="215,15,203.6,510.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Width="535" Height="45"/>
+        <TextBlock Text="请选择座位：" FontSize="30" Margin="215,65,203.6,460.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="535" Height="45"/>
+
+        <Image Name="Image_Picture" Margin="755,0,63.6,415.4"/>
+        <Image Source="ImageResources\图标(黑)_已选座位.png" Margin="30,80,893.6,460.4"/>
+        <TextBlock Text="已选座位" Margin="65,80,818.6,460.4" FontSize="15" VerticalAlignment="Bottom"/>
+        <Image Source="ImageResources\图标(黑)_可选座位.png" Margin="30,110,893.6,430.4"/>
+        <TextBlock Text="可选座位" Margin="65,110,818.6,430.4" FontSize="15" VerticalAlignment="Bottom"/>
+        <Image Source="ImageResources/图标(黑)_在选座位.png" Margin="30,140,893.6,400.4"/>
+        <TextBlock Text="在选座位" Margin="65,140,818.6,400.4" FontSize="15" VerticalAlignment="Bottom"/>
+
+        <Label Content="已选&#13;座位" Margin="0,475,803.6,10.4" FontSize="26" 
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox Name="TextBox_Selected" HorizontalAlignment="Left" Height="81" Margin="155,479,0,0" TextWrapping="Wrap" 
+                 FontSize="20" IsReadOnly="True" 
                 VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Disabled" 
-                 Text="已选座位：&#13;....." VerticalAlignment="Top"  VerticalContentAlignment="Center" Width="565"/>
-        <CheckBox Margin="135,80,626.6,0" VerticalAlignment="Top" Height="32" Width="32">
-        </CheckBox>
-        <CheckBox Margin="225,93,536.6,0" VerticalAlignment="Top" Height="32" Width="32"/>
-        <CheckBox Margin="145,130,616.6,0" VerticalAlignment="Top" Height="32" Width="32">
-            <Image Source="ImageResources\图标(黑)_可选座位.png" Height="32" Width="22" />
-        </CheckBox>
-        <CheckBox Margin="488,130,273.6,0" VerticalAlignment="Top" Height="32" Width="32"/>
-        <CheckBox Margin="380,145,381.6,0" VerticalAlignment="Top" Height="32" Width="32"/>
+                 VerticalAlignment="Top"  VerticalContentAlignment="Center" Width="640"/>
+        <Label Content="大银幕" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" Background="Black"
+              Foreground="White" FontSize="15" Width="500" Margin="230,115,223.6,415.4"/>
+        <Grid Name="Grid_Seats" Margin="10,200,10,100" />
     </Grid>
 </Window>

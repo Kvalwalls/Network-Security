@@ -57,6 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ControlSeat.xaml.cs">
+      <DependentUpon>ControlSeat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Enum.cs" />
     <Compile Include="SelectOnMovieWindow.xaml.cs">
       <DependentUpon>SelectOnMovieWindow.xaml</DependentUpon>
     </Compile>
@@ -75,7 +79,7 @@
     <Compile Include="MyPayWindow.xaml.cs">
       <DependentUpon>MyPayWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\Data.cs" />
+    <Compile Include="Entity\Data.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -94,6 +98,10 @@
     <Compile Include="UpgradeWindow.xaml.cs">
       <DependentUpon>UpgradeWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="ControlSeat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SelectOnMovieWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -299,8 +307,11 @@
     <Resource Include="ImageResources\图标%28黑%29_返回.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ImageResources\图标%28黑%29_可选座位.png" />
+    <Resource Include="ImageResources\图标%28黑%29_在选座位.png" />
     <Resource Include="ImageResources\图标%28黑%29_已选座位.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图标%28黑%29_可选座位.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
