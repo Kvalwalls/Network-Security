@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CommonUser
@@ -74,12 +75,30 @@ namespace CommonUser
             Cursor = Cursors.Arrow;
         }
 
-        private void Tab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Tab_MouseDoubleClick_Today(object sender, MouseButtonEventArgs e)
         {
-            OnMovie onMovie = sender as OnMovie;
+            OnMovie temp = ListView_OnMoviesToday.SelectedItem as OnMovie;
             /*发送请求*/
             Theater theater = new Theater("T00001", TheaterType.SVIP, 64);
-            new SelectSeatWindow(onMovie,movie,theater).Show();
+            new SelectSeatWindow(temp, movie,theater).Show();
+            Close();
+        }
+
+        private void Tab_MouseDoubleClick_Tomo(object sender, MouseButtonEventArgs e)
+        {
+            OnMovie temp = ListView_OnMoviesTomo.SelectedItem as OnMovie;
+            /*发送请求*/
+            Theater theater = new Theater("T00001", TheaterType.SVIP, 64);
+            new SelectSeatWindow(temp, movie, theater).Show();
+            Close();
+        }
+
+        private void Tab_MouseDoubleClick_AfTomo(object sender, MouseButtonEventArgs e)
+        {
+            OnMovie temp = ListView_OnMoviesAfTomo.SelectedItem as OnMovie;
+            /*发送请求*/
+            Theater theater = new Theater("T00001", TheaterType.SVIP, 64);
+            new SelectSeatWindow(temp, movie, theater).Show();
             Close();
         }
 
@@ -87,5 +106,7 @@ namespace CommonUser
         {
             Close();
         }
+
+        
     }
 }

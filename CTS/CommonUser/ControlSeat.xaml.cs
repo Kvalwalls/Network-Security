@@ -11,7 +11,7 @@ namespace CommonUser
     /// </summary>
     public partial class ControlSeat : UserControl
     {
-        private SeatStatus status;
+        public SeatStatus status { get; set; }
         public ControlSeat(SeatStatus status)
         {
             this.status = status;
@@ -62,13 +62,13 @@ namespace CommonUser
         {
             if (status == SeatStatus.Unselected)
             {
-                status = SeatStatus.Selecting;
                 ChangeImageSource(BackImage, "ImageResources\\图标(黑)_在选座位.png", true);
+                status = SeatStatus.Selecting;
             }
             else if(status == SeatStatus.Selecting)
             {
-                status = SeatStatus.Unselected;
                 ChangeImageSource(BackImage, "ImageResources\\图标(黑)_可选座位.png", true);
+                status = SeatStatus.Unselected;
             }
             else
             {

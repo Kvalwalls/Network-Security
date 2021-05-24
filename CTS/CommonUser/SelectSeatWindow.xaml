@@ -27,12 +27,12 @@
         <Image Margin="10,10,878.6,495.4" Source="ImageResources\图标(黑)_返回.png" Stretch="Fill"
                MouseEnter="X_MouseEnter" MouseLeave="X_MouseLeave" MouseDown="Image_Back_MouseDown"/>
 
-        <TextBlock Name="TextBlock_Info" FontSize="30" Margin="215,15,203.6,510.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Width="535" Height="45"/>
-        <TextBlock Text="请选择座位：" FontSize="30" Margin="215,65,203.6,460.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="535" Height="45"/>
+        <TextBlock Name="TextBlock_Info" FontSize="34" Margin="0,10,9.6,500.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+                    VerticalAlignment="Center" HorizontalAlignment="Right" Width="695" Height="60"/>
+        <TextBlock Text="请选择座位：" FontSize="30" Margin="249,80,198.6,445.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="506" Height="45"/>
 
-        <Image Name="Image_Picture" Margin="755,0,63.6,415.4"/>
+        <Image Name="Image_Picture" Margin="135,10,709.6,424.4"/>
         <Image Source="ImageResources\图标(黑)_已选座位.png" Margin="30,80,893.6,460.4"/>
         <TextBlock Text="已选座位" Margin="65,80,818.6,460.4" FontSize="15" VerticalAlignment="Bottom"/>
         <Image Source="ImageResources\图标(黑)_可选座位.png" Margin="30,110,893.6,430.4"/>
@@ -40,14 +40,14 @@
         <Image Source="ImageResources/图标(黑)_在选座位.png" Margin="30,140,893.6,400.4"/>
         <TextBlock Text="在选座位" Margin="65,140,818.6,400.4" FontSize="15" VerticalAlignment="Bottom"/>
 
-        <Label Content="已选&#13;座位" Margin="0,475,803.6,10.4" FontSize="26" 
+        <Label Content="已选&#13;座位" Margin="0,480,858.6,10.4" FontSize="26" 
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox Name="TextBox_Selected" HorizontalAlignment="Left" Height="81" Margin="155,479,0,0" TextWrapping="Wrap" 
+        <TextBox Name="TextBox_Selected" HorizontalAlignment="Left" Height="81" Margin="100,479,0,0" TextWrapping="Wrap" 
                  FontSize="20" IsReadOnly="True" 
                 VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Disabled" 
-                 VerticalAlignment="Top"  VerticalContentAlignment="Center" Width="640"/>
+                 VerticalAlignment="Top"  VerticalContentAlignment="Center" Width="695"/>
         <Label Content="大银幕" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" Background="Black"
-              Foreground="White" FontSize="15" Width="500" Margin="230,115,223.6,415.4"/>
+              Foreground="White" FontSize="15" Width="500" Margin="255,145,198.6,385.4"/>
         <Grid Name="Grid_Seats" Margin="10,200,10,100" />
     </Grid>
 </Window>
