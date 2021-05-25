@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace CommonUser.Security
 {
@@ -8,7 +9,7 @@ namespace CommonUser.Security
         public static string GenerateMD(string plainText)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            byte[] md5Bytes = md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(plainText));
+            byte[] md5Bytes = md5.ComputeHash(Encoding.UTF8.GetBytes(plainText));
             return Convert.ToBase64String(md5Bytes);
         }
 

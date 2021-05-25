@@ -60,6 +60,7 @@
     <Compile Include="ControlSeat.xaml.cs">
       <DependentUpon>ControlSeat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Security\DESHandler.cs" />
     <Compile Include="Security\MDHandler.cs" />
     <Compile Include="PayWaitingWindow.xaml.cs">
       <DependentUpon>PayWaitingWindow.xaml</DependentUpon>
