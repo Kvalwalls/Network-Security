@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonUser.Entity;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

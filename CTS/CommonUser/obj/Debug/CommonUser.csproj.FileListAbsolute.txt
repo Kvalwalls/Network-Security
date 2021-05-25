@@ -98,3 +98,5 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindo
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\ControlSeat.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\ControlSeat.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\PayWaitingWindow.g.cs
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\PayWaitingWindow.baml

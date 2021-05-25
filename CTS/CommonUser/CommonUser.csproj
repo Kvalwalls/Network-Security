@@ -60,7 +60,7 @@
     <Compile Include="ControlSeat.xaml.cs">
       <DependentUpon>ControlSeat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Entity\Enum.cs" />
+    <Compile Include="Security\MDHandler.cs" />
     <Compile Include="PayWaitingWindow.xaml.cs">
       <DependentUpon>PayWaitingWindow.xaml</DependentUpon>
     </Compile>
@@ -82,7 +82,7 @@
     <Compile Include="MyPayWindow.xaml.cs">
       <DependentUpon>MyPayWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Entity\Data.cs" />
+    <Compile Include="Entity\Entity.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

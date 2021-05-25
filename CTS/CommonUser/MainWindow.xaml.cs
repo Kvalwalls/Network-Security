@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using CommonUser.Entity;
 
 namespace CommonUser
 {

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Configuration;
 using System.Collections.Generic;
+using CommonUser.Entity;
 
 namespace CommonUser
 {

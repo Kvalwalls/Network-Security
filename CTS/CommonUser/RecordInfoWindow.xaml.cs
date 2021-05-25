@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using CommonUser.Entity;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CommonUser
