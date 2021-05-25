@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace CommonUser
 {
@@ -9,13 +10,32 @@ namespace CommonUser
     /// </summary>
     public partial class WaitingWindow : Window
     {
-        public WaitingWindow()
+        private Seat[] selectedSeats;
+        public WaitingWindow(Seat[] selectedSeats)
         {
+            this.selectedSeats = selectedSeats;
             InitializeComponent();
             mediaElement.Source = new Uri(
                 GetParentDirectory(System.AppDomain.CurrentDomain.BaseDirectory, 3)
                 + "\\ImageResources\\装饰(黑)_等待动态.gif"
                 );
+            InitTip();
+        }
+
+        private void InitTip()
+        {
+            int length = 1;
+            string strTip = "购票加载中";
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(
+                (object sender, EventArgs e) =>
+                {
+                    Label_Tip.Content = strTip.Substring(0, length);
+                    length = (length + 1) % (strTip.Length + 1);
+                }
+            );
+            timer.Interval = new TimeSpan(5000000);
+            timer.Start();
         }
 
         private string GetParentDirectory(string path, int parentCount)

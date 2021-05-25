@@ -98,6 +98,9 @@
     <Compile Include="UpgradeWindow.xaml.cs">
       <DependentUpon>UpgradeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WaitPayWindow.xaml.cs">
+      <DependentUpon>WaitPayWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="ControlSeat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +162,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UpgradeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WaitPayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

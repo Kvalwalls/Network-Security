@@ -8,6 +8,6 @@
         Title="购票等待" Height="350" Width="400" ResizeMode="NoResize">
     <Grid Background="Black">
         <MediaElement  Name="mediaElement" MediaEnded="MediaElement_MediaEnded" Stretch="Uniform" Margin="-55,-55,-55,-55"/>
-        <Label HorizontalAlignment="Center" Foreground="White" Content="锁定座位中" VerticalAlignment="Top" FontSize="36"/>
+        <Label HorizontalAlignment="Center" Foreground="White" Name="Label_Tip" VerticalAlignment="Top" FontSize="36"/>
     </Grid>
 </Window>
