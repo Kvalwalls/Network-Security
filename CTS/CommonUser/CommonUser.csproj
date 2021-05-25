@@ -61,6 +61,9 @@
       <DependentUpon>ControlSeat.xaml</DependentUpon>
     </Compile>
     <Compile Include="Entity\Enum.cs" />
+    <Compile Include="PayWaitingWindow.xaml.cs">
+      <DependentUpon>PayWaitingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SelectOnMovieWindow.xaml.cs">
       <DependentUpon>SelectOnMovieWindow.xaml</DependentUpon>
     </Compile>
@@ -99,6 +102,10 @@
       <DependentUpon>UpgradeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="ControlSeat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PayWaitingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
