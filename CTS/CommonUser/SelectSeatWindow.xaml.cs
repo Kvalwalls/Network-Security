@@ -107,16 +107,7 @@ namespace CommonUser
 
         private void Button_Buy_Click(object sender, RoutedEventArgs e)
         {
-            int i = 0;
-            Seat[] temps = new Seat[selectedSeats.Count];
-            foreach (Seat temp in selectedSeats)
-            {
-                temps[i] = temp;
-                i++;
-            }
-            Array.Sort(temps, new SIDComparer());
-            new WaitingWindow(temps).Show();
-            Close();
+            
         }
 
         private void X_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
