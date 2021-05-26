@@ -1,7 +1,7 @@
 package KerberosUtils;
 
-import Data.AuthenticatorC;
-import Data.Ticket;
+import DataUtils.AuthenticatorC;
+import DataUtils.Ticket;
 import TransmissionUtils.TransMessage;
 import TransmissionUtils.Transceiver;
 

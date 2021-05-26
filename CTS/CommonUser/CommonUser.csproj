@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>.\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -61,10 +64,10 @@
       <DependentUpon>ControlSeat.xaml</DependentUpon>
     </Compile>
     <Compile Include="Security\DESHandler.cs" />
-    <Compile Include="Security\MDHandler.cs" />
     <Compile Include="PayWaitingWindow.xaml.cs">
       <DependentUpon>PayWaitingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Security\RSAHandler.cs" />
     <Compile Include="SelectOnMovieWindow.xaml.cs">
       <DependentUpon>SelectOnMovieWindow.xaml</DependentUpon>
     </Compile>

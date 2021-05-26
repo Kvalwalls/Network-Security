@@ -100,3 +100,5 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\ControlSeat.g.c
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\ControlSeat.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\PayWaitingWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\PayWaitingWindow.baml
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.CopyComplete

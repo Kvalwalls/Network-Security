@@ -1,6 +1,6 @@
 package LogUtils;
 
-import Data.User;
+import DataUtils.User;
 import TransmissionUtils.TransMessage;
 
 import java.io.IOException;
