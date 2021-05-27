@@ -9,15 +9,15 @@
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg"/>
         </Grid.Background>
         <!--添加影片Label-->
-        <Label HorizontalAlignment="Center" Foreground="Black" Content="影片详情" VerticalAlignment="Top" FontSize="36"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="影片详情" VerticalAlignment="Top" FontSize="36" Style="{StaticResource LabelPrimary}"/>
         <!--返回Button-->
-        <Button x:Name="Button_Return" Content="返回" FontSize="22"  Margin="649,354,9.6,10" Foreground="White" 
+        <Button x:Name="Button_Return" Content="返回" FontSize="22"  Margin="684,367,9.6,10" Foreground="White" 
             MouseEnter="Button_MouseEnter"
             MouseLeave="Button_MouseLeave"
-            Click="Button_Return_Click" >
+            Click="Button_Return_Click" Width="100" Height="43" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -42,7 +42,7 @@
         <!--影片简介TextBlock-->
         <TextBlock Name="TextBlock_Des" Text="影片简介：" VerticalAlignment="Center" FontSize="24" Margin="64,286,409.6,94"/>
         <!--影片图片Label-->
-        <Label Content="影片图片：" HorizontalAlignment="Left" Margin="442,61,0,319" VerticalAlignment="Center" FontSize="24" Height="40" Width="141"/>
+        <TextBlock Text="影片图片：" HorizontalAlignment="Left" Margin="442,66,0,307" VerticalAlignment="Center" FontSize="24" Height="47" Width="141"/>
         <!--影片图片Image-->
         <Image Name="MovieImage" HorizontalAlignment="Left" Height="224" Margin="490,125,0,0" VerticalAlignment="Top" Width="182"/>
 

@@ -29,20 +29,21 @@ namespace 服务器UI
             OidTip.Visibility = Visibility.Hidden;
             MidTip.Visibility = Visibility.Hidden;
             PidTip.Visibility = Visibility.Hidden;
-            StimeTip.Visibility = Visibility.Hidden;
+            StimeTip.Text = "时间格式：2016-5-9 13:00:00";
             PriceTip.Visibility = Visibility.Hidden;
             
         }
-        private DateTime CaculateEndTime(DateTime Start,string Mid)
+        private DateTime CaculateEndTime(string Start,string Mid)
         {
-            DateTime EndTime = Start;
-            for(int i=0; i< SubMovies.Count;i++)
+            int Dtime = 0;
+            for (int i=0; i< SubMovies.Count;i++)
             {
                 if(SubMovies[i].id == Mid)
                 {
-                    EndTime.AddMinutes(SubMovies[i].time);
+                    Dtime = SubMovies[i].time;
                 }
             }
+            DateTime EndTime = Convert.ToDateTime(Start).AddMinutes(Dtime);
             return EndTime;
         }
 
@@ -51,8 +52,9 @@ namespace 服务器UI
             string Oid = TextBox_oid.Text;
             string Mid = TextBox_mid.Text;
             string Tid = TextBox_pid.Text;
-            DateTime BTime = Convert.ToDateTime(TextBox_starttime.Text);
-            DateTime ETime = CaculateEndTime(BTime,Mid);
+            string Btime = TextBox_starttime.Text;
+            DateTime BTime = Convert.ToDateTime(Btime);
+            DateTime ETime = CaculateEndTime(Btime,Mid);
             float Price = float.Parse(TextBox_price.Text);
             
 
@@ -360,26 +362,7 @@ namespace 服务器UI
             else
             {
                 StimeTip.Visibility = Visibility.Hidden;
-                string mid = TextBox_mid.Text;
-                string pid = TextBox_pid.Text;
-                DateTime start = Convert.ToDateTime(TextBox_starttime.Text);
-                DateTime end = CaculateEndTime(start, TextBox_mid.Text);
-                TextBlock_endtime.Text += end;
-                for (int i = 0; i < SubOnMovies.Count; i++)
-                {
-                    if(pid == SubOnMovies[i].tid)
-                    {
-                        if(DateTime.Compare(SubOnMovies[i].endtime, start)< 0 || DateTime.Compare(SubOnMovies[i].begintime, end) > 0)
-                        {
-                            PriceTip.Visibility = Visibility.Hidden;
-                        }
-                        else
-                        {
-                            StimeTip.Text = "该影厅对应时间已有场次，请安排其他时间！";
-                            StimeTip.Visibility = Visibility.Visible;
-                        }
-                    }
-                }
+                
 
             }
         }

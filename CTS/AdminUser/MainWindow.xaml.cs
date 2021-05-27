@@ -58,19 +58,43 @@ namespace 服务器UI
 
         private void InitLists()
         {
+
             User u1 = new User("1", "dx", "123", "普通用户", 100);
             User u2 = new User("3", "xz", "123", "VIP用户", 100);
             User u3 = new User("2", "wbc", "123", "SVIP用户", 100);
             User u4 = new User("4", "zr", "123", "普通管理员", 100);
+            Theater t1 = new Theater("1", "1", 30);
+            Theater t2 = new Theater("2", "1", 10);
+            Movie m1 = new Movie("1", "x", "1", 60, 30, "1", "1");
+            Movie m2 = new Movie("2", "xz", "1", 60, 30, "1", "1");
+            OnMovie o1 = new OnMovie("1", "1", "1", DateTime.Now, DateTime.Now.AddMinutes(60), 90);
+            OnMovie o2 = new OnMovie("2", "2", "2", DateTime.Now, DateTime.Now, 90);
+            Record r1 = new Record("1", "1", "1", DateTime.Now, 80, "1");
+            Record r2 = new Record("2", "2", "2", DateTime.Now, 90, "1");
             users.Add(u1);
             users.Add(u2);
             users.Add(u3);
             users.Add(u4);
+            movies.Add(m1);
+            movies.Add(m2);
+            theaters.Add(t1);
+            theaters.Add(t2);
+            onmovies.Add(o1);
+            onmovies.Add(o2);
+            records.Add(r1);
+            records.Add(r2);
             UserList.Items.Add(users[0]);
             UserList.Items.Add(users[1]);
             UserList.Items.Add(users[2]);
             UserList.Items.Add(users[3]);
-
+            TheaterList.Items.Add(theaters[0]);
+            TheaterList.Items.Add(theaters[1]);
+            MovieList.Items.Add(movies[0]);
+            MovieList.Items.Add(movies[1]);
+            OnMovieList.Items.Add(onmovies[0]);
+            OnMovieList.Items.Add(onmovies[1]);
+            TicketList.Items.Add(records[0]);
+            TicketList.Items.Add(records[1]);
         }
 
         private void InitTextBlock_Hello()
