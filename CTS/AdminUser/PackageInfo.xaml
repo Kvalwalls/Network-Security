@@ -51,6 +51,7 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <TextBox Name="Text_Encrypt" HorizontalAlignment="Left" Height="156" Margin="64,248,0,0" TextWrapping="Wrap" Text="报文" VerticalAlignment="Top" Width="580"/>
 
 =======
@@ -59,6 +60,12 @@
         <TextBox Name="Text_Encrypt" HorizontalAlignment="Left" Height="156" Margin="64,248,0,0" TextWrapping="Wrap" Text="报文密文" VerticalAlignment="Top" Width="580"/>
         
 >>>>>>> parent of 79acd3b (添加图片)
+=======
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="解密内容：" VerticalAlignment="Top" FontSize="24" Margin="64,409,599.6,0"/>
+        
+        <TextBox Name="Text_Encrypt" HorizontalAlignment="Left" Height="156" Margin="64,248,0,0" TextWrapping="Wrap" Text="报文" VerticalAlignment="Top" Width="580"/>
+        
+>>>>>>> parent of 5f106b2 (小改)
 =======
         <Label HorizontalAlignment="Center" Foreground="Black" Content="解密内容：" VerticalAlignment="Top" FontSize="24" Margin="64,409,599.6,0"/>
         
