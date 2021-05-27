@@ -836,11 +836,62 @@ namespace 服务器UI
             }
         }
 
-        private void TextBox_UserSearchid_TextChanged(object sender, TextChangedEventArgs e)
+        private void PackageSearch_Click(object sender, RoutedEventArgs e)
         {
+            PackageList.Items.Clear();
+            if (TextBox_PackageSearchSid.Text == "" && TextBox_PackageSearchDid.Text == "")
+            {
+                for (int i = 0; i < records.Count; i++)
+                {
+                    //PackageList.Items.Add(records[i]);
+                }
+                PackageList.Items.Refresh();
+            }
 
+            if (TextBox_PackageSearchSid.Text != "" && TextBox_PackageSearchDid.Text == "")
+            {
+                for (int i = 0; i < records.Count; i++)
+                {
+                    //PackageList.Items.Add(records[i]);
+                }
+                PackageList.Items.Refresh();
+            }
+
+            if (TextBox_PackageSearchSid.Text == "" && TextBox_PackageSearchDid.Text != "")
+            {
+                for (int i = 0; i < records.Count; i++)
+                {
+                    //PackageList.Items.Add(records[i]);
+                }
+                PackageList.Items.Refresh();
+            }
+
+            if (TextBox_PackageSearchSid.Text != "" && TextBox_PackageSearchDid.Text != "")
+            {
+                for (int i = 0; i < records.Count; i++)
+                {
+                    //PackageList.Items.Add(records[i]);
+                }
+                PackageList.Items.Refresh();
+            }
         }
 
-        
+        private void PackageList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            //Movie select = MovieList.SelectedItem as Movie;
+            //var select = txtBox.DataContext as Movie;
+            //ListBox listBox = sender as ListBox;
+            //if (listBox == null || listBox.SelectedItem == null)
+            //{
+            //    MessageBox.Show("ListBox1双击对象为空...");
+            //}
+            //else
+            //{
+            Hide();
+            PackageInfo info = new PackageInfo();
+            info.ShowDialog();
+            //}
+        }
     }
 }

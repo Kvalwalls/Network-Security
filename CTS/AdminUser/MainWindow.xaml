@@ -94,7 +94,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_UserSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,561,450" TextChanged="TextBox_UserSearchid_TextChanged" Grid.ColumnSpan="2">
+                    <TextBox x:Name="TextBox_UserSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,561,450" Grid.ColumnSpan="2">
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -183,7 +183,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_TheaterSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,707,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                    <TextBox x:Name="TextBox_TheaterSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,707,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -283,7 +283,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_MovieSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,569,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                    <TextBox x:Name="TextBox_MovieSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,569,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -305,7 +305,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox x:Name="TextBox_MovieSearchname" VerticalContentAlignment="Center" FontSize="32" Margin="432,10,135,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                    <TextBox x:Name="TextBox_MovieSearchname" VerticalContentAlignment="Center" FontSize="32" Margin="432,10,135,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -386,7 +386,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_OnMovieSearchoid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,706,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                    <TextBox x:Name="TextBox_OnMovieSearchoid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,706,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -408,7 +408,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox x:Name="TextBox_OnMovieSearchmid" VerticalContentAlignment="Center" FontSize="32" Margin="295,10,421,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                    <TextBox x:Name="TextBox_OnMovieSearchmid" VerticalContentAlignment="Center" FontSize="32" Margin="295,10,421,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -430,7 +430,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox x:Name="TextBox_OnMovieSearchpid" VerticalContentAlignment="Center" FontSize="32" Margin="580,10,135,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                    <TextBox x:Name="TextBox_OnMovieSearchpid" VerticalContentAlignment="Center" FontSize="32" Margin="580,10,135,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -513,7 +513,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_TicketSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,707,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                    <TextBox x:Name="TextBox_TicketSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,707,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -535,7 +535,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox x:Name="TextBox_TicketSearchoid" VerticalContentAlignment="Center" FontSize="32" Margin="294,10,421,450" TextChanged="TextBox_UserSearchid_TextChanged">
+                    <TextBox x:Name="TextBox_TicketSearchoid" VerticalContentAlignment="Center" FontSize="32" Margin="294,10,421,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -564,6 +564,86 @@
                         <ComboBoxItem Name="TicketStatus_wait" Content="待支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
                         <ComboBoxItem Name="TicketStatus_yes" Content="已支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
                     </ComboBox>
+                    
+                </Grid>
+            </TabItem>
+
+            <TabItem Height="75" Width="150" Header="加解密">
+                <Grid Background="#FFE5E5E5">
+
+                    <ListView Name="PackageList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="976">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="序号" Width="108" DisplayMemberBinding="{Binding uid}"></GridViewColumn>
+                                <GridViewColumn Header="时间" Width="109" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
+                                <GridViewColumn Header="源IP" Width="108" DisplayMemberBinding="{Binding uid}"></GridViewColumn>
+                                <GridViewColumn Header="目的IP" Width="108" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
+                                <GridViewColumn Header="应用类型" Width="108" DisplayMemberBinding="{Binding sid}"></GridViewColumn>
+                                <GridViewColumn Header="具体类型" Width="108" DisplayMemberBinding="{Binding time}"></GridViewColumn>
+                                <GridViewColumn Header="错误码" Width="108" DisplayMemberBinding="{Binding price}"></GridViewColumn>
+                                <GridViewColumn Header="签名长度" Width="108" DisplayMemberBinding="{Binding status}"></GridViewColumn>
+                                <GridViewColumn Header="内容长度" Width="108" DisplayMemberBinding="{Binding status}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <TextBox x:Name="TextBox_PackageSearchSid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,596,450" >
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入源IP" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <TextBox x:Name="TextBox_PackageSearchDid" VerticalContentAlignment="Center" FontSize="32" Margin="405,10,203,450">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                                <VisualBrush.Visual>
+                                    <TextBlock Text="请输入目的IP" Foreground="Black" Opacity="0.5"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <Button x:Name="PackageSearch" Content="查询" FontSize="22"  Margin="812,10,10,450" Foreground="White" 
+                            MouseEnter="X_MouseEnter"
+                            MouseLeave="X_MouseLeave"
+                            Click="PackageSearch_Click">
+                        <Button.Template >
+                            <ControlTemplate TargetType="{x:Type Button}" >
+                                <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                                    <Border.Background>Gray</Border.Background>
+                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                     
                 </Grid>
             </TabItem>
