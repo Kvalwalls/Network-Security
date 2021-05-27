@@ -249,13 +249,6 @@
         <TextBlock Name="ScoreTip" Foreground="Red" HorizontalAlignment="Left" Margin="64,383,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="321" />
         <TextBlock Name="DesTip" Foreground="Red" HorizontalAlignment="Left" Margin="64,477,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="320" />
         <TextBlock Name="PicTip" Foreground="Red" HorizontalAlignment="Left" Margin="442,129,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="341" />
-
-        <Image Margin="13,62,734.6,469.4" Source="ImageResources\影片.png" Stretch="Fill"/>
-        <Image Margin="13,129,734.6,402.4" Source="ImageResources\名称.png" Stretch="Fill"/>
-        <Image Margin="13,199,734.6,332.4" Source="ImageResources\类型.png" Stretch="Fill"/>
-        <Image Margin="13,266,734.6,265.4" Source="ImageResources\时长.png" Stretch="Fill"/>
-        <Image Margin="13,338,734.6,193.4" Source="ImageResources\评分.png" Stretch="Fill"/>
-        <Image Margin="13,406,734.6,125.4" Source="ImageResources\简介.png" Stretch="Fill"/>
-        <Image Margin="723,67,24.6,464.4" Source="ImageResources\图片.png" Stretch="Fill"/>
+    
     </Grid>
 </Window>

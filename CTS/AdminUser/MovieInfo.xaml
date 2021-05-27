@@ -46,13 +46,6 @@
         <!--影片图片Image-->
         <Image Name="MovieImage" HorizontalAlignment="Left" Height="224" Margin="490,125,0,0" VerticalAlignment="Top" Width="182"/>
 
-        <Image Margin="13,61,734.6,312" Source="ImageResources\影片.png" Stretch="Fill"/>
-        <Image Margin="13,111,734.6,269" Source="ImageResources\名称.png" Stretch="Fill"/>
-        <Image Margin="13,156,734.6,225" Source="ImageResources\类型.png" Stretch="Fill"/>
-        <Image Margin="13,201,734.6,179" Source="ImageResources\时长.png" Stretch="Fill"/>
-        <Image Margin="13,246,734.6,133" Source="ImageResources\评分.png" Stretch="Fill"/>
-        <Image Margin="13,292,734.6,88" Source="ImageResources\简介.png" Stretch="Fill"/>
-        <Image Margin="391,66,356.6,312" Source="ImageResources\图片.png" Stretch="Fill"/>
     </Grid>
 </Window>
 

@@ -62,9 +62,6 @@
     <Compile Include="OnMovieSta.xaml.cs">
       <DependentUpon>OnMovieSta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PackageInfo.xaml.cs">
-      <DependentUpon>PackageInfo.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserSta.xaml.cs">
       <DependentUpon>UserSta.xaml</DependentUpon>
     </Compile>
@@ -113,10 +110,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OnMovieSta.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PackageInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
