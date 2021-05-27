@@ -48,7 +48,7 @@ namespace CommonUser
 
 		private void Button_Register_Click(object sender, RoutedEventArgs e)
 		{
-			if (TextBox_id.Text != string.Empty && TextBox_name.Text != string.Empty && TextBox_pwdInput.Text != string.Empty && TextBox_pwdCheck.Text != string.Empty && yzm.Text != string.Empty)
+			if (TextBox_id.Text != string.Empty && TextBox_name.Text != string.Empty && TextBox_pwdInput.Text != string.Empty && TextBox_pwdCheck.Text != string.Empty )
 			{
 				if (TextBox_pwdInput.Text != TextBox_pwdCheck.Text)
 				{
