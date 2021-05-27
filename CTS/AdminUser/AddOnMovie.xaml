@@ -9,15 +9,15 @@
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
         <!--添加场次Label-->
-        <Label HorizontalAlignment="Center" Content="添加场次" VerticalAlignment="Top" FontSize="36" Style="{StaticResource LabelPrimary}"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="添加场次" VerticalAlignment="Top" FontSize="36"/>
         <!--确定Button-->
-        <Button Name="Button_Add" Content="确定" FontSize="22"  Margin="10,467,283.6,9.8" Foreground="White" 
+        <Button Name="Button_Add" Content="确定" FontSize="22"  Margin="10,454,250,10" Foreground="White" 
                 MouseEnter="Button_MouseEnter"
                 MouseLeave="Button_MouseLeave"
-                Click="Button_Add_Click" Width="100" Height="44" >
+                Click="Button_Add_Click" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -28,10 +28,10 @@
             </Button.Template>
         </Button>
         <!--取消Button-->
-        <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="284,467,9.6,9.8" Foreground="White" 
+        <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="250,454,10,10" Foreground="White" 
             MouseEnter="Button_MouseEnter"
             MouseLeave="Button_MouseLeave"
-            Click="Button_Cancel_Click" Width="100" Height="44" >
+            Click="Button_Cancel_Click" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">

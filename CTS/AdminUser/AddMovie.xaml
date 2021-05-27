@@ -9,15 +9,15 @@
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
         <!--添加影片Label-->
-        <Label HorizontalAlignment="Center"  Content="添加影片" VerticalAlignment="Top" FontSize="36" Style="{StaticResource LabelPrimary}"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="添加影片" VerticalAlignment="Top" FontSize="36"/>
         <!--确定Button-->
-        <Button Name="Button_Add" Content="确定" FontSize="22"  Margin="13,517,680.6,10.4" Foreground="White" 
+        <Button Name="Button_Add" Content="确定" FontSize="22"  Margin="10,504,649,10" Foreground="White" 
                 MouseEnter="Button_MouseEnter"
                 MouseLeave="Button_MouseLeave"
-                Click="Button_Add_Click" Width="100" Height="43" >
+                Click="Button_Add_Click" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -28,10 +28,10 @@
             </Button.Template>
         </Button>
         <!--取消Button-->
-        <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="683,517,10.6,10.4" Foreground="White" 
+        <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="649,504,10,10" Foreground="White" 
             MouseEnter="Button_MouseEnter"
             MouseLeave="Button_MouseLeave"
-            Click="Button_Cancel_Click" Height="43" Width="100" >
+            Click="Button_Cancel_Click" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -44,7 +44,7 @@
             </Button.Template>
         </Button>
         <!--影片号TextBox-->
-        <TextBox Name="TextBox_mid" VerticalContentAlignment="Center" FontSize="24" Margin="64,64,409.6,466.4" TextChanged="TextBox_mid_TextChanged" MouseLeave="TextBox_mid_MouseLeave" >
+        <TextBox Name="TextBox_mid" VerticalContentAlignment="Center" FontSize="24" Margin="64,61,410,470" TextChanged="TextBox_mid_TextChanged" MouseLeave="TextBox_mid_MouseLeave">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -221,7 +221,7 @@
             </TextBox.Style>
         </TextBox>
         <!--影片图片Label-->
-        <TextBlock Text="影片图片：" HorizontalAlignment="Left" Margin="442,67,0,458.4" VerticalAlignment="Center" FontSize="24" Height="45" Width="141"/>
+        <Label Content="影片图片：" HorizontalAlignment="Left" Margin="442,61,0,470" VerticalAlignment="Center" FontSize="24" Height="40" Width="141"/>
         <!--选择图片Button-->
         <Button Name="Button_Select" Content="选择图片" FontSize="22"  Margin="588,67,76,447" Foreground="White" 
                 MouseEnter="Button_MouseEnter"

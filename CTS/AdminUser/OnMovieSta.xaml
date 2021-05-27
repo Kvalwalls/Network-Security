@@ -9,15 +9,15 @@
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
         <!--场次统计Label-->
-        <Label HorizontalAlignment="Center" Content="场次统计" VerticalAlignment="Top" FontSize="36" Style="{StaticResource LabelPrimary}"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="场次统计" VerticalAlignment="Top" FontSize="36"/>
         <!--返回Button-->
-        <Button x:Name="Button_Return" Content="返回" FontSize="22"  Margin="284,367,9.6,10" Foreground="White" 
+        <Button x:Name="Button_Return" Content="返回" FontSize="22"  Margin="250,354,9.6,10" Foreground="White" 
             MouseEnter="Button_MouseEnter"
             MouseLeave="Button_MouseLeave"
-            Click="Button_Return_Click" Width="100" Height="43" >
+            Click="Button_Return_Click" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">

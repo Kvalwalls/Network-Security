@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:服务器UI"
         mc:Ignorable="d"
-    Title="ManageUser" Height="650" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="ManageUser" Height="650" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
         <!--Grid定义-->
         <Grid.ColumnDefinitions>
@@ -35,13 +34,13 @@
         <!--TabControl-->
         <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="10,60,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154">
             <!--TabItem1-->
-            <TabItem Height="75" Width="150" Header="用户管理" FontSize="20">
+            <TabItem Height="75" Width="150" Header="用户管理">
                 <Grid Background="Gainsboro">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="433*"/>
                         <ColumnDefinition Width="563*"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Name="UserList" HorizontalAlignment="Left" Height="435" Margin="10,85,0,0" VerticalAlignment="Top" Width="857" Grid.ColumnSpan="2" GridViewColumnHeader.Click="UserList_Click" >
+                    <ListView Name="UserList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851" Grid.ColumnSpan="2" GridViewColumnHeader.Click="UserList_Click">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="用户号" Width="170" DisplayMemberBinding="{Binding id}"></GridViewColumn>
@@ -53,10 +52,10 @@
                         </ListView.View>
                     </ListView>
 
-                    <Button x:Name="UserSearch" Content="查询" FontSize="22"  Margin="436,85,10.4,374.6" Foreground="White" 
+                    <Button x:Name="UserSearch" Content="查询" FontSize="22"  Margin="432.6,79,10,367" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="UserSearch_Click" Grid.Column="1" Height="70" Width="120">
+                            Click="UserSearch_Click" Grid.Column="1">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -67,10 +66,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="UserAdd" Content="添加" FontSize="22"  Margin="436,268,10.4,190.6" Foreground="White" 
+                    <Button x:Name="UserAdd" Content="添加" FontSize="22"  Margin="433.2,245,9,201" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="UserAdd_Click" Grid.Column="1" Width="120" Height="71">
+                            Click="UserAdd_Click" Grid.Column="1">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -81,10 +80,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="UserDelete" Content="删除" FontSize="22"  Margin="436,450,10.4,9.6" Foreground="White" 
+                    <Button x:Name="UserDelete" Content="删除" FontSize="22"  Margin="432.6,436,10,10" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="UserDelete_Click" Grid.Column="1" Width="120" Height="70">
+                            Click="UserDelete_Click" Grid.Column="1">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -95,7 +94,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_UserSearchid" VerticalContentAlignment="Center" FontSize="24" Margin="10,10,10,449.6">
+                    <TextBox x:Name="TextBox_UserSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,561,450" Grid.ColumnSpan="2">
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -117,22 +116,22 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <ComboBox Name="ComboBox_Access" FontSize="22" Opacity="1" Text="用户权限" SelectedIndex="-1" Margin="0,10,135.4,449.6" Grid.Column="1" HorizontalAlignment="Right" Width="421">
-                        <ComboBoxItem Content="用户权限" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="22"/>
-                        <ComboBoxItem Name="Access_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="Access_CommonUser" Content="普通用户" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="Access_VIP" Content="VIP用户" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="Access_SVIP" Content="SVIP用户" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="Access_CommonManager" Content="普通管理员" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
+                    <ComboBox Name="ComboBox_Access" FontSize="32" Opacity="1" Text="用户权限" SelectedIndex="-1" Margin="7.2,10,135,450" Grid.Column="1">
+                        <ComboBoxItem Content="用户权限" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="32"/>
+                        <ComboBoxItem Name="Access_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="Access_CommonUser" Content="普通用户" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="Access_VIP" Content="VIP用户" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="Access_SVIP" Content="SVIP用户" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="Access_CommonManager" Content="普通管理员" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
                     </ComboBox>
 
                 </Grid>
             </TabItem>
 
-            <TabItem Height="75" Width="150" Header="影厅管理" FontSize="20">
+            <TabItem Height="75" Width="150" Header="影厅管理">
                 <Grid Background="Gainsboro">
 
-                    <ListView Name="TheaterList" HorizontalAlignment="Left" Height="435" Margin="10,85,0,0" VerticalAlignment="Top" Width="857">
+                    <ListView Name="TheaterList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="影厅号" Width="283" DisplayMemberBinding="{Binding id}"></GridViewColumn>
@@ -142,10 +141,10 @@
                         </ListView.View>
                     </ListView>
 
-                    <Button x:Name="TheaterSearch" Content="查询" FontSize="22"  Margin="872,79,10.4,380.6" Foreground="White" 
+                    <Button x:Name="TheaterSearch" Content="查询" FontSize="22"  Margin="866,79,10,367" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="TheaterSearch_Click" Width="120" Height="70">
+                            Click="TheaterSearch_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -156,10 +155,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="TheaterAdd" Content="添加" FontSize="22"  Margin="872,265,10.4,193.6" Foreground="White" 
+                    <Button x:Name="TheaterAdd" Content="添加" FontSize="22"  Margin="866,245,10,201" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="TheaterAdd_Click" Height="71" Width="120">
+                            Click="TheaterAdd_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -170,10 +169,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="TheaterDelete" Content="删除" FontSize="22"  Margin="872,450,10.4,9.6" Foreground="White" 
+                    <Button x:Name="TheaterDelete" Content="删除" FontSize="22"  Margin="866,436,10,10" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="TheaterDelete_Click" Width="120" Height="70">
+                            Click="TheaterDelete_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -184,7 +183,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_TheaterSearchid" VerticalContentAlignment="Center" FontSize="24" Margin="10,10,707.4,449.6" >
+                    <TextBox x:Name="TextBox_TheaterSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,707,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -206,31 +205,31 @@
                         </TextBox.Style>
                     </TextBox>
 
+                  
 
-
-                    <ComboBox Name="ComboBox_TheaterType" FontSize="32" Opacity="1" Text="影厅类型" SelectedIndex="-1" Margin="300,10,419.4,449.6">
-                        <ComboBoxItem Content="影厅类型" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="22"/>
-                        <ComboBoxItem Name="TheaterType_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TheaterType_Common" Content="普通影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TheaterType_VIP" Content="VIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TheaterType_SVIP" Content="SVIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
+                    <ComboBox Name="ComboBox_TheaterType" FontSize="32" Opacity="1" Text="影厅类型" SelectedIndex="-1" Margin="294,10,419,450">
+                        <ComboBoxItem Content="影厅类型" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterType_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterType_Common" Content="普通影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterType_VIP" Content="VIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterType_SVIP" Content="SVIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
                     </ComboBox>
 
-                    <ComboBox Name="ComboBox_TheaterSize" FontSize="32" Opacity="1" Text="影厅大小" SelectedIndex="-1" Margin="588,10,135.4,449.6">
-                        <ComboBoxItem Content="影厅大小" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="22"/>
-                        <ComboBoxItem Name="TheaterSize_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TheaterSize_Sma" Content="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TheaterSize_Mid" Content="32" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TheaterSize_Lar" Content="64" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
+                    <ComboBox Name="ComboBox_TheaterSize" FontSize="32" Opacity="1" Text="影厅大小" SelectedIndex="-1" Margin="582,10,135,450">
+                        <ComboBoxItem Content="影厅大小" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterSize_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterSize_Sma" Content="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterSize_Mid" Content="32" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TheaterSize_Lar" Content="64" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
                     </ComboBox>
-
+          
 
                 </Grid>
             </TabItem>
-            <TabItem Header="影片管理" Height="75" Width="150" FontSize="20">
+            <TabItem Header="影片管理" Height="75" Width="150">
                 <Grid Background="#FFE5E5E5">
 
-                    <ListView Name="MovieList" HorizontalAlignment="Left" Height="435" Margin="10,85,0,0" VerticalAlignment="Top" Width="857" MouseDoubleClick="MovieList_MouseDoubleClick">
+                    <ListView Name="MovieList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851" MouseDoubleClick="MovieList_MouseDoubleClick">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="影片号" Width="170" DisplayMemberBinding="{Binding id}"></GridViewColumn>
@@ -242,10 +241,10 @@
                         </ListView.View>
                     </ListView>
 
-                    <Button x:Name="MovieSearch" Content="查询" FontSize="22"  Margin="872,79,10.4,378.6" Foreground="White" 
+                    <Button x:Name="MovieSearch" Content="查询" FontSize="22"  Margin="866,79,10,367" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="MovieSearch_Click" Height="72" Width="120">
+                            Click="MovieSearch_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -256,10 +255,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="MovieAdd" Content="添加" FontSize="22"  Margin="872,266,10.4,193.6" Foreground="White" 
+                    <Button x:Name="MovieAdd" Content="添加" FontSize="22"  Margin="866,245,10,201" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="MovieAdd_Click" Width="120" Height="70">
+                            Click="MovieAdd_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -270,10 +269,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="MovieDelete" Content="删除" FontSize="22"  Margin="872,450,10.4,9.6" Foreground="White" 
+                    <Button x:Name="MovieDelete" Content="删除" FontSize="22"  Margin="866,436,10,10" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="MovieDelete_Click" Width="120" Height="70">
+                            Click="MovieDelete_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -284,7 +283,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_MovieSearchid" VerticalContentAlignment="Center" FontSize="24" Margin="10,10,569.4,449.6" >
+                    <TextBox x:Name="TextBox_MovieSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,569,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -306,7 +305,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox x:Name="TextBox_MovieSearchname" VerticalContentAlignment="Center" FontSize="24" Margin="438,10,135.4,449.6" >
+                    <TextBox x:Name="TextBox_MovieSearchname" VerticalContentAlignment="Center" FontSize="32" Margin="432,10,135,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -330,25 +329,25 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Height="75" Width="150" Header="场次管理" FontSize="20">
+            <TabItem Height="75" Width="150" Header="场次管理">
                 <Grid Background="#FFE5E5E5">
 
-                    <ListView Name="OnMovieList" HorizontalAlignment="Left" Height="435" Margin="10,85,0,0" VerticalAlignment="Top" Width="857">
+                    <ListView Name="OnMovieList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="场次号" Width="111" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
-                                <GridViewColumn Header="影片号" Width="111" DisplayMemberBinding="{Binding mid}"></GridViewColumn>
-                                <GridViewColumn Header="影厅号" Width="121" DisplayMemberBinding="{Binding tid}"></GridViewColumn>
-                                <GridViewColumn Header="开始时间" Width="191" DisplayMemberBinding="{Binding begintime}"></GridViewColumn>
-                                <GridViewColumn Header="结束时间" Width="191" DisplayMemberBinding="{Binding endtime}"></GridViewColumn>
-                                <GridViewColumn Header="票价" Width="121" DisplayMemberBinding="{Binding price}"></GridViewColumn>
+                                <GridViewColumn Header="场次号" Width="141" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
+                                <GridViewColumn Header="影片号" Width="141" DisplayMemberBinding="{Binding mid}"></GridViewColumn>
+                                <GridViewColumn Header="影厅号" Width="141" DisplayMemberBinding="{Binding tid}"></GridViewColumn>
+                                <GridViewColumn Header="开始时间" Width="141" DisplayMemberBinding="{Binding begintime}"></GridViewColumn>
+                                <GridViewColumn Header="结束时间" Width="141" DisplayMemberBinding="{Binding endtime}"></GridViewColumn>
+                                <GridViewColumn Header="票价" Width="141" DisplayMemberBinding="{Binding price}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="OnMovieSearch" Content="查询" FontSize="22"  Margin="872,79,10.4,380.6" Foreground="White" 
+                    <Button x:Name="OnMovieSearch" Content="查询" FontSize="22"  Margin="866,79,10,367" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="OnMovieSearch_Click" Width="120" Height="70">
+                            Click="OnMovieSearch_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -359,10 +358,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="OnMovieAdd" Content="添加" FontSize="22"  Margin="872,263,10.4,196.6" Foreground="White" 
+                    <Button x:Name="OnMovieAdd" Content="添加" FontSize="22"  Margin="866,245,10,201" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="OnMovieAdd_Click" Width="120" Height="70">
+                            Click="OnMovieAdd_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -373,10 +372,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="OnMovieDelete" Content="删除" FontSize="22"  Margin="872,450,10.4,9.6" Foreground="White" 
+                    <Button x:Name="OnMovieDelete" Content="删除" FontSize="22"  Margin="866,436,10,10" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="OnMovieDelete_Click" Width="120" Height="70">
+                            Click="OnMovieDelete_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -387,7 +386,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_OnMovieSearchoid" VerticalContentAlignment="Center" FontSize="24" Margin="10,10,706.4,449.6" >
+                    <TextBox x:Name="TextBox_OnMovieSearchoid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,706,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -409,7 +408,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox x:Name="TextBox_OnMovieSearchmid" VerticalContentAlignment="Center" FontSize="24" Margin="301,10,421.4,449.6" >
+                    <TextBox x:Name="TextBox_OnMovieSearchmid" VerticalContentAlignment="Center" FontSize="32" Margin="295,10,421,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -431,7 +430,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox x:Name="TextBox_OnMovieSearchpid" VerticalContentAlignment="Center" FontSize="24" Margin="586,10,135.4,449.6" >
+                    <TextBox x:Name="TextBox_OnMovieSearchpid" VerticalContentAlignment="Center" FontSize="32" Margin="580,10,135,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -456,26 +455,26 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Height="75" Width="150" Header="票务管理" FontSize="20">
+            <TabItem Height="75" Width="150" Header="票务管理">
                 <Grid Background="#FFE5E5E5">
 
-                    <ListView Name="TicketList" HorizontalAlignment="Left" Height="435" Margin="10,85,0,0" VerticalAlignment="Top" Width="857">
+                    <ListView Name="TicketList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="851">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="用户号" Width="121" DisplayMemberBinding="{Binding uid}"></GridViewColumn>
-                                <GridViewColumn Header="座位号" Width="121" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
-                                <GridViewColumn Header="场次号" Width="121" DisplayMemberBinding="{Binding sid}"></GridViewColumn>
-                                <GridViewColumn Header="购票时间" Width="191" DisplayMemberBinding="{Binding time}"></GridViewColumn>
+                                <GridViewColumn Header="用户号" Width="141" DisplayMemberBinding="{Binding uid}"></GridViewColumn>
+                                <GridViewColumn Header="座位号" Width="141" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
+                                <GridViewColumn Header="场次号" Width="141" DisplayMemberBinding="{Binding sid}"></GridViewColumn>
+                                <GridViewColumn Header="购票时间" Width="141" DisplayMemberBinding="{Binding time}"></GridViewColumn>
                                 <GridViewColumn Header="实际价格" Width="141" DisplayMemberBinding="{Binding price}"></GridViewColumn>
                                 <GridViewColumn Header="状态" Width="141" DisplayMemberBinding="{Binding status}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
 
-                    <Button x:Name="TicketSearch" Content="查询" FontSize="22"  Margin="872,79,10.4,380.6" Foreground="White" 
+                    <Button x:Name="TicketSearch" Content="查询" FontSize="22"  Margin="866,79,10,367" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="TicketSearch_Click" Width="120" Height="70">
+                            Click="TicketSearch_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -486,10 +485,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="TicketUserSta" Content="用户统计" FontSize="22"  Margin="872,267,10.4,192.6" Foreground="White" 
+                    <Button x:Name="TicketUserSta" Content="用户统计" FontSize="22"  Margin="866,245,10,201" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="TicketUserSta_Click" Width="120" Height="70">
+                            Click="TicketUserSta_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -500,10 +499,10 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="TicketOnMovieSta" Content="场次统计" FontSize="22"  Margin="872,450,10.4,9.6" Foreground="White" 
+                    <Button x:Name="TicketOnMovieSta" Content="场次统计" FontSize="22"  Margin="866,436,10,10" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="TicketOnMovieSta_Click" Width="120" Height="70">
+                            Click="TicketOnMovieSta_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -514,7 +513,7 @@
                         </Button.Template>
                     </Button>
 
-                    <TextBox x:Name="TextBox_TicketSearchid" VerticalContentAlignment="Center" FontSize="24" Margin="10,10,707,450" >
+                    <TextBox x:Name="TextBox_TicketSearchid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,707,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -536,7 +535,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox x:Name="TextBox_TicketSearchoid" VerticalContentAlignment="Center" FontSize="24" Margin="300,10,421.4,449.6" >
+                    <TextBox x:Name="TextBox_TicketSearchoid" VerticalContentAlignment="Center" FontSize="32" Margin="294,10,421,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -558,21 +557,21 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <ComboBox Name="ComboBox_TicketStatus" FontSize="32" Opacity="1" Text="支付状态" SelectedIndex="-1" Margin="586,10,135.4,449.6">
-                        <ComboBoxItem Content="支付状态" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="22"/>
-                        <ComboBoxItem Name="TicketStatus_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TicketStatus_no" Content="未支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TicketStatus_wait" Content="待支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TicketStatus_yes" Content="已支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
+                    <ComboBox Name="ComboBox_TicketStatus" FontSize="32" Opacity="1" Text="支付状态" SelectedIndex="-1" Margin="582,10,135,450">
+                        <ComboBoxItem Content="支付状态" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="32"/>
+                        <ComboBoxItem Name="TicketStatus_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TicketStatus_no" Content="未支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TicketStatus_wait" Content="待支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
+                        <ComboBoxItem Name="TicketStatus_yes" Content="已支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
                     </ComboBox>
-
+                    
                 </Grid>
             </TabItem>
 
-            <TabItem Height="75" Width="150" Header="加解密" FontSize="20">
+            <TabItem Height="75" Width="150" Header="加解密">
                 <Grid Background="#FFE5E5E5">
 
-                    <ListView Name="PackageList" HorizontalAlignment="Left" Height="435" Margin="10,85,0,0" VerticalAlignment="Top" Width="982">
+                    <ListView Name="PackageList" HorizontalAlignment="Left" Height="435" Margin="10,79,0,0" VerticalAlignment="Top" Width="976">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="序号" Width="108" DisplayMemberBinding="{Binding uid}"></GridViewColumn>
@@ -588,7 +587,7 @@
                         </ListView.View>
                     </ListView>
 
-                    <TextBox x:Name="TextBox_PackageSearchSid" VerticalContentAlignment="Center" FontSize="24" Margin="10,10,596,450" >
+                    <TextBox x:Name="TextBox_PackageSearchSid" VerticalContentAlignment="Center" FontSize="32" Margin="10,10,596,450" >
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -610,7 +609,7 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <TextBox x:Name="TextBox_PackageSearchDid" VerticalContentAlignment="Center" FontSize="24" Margin="411,10,196.4,449.6">
+                    <TextBox x:Name="TextBox_PackageSearchDid" VerticalContentAlignment="Center" FontSize="32" Margin="405,10,203,450">
                         <TextBox.Resources>
                             <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                                 <VisualBrush.Visual>
@@ -632,10 +631,10 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <Button x:Name="PackageSearch" Content="查询" FontSize="22"  Margin="872,10,10.4,449.6" Foreground="White" 
+                    <Button x:Name="PackageSearch" Content="查询" FontSize="22"  Margin="812,10,10,450" Foreground="White" 
                             MouseEnter="X_MouseEnter"
                             MouseLeave="X_MouseLeave"
-                            Click="PackageSearch_Click" Width="120" Height="70">
+                            Click="PackageSearch_Click">
                         <Button.Template >
                             <ControlTemplate TargetType="{x:Type Button}" >
                                 <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -645,7 +644,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-
+                    
                 </Grid>
             </TabItem>
 
@@ -689,11 +688,6 @@
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontSize" Value="18" />
         </Style>
-
-        <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
-            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-        </Style>
-
     </Window.Resources>
 
 </Window>

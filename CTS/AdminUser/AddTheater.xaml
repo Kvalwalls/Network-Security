@@ -9,15 +9,15 @@
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
         </Grid.Background>
         <!--升级权限Label-->
-        <Label HorizontalAlignment="Center" Content="添加影厅" VerticalAlignment="Top" FontSize="36" Style="{StaticResource LabelPrimary}"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="添加影厅" VerticalAlignment="Top" FontSize="36"/>
         <!--确定Button-->
-        <Button Name="Button_Add" Content="确定" FontSize="22"  Margin="10,367,283.6,10" Foreground="White" 
+        <Button Name="Button_Add" Content="确定" FontSize="22"  Margin="10,354,249.6,10" Foreground="White" 
                 MouseEnter="Button_MouseEnter"
                 MouseLeave="Button_MouseLeave"
-                Click="Button_Add_Click" Width="100" Height="43" >
+                Click="Button_Add_Click" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -28,10 +28,10 @@
             </Button.Template>
         </Button>
         <!--取消Button-->
-        <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="284,367,9.6,10" Foreground="White" 
+        <Button x:Name="Button_Cancel" Content="取消" FontSize="22"  Margin="250,354,9.6,10" Foreground="White" 
             MouseEnter="Button_MouseEnter"
             MouseLeave="Button_MouseLeave"
-            Click="Button_Cancel_Click" Width="100" Height="43" >
+            Click="Button_Cancel_Click" >
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
@@ -44,7 +44,7 @@
             </Button.Template>
         </Button>
         <!--账号TextBox-->
-        <TextBox Name="TextBox_id" VerticalContentAlignment="Center" FontSize="22" Margin="81,61,53.6,309" TextChanged="TextBox_id_TextChanged" MouseLeave="TextBox_id_MouseLeave">
+        <TextBox Name="TextBox_id" VerticalContentAlignment="Center" FontSize="32" Margin="81,61,53.6,309" TextChanged="TextBox_id_TextChanged" MouseLeave="TextBox_id_MouseLeave">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -67,20 +67,20 @@
         </TextBox>
         <!--影厅类型Combox-->
         <ComboBox Name="ComboBox_TheaterType" FontSize="30" Opacity="1" Text="影厅类型" SelectedIndex="-1" Margin="81,161,53.6,209" MouseLeave="ComboBox_TheaterType_MouseLeave">
-            <ComboBoxItem Content="影厅类型" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="22"/>
-            <ComboBoxItem Name="TheaterType_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-            <ComboBoxItem Name="TheaterType_Common" Content="普通影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-            <ComboBoxItem Name="TheaterType_VIP" Content="VIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-            <ComboBoxItem Name="TheaterType_SVIP" Content="SVIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
+            <ComboBoxItem Content="影厅类型" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="30"/>
+            <ComboBoxItem Name="TheaterType_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="30"/>
+            <ComboBoxItem Name="TheaterType_Common" Content="普通影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="30"/>
+            <ComboBoxItem Name="TheaterType_VIP" Content="VIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="30"/>
+            <ComboBoxItem Name="TheaterType_SVIP" Content="SVIP影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="30"/>
         </ComboBox>
 
         <!--影厅大小Combox-->
         <ComboBox Name="ComboBox_TheaterSize" FontSize="30" Opacity="1" Text="影厅大小" SelectedIndex="-1" Margin="81,261,53.6,109" MouseLeave="ComboBox_TheaterSize_MouseLeave">
-            <ComboBoxItem Content="影厅大小" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="22"/>
-            <ComboBoxItem Name="TheaterSize_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-            <ComboBoxItem Name="TheaterSize_Sma" Content="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-            <ComboBoxItem Name="TheaterSize_Mid" Content="32" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-            <ComboBoxItem Name="TheaterSize_Lar" Content="64" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
+            <ComboBoxItem Content="影厅大小" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="30"/>
+            <ComboBoxItem Name="TheaterSize_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="30"/>
+            <ComboBoxItem Name="TheaterSize_Sma" Content="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="30"/>
+            <ComboBoxItem Name="TheaterSize_Mid" Content="32" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="30"/>
+            <ComboBoxItem Name="TheaterSize_Lar" Content="64" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="30"/>
         </ComboBox>
 
         <TextBlock Name="IdTip" Foreground="Red" HorizontalAlignment="Left" Margin="81,117,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="260" />
