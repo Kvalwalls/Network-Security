@@ -21,7 +21,11 @@ public class ASHandler implements Runnable {
 
     @Override
     public void run() {
-        TransMessage transMessage = transceiver.receiveMessage();
+        try {
+            TransMessage transMessage = transceiver.receiveMessage();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     private boolean verifyMessage(TransMessage transMessage) {

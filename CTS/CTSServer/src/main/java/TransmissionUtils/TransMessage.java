@@ -1,54 +1,33 @@
 package TransmissionUtils;
 
-import org.w3c.dom.Document;
+import SecurityUtils.DESHandler;
+import SecurityUtils.RSAHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransMessage {
-    private byte[] fromAddress;
     private byte[] toAddress;
+    private byte[] fromAddress;
     private byte serviceType;
     private byte specificType;
     private byte errorCode;
-    private int signLength;
-    private int contentLength;
+    private byte cryptCode;
     private String signature;
-    private Document contents;
+    private String contents;
+
+    public TransMessage(byte[] tAddr, byte[] fAddr, byte serviceT, byte specificT, byte cryptC, String con) {
+        this.toAddress = tAddr;
+        this.fromAddress = fAddr;
+        this.serviceType = serviceT;
+        this.specificType = specificT;
+        this.cryptCode = cryptC;
+        this.contents = con;
+    }
 
     public TransMessage() {
-
-    }
-
-    public TransMessage(byte[] bytes) {
-
-    }
-
-    public TransMessage(byte[] fromAddress, byte[] toAddress, byte serviceType, byte specificType, byte errorCode, int contentLength, Document contents) {
-        this.fromAddress = fromAddress;
-        this.toAddress = toAddress;
-        this.serviceType = serviceType;
-        this.specificType = specificType;
-        this.errorCode = errorCode;
-        this.contentLength = contentLength;
-        this.contents = contents;
-    }
-
-    public TransMessage(byte[] fromAddress, byte[] toAddress, byte serviceType, byte specificType, byte errorCode, int signLength, int contentLength, String signature, Document contents) {
-        this.fromAddress = fromAddress;
-        this.toAddress = toAddress;
-        this.serviceType = serviceType;
-        this.specificType = specificType;
-        this.errorCode = errorCode;
-        this.signLength = signLength;
-        this.contentLength = contentLength;
-        this.signature = signature;
-        this.contents = contents;
-    }
-
-    public byte[] getFromAddress() {
-        return fromAddress;
-    }
-
-    public void setFromAddress(byte[] fromAddress) {
-        this.fromAddress = fromAddress;
+        this.toAddress = new byte[4];
+        this.fromAddress = new byte[4];
     }
 
     public byte[] getToAddress() {
@@ -57,6 +36,14 @@ public class TransMessage {
 
     public void setToAddress(byte[] toAddress) {
         this.toAddress = toAddress;
+    }
+
+    public byte[] getFromAddress() {
+        return fromAddress;
+    }
+
+    public void setFromAddress(byte[] fromAddress) {
+        this.fromAddress = fromAddress;
     }
 
     public byte getServiceType() {
@@ -83,20 +70,12 @@ public class TransMessage {
         this.errorCode = errorCode;
     }
 
-    public int getSignLength() {
-        return signLength;
+    public byte getCryptCode() {
+        return cryptCode;
     }
 
-    public void setSignLength(int signLength) {
-        this.signLength = signLength;
-    }
-
-    public int getContentLength() {
-        return contentLength;
-    }
-
-    public void setContentLength(int contentLength) {
-        this.contentLength = contentLength;
+    public void setCryptCode(byte cryptCode) {
+        this.cryptCode = cryptCode;
     }
 
     public String getSignature() {
@@ -107,27 +86,58 @@ public class TransMessage {
         this.signature = signature;
     }
 
-    public Document getContents() {
+    public String getContents() {
         return contents;
     }
 
-    public void setContents(Document contents) {
+    public void setContents(String contents) {
         this.contents = contents;
     }
 
-    public boolean verifySign() {
-        return false;
+    public void enPackage(String rsaSKeyFile, String desKey) {
+        try {
+            signature = RSAHandler.generateSign(rsaSKeyFile, contents);
+            if (cryptCode == 1)
+                contents = DESHandler.encrypt(desKey, contents);
+            errorCode = 0;
+        } catch (Exception e) {
+            errorCode = 1;
+        }
     }
 
-    public byte[] convertBytes() {
-        return null;
+    public void dePackage(String rsaPKeyFile, String desKey) {
+        try {
+            if (cryptCode == 1)
+                contents = DESHandler.decrypt(desKey, contents);
+            if (!RSAHandler.verifySign(rsaPKeyFile, signature, contents))
+                errorCode = 1;
+        }
+        catch (Exception e) {
+            errorCode = 1;
+        }
     }
 
-    public byte[] convertEncryptedBytes(String key) {
-        return null;
-    }
-
-    private void generateSign() {
-
+    public byte[] MessageToBytes() {
+        List<Byte> byteList = new ArrayList<>();
+        for (byte b : toAddress)
+            byteList.add(b);
+        for (byte b : fromAddress)
+            byteList.add(b);
+        byteList.add(serviceType);
+        byteList.add(specificType);
+        byteList.add(errorCode);
+        byteList.add(cryptCode);
+        for (byte b : String.format("%-4d", signature.length()).getBytes())
+            byteList.add(b);
+        for (byte b : String.format("%-4d", contents.length()).getBytes())
+            byteList.add(b);
+        for (byte b : signature.getBytes())
+            byteList.add(b);
+        for (byte b : contents.getBytes())
+            byteList.add(b);
+        byte[] finalByteList = new byte[byteList.size()];
+        for (int i = 0; i < byteList.size(); i++)
+            finalByteList[i] = byteList.get(i);
+        return finalByteList;
     }
 }

@@ -25,7 +25,7 @@ namespace CommonUser.Security
             DESCryptoServiceProvider des = new DESCryptoServiceProvider();
             des.Key = Encoding.UTF8.GetBytes(key);//设置密钥
             des.Mode = CipherMode.ECB;//ECB模式
-            des.Padding = PaddingMode.PKCS7;//PKCS填充模式
+            des.Padding = PaddingMode.PKCS7;//PKCS7填充模式
             byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
             //分块加密
             MemoryStream ms = new MemoryStream();
@@ -53,7 +53,7 @@ namespace CommonUser.Security
             DESCryptoServiceProvider des = new DESCryptoServiceProvider();
             des.Key = Encoding.UTF8.GetBytes(key);//设置密钥
             des.Mode = CipherMode.ECB;//ECB模式
-            des.Padding = PaddingMode.PKCS7;//PKCS填充模式
+            des.Padding = PaddingMode.PKCS7;//PKCS7填充模式
             byte[] cipherBytes = Convert.FromBase64String(cipherText);//从Base格式转换
             //分块解密
             MemoryStream ms = new MemoryStream();
