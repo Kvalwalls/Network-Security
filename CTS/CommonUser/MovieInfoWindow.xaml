@@ -1,0 +1,87 @@
+﻿<Window x:Class="CommonUser.MovieInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommonUser"
+        mc:Ignorable="d"
+        Title="影片信息" Height="600" Width="600" ResizeMode="NoResize">
+    <Grid x:Name="Grid_Info" DataContext="{Binding}">
+        <!--背景-->
+        <Grid.Background>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+        </Grid.Background>
+        <Image Source="{Binding Path=Mpicture}" Margin="10,10,363.6,300.4"/>
+        <TextBlock Text="{Binding Path=Mname}" FontSize="28" Margin="235,10,9.6,490.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="349" Height="70"/>
+        <TextBlock Text="{Binding Path=Mtype}" FontSize="24" Margin="346,85,0,445.4"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Width="178" Height="40"/>
+        <TextBlock Text="{Binding Path=Mtime}" FontSize="24" Margin="346,125,0,402.4"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Width="46" Height="43"/>
+        <TextBlock Text="{Binding Path=Mcomment}" FontSize="24" Margin="346,168,0,361.4" RenderTransformOrigin="0.731,-0.364"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Width="46" Height="41"/>
+        <TextBox Text="{Binding Path=Mdescription}" FontSize="18" Margin="10,275,9.6,10.4" IsReadOnly="True"
+                  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" TextWrapping="Wrap"/>
+        <TextBlock Text="类型：" FontSize="24" Margin="274,85,0,445.4"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Height="40"/>
+        <TextBlock Text="时长：" FontSize="24" Margin="274,125,0,402.4"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Height="43"/>
+        <TextBlock Text="评分：" FontSize="24" Margin="274,168,0,361.4"
+            VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.833,0.648" Height="41"/>
+        <TextBlock Text="分钟" FontSize="24" Margin="397,125,0,402.4"
+            VerticalAlignment="Center" HorizontalAlignment="Left" Height="43" Width="52"/>
+        <TextBlock Text="分" FontSize="24" Margin="397,168,0,361.4"
+            VerticalAlignment="Center" HorizontalAlignment="Left" Height="41" Width="27"/>
+        <!--图标-->
+        <Image Margin="230,85,323.6,450.4" Source="ImageResources\图标(黑)_类型.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
+        <Image Margin="230,120,323.6,410.4" Source="ImageResources\图标(黑)_时长.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
+        <Image Margin="230,165,324.6,368.4" Source="ImageResources\图标(黑)_评分.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
+        <Image Margin="434,168,130.6,373.4" Source="ImageResources\图标(黑)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
+        <Image Margin="434,168,130.6,373.4" Source="ImageResources\图标(黄)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"
+               Name="Image_Star1"  Opacity="0"/>
+        <Image Margin="463,168,101.6,373.4" Source="ImageResources/图标(黑)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
+        <Image Margin="463,168,101.6,373.4" Source="ImageResources/图标(黄)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"
+              Name="Image_Star2" Opacity="0"/>
+        <Image Margin="492,168,71.6,373.4" Source="ImageResources/图标(黑)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
+        <Image Margin="492,168,71.6,373.4" Source="ImageResources/图标(黄)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"
+              Name="Image_Star3" Opacity="0"/>
+        <Image Margin="522,168,42.6,373.4" Source="ImageResources/图标(黑)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
+        <Image Margin="522,168,42.6,373.4" Source="ImageResources/图标(黄)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"
+               Name="Image_Star4" Opacity="0"/>
+        <Image Margin="551,168,13.6,373.4" Source="ImageResources/图标(黑)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"/>
+        <Image Margin="551,168,13.6,373.4" Source="ImageResources/图标(黄)_星星.png" Stretch="Fill" RenderTransformOrigin="0.431,-2.8"
+               Name="Image_Star5" Opacity="0"/>
+        <!--购票Button-->
+        <Button x:Name="Button_Buy" Content="购票" FontSize="28"  Margin="235,214,228.6,300.4" Foreground="White" 
+                        MouseEnter="X_MouseEnter"
+                        MouseLeave="X_MouseLeave"
+                        Click="Button_Buy_Click" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>Gray</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <!--返回Button-->
+        <Button x:Name="Button_Back" Content="返回" FontSize="28"  Margin="454,214,9.6,300.4" Foreground="White" 
+                        MouseEnter="X_MouseEnter"
+                        MouseLeave="X_MouseLeave"
+                        Click="Button_Back_Click" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>Gray</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</Window>
