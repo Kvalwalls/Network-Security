@@ -15,41 +15,57 @@ using System.Windows.Shapes;
 
 namespace CommonUser
 {
-    /// <summary>
-    /// RegisterWindow.xaml 的交互逻辑
-    /// </summary>
-    public partial class RegisterWindow : Window
-    {
-        private User user;
-        private string id = "";
-        private string name = "";
-        private string pwdInput = "";
-        private string pwdCheck = "";
+	/// <summary>
+	/// RegisterWindow.xaml 的交互逻辑
+	/// </summary>
+	public partial class RegisterWindow : Window
+	{
+		private User user;
+		private string id = "";
+		private string name = "";
+		private string pwdInput = "";
+		private string pwdCheck = "";
 
-        public RegisterWindow()
-        {
-            InitializeComponent();
-        }
+		public RegisterWindow()
+		{
+			InitializeComponent();
+		}
 
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Cursor = Cursors.Hand;
-        }
+		private void Button_MouseEnter(object sender, MouseEventArgs e)
+		{
+			Cursor = Cursors.Hand;
+		}
 
-        private void Button_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Cursor = Cursors.Arrow;
-        }
+		private void Button_MouseLeave(object sender, MouseEventArgs e)
+		{
+			Cursor = Cursors.Arrow;
+		}
 
-        private void Button_Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+		private void Button_Cancel_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+		}
 
-        private void Button_Register_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+		private void Button_Register_Click(object sender, RoutedEventArgs e)
+		{
+			if (TextBox_id.Text != string.Empty && TextBox_name.Text != string.Empty && TextBox_pwdInput.Text != string.Empty && TextBox_pwdCheck.Text != string.Empty && yzm.Text != string.Empty)
+			{
+				if (TextBox_pwdInput.Text != TextBox_pwdCheck.Text)
+				{
+					MessageBox.Show("两次密码不一致！请重新输入", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+					TextBox_pwdInput.Text = "";
+					TextBox_pwdCheck.Text = "";
+				}
+				else
+				{
+					MessageBox.Show("注册成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+				}
+			}
+			else
+			{
+				MessageBox.Show("有项目还未填写！请输入", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+		}
 
         private void TextBox_pwdInput_TextChanged(object sender, TextChangedEventArgs e)
         {

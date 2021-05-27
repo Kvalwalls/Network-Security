@@ -36,7 +36,14 @@ namespace CommonUser
 
         private void Button_Refind_Click(object sender, RoutedEventArgs e)
         {
+			if(TextBox_id.Text!=string.Empty&&TextBox_name.Text!=string.Empty)
+			{
 
+			}
+			else
+			{
+				MessageBox.Show("还有项目未填！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
         }
 
         private void Button_Cancel_Click(object sender, RoutedEventArgs e)

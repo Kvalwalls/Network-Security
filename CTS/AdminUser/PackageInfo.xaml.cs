@@ -19,12 +19,9 @@ namespace 服务器UI
     /// </summary>
     public partial class PackageInfo : Window
     {
-        public static TransMessageR r;
-        public PackageInfo(TransMessageR t)
+        public PackageInfo()
         {
             InitializeComponent();
-            r = t;
-            ShowPackage();
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
@@ -42,29 +39,5 @@ namespace 服务器UI
             Close();
         }
 
-        private void ShowPackage()
-        {
-            TextBlock_Sid.Text += r.Sid;
-            TextBlock_Did.Text += r.Did;
-            TextBlock_AppType.Text += r.SerType;
-            TextBlock_ConType.Text += r.SpeType;
-            TextBlock_Error.Text += r.Error;
-            TextBlock_Crypt.Text += r.Crypt;
-            TextBlock_MLength.Text += r.SLength;
-            TextBlock_CLength.Text += r.CLength;
-            if (true)
-            {
-                Text_Encrypt.Text = r.content;
-            }
-            else
-            {
-                Text_Encrypt.Text = r.content;
-
-                Text_Decrypt.Text = r.content;
-            }
-
-
-
-        }
     }
 }

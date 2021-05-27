@@ -50,14 +50,14 @@ namespace CommonUser
             float number = 0.0f;
             if (!IsNumber(TextBox_Input.Text, out number))
             {
-                MessageBox.Show("请输入正确的数字！", "输入错误");
+                MessageBox.Show("请输入正确的数字！", "错误",MessageBoxButton.OK,MessageBoxImage.Error);
                 return;
             }
             else
             {
                 new MyPayWIndow(number).ShowDialog();
                 /*发送请求*/
-                MessageBox.Show("充值成功！", "提示");
+                MessageBox.Show("充值成功！", "提示",MessageBoxButton.OK,MessageBoxImage.Information);
                 Close();
             }
         }
