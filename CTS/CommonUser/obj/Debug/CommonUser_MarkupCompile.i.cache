@@ -1,66 +1,20 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 ﻿CommonUser
 
 
 winexe
 C#
 .cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\
 CommonUser
 none
 false
 DEBUG;TRACE
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\App.xaml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\App.xaml
 15-1693345838
 
-23556740814
-15324535629
+26-938931663
+15531001493
 ControlSeat.xaml;PayWaitingWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;WaitingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;RecordInfoWindow.xaml;UpgradeWindow.xaml;
 
-True
+False
 
-=======
-﻿CommonUser
-
-
-winexe
-C#
-.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\
-CommonUser
-none
-false
-DEBUG;TRACE
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\App.xaml
-15-1693345838
-
-23556740814
-15324535629
-ControlSeat.xaml;PayWaitingWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;WaitingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;RecordInfoWindow.xaml;UpgradeWindow.xaml;
-
-True
-
->>>>>>> parent of 5f106b2 (小改)
-=======
-﻿CommonUser
-
-
-winexe
-C#
-.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\
-CommonUser
-none
-false
-DEBUG;TRACE
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\App.xaml
-15-1693345838
-
-23556740814
-15324535629
-ControlSeat.xaml;PayWaitingWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;WaitingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;RecordInfoWindow.xaml;UpgradeWindow.xaml;
-
-True
-
->>>>>>> parent of 5f106b2 (小改)
