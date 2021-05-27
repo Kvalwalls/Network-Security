@@ -32,6 +32,7 @@ namespace 服务器UI
         private static List<Theater> theaters = new List<Theater>();
         private static List<OnMovie> onmovies = new List<OnMovie>();
         private static List<Record> records = new List<Record>();
+        private static TransMessageR trans;
 
         public MainWindow()
         {
@@ -852,7 +853,11 @@ namespace 服务器UI
             {
                 for (int i = 0; i < records.Count; i++)
                 {
-                    //PackageList.Items.Add(records[i]);
+                    if(trans.Sid == TextBox_PackageSearchSid.Text)
+                    {
+                        //PackageList.Items.Add(records[i]);
+                    }
+            
                 }
                 PackageList.Items.Refresh();
             }
@@ -861,7 +866,10 @@ namespace 服务器UI
             {
                 for (int i = 0; i < records.Count; i++)
                 {
-                    //PackageList.Items.Add(records[i]);
+                    if (trans.Did == TextBox_PackageSearchDid.Text)
+                    {
+                        //PackageList.Items.Add(records[i]);
+                    }
                 }
                 PackageList.Items.Refresh();
             }
@@ -870,7 +878,11 @@ namespace 服务器UI
             {
                 for (int i = 0; i < records.Count; i++)
                 {
-                    //PackageList.Items.Add(records[i]);
+                    if (trans.Sid == TextBox_PackageSearchSid.Text && trans.Did == TextBox_PackageSearchDid.Text)
+                    {
+                        //PackageList.Items.Add(records[i]);
+                    }
+                  
                 }
                 PackageList.Items.Refresh();
             }
@@ -879,7 +891,7 @@ namespace 服务器UI
         private void PackageList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-            //Movie select = MovieList.SelectedItem as Movie;
+            TransMessageR select = PackageList.SelectedItem as TransMessageR;
             //var select = txtBox.DataContext as Movie;
             //ListBox listBox = sender as ListBox;
             //if (listBox == null || listBox.SelectedItem == null)
@@ -889,7 +901,7 @@ namespace 服务器UI
             //else
             //{
             Hide();
-            PackageInfo info = new PackageInfo();
+            PackageInfo info = new PackageInfo(select);
             info.ShowDialog();
             //}
         }

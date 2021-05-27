@@ -134,7 +134,7 @@
         <!--结束时间TextBlock-->
         <TextBlock Name="TextBlock_endtime" Text="结束时间：" HorizontalAlignment="Left" FontSize="24" Margin="64,331,0,150" TextWrapping="Wrap" VerticalAlignment="Center" Height="40" Width="259" />
         <!--票价TextBox-->
-        <TextBox Name="TextBox_price" VerticalContentAlignment="Center" FontSize="24" Margin="64,376,71,105" TextChanged="TextBox_price_TextChanged" MouseLeave="TextBox_price_MouseLeave">
+        <TextBox Name="TextBox_price" VerticalContentAlignment="Center" FontSize="24" Margin="64,386,70.6,94.8" TextChanged="TextBox_price_TextChanged" MouseLeave="TextBox_price_MouseLeave">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -160,7 +160,14 @@
         <TextBlock Name="MidTip" Foreground="Red" HorizontalAlignment="Left" Margin="64,240,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="259" />
         <TextBlock Name="PidTip" Foreground="Red" HorizontalAlignment="Left" Margin="64,172,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="273" />
         <TextBlock Name="StimeTip" Foreground="Red" HorizontalAlignment="Left" Margin="64,308,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="259" />
-        <TextBlock Name="PriceTip" Foreground="Red" HorizontalAlignment="Left" Margin="64,421,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="259" />
-    
+        <TextBlock Name="PriceTip" Foreground="Red" HorizontalAlignment="Left" Margin="64,431,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="259" />
+
+        <Image Margin="20,195,334.6,288.8" Source="ImageResources\影片.png" Stretch="Fill"/>
+        <Image Margin="20,127,334.6,356.8" Source="ImageResources\电影院.png" Stretch="Fill"/>
+        <Image Margin="20,59,334.6,424.8" Source="ImageResources\场次.png" Stretch="Fill"/>
+        <Image Margin="20,263,334.6,220.8" Source="ImageResources\时长.png" Stretch="Fill"/>
+        <Image Margin="20,386,334.6,97.8" Source="ImageResources\价格.png" Stretch="Fill"/>
+        <Image Margin="20,331,334.6,152.8" Source="ImageResources/时长.png" Stretch="Fill"/>
+
     </Grid>
 </Window>

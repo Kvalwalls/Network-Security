@@ -118,10 +118,10 @@
             <ComboBoxItem Name="Access_CommonManager" Content="普通管理员" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="32"/>
         </ComboBox>
         <!--各个图标-->
-        <Image Margin="28,65,324.6,315" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
-        <Image Margin="28,135,324.6,245" Source="ImageResources\图标(黑)_用户名.png" Stretch="Fill"/>
-        <Image Margin="28,210,324.6,170" Source="ImageResources\图标(黑)_密码.png" Stretch="Fill"/>
-        <Image Margin="25,275,320.6,100" Source="ImageResources\图标(黑)_选择.png" Stretch="Fill"/>
+        <Image Margin="35,61,317.6,319" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
+        <Image Margin="35,130,317.6,250" Source="ImageResources\图标(黑)_用户名.png" Stretch="Fill" RenderTransformOrigin="0.798,0.435"/>
+        <Image Margin="35,200,317.6,180" Source="ImageResources\图标(黑)_密码.png" Stretch="Fill"/>
+        <Image Margin="35,275,317.6,105" Source="ImageResources\图标(黑)_选择.png" Stretch="Fill"/>
         <TextBlock Name="IdTip" Foreground="Red" HorizontalAlignment="Left" Margin="81,112,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="260" />
         <TextBlock Name="NameTip" Foreground="Red" HorizontalAlignment="Left" Margin="81,182,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="260"/>
         <TextBlock Name="PasTip" Foreground="Red" HorizontalAlignment="Left" Margin="81,251,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="260"/>
