@@ -348,3 +348,12 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+*.xaml
+CTS/AdminUser/PackageInfo.xaml
+CTS/AdminUser/PackageInfo.xaml
+CTS/CommonUser/bin/Debug/CommonUser.exe.config
+CTS/CommonUser/bin/Debug/CommonUser.exe.config
+CTS/CommonUser/obj/Debug/CommonUser.csproj.FileListAbsolute.txt
+CTS/CommonUser/obj/Debug/CommonUser_MarkupCompile.cache
+CTS/CommonUser/obj/Debug/CommonUser_MarkupCompile.i.cache
+CTS/CommonUser/obj/Debug/CommonUser_MarkupCompile.lref
