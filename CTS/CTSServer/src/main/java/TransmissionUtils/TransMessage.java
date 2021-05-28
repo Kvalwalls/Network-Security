@@ -7,15 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransMessage {
+    //目的IP地址
     private byte[] toAddress;
+    //源IP地址
     private byte[] fromAddress;
+    //服务类型
     private byte serviceType;
+    //具体类型
     private byte specificType;
+    //错误码
     private byte errorCode;
+    //加密码
     private byte cryptCode;
+    //数字签名
     private String signature;
+    //报文内容
     private String contents;
 
+    /**
+     * 构造方法
+     */
     public TransMessage(byte[] tAddr, byte[] fAddr, byte serviceT, byte specificT, byte cryptC, String con) {
         this.toAddress = tAddr;
         this.fromAddress = fAddr;
@@ -25,6 +36,9 @@ public class TransMessage {
         this.contents = con;
     }
 
+    /**
+     * 构造方法
+     */
     public TransMessage() {
         this.toAddress = new byte[4];
         this.fromAddress = new byte[4];
@@ -94,6 +108,12 @@ public class TransMessage {
         this.contents = contents;
     }
 
+    /**
+     * 报文封装方法
+     *
+     * @param rsaSKeyFile RSA私钥文件名
+     * @param desKey      DES密钥
+     */
     public void enPackage(String rsaSKeyFile, String desKey) {
         try {
             signature = RSAHandler.generateSign(rsaSKeyFile, contents);
@@ -105,18 +125,28 @@ public class TransMessage {
         }
     }
 
+    /**
+     * 报文解封方法
+     *
+     * @param rsaPKeyFile RSA公钥文件名
+     * @param desKey      DES密钥
+     */
     public void dePackage(String rsaPKeyFile, String desKey) {
         try {
             if (cryptCode == 1)
                 contents = DESHandler.decrypt(desKey, contents);
             if (!RSAHandler.verifySign(rsaPKeyFile, signature, contents))
                 errorCode = 1;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             errorCode = 1;
         }
     }
 
+    /**
+     * 报文转换字节流方法
+     *
+     * @return 字节流
+     */
     public byte[] MessageToBytes() {
         List<Byte> byteList = new ArrayList<>();
         for (byte b : toAddress)

@@ -15,6 +15,13 @@ namespace CommonUser
         {
             InitializeComponent();
             Hide();
+            Socket socket = Connection.ConnectServer("127.0.0.1", 7000);
+            Transceiver transceiver = new Transceiver(socket);
+            TransMessage message = transceiver.ReceiveMessage();
+            message.DePackage("C:\\Users\\19705\\Desktop\\test.pk","00000000");
+            Console.WriteLine(message.errorCode);
+            Console.WriteLine(message.contents);
+            Close();
         }
     }
 }
