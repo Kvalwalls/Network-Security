@@ -1,15 +1,6 @@
-<<<<<<< HEAD
-﻿<Application x:Class="CommonUser.App"
+<Application x:Class="CommonUser.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CommonUser"
              StartupUri="ATest.xaml">
 </Application>
-=======
-﻿<Application x:Class="CommonUser.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CommonUser"
-             StartupUri="LoginWindow.xaml">
-</Application>
->>>>>>> ed2734b2b9b06bb8d2ef1d56cc57d525a5b3276e
