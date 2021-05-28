@@ -168,19 +168,16 @@ namespace 服务器UI
                 {
                     MidTip.Visibility = Visibility.Hidden;
                     string Id = TextBox_mid.Text;
-                    bool exist = false;
+                    
                     for (int i = 0; i < SubMovies.Count; i++)
                     {
                         if (Id == SubMovies[i].id)
                         {
-                            exist = true;
+                            MidTip.Text = "影片号重复，请重新输入！";
+                            MidTip.Visibility = Visibility.Visible;
                         }
                     }
-                    if (exist == false)
-                    {
-                        MidTip.Text = "无该影片号，请重新输入！";
-                        MidTip.Visibility = Visibility.Visible;
-                    }
+           
                 }
             }
         }
@@ -196,19 +193,16 @@ namespace 服务器UI
             {
                 MidTip.Visibility = Visibility.Hidden;
                 string Id = TextBox_mid.Text;
-                bool exist = false;
+                
                 for (int i = 0; i < SubMovies.Count; i++)
                 {
                     if (Id == SubMovies[i].id)
                     {
-                        exist = true;
+                        MidTip.Text = "影片号重复，请重新输入！";
+                        MidTip.Visibility = Visibility.Visible;
                     }
                 }
-                if (exist == false)
-                {
-                    MidTip.Text = "无该影片号，请重新输入！";
-                    MidTip.Visibility = Visibility.Visible;
-                }
+                
             }
         }
 
@@ -233,7 +227,7 @@ namespace 服务器UI
         {
             if (string.IsNullOrEmpty(TextBox_name.Text))
             {
-                NameTip.Text = "影厅号不能为空！";
+                NameTip.Text = "影片名称不能为空！";
                 NameTip.Visibility = Visibility.Visible;
             }
             else

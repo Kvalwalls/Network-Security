@@ -76,6 +76,16 @@ namespace CommonUser
 			}
 		}
 
+		private void Button_MouseEnter(object sender, MouseEventArgs e)
+		{
+			Cursor = Cursors.Hand;
+		}
+
+		private void Button_MouseLeave(object sender, MouseEventArgs e)
+		{
+			Cursor = Cursors.Arrow;
+		}
+
 		private void Button_Payment_Click(object sender, RoutedEventArgs e)
 		{
 
