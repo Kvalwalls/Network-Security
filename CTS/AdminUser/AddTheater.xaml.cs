@@ -144,8 +144,8 @@ namespace 服务器UI
             {
                 if (string.IsNullOrEmpty(ComboBox_TheaterSize.Text) || ComboBox_TheaterSize.SelectedItem == null)
                 {
-                    TypeTip.Text = "影厅大小不能为空！";
-                    TypeTip.Visibility = Visibility.Visible;
+                    SizeTip.Text = "影厅大小不能为空！";
+                    SizeTip.Visibility = Visibility.Visible;
                 }
                 else
                 {

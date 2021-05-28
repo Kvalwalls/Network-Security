@@ -205,4 +205,41 @@ namespace 服务器UI
         }
 
     }
+
+    public class TransMessageR
+    {
+        public int no { set; get; }
+        public DateTime time { set; get; }
+        public string Sid { set; get; }
+        public string Did { set; get; }
+        public string SerType { set; get; }
+        public string SpeType { set; get; }
+        public string Error { set; get; }
+        public string Crypt { set; get; }
+        public int SLength { set; get; }
+        public int CLength { set; get; }
+        public string content { set; get; }
+        //public TransMessage trans { set; get; }
+
+
+        public TransMessageR(int no, DateTime time, string Sid, string Did, string SerType, string SpeType, string Error, int SLenth, int CLenth, string content)
+        {
+            this.no = no;
+            this.time = time;
+            this.Sid = Sid;
+            this.Did = Did;
+            this.SerType = SerType;
+            this.SpeType = SpeType;
+            this.Error = Error;
+            this.SLength = SLenth;
+            this.CLength = CLenth;
+            this.content = content;
+        }
+
+        public TransMessageR()
+        {
+
+        }
+
+    }
 }

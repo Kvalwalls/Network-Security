@@ -5,8 +5,84 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CommonUser"
         mc:Ignorable="d"
-        Title="PayWaitingWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="等待支付" Height="550" Width="600">
+    <Grid Name="Grid_PayWaiting" DataContext="Binding">
+        <Image Source="{Binding Path=Mpicture}" HorizontalAlignment="Left" Height="184" Margin="43,217,0,0" VerticalAlignment="Top" Width="159"/>
+        <Label Content="开始时间：" HorizontalAlignment="Left" Margin="205,214,0,0" VerticalAlignment="Top" FontSize="20" Width="108"/>
+        <Label Content="影厅号：" HorizontalAlignment="Left" Margin="205,296,0,0" VerticalAlignment="Top" FontSize="20" Width="108"/>
+        <Label Content="座位：" HorizontalAlignment="Left" Margin="205,334,0,0" VerticalAlignment="Top" FontSize="20" Width="108"/>
+        <TextBlock Name="M_name"  FontSize="36" Margin="17,153,339.6,315.8"   Block.TextAlignment="Center"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="237" Height="52" FontWeight="Bold"/>
+        <TextBlock Name="O_begin" Text="{Binding Obegin}" HorizontalAlignment="Left" Margin="318,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="270" FontSize="20"/>
+        <TextBlock Name="O_end" Text="{Binding Oend}" HorizontalAlignment="Left" Margin="318,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="270" FontSize="20"/>
+        <TextBlock Name="T_id" Text="{Binding Tid}" HorizontalAlignment="Left" Margin="320,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="248" FontSize="20"/>
+        <TextBlock Name="S_id" Text="{Binding Sid}" HorizontalAlignment="Left" Margin="318,342,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="86" Width="178" FontSize="20"/>
+        <TextBlock Name="O_price" Foreground="Red" Text="{Binding Oprice}"  HorizontalAlignment="Left" Margin="410,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Width="65" FontSize="36" FontWeight="Bold"/>
+        <Label Content="等待支付" HorizontalAlignment="Left" Margin="231,4,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" RenderTransformOrigin="1.327,0.631"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="1" Margin="-2,57,0,0" VerticalAlignment="Top" Width="594" RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Border.RenderTransform>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="1" Margin="-2,133,-3.4,0" VerticalAlignment="Top" Width="599" RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Border.RenderTransform>
+        </Border>
+        <!--倒计时label-->
+        <Label Content="请在" HorizontalAlignment="Left" Margin="155,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.582,0.543" FontSize="24"/>
+        <Label Content="300" Name="timelabel" Foreground="Red" HorizontalAlignment="Left" Margin="211,66,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.582,0.543" FontSize="40" FontWeight="Bold"/>
+        <Label Content="秒内完成支付！" HorizontalAlignment="Left" Margin="296,79,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.582,0.543" FontSize="24"/>
+        <Button Content="确认支付" HorizontalAlignment="Left" Margin="50,457,0,0" VerticalAlignment="Top" Width="81" Height="46"
+                MouseEnter="X_MouseEnter"
+                MouseLeave="X_MouseLeave"
+                Click="Button_Payment_Click" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>#FF69B4</Border.Background>
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Content="取消" HorizontalAlignment="Left" Margin="472,457,0,0" VerticalAlignment="Top" Width="82" Height="46" RenderTransformOrigin="2.384,0.679"
+            MouseEnter="Button_MouseEnter"
+            MouseLeave="Button_MouseLeave"
+            Click="Button_Cancel_Click" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>#FF69B4</Border.Background>
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="1" Margin="-2,430,0,0" VerticalAlignment="Top" Width="595" RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Border.RenderTransform>
+        </Border>
+        <Label Content="结束时间：" HorizontalAlignment="Left" Margin="205,255,0,0" VerticalAlignment="Top" FontSize="20" Width="108"/>
+        <Label Content="价格：" HorizontalAlignment="Left" Margin="345,159,0,0" VerticalAlignment="Top" FontSize="20" Width="62"/>
+        <Label Content="元" HorizontalAlignment="Left" Margin="478,159,0,0" VerticalAlignment="Top" FontSize="20" Width="62"/>
+
+
     </Grid>
 </Window>

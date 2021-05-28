@@ -60,17 +60,17 @@ namespace CommonUser
             int newAccess = ComboBox_Access.SelectedIndex + 1;
             if (newAccess == 0)
             {
-                MessageBox.Show("请选择正确的权限！", "选择错误");
+                MessageBox.Show("请选择正确的权限！", "错误",MessageBoxButton.OK,MessageBoxImage.Error);
                 return;
             }
             if (newAccess <= int.Parse(user.Uaccess))
             {
-                MessageBox.Show("请选择更高的权限！", "选择错误");
+                MessageBox.Show("请选择更高的权限！", "错误",MessageBoxButton.OK,MessageBoxImage.Error);
                 return;
             }
             new MyPayWIndow(newAccess*199).ShowDialog();
             /*发送请求*/
-            MessageBox.Show("升级成功！", "提示");
+            MessageBox.Show("升级成功！", "提示",MessageBoxButton.OK,MessageBoxImage.Information);
             Close();
         }
     }

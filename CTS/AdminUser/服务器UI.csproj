@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HandyControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=45be8712787a1e5b, processorArchitecture=MSIL">
+      <HintPath>packages\HandyControl.3.1.0\lib\net472\HandyControl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -61,6 +64,9 @@
     </Compile>
     <Compile Include="OnMovieSta.xaml.cs">
       <DependentUpon>OnMovieSta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PackageInfo.xaml.cs">
+      <DependentUpon>PackageInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserSta.xaml.cs">
       <DependentUpon>UserSta.xaml</DependentUpon>
@@ -113,6 +119,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PackageInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserSta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +146,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -144,7 +155,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="ImageResources\电影院.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageResources\背景_登录动态.gif" />
   </ItemGroup>
@@ -213,6 +226,42 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_账号.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\下拉框 表单.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\名称.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\类型.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\时长.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\评分.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\简介.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\图片.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\场次.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\影片.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\价格.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\背景.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\背景_界面静态_云朵.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

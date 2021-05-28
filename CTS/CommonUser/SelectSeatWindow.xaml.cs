@@ -115,8 +115,9 @@ namespace CommonUser
                 temps[i] = temp;
                 i++;
             }
-            Array.Sort(temps, new SIDComparer());
-            new WaitingWindow(temps).Show();
+			Array.Sort(temps, new SIDComparer());
+			//new WaitingWindow(temps).Show();
+			new PayWaitingWindow(onMovie, movie, temps , theater).Show();
             Close();
         }
 
