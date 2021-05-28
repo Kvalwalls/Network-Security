@@ -8,19 +8,29 @@ public class User {
     public static final String ACCESS_STU = "12";//学生用户
 
     private String id;//人员号
+    private String name;
     private String password;//密码
     private String access;//权限
-    private int money;//余额
+    private float money;//余额
 
     public User() {
 
     }
 
-    public User(String id, String password, String access, int money) {
+    public User(String id, String name,String password, String access, float money) {
         this.id = id;
         this.password = password;
         this.access = access;
         this.money = money;
+        this.name=name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getId() {
@@ -47,11 +57,11 @@ public class User {
         this.password = password;
     }
 
-    public int getMoney() {
+    public float getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(float money) {
         this.money = money;
     }
 }
