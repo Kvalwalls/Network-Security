@@ -1,7 +1,15 @@
+package DataBaseUtils;
+
 import DataUtils.*;
 
+
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBCommand {
     private static String JDBC_DRIVER;      //SQL数据库引擎
@@ -312,7 +320,39 @@ public class DBCommand {
     返回值：Movie数组
      */
     public static ArrayList<Movie> getAllMovies(){
+        String sql = "select * from t_movie";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Movie> users=new ArrayList<Movie>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Movie f=new Movie();
+                f.setId(rs.getString("m_id"));
+                f.setName(rs.getString("m_name"));
+                f.setType(rs.getString("m_type"));
+                f.setTime(Integer.parseInt(rs.getString("m_time")));
+                f.setScore(Float.parseFloat(rs.getString("m_comment")));
+                f.setImage(rs.getString("m_picture"));
+                f.setDescription(rs.getString("m_description"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;        //数据库中无指定商店，获取菜单失败
+        else
+            return users;       //返回菜单
     }
 
     /*
@@ -322,7 +362,39 @@ public class DBCommand {
     返回值：Movie数组
      */
     public static ArrayList<Movie> getAllMoviesByName(String name){
+        String sql = "select * from t_Movie where m_name ='" + name + "'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Movie> users=new ArrayList<Movie>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Movie f=new Movie();
+                f.setId(rs.getString("m_id"));
+                f.setName(rs.getString("m_name"));
+                f.setType(rs.getString("m_type"));
+                f.setTime(Integer.parseInt(rs.getString("m_time")));
+                f.setScore(Float.parseFloat(rs.getString("m_comment")));
+                f.setImage(rs.getString("m_picture"));
+                f.setDescription(rs.getString("m_description"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -332,7 +404,39 @@ public class DBCommand {
     返回值：Movie数组
      */
     public static ArrayList<Movie> getAllMoviesById(String id){
+        String sql = "select * from t_movie where m_id ='" + id + "'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Movie> users=new ArrayList<Movie>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Movie f=new Movie();
+                f.setId(rs.getString("m_id"));
+                f.setName(rs.getString("m_name"));
+                f.setType(rs.getString("m_type"));
+                f.setTime(Integer.parseInt(rs.getString("m_time")));
+                f.setScore(Float.parseFloat(rs.getString("m_comment")));
+                f.setImage(rs.getString("m_picture"));
+                f.setDescription(rs.getString("m_description"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -341,8 +445,28 @@ public class DBCommand {
     参数：待添加电影实体
     返回值：添加成功——true，添加失败——false
      */
-    public static boolean AddMovie(String id){
+    public static boolean AddMovie(Movie movie){
+        String sql = "insert into t_movie values('" + movie.getId() + "','" + movie.getName()+ "','" + movie.getType()+ "','" + movie.getTime()+ "','" + movie.getScore()+ "','" + movie.getImage()+ "','" + movie.getDescription()+ "')";
+        //创建数据库链接
+        Statement state = null;
+        int a = 0;
 
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if(a==0)return false;
+        else return true;
     }
 
     /*
@@ -352,7 +476,28 @@ public class DBCommand {
     返回值：删除成功——true，删除失败——false
      */
     public static boolean deleteMovieById(String id){
+        String sql = "delete from t_movie where m_id='" +id+ "'";
+        //String sql = "delete from course where id='" + id + "'";
+        //创建数据库链接
+        //Connection conn = DBUtil.getConnection();
+        Statement state = null;
+        int a = 0;
 
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(a==0)return false;
+        else return true;
     }
 
 
@@ -366,7 +511,35 @@ public class DBCommand {
     返回值：theater数组
      */
     public static ArrayList<Theater> getAllTheater(){
+        String sql = "select * from T_Theater";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Theater> users=new ArrayList<Theater>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Theater f=new Theater();
+                f.setId(rs.getString("t_id"));
+                f.setType(rs.getString("t_type"));
+                f.setSize(Integer.parseInt(rs.getString("t_size")));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -376,7 +549,35 @@ public class DBCommand {
     返回值：Theater数组
      */
     public static ArrayList<Theater> getAllTheaterByID(String id){
+        String sql = "select * from T_Theater where t_id='"+id+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Theater> users=new ArrayList<Theater>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Theater f=new Theater();
+                f.setId(rs.getString("t_id"));
+                f.setType(rs.getString("t_type"));
+                f.setSize(Integer.parseInt(rs.getString("t_size")));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -386,7 +587,35 @@ public class DBCommand {
     返回值：Theater数组
      */
     public static ArrayList<Theater> getAllTheaterByType(String type){
+        String sql = "select * from T_Theater where t_type='"+type+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Theater> users=new ArrayList<Theater>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Theater f=new Theater();
+                f.setId(rs.getString("t_id"));
+                f.setType(rs.getString("t_type"));
+                f.setSize(Integer.parseInt(rs.getString("t_size")));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -396,7 +625,28 @@ public class DBCommand {
    返回值：添加成功——true，添加失败——false
     */
     public static boolean addTheater(Theater theater){
+        if(theater.getSize()%16!=0)return false;
+        String sql = "insert into t_theater values('" + theater.getId() + "','" + theater.getType()+ "','" + theater.getSize()+ "')";
+        //创建数据库链接
+        Statement state = null;
+        int a = 0;
 
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if(a==0)return false;
+        else return true;
     }
 
     /*
@@ -406,11 +656,43 @@ public class DBCommand {
     返回值：删除成功——true，删除失败——false
      */
     public static boolean deleteTheater(String id){
+        String sql = "delete from t_theater where t_id='" +id+ "'";
+        //String sql = "delete from course where id='" + id + "'";
+        //创建数据库链接
+        //Connection conn = DBUtil.getConnection();
+        Statement state = null;
+        int a = 0;
 
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(a==0)return false;
+        else return true;
     }
 
     /*-------------------------------------------------------OnMovie---------------------------------------------------*/
 
+    public static java.util.Date strToDateLong(String strDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        ParsePosition pos = new ParsePosition(0);
+        java.util.Date strtodate = formatter.parse(strDate, pos);
+        return strtodate;
+    }
+    public static String dateToString(java.util.Date date) {
+        SimpleDateFormat sformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//日期格式
+        String tiem = sformat.format(date);
+        return tiem;
+    }
     /*
     获取所有场次实体
     select * from T_OnMovie;
@@ -418,7 +700,38 @@ public class DBCommand {
     返回值：场次动态数组
      */
     public static ArrayList<OnMovie> getAllOnMovies(){
+        String sql = "select * from T_OnMovie";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                OnMovie f=new OnMovie();
+                f.setOid(rs.getString("o_id"));
+                f.setMid(rs.getString("m_id"));
+                f.setTid(rs.getString("t_id"));
+                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
+                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
+                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -428,7 +741,38 @@ public class DBCommand {
     返回值：场次动态数组
      */
     public static ArrayList<OnMovie> getAllOnMoviesByOnId(String oid){
+        String sql = "select * from T_OnMovie where o_id='"+oid+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                OnMovie f=new OnMovie();
+                f.setOid(rs.getString("o_id"));
+                f.setMid(rs.getString("m_id"));
+                f.setTid(rs.getString("t_id"));
+                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
+                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
+                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -438,7 +782,38 @@ public class DBCommand {
     返回值：场次动态数组
      */
     public static ArrayList<OnMovie> getAllOnMoviesByMovieId(String mid){
+        String sql = "select * from T_OnMovie where m_id='"+mid+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                OnMovie f=new OnMovie();
+                f.setOid(rs.getString("o_id"));
+                f.setMid(rs.getString("m_id"));
+                f.setTid(rs.getString("t_id"));
+                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
+                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
+                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -448,7 +823,38 @@ public class DBCommand {
     返回值：场次动态数组
      */
     public static ArrayList<OnMovie> getAllOnMoviesByTheaterId(String tid){
+        String sql = "select * from T_OnMovie where t_id='"+tid+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                OnMovie f=new OnMovie();
+                f.setOid(rs.getString("o_id"));
+                f.setMid(rs.getString("m_id"));
+                f.setTid(rs.getString("t_id"));
+                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
+                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
+                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -458,8 +864,56 @@ public class DBCommand {
     返回值：场次动态数组
      */
     public static ArrayList<OnMovie> getAllOnMoviesByBeginTime(String begintime){
+        String sql = "select * from T_OnMovie where o_begintime='"+begintime+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                OnMovie f=new OnMovie();
+                f.setOid(rs.getString("o_id"));
+                f.setMid(rs.getString("m_id"));
+                f.setTid(rs.getString("t_id"));
+                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
+                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
+                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
+
+    /*
+    如果data1=data2  return 0;
+    如果data1>data2  return 1;
+    如果data1<data2  return -1;
+     */
+    public static int CompareTime(java.util.Date data1,java.util.Date data2) throws ParseException {
+        String DateStr1 = dateToString(data1);
+        String DateStr2 = dateToString(data2);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Date dateTime1 = dateFormat.parse(DateStr1);
+        java.util.Date dateTime2 = dateFormat.parse(DateStr2);
+        int i = dateTime1.compareTo(dateTime2);
+        return i;
+    }
+
+
 
     /*
     根据OnMovie实体添加场次信息
@@ -467,8 +921,56 @@ public class DBCommand {
     参数：onMovie——场次实体
     返回值：true——添加成功，false——添加失败
      */
-    public static boolean addOnMovie(OnMovie onMovie){
+    public static boolean addOnMovie(OnMovie onMovie) throws ParseException {
+        List<OnMovie> t=getAllOnMoviesByTheaterId(onMovie.getTid());
+        //判断是否有时间冲突
+        for(OnMovie onMovie1:t){
+            if(!((CompareTime(onMovie.getStartTime(),onMovie1.getEndTime())==1)&&(CompareTime(onMovie.getEndTime(),onMovie1.getStartTime())==-1))) {
+                System.out.println("addOnMovie failed: Time conflict!");
+                return false;
+            }
+        }
 
+        //若没有时间冲突，根据外键约束先添加场次，然后添加座位
+        String sql = "insert into t_onmovie values('" + onMovie.getOid() + "','" + onMovie.getMid()+ "','" + onMovie.getTid()+ "','" + dateToString(onMovie.getStartTime())+ "','" + dateToString(onMovie.getEndTime())+ "','" + onMovie.getPrice() + "')";
+        //创建数据库链接
+        Statement state = null;
+        int a = 0;
+
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        //添加座位
+        int size=getAllTheaterByID(onMovie.getTid()).get(0).getSize();
+        int row=size/16;
+        for(int i=1;i<=row;i++){
+            for(int j=1;j<=16;j++){
+                addSeat(new Seat(getString(i)+getString(j),onMovie.getOid(),"0"));
+            }
+        }
+
+        if(a==0)return false;
+        else return true;
+    }
+    public static String  getString(int i){
+        if(i>0&&i<10){
+            return "0"+i;
+        }
+        if(i>=10&&i<=99){
+            return Integer.toString(i);
+        }
+        return null;
     }
 
     /*
@@ -478,7 +980,28 @@ public class DBCommand {
     返回值：删除成功——true，删除失败——false
      */
     public static boolean deleteOnMovie(String oid){
+        String sql = "delete from t_onmovie where o_id='" +oid+ "'";
+        //String sql = "delete from course where id='" + id + "'";
+        //创建数据库链接
+        //Connection conn = DBUtil.getConnection();
+        Statement state = null;
+        int a = 0;
 
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(a==0)return false;
+        else return true;
     }
 
 
@@ -491,7 +1014,35 @@ public class DBCommand {
     返回值：座位动态数组
      */
     public static ArrayList<Seat> getAllSeat(){
+        String sql = "select * from T_Seat";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Seat> users=new ArrayList<Seat>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Seat f=new Seat();
+                f.setOid(rs.getString("o_id"));
+                f.setSid(rs.getString("s_id"));
+                f.setStatus(rs.getString("s_status"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -501,7 +1052,35 @@ public class DBCommand {
     返回值：座位动态数组
      */
     public static ArrayList<Seat> getAllSeatBySid(String sid){
+        String sql = "select * from T_Seat where s_id='"+sid+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Seat> users=new ArrayList<Seat>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Seat f=new Seat();
+                f.setOid(rs.getString("o_id"));
+                f.setSid(rs.getString("s_id"));
+                f.setStatus(rs.getString("s_status"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -511,7 +1090,35 @@ public class DBCommand {
     返回值：座位动态数组
      */
     public static ArrayList<Seat> getAllSeatByOid(String oid){
+        String sql = "select * from T_Seat where o_id='"+oid+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Seat> users=new ArrayList<Seat>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Seat f=new Seat();
+                f.setOid(rs.getString("o_id"));
+                f.setSid(rs.getString("s_id"));
+                f.setStatus(rs.getString("s_status"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -521,9 +1128,28 @@ public class DBCommand {
     返回值：true——添加成功，false——添加失败
      */
     private static boolean addSeat(Seat seat){
+        String sql = "insert into T_Seat values('" + seat.getOid() + "','" + seat.getSid()+ "','" + seat.getStatus()+ "')";
+        //创建数据库链接
+        Statement state = null;
+        int a = 0;
 
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if(a==0)return false;
+        else return true;
     }
-
 
     /*-------------------------------------------------------Record---------------------------------------------------*/
     /*
@@ -533,7 +1159,38 @@ public class DBCommand {
     返回值：Record动态数组
      */
     public static ArrayList<DataUtils.Record> getAllRecord(){
+        String sql = "select * from T_Record";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<DataUtils.Record> users=new ArrayList<DataUtils.Record>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                DataUtils.Record f=new DataUtils.Record();
+                f.setUid(rs.getString("u_id"));
+                f.setOid(rs.getString("o_id"));
+                f.setSid(rs.getString("s_id"));
+                f.setTime(strToDateLong(rs.getString("r_time")));
+                f.setPrice(Float.parseFloat(rs.getString("r_price")));
+                f.setStatus(rs.getString("r_status"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -543,7 +1200,38 @@ public class DBCommand {
     返回值：Record动态数组
      */
     public static ArrayList<DataUtils.Record> getAllRecordByUid(String uid){
+        String sql = "select * from T_Record where u_id='"+uid+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<DataUtils.Record> users=new ArrayList<DataUtils.Record>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                DataUtils.Record f=new DataUtils.Record();
+                f.setUid(rs.getString("u_id"));
+                f.setOid(rs.getString("o_id"));
+                f.setSid(rs.getString("s_id"));
+                f.setTime(strToDateLong(rs.getString("r_time")));
+                f.setPrice(Float.parseFloat(rs.getString("r_price")));
+                f.setStatus(rs.getString("r_status"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -553,8 +1241,38 @@ public class DBCommand {
     返回值：Record动态数组
      */
     public static ArrayList<DataUtils.Record> getAllRecordByOid(String oid){
+        String sql = "select * from T_Record where o_id='"+oid+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<DataUtils.Record> users=new ArrayList<DataUtils.Record>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                DataUtils.Record f=new DataUtils.Record();
+                f.setUid(rs.getString("u_id"));
+                f.setOid(rs.getString("o_id"));
+                f.setSid(rs.getString("s_id"));
+                f.setTime(strToDateLong(rs.getString("r_time")));
+                f.setPrice(Float.parseFloat(rs.getString("r_price")));
+                f.setStatus(rs.getString("r_status"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -564,7 +1282,26 @@ public class DBCommand {
     返回值：true——更新成功，false——更新失败
      */
     public static boolean updateStatus(String U_id,String S_id,String O_id,String newStatus){
+        String sql = "update T_Record set r_status = '" + newStatus +  "'"+" where u_id = '" + U_id+"' and s_id = '"+S_id+"' and oid = '"+O_id+"'";
+        //创建数据库链接
+        Statement state = null;
+        int a = 0;
 
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(a==0)return false;
+        else return true;
     }
 
     /*
@@ -574,7 +1311,27 @@ public class DBCommand {
     返回值：true——添加成功，false——添加失败
      */
     public static boolean addRecord(DataUtils.Record record){
+        String sql = "insert into T_Record values('" + record.getUid() + "','" + record.getOid()+ "','" + record.getSid()+ "','" + dateToString(record.getTime())+ "','" + record.getPrice()+ "','" + record.getStatus() + "')";
+        //创建数据库链接
+        Statement state = null;
+        int a = 0;
 
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if(a==0)return false;
+        else return true;
     }
 
 
@@ -586,7 +1343,34 @@ public class DBCommand {
     返回值：idk实体
      */
     public static ArrayList<Idk> getIDKById(String id){
+        String sql = "select * from T_IDK where id='"+id+"'";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Idk> users=new ArrayList<Idk>();
+        try {
+            state = conn.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                Idk f=new Idk();
+                f.setId(rs.getString("id"));
+                f.setT_key(rs.getString("t_key"));
+                users.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
     /*
@@ -596,7 +1380,27 @@ public class DBCommand {
     返回值：true——添加成功  false——添加失败
      */
     public static boolean addIDK(Idk idk){
+        String sql = "insert into T_IDK(Id,t_key) values('" + idk.getId() + "','" + idk.getT_key() + "')";
+        //创建数据库链接
+        Statement state = null;
+        int a = 0;
 
+        try {
+            state = conn.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if(a==0)return false;
+        else return true;
     }
 
 }

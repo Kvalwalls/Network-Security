@@ -9,6 +9,10 @@ public class Idk {
         setT_key(t_key);
     }
 
+    public Idk() {
+
+    }
+
     @Override
     public String toString() {
         return "Idk{" +
