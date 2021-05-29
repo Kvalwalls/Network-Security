@@ -919,7 +919,7 @@ public class DBCommand {
         List<OnMovie> t=getAllOnMoviesByTheaterId(onMovie.getTid());
         //判断是否有时间冲突
         for(OnMovie onMovie1:t){
-            if(!((CompareTime(onMovie.getStartTime(),onMovie1.getEndTime())==1)&&(CompareTime(onMovie.getEndTime(),onMovie1.getStartTime())==-1))) {
+            if(!((CompareTime(onMovie.getStartTime(),onMovie1.getEndTime())==1)||(CompareTime(onMovie.getEndTime(),onMovie1.getStartTime())==-1))) {
                 System.out.println("addOnMovie failed: Time conflict!");
                 return false;
             }
