@@ -70,12 +70,6 @@ public class DBCommand {
         return users;       //返回用户
     }
 
-    public static void main(String[] args) {
-        for(DataUtils.User a:getAllUsers()){
-            System.out.println(a);
-        }
-    }
-
 
     /*
     select * from t_user where u_access=#{arg0};
