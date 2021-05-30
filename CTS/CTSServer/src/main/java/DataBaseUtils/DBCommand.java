@@ -88,11 +88,11 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.User f=new DataUtils.User();
-                f.setId(rs.getString("u_id"));
-                f.setName(rs.getString("u_name"));
-                f.setPassword(rs.getString("u_password"));
-                f.setAccess(rs.getString("u_access"));
-                f.setMoney(Float.parseFloat(rs.getString("u_money")));
+                f.setUId(rs.getString("u_id"));
+                f.setUName(rs.getString("u_name"));
+                f.setUPassword(rs.getString("u_password"));
+                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
+                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -127,11 +127,11 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.User f=new DataUtils.User();
-                f.setId(rs.getString("u_id"));
-                f.setName(rs.getString("u_name"));
-                f.setPassword(rs.getString("u_password"));
-                f.setAccess(rs.getString("u_access"));
-                f.setMoney(Float.parseFloat(rs.getString("u_money")));
+                f.setUId(rs.getString("u_id"));
+                f.setUName(rs.getString("u_name"));
+                f.setUPassword(rs.getString("u_password"));
+                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
+                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -166,11 +166,11 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.User f=new DataUtils.User();
-                f.setId(rs.getString("u_id"));
-                f.setName(rs.getString("u_name"));
-                f.setPassword(rs.getString("u_password"));
-                f.setAccess(rs.getString("u_access"));
-                f.setMoney(Float.parseFloat(rs.getString("u_money")));
+                f.setUId(rs.getString("u_id"));
+                f.setUName(rs.getString("u_name"));
+                f.setUPassword(rs.getString("u_password"));
+                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
+                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -325,11 +325,11 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Movie f=new Movie();
-                f.setId(rs.getString("m_id"));
-                f.setName(rs.getString("m_name"));
-                f.setType(rs.getString("m_type"));
+                f.setMId(rs.getString("m_id"));
+                f.setMName(rs.getString("m_name"));
+                f.setMType(rs.getString("m_type"));
                 f.setTime(Integer.parseInt(rs.getString("m_time")));
-                f.setScore(Float.parseFloat(rs.getString("m_comment")));
+                f.setMComment(Float.parseFloat(rs.getString("m_comment")));
                 f.setDescription(rs.getString("m_description"));
                 users.add(f);
             }
@@ -366,12 +366,11 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Movie f=new Movie();
-                f.setId(rs.getString("m_id"));
-                f.setName(rs.getString("m_name"));
-                f.setType(rs.getString("m_type"));
+                f.setMId(rs.getString("m_id"));
+                f.setMName(rs.getString("m_name"));
+                f.setMType(rs.getString("m_type"));
                 f.setTime(Integer.parseInt(rs.getString("m_time")));
-                f.setScore(Float.parseFloat(rs.getString("m_comment")));
-                f.setImage(rs.getString("m_picture"));
+                f.setMComment(Float.parseFloat(rs.getString("m_comment")));
                 f.setDescription(rs.getString("m_description"));
                 users.add(f);
             }
@@ -408,12 +407,11 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Movie f=new Movie();
-                f.setId(rs.getString("m_id"));
-                f.setName(rs.getString("m_name"));
-                f.setType(rs.getString("m_type"));
+                f.setMId(rs.getString("m_id"));
+                f.setMName(rs.getString("m_name"));
+                f.setMType(rs.getString("m_type"));
                 f.setTime(Integer.parseInt(rs.getString("m_time")));
-                f.setScore(Float.parseFloat(rs.getString("m_comment")));
-                f.setImage(rs.getString("m_picture"));
+                f.setMComment(Float.parseFloat(rs.getString("m_comment")));
                 f.setDescription(rs.getString("m_description"));
                 users.add(f);
             }
@@ -441,7 +439,7 @@ public class DBCommand {
     返回值：添加成功——true，添加失败——false
      */
     public static boolean AddMovie(Movie movie){
-        String sql = "insert into t_movie values('" + movie.getId() + "','" + movie.getName()+ "','" + movie.getType()+ "','" + movie.getTime()+ "','" + movie.getScore()+ "','" + movie.getImage()+ "','" + movie.getDescription()+ "')";
+        String sql = "insert into t_movie values('" + movie.getMId() + "','" + movie.getMName()+ "','" + movie.getMType()+ "','" + movie.getTime()+ "','" + movie.getMComment()+ "','"  + movie.getDescription()+ "')";
         //创建数据库链接
         Statement state = null;
         int a = 0;
@@ -515,9 +513,9 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Theater f=new Theater();
-                f.setId(rs.getString("t_id"));
-                f.setType(rs.getString("t_type"));
-                f.setSize(Integer.parseInt(rs.getString("t_size")));
+                f.setTId(rs.getString("t_id"));
+                f.setTType(Byte.parseByte(rs.getString("t_type")));
+                f.setTSize(Integer.parseInt(rs.getString("t_size")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -553,9 +551,9 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Theater f=new Theater();
-                f.setId(rs.getString("t_id"));
-                f.setType(rs.getString("t_type"));
-                f.setSize(Integer.parseInt(rs.getString("t_size")));
+                f.setTId(rs.getString("t_id"));
+                f.setTType(Byte.parseByte(rs.getString("t_type")));
+                f.setTSize(Integer.parseInt(rs.getString("t_size")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -591,9 +589,9 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Theater f=new Theater();
-                f.setId(rs.getString("t_id"));
-                f.setType(rs.getString("t_type"));
-                f.setSize(Integer.parseInt(rs.getString("t_size")));
+                f.setTId(rs.getString("t_id"));
+                f.setTType(Byte.parseByte(rs.getString("t_type")));
+                f.setTSize(Integer.parseInt(rs.getString("t_size")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -620,8 +618,8 @@ public class DBCommand {
    返回值：添加成功——true，添加失败——false
     */
     public static boolean addTheater(Theater theater){
-        if(theater.getSize()%16!=0)return false;
-        String sql = "insert into t_theater values('" + theater.getId() + "','" + theater.getType()+ "','" + theater.getSize()+ "')";
+        if(theater.getTSize()%16!=0)return false;
+        String sql = "insert into t_theater values('" + theater.getTId() + "','" + theater.getTType()+ "','" + theater.getTSize()+ "')";
         //创建数据库链接
         Statement state = null;
         int a = 0;
@@ -704,12 +702,12 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
-                f.setOid(rs.getString("o_id"));
-                f.setMid(rs.getString("m_id"));
-                f.setTid(rs.getString("t_id"));
-                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
-                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
-                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                f.setOId(rs.getString("o_id"));
+                f.setMId(rs.getString("m_id"));
+                f.setTId(rs.getString("t_id"));
+                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
+                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
+                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -745,12 +743,12 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
-                f.setOid(rs.getString("o_id"));
-                f.setMid(rs.getString("m_id"));
-                f.setTid(rs.getString("t_id"));
-                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
-                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
-                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                f.setOId(rs.getString("o_id"));
+                f.setMId(rs.getString("m_id"));
+                f.setTId(rs.getString("t_id"));
+                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
+                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
+                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -786,12 +784,12 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
-                f.setOid(rs.getString("o_id"));
-                f.setMid(rs.getString("m_id"));
-                f.setTid(rs.getString("t_id"));
-                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
-                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
-                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                f.setOId(rs.getString("o_id"));
+                f.setMId(rs.getString("m_id"));
+                f.setTId(rs.getString("t_id"));
+                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
+                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
+                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -827,12 +825,12 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
-                f.setOid(rs.getString("o_id"));
-                f.setMid(rs.getString("m_id"));
-                f.setTid(rs.getString("t_id"));
-                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
-                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
-                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                f.setOId(rs.getString("o_id"));
+                f.setMId(rs.getString("m_id"));
+                f.setTId(rs.getString("t_id"));
+                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
+                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
+                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -868,12 +866,12 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
-                f.setOid(rs.getString("o_id"));
-                f.setMid(rs.getString("m_id"));
-                f.setTid(rs.getString("t_id"));
-                f.setStartTime(strToDateLong(rs.getString("o_begintime")));
-                f.setEndTime(strToDateLong(rs.getString("o_endtime")));
-                f.setPrice(Float.parseFloat(rs.getString("o_price")));
+                f.setOId(rs.getString("o_id"));
+                f.setMId(rs.getString("m_id"));
+                f.setTId(rs.getString("t_id"));
+                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
+                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
+                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -917,17 +915,17 @@ public class DBCommand {
     返回值：true——添加成功，false——添加失败
      */
     public static boolean addOnMovie(OnMovie onMovie) throws ParseException {
-        List<OnMovie> t=getAllOnMoviesByTheaterId(onMovie.getTid());
+        List<OnMovie> t=getAllOnMoviesByTheaterId(onMovie.getTId());
         //判断是否有时间冲突
         for(OnMovie onMovie1:t){
-            if(!((CompareTime(onMovie.getStartTime(),onMovie1.getEndTime())==1)||(CompareTime(onMovie.getEndTime(),onMovie1.getStartTime())==-1))) {
+            if(!((CompareTime(onMovie.getOBegin(),onMovie1.getOEnd())==1)||(CompareTime(onMovie.getOEnd(),onMovie1.getOBegin())==-1))) {
                 System.out.println("addOnMovie failed: Time conflict!");
                 return false;
             }
         }
 
         //若没有时间冲突，根据外键约束先添加场次，然后添加座位
-        String sql = "insert into t_onmovie values('" + onMovie.getOid() + "','" + onMovie.getMid()+ "','" + onMovie.getTid()+ "','" + dateToString(onMovie.getStartTime())+ "','" + dateToString(onMovie.getEndTime())+ "','" + onMovie.getPrice() + "')";
+        String sql = "insert into t_onmovie values('" + onMovie.getOId() + "','" + onMovie.getMId()+ "','" + onMovie.getTId()+ "','" + dateToString(onMovie.getOBegin())+ "','" + dateToString(onMovie.getOEnd())+ "','" + onMovie.getOPrice() + "')";
         //创建数据库链接
         Statement state = null;
         int a = 0;
@@ -947,11 +945,11 @@ public class DBCommand {
         }
 
         //添加座位
-        int size=getAllTheaterByID(onMovie.getTid()).get(0).getSize();
+        int size=getAllTheaterByID(onMovie.getTId()).get(0).getTSize();
         int row=size/16;
         for(int i=1;i<=row;i++){
             for(int j=1;j<=16;j++){
-                addSeat(new Seat(getString(i)+getString(j),onMovie.getOid(),"0"));
+                addSeat(new Seat(getString(i)+getString(j),onMovie.getOId(),Byte.parseByte("0")));
             }
         }
 
@@ -1018,9 +1016,9 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Seat f=new Seat();
-                f.setOid(rs.getString("o_id"));
-                f.setSid(rs.getString("s_id"));
-                f.setStatus(rs.getString("s_status"));
+                f.setOId(rs.getString("o_id"));
+                f.setSId(rs.getString("s_id"));
+                f.setSStatus(Byte.parseByte(rs.getString("s_status")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -1056,9 +1054,9 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Seat f=new Seat();
-                f.setOid(rs.getString("o_id"));
-                f.setSid(rs.getString("s_id"));
-                f.setStatus(rs.getString("s_status"));
+                f.setOId(rs.getString("o_id"));
+                f.setSId(rs.getString("s_id"));
+                f.setSStatus(Byte.parseByte(rs.getString("s_status")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -1094,9 +1092,9 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Seat f=new Seat();
-                f.setOid(rs.getString("o_id"));
-                f.setSid(rs.getString("s_id"));
-                f.setStatus(rs.getString("s_status"));
+                f.setOId(rs.getString("o_id"));
+                f.setSId(rs.getString("s_id"));
+                f.setSStatus(Byte.parseByte(rs.getString("s_status")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -1123,7 +1121,7 @@ public class DBCommand {
     返回值：true——添加成功，false——添加失败
      */
     private static boolean addSeat(Seat seat){
-        String sql = "insert into T_Seat values('" + seat.getOid() + "','" + seat.getSid()+ "','" + seat.getStatus()+ "')";
+        String sql = "insert into T_Seat values('" + seat.getOId() + "','" + seat.getSId()+ "','" + seat.getSStatus()+ "')";
         //创建数据库链接
         Statement state = null;
         int a = 0;
@@ -1163,12 +1161,12 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.Record f=new DataUtils.Record();
-                f.setUid(rs.getString("u_id"));
-                f.setOid(rs.getString("o_id"));
-                f.setSid(rs.getString("s_id"));
-                f.setTime(strToDateLong(rs.getString("r_time")));
-                f.setPrice(Float.parseFloat(rs.getString("r_price")));
-                f.setStatus(rs.getString("r_status"));
+                f.setUId(rs.getString("u_id"));
+                f.setOId(rs.getString("o_id"));
+                f.setSId(rs.getString("s_id"));
+                f.setRTime(strToDateLong(rs.getString("r_time")));
+                f.setRPrice(Float.parseFloat(rs.getString("r_price")));
+                f.setStatus(Byte.parseByte(rs.getString("r_status")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -1204,12 +1202,12 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.Record f=new DataUtils.Record();
-                f.setUid(rs.getString("u_id"));
-                f.setOid(rs.getString("o_id"));
-                f.setSid(rs.getString("s_id"));
-                f.setTime(strToDateLong(rs.getString("r_time")));
-                f.setPrice(Float.parseFloat(rs.getString("r_price")));
-                f.setStatus(rs.getString("r_status"));
+                f.setUId(rs.getString("u_id"));
+                f.setOId(rs.getString("o_id"));
+                f.setSId(rs.getString("s_id"));
+                f.setRTime(strToDateLong(rs.getString("r_time")));
+                f.setRPrice(Float.parseFloat(rs.getString("r_price")));
+                f.setStatus(Byte.parseByte(rs.getString("r_status")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -1245,12 +1243,12 @@ public class DBCommand {
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.Record f=new DataUtils.Record();
-                f.setUid(rs.getString("u_id"));
-                f.setOid(rs.getString("o_id"));
-                f.setSid(rs.getString("s_id"));
-                f.setTime(strToDateLong(rs.getString("r_time")));
-                f.setPrice(Float.parseFloat(rs.getString("r_price")));
-                f.setStatus(rs.getString("r_status"));
+                f.setUId(rs.getString("u_id"));
+                f.setOId(rs.getString("o_id"));
+                f.setSId(rs.getString("s_id"));
+                f.setRTime(strToDateLong(rs.getString("r_time")));
+                f.setRPrice(Float.parseFloat(rs.getString("r_price")));
+                f.setStatus(Byte.parseByte(rs.getString("r_status")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -1306,7 +1304,7 @@ public class DBCommand {
     返回值：true——添加成功，false——添加失败
      */
     public static boolean addRecord(DataUtils.Record record){
-        String sql = "insert into T_Record values('" + record.getUid() + "','" + record.getOid()+ "','" + record.getSid()+ "','" + dateToString(record.getTime())+ "','" + record.getPrice()+ "','" + record.getStatus() + "')";
+        String sql = "insert into T_Record values('" + record.getUId() + "','" + record.getOId()+ "','" + record.getSId()+ "','" + dateToString(record.getRTime())+ "','" + record.getRPrice()+ "','" + record.getStatus() + "')";
         //创建数据库链接
         Statement state = null;
         int a = 0;
