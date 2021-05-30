@@ -3,70 +3,83 @@ package DataUtils;
 import java.util.Date;
 
 public class Record {
+    //用户号
+    public String UId;
+    //场次号
+    public String OId;
+    //座位号
+    public String SId;
+    //购票时间
+    public Date RTime;
+    //实际价格
+    public float RPrice;
+    //购票状态
+    public byte RStatus;
 
-    public String uid;                  //用户号
-    public String sid;                  //座位号
-    public String oid;                  //上映号
-    public Date time;                   //购买时间
-    public float price;                 //实际价格
-    public String status;               //状态
-
-    public Record(){}
-    //构造方法
-    public Record(String uid, String sid, String oid, Date time, float price, String status) {
-        this.uid = uid;
-        this.sid = sid;
-        this.oid = oid;
-        this.time = time;
-        this.price = price;
-        this.status = status;
+    /**
+     * 带参数的构造方法
+     */
+    public Record(String UId, String OId, String SId, Date RTime, float RPrice, byte RStatus) {
+        this.UId = UId;
+        this.OId = OId;
+        this.SId = SId;
+        this.RTime = RTime;
+        this.RPrice = RPrice;
+        this.RStatus = RStatus;
     }
 
-    public String getUid() {     //获取用户号
-        return uid;
+    /**
+     * 无参数的构造方法
+     */
+    public Record() {
+
     }
 
-    public void setUid(String uid) {  //设置用户号
-        this.uid = uid;
+    public String getUId() {
+        return UId;
     }
 
-    public String getSid() {     //获取座位号
-        return sid;
+    public void setUId(String UId) {
+        this.UId = UId;
     }
 
-    public void setSid(String sid) {    //设置座位号
-        this.sid = sid;
+    public String getOId() {
+        return OId;
     }
 
-    public String getOid() {     //获取上映号
-        return oid;
+    public void setOId(String OId) {
+        this.OId = OId;
     }
 
-    public void setOid(String oid) {  //设置上映号
-        this.oid = oid;
+    public String getSId() {
+        return SId;
     }
 
-    public Date getTime() {       //获取购买时间
-        return time;
+    public void setSId(String SId) {
+        this.SId = SId;
     }
 
-    public void setTime(Date time) {  //设置购买时间
-        this.time = time;
+    public Date getRTime() {
+        return RTime;
     }
 
-    public String getStatus() {           //获取状态
-        return status;
+    public void setRTime(Date RTime) {
+        this.RTime = RTime;
     }
 
-    public void setStatus(String status) {      //设置状态
-        this.status = status;
+    public float getRPrice() {
+        return RPrice;
     }
 
-    public float getPrice() {              //获取实际价格
-        return price;
+    public void setRPrice(float RPrice) {
+        this.RPrice = RPrice;
     }
 
-    public void setPrice(float price) {     //设置实际价格
-        this.price = price;
+    public byte getStatus() {
+        return RStatus;
+    }
+
+    public void setStatus(byte RStatus) {
+        this.RStatus = RStatus;
     }
 }

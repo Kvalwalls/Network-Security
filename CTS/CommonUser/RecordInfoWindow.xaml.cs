@@ -20,10 +20,10 @@ namespace CommonUser
 		private void InitData()
 		{
 			Label_ID.Content = record.Uid + record.Oid + record.Sid;
-			Label_Mname.Content = record.Mname;
+			/*Label_Mname.Content = record.Mname;
 			Label_Begin.Content = record.Obegin;
 			Label_End.Content = record.Oend;
-			Label_Tid.Content = "影厅" + record.Tid;
+			Label_Tid.Content = "影厅" + record.;*/
 			Label_Sid.Content = "第" + record.Sid.Substring(0, 3) + "行 第" + record.Sid.Substring(3, 3) + "列";
 			Label_Price.Content = record.Rprice + "元";
 		}

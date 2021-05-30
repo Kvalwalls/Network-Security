@@ -2,7 +2,6 @@ package DataBaseUtils;
 
 import DataUtils.*;
 
-
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,48 +11,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBCommand {
-    private static String JDBC_DRIVER;      //SQL数据库引擎
-    private static String DB_URL;           //数据源
-    private static String Name;             //用户名
-    private static String Pwd;              //密码
+    //数据库引擎
+    private static String JDBC_DRIVER;
+    //数据库数据源
+    private static String DB_URL;
+    //数据库用户名
+    private static String Name;
+    //数据库密码
+    private static String Pwd;
+    //数据库连接
     private static Connection conn;
 
     static {
         JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
         DB_URL = "jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai";
         Name = "root";
-        Pwd = "dx123";
-        try{
+        Pwd = "wbc123";
+        try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, Name, Pwd);
-            System.out.println("连接数据库成功");
-        }catch(Exception e){
+            System.out.println("数据库连接成功！");
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("连接失败");
+            System.out.println("数据库连接失败！");
         }
     }
     /*-------------------------------------------------------User---------------------------------------------------*/
-
-    /*
-    select * from t_user;
-    参数：无
-    返回值：所有User实体
+    /**
+     * 获取所有User实体
+     * @return User对象数组
      */
     public static ArrayList<User> getAllUsers(){
         String sql = "select * from t_user";
         Statement state = null;
-        ResultSet rs;
+        ResultSet rs = null;
         ArrayList<DataUtils.User> users=new ArrayList<User>();
         try {
             state = conn.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                DataUtils.User f=new DataUtils.User();
-                f.setId(rs.getString("u_id"));
-                f.setName(rs.getString("u_name"));
-                f.setPassword(rs.getString("u_password"));
-                f.setAccess(rs.getString("u_access"));
-                f.setMoney(Float.parseFloat(rs.getString("u_money")));
+                DataUtils.User f = new DataUtils.User();
+                f.setUId(rs.getString("u_id"));
+                f.setUName(rs.getString("u_name"));
+                f.setUPassword(rs.getString("u_password"));
+                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
+                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
                 users.add(f);
             }
         } catch (Exception e) {
@@ -328,7 +330,6 @@ public class DBCommand {
                 f.setType(rs.getString("m_type"));
                 f.setTime(Integer.parseInt(rs.getString("m_time")));
                 f.setScore(Float.parseFloat(rs.getString("m_comment")));
-                f.setImage(rs.getString("m_picture"));
                 f.setDescription(rs.getString("m_description"));
                 users.add(f);
             }

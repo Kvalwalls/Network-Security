@@ -1,67 +1,71 @@
 package DataUtils;
 
 public class User {
-    public static final String ACCESS_ROOT = "00";//超级管理员
-    public static final String ACCESS_ADMIN = "01";//普通管理员
-    public static final String ACCESS_COMM = "10";//普通用户
-    public static final String ACCESS_VIP = "11";//VIP用户
-    public static final String ACCESS_STU = "12";//学生用户
+    //人员号
+    private String UId;
+    //名称
+    private String UName;
+    //密码
+    private String UPassword;
+    //权限
+    private byte UAccess;
+    //余额
+    private float UMoney;
 
-    private String id;//人员号
-    private String name;
-    private String password;//密码
-    private String access;//权限
-    private float money;//余额
+    /**
+     * 带参数的构造方法
+     */
+    public User(String UId, String UName, String UPassword, byte UAccess, float UMoney) {
+        this.UId = UId;
+        this.UName = UName;
+        this.UPassword = UPassword;
+        this.UAccess = UAccess;
+        this.UMoney = UMoney;
+    }
 
+    /**
+     * 无参数的构造方法
+     */
     public User() {
-
     }
 
-    public User(String id, String name,String password, String access, float money) {
-        this.id = id;
-        this.password = password;
-        this.access = access;
-        this.money = money;
-        this.name=name;
+    public String getUId() {
+        return UId;
     }
 
-    public String getName() {
-        return name;
+    public void setUId(String UId) {
+        this.UId = UId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getUName() {
+        return UName;
     }
 
-    public String getId() {
-        return id;
+    public void setUName(String UName) {
+        this.UName = UName;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getUPassword() {
+        return UPassword;
     }
 
-    public String getAccess() {
-        return access;
+    public void setUPassword(String UPassword) {
+        this.UPassword = UPassword;
     }
 
-    public void setAccess(String access) {
-        this.access = access;
+    public byte getUAccess() {
+        return UAccess;
     }
 
-    public String getPassword() {
-        return password;
+    public void setUAccess(byte UAccess) {
+        this.UAccess = UAccess;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public float getUMoney() {
+        return UMoney;
     }
 
-    public float getMoney() {
-        return money;
-    }
-
-    public void setMoney(float money) {
-        this.money = money;
+    public void setUMoney(float UMoney) {
+        this.UMoney = UMoney;
     }
 }

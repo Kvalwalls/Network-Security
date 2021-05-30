@@ -1,6 +1,6 @@
 package AppServiceUtils;
 
-import DataUtils.AuthenticatorC;
+import DataUtils.Authenticator;
 import DataUtils.Ticket;
 import TransmissionUtils.TransMessage;
 
@@ -16,7 +16,7 @@ public abstract class VHandler {
         return false;
     }
 
-    protected boolean verifyTicket(Ticket ticket, AuthenticatorC authenticatorC) {
+    protected boolean verifyTicket(Ticket ticket, Authenticator authenticatorC) {
         return false;
     }
 }

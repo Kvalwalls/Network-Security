@@ -32,7 +32,7 @@ namespace CommonUser
                 for (int j = 1; j < 17; j++)
                 {
                     string strCol = string.Format("{0:d3}", j);
-                    Seat temp = new Seat(strRow + strCol, "O000001", SeatStatus.Unselected);
+                    Seat temp = new Seat(strRow + strCol, "O000001", EnumSeatStatus.Unselected);
                     seats.Add(temp);
                 }
             }
@@ -47,16 +47,16 @@ namespace CommonUser
             TextBlock_Info.Text = theater.Tid + "号" + TtypeSwitch(theater.Ttype) + " " + movie.Mname;
             BitmapImage bmp = new BitmapImage();
             bmp.BeginInit();
-            bmp.UriSource = new Uri(movie.Mpicture, UriKind.Relative);
+            bmp.UriSource = new Uri("..\\..\\MoviePictures\\" + movie.Mid + ".jpg", UriKind.Relative);
             bmp.EndInit();
             Image_Picture.Source = bmp;
         }
 
-        private string TtypeSwitch(TheaterType type)
+        private string TtypeSwitch(byte type)
         {
-            if (type == TheaterType.VIP)
+            if (type == EnumTheaterType.VIP)
                 return "VIP厅";
-            else if (type == TheaterType.SVIP)
+            else if (type == EnumTheaterType.SVIP)
                 return "SVIP厅";
             else
                 return "普通厅";
@@ -92,9 +92,9 @@ namespace CommonUser
         {
             ControlSeat controlSeat = sender as ControlSeat;
             string strRowCol = controlSeat.Name.Substring(2, 6);
-            if (controlSeat.status == SeatStatus.Selecting)
+            if (controlSeat.status == EnumSeatStatus.Selecting)
             {  
-                selectedSeats.Add(new Seat(strRowCol, onMovie.Oid, SeatStatus.Selecting));
+                selectedSeats.Add(new Seat(strRowCol, onMovie.Oid, EnumSeatStatus.Selecting));
             }
             else
             {

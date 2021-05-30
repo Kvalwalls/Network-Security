@@ -7,17 +7,28 @@ namespace CommonUser.Transmission
     {
         private readonly Socket socket;
 
+        /// <summary>
+        /// 带参数的构造函数
+        /// </summary>
         public Transceiver(Socket socket)
         {
             this.socket = socket;
         }
 
+        /// <summary>
+        /// 报文发送函数
+        /// </summary>
+        /// <param name="message">发送的报文对象</param>
         public void SendMessage(TransMessage message)
         {
             byte[] buffer = message.MessageToBytes();
             socket.Send(buffer);
         }
 
+        /// <summary>
+        /// 报文接收函数
+        /// </summary>
+        /// <returns>接收的报文对象</returns>
         public TransMessage ReceiveMessage()
         {
             byte[] buffer = null;
@@ -56,6 +67,5 @@ namespace CommonUser.Transmission
             message.contents = Encoding.UTF8.GetString(buffer);
             return message;
         }
-
     }
 }

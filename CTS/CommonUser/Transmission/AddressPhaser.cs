@@ -2,6 +2,11 @@
 {
     class AddressPhaser
     {
+        /// <summary>
+        /// 字符串形式转换字节流形式
+        /// </summary>
+        /// <param name="addrStr">字符串形式的IP地址</param>
+        /// <returns>字节流形式的IP地址</returns>
         public static byte[] StringToBytes(string addrStr)
         {
             string[] subAddrStrs = addrStr.Replace("\\s", "").Split('.');
@@ -11,6 +16,11 @@
             return subAddrBytes;
         }
 
+        /// <summary>
+        /// 字节流形式转换字符串形式
+        /// </summary>
+        /// <param name="addrBytes">字节流形式的IP地址</param>
+        /// <returns>字符串形式的IP地址</returns>
         public static string BytesToString(byte[] addrBytes)
         {
             string addrStr = "";

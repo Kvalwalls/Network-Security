@@ -3,72 +3,82 @@ package DataUtils;
 import java.util.Date;
 
 public class OnMovie {
-    private String oid;              //上映号
-    private String mid;              //影片号
-    private String tid;              //影厅号
-    private Date startTime;        //开始时间
-    private Date endTime;          //结束时间
-    private float price;               //票价
+    //场次号
+    private String OId;
+    //影片号
+    private String MId;
+    //影厅号
+    private String TId;
+    //开始时间
+    private Date OBegin;
+    //结束时间
+    private Date OEnd;
+    //价格
+    private float OPrice;
 
+    /**
+     * 带参数的构造方法
+     */
+    public OnMovie(String OId, String MId, String TId, Date OBegin, Date OEnd, float OPrice) {
+        this.OId = OId;
+        this.MId = MId;
+        this.TId = TId;
+        this.OBegin = OBegin;
+        this.OEnd = OEnd;
+        this.OPrice = OPrice;
+    }
+
+    /**
+     * 无参数的构造方法
+     */
     public OnMovie() {
-
     }
 
-    //构造方法
-    public OnMovie(String oid, String mid, String tid, Date startTime, Date endTime, float price) {
-        this.oid = oid;
-        this.mid = mid;
-        this.tid = tid;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.price = price;
+    public String getOId() {
+        return OId;
     }
 
-    public String getOid() {
-        return oid;
+    public void setOId(String OId) {
+        this.OId = OId;
     }
 
-    public void setOid(String oid) {
-        this.oid = oid;
+    public String getMId() {
+        return MId;
     }
 
-    public String getMid() {
-        return mid;
+    public void setMId(String MId) {
+        this.MId = MId;
     }
 
-    public void setMid(String mid) {
-        this.mid = mid;
+    public String getTId() {
+        return TId;
     }
 
-    public String getTid() {
-        return tid;
+    public void setTId(String TId) {
+        this.TId = TId;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid;
+    public Date getOBegin() {
+        return OBegin;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public void setOBegin(Date OBegin) {
+        this.OBegin = OBegin;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public Date getOEnd() {
+        return OEnd;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public void setOEnd(Date OEnd) {
+        this.OEnd = OEnd;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public float getOPrice() {
+        return OPrice;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
+    public void setOPrice(float OPrice) {
+        this.OPrice = OPrice;
     }
 }

@@ -1,45 +1,52 @@
 package DataUtils;
 
 public class Theater {
-    private String id;           //影厅号
-    private String type;         //影厅类型
-    private int size;            //影厅大小
+    //影厅号
+    private String TId;
+    //影厅类型
+    private byte TType;
+    //影厅大小
+    private int TSize;
 
-
+    /**
+     * 带参数的构造方法
+     * @param TId
+     * @param TType
+     * @param TSize
+     */
+    public Theater(String TId, byte TType, int TSize) {
+        this.TId = TId;
+        this.TType = TType;
+        this.TSize = TSize;
+    }
+    /**
+     * 无参数的构造方法
+     */
     public Theater() {
-    }
-
-    //构造方法
-    public Theater(String id, String type, int size) {
-        this.id = id;
-        this.type = type;
-        this.size = size;
 
     }
 
-    public String getId() {
-        return id;
+    public String getTId() {
+        return TId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTId(String TId) {
+        this.TId = TId;
     }
 
-    public String getType() {
-        return type;
+    public byte getTType() {
+        return TType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTType(byte TType) {
+        this.TType = TType;
     }
 
-    public int getSize() {
-        return size;
+    public int getTSize() {
+        return TSize;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setTSize(int TSize) {
+        this.TSize = TSize;
     }
 }
-
-

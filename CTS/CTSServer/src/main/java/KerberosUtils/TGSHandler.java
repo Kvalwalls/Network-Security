@@ -1,6 +1,6 @@
 package KerberosUtils;
 
-import DataUtils.AuthenticatorC;
+import DataUtils.Authenticator;
 import DataUtils.Ticket;
 import TransmissionUtils.TransMessage;
 import TransmissionUtils.Transceiver;
@@ -34,7 +34,7 @@ public class TGSHandler implements Runnable {
         return false;
     }
 
-    private boolean verifyTicket(Ticket ticket, AuthenticatorC authenticatorC) {
+    private boolean verifyTicket(Ticket ticket, Authenticator authenticatorC) {
         return false;
     }
 

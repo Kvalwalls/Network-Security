@@ -1,81 +1,83 @@
 package DataUtils;
 
 public class Movie {
-    private String id;               //影片号
-    private String name;             //影片名称
-    private String type;             //影片类型
-    private int time;                //影片时长
-    private float score;             //影片评分
-    private String image;            //影片图片路径
-    private String description;      //影片简介
+    //影片号
+    private String MId;
+    //名称
+    private String MName;
+    //类型
+    private String MType;
+    //时长
+    private int time;
+    //评分
+    private float MComment;
+    //简介
+    private String description;
 
-    public Movie() {
-    }
-
-    //构造方法
-    public Movie(String id, String name, String type, int time, float score, String image, String description) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
+    /**
+     * 带参数的构造方法
+     */
+    public Movie(String MId, String MName, String MType, int time, float MComment, String description) {
+        this.MId = MId;
+        this.MName = MName;
+        this.MType = MType;
         this.time = time;
-        this.score = score;
-        this.image = image;
+        this.MComment = MComment;
         this.description = description;
     }
 
-    public String getId() {     //获取影片号
-        return id;
+    /**
+     * 无参数的构造方法
+     */
+    public Movie() {
+
     }
 
-    public void setId(String id) {  //设置影片号
-        this.id = id;
+    public String getMId() {
+        return MId;
     }
 
-    public String getName() {       //获取影片名称
-        return name;
+    public void setMId(String MId) {
+        this.MId = MId;
     }
 
-    public void setName(String name) {  //设置影片名称
-        this.name = name;
+    public String getMName() {
+        return MName;
     }
 
-    public String getType() {           //获取影片类型
-        return type;
+    public void setMName(String MName) {
+        this.MName = MName;
     }
 
-    public void setType(String type) {  //设置影片类型
-        this.type = type;
+    public String getMType() {
+        return MType;
     }
 
-    public int getTime() {              //获取影片时长
+    public void setMType(String MType) {
+        this.MType = MType;
+    }
+
+    public int getTime() {
         return time;
     }
 
-    public void setTime(int time) {     //设置影片时长
+    public void setTime(int time) {
         this.time = time;
     }
 
-    public float getScore() {           //获取影片评分
-        return score;
+    public float getMComment() {
+        return MComment;
     }
 
-    public void setScore(float score) {     //设置影片评分
-        this.score = score;
+    public void setMComment(float MComment) {
+        this.MComment = MComment;
     }
 
-    public String getImage() {          //获取影片图片路径
-        return image;
-    }
-
-    public void setImage(String image) {    //设置影片图片路径
-        this.image = image;
-    }
-
-    public String getDescription() {        //获取影片简介
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {        //设置影片简介
+    public void setDescription(String description) {
         this.description = description;
     }
 }

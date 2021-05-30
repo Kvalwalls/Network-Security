@@ -1,0 +1,15 @@
+﻿1>------ 已启动生成: 项目: CommonUser, 配置: Debug Any CPU ------
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\MainWindow.xaml.cs(63,22,63,26): error CS0119: '“Enum”是一个 类型，这在给定的上下文中无效
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\MainWindow.xaml.cs(90,22,90,26): error CS0029: 无法将类型“string”隐式转换为“byte”
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\MainWindow.xaml.cs(93,22,93,26): error CS0029: 无法将类型“string”隐式转换为“byte”
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\RecordInfoWindow.xaml.cs(23,33,23,38): error CS1061: '“Record”未包含“Mname”的定义，并且找不到可接受第一个“Record”类型参数的可访问扩展方法“Mname”(是否缺少 using 指令或程序集引用?)
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\RecordInfoWindow.xaml.cs(24,33,24,39): error CS1061: '“Record”未包含“Obegin”的定义，并且找不到可接受第一个“Record”类型参数的可访问扩展方法“Obegin”(是否缺少 using 指令或程序集引用?)
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\RecordInfoWindow.xaml.cs(25,31,25,35): error CS1061: '“Record”未包含“Oend”的定义，并且找不到可接受第一个“Record”类型参数的可访问扩展方法“Oend”(是否缺少 using 指令或程序集引用?)
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\RecordInfoWindow.xaml.cs(26,38,26,41): error CS1061: '“Record”未包含“Tid”的定义，并且找不到可接受第一个“Record”类型参数的可访问扩展方法“Tid”(是否缺少 using 指令或程序集引用?)
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\UpgradeWindow.xaml.cs(31,22,31,26): error CS0029: 无法将类型“string”隐式转换为“byte”
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\UpgradeWindow.xaml.cs(34,22,34,26): error CS0029: 无法将类型“string”隐式转换为“byte”
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\UpgradeWindow.xaml.cs(66,40,66,52): error CS1503: 参数 1: 无法从“byte”转换为“string”
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\RegisterWindow.xaml.cs(23,16,23,20): warning CS0169: 从不使用字段“RegisterWindow.user”
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\RegisterWindow.xaml.cs(25,18,25,22): warning CS0414: 字段“RegisterWindow.name”已被赋值，但从未使用过它的值
+1>C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\RegisterWindow.xaml.cs(24,18,24,20): warning CS0414: 字段“RegisterWindow.id”已被赋值，但从未使用过它的值
+========== 生成: 成功 0 个，失败 1 个，最新 0 个，跳过 0 个 ==========

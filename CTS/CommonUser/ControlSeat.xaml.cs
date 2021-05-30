@@ -12,8 +12,8 @@ namespace CommonUser
     /// </summary>
     public partial class ControlSeat : UserControl
     {
-        public SeatStatus status { get; set; }
-        public ControlSeat(SeatStatus status)
+        public byte status { get; set; }
+        public ControlSeat(byte status)
         {
             this.status = status;
             InitializeComponent();
@@ -34,9 +34,9 @@ namespace CommonUser
 
         private void InitBackImage()
         {
-            if (status == SeatStatus.Selected)
+            if (status == EnumSeatStatus.Selected)
                 ChangeImageSource(BackImage, "ImageResources\\图标(黑)_已选座位.png", true);
-            else if(status == SeatStatus.Unselected)
+            else if(status == EnumSeatStatus.Unselected)
             {
                 ChangeImageSource(BackImage, "ImageResources\\图标(黑)_可选座位.png", true);
                 BackImage.MouseEnter += BackImage_MouseEnter;
@@ -61,15 +61,15 @@ namespace CommonUser
 
         private void BackImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (status == SeatStatus.Unselected)
+            if (status == EnumSeatStatus.Unselected)
             {
                 ChangeImageSource(BackImage, "ImageResources\\图标(黑)_在选座位.png", true);
-                status = SeatStatus.Selecting;
+                status = EnumSeatStatus.Selecting;
             }
-            else if(status == SeatStatus.Selecting)
+            else if(status == EnumSeatStatus.Selecting)
             {
                 ChangeImageSource(BackImage, "ImageResources\\图标(黑)_可选座位.png", true);
-                status = SeatStatus.Unselected;
+                status = EnumSeatStatus.Unselected;
             }
             else
             {

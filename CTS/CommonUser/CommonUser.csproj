@@ -85,6 +85,8 @@
     <Compile Include="ControlSeat.xaml.cs">
       <DependentUpon>ControlSeat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Entity\Enums.cs" />
+    <Compile Include="Kerberos\ASHandler.cs" />
     <Compile Include="Security\DESHandler.cs" />
     <Compile Include="PayWaitingWindow.xaml.cs">
       <DependentUpon>PayWaitingWindow.xaml</DependentUpon>
@@ -113,7 +115,7 @@
     <Compile Include="MyPayWindow.xaml.cs">
       <DependentUpon>MyPayWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Entity\Data.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -363,6 +365,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_可选座位.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="KeyFiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

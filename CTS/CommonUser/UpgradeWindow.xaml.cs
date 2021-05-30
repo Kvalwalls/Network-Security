@@ -1,17 +1,6 @@
 ﻿using CommonUser.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace CommonUser
 {
@@ -28,10 +17,10 @@ namespace CommonUser
             TextBlock_Id.Text += user.Uid;
             switch (user.Uaccess)
             {
-                case "01":
+                case EnumUserAccess.U_VIP:
                     TextBlock_Access.Text += "VIP用户";
                     break;
-                case "02":
+                case EnumUserAccess.U_SVIP:
                     TextBlock_Access.Text += "SVIP用户";
                     break;
                 default:
@@ -57,20 +46,20 @@ namespace CommonUser
 
         private void Button_Upgrade_Click(object sender, RoutedEventArgs e)
         {
-            int newAccess = ComboBox_Access.SelectedIndex + 1;
-            if (newAccess == 0)
+            int newAccess = ComboBox_Access.SelectedIndex + 2;
+            if (newAccess == 1)
             {
-                MessageBox.Show("请选择正确的权限！", "错误",MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("请选择正确的权限！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (newAccess <= int.Parse(user.Uaccess))
+            if (newAccess <= user.Uaccess)
             {
-                MessageBox.Show("请选择更高的权限！", "错误",MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("请选择更高的权限！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            new MyPayWIndow(newAccess*199).ShowDialog();
+            new MyPayWIndow(newAccess * 199).ShowDialog();
             /*发送请求*/
-            MessageBox.Show("升级成功！", "提示",MessageBoxButton.OK,MessageBoxImage.Information);
+            MessageBox.Show("升级成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             Close();
         }
     }

@@ -43,3 +43,4 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.cspr
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.CopyComplete
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.exe
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.pdb
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csprojAssemblyReference.cache

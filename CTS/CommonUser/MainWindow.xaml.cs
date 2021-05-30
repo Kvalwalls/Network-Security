@@ -54,13 +54,13 @@ namespace CommonUser
             TextBlock_Hello.Text = "欢迎您！";
             switch (user.Uaccess)
             {
-                case "01":
+                case EnumUserAccess.U_VIP:
                     {
                         Image_vip.Opacity = 1;
                         TextBlock_Hello.Text += "VIP用户：";
                         break;
                     }
-                case "02":
+                case EnumUserAccess.U_SVIP:
                     {
                         Image_svip.Opacity = 1;
                         TextBlock_Hello.Text += "SVIP用户：";
@@ -87,10 +87,10 @@ namespace CommonUser
             TextBox_Money.Text = user.Umoney + "元";
             switch (user.Uaccess)
             {
-                case "01":
+                case EnumUserAccess.U_VIP:
                     TextBox_Access.Text = "VIP用户";
                     break;
-                case "02":
+                case EnumUserAccess.U_SVIP:
                     TextBox_Access.Text = "SVIP用户";
                     break;
                 default:
@@ -123,10 +123,6 @@ namespace CommonUser
 
         private void InitRecords()
         {
-            records.Add(new Record("U00001", "001002", "O00001", "T00001", DateTime.Now.ToString(), 37, "购票成功", "17:00", "18:45", "肖申克的救赎"));
-            records.Add(new Record("U00001", "001003", "O00001", "T00001", DateTime.Now.ToString(), 37, "购票成功", "17:00", "18:45", "肖申克的救赎"));
-            records.Add(new Record("U00001", "001004", "O00001", "T00001", DateTime.Now.ToString(), 37, "购票成功", "17:00", "18:45", "肖申克的救赎"));
-            records.Add(new Record("U00001", "001005", "O00001", "T00001", DateTime.Now.ToString(), 37, "购票成功", "17:00", "18:45", "肖申克的救赎"));
             ListView_Records.ItemsSource = records;
         }
 
@@ -142,7 +138,6 @@ namespace CommonUser
                     movie.Mtype = sr.ReadLine();
                     movie.Mtime = int.Parse(sr.ReadLine());
                     movie.Mcomment = float.Parse(sr.ReadLine());
-                    movie.Mpicture = "MoviePictures\\" + movie.Mid + ".jpg";
                     movie.Mdescription = sr.ReadLine();
                 }
             }

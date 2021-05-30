@@ -12,7 +12,7 @@ namespace CommonUser.Transmission
         }
         public static string XmlToString(XmlDocument xmlDoc)
         {
-            return xmlDoc.InnerText;
+            return xmlDoc.InnerXml;
         }
     }
 }

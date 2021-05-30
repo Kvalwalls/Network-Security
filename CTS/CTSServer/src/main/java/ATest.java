@@ -10,18 +10,21 @@ import java.net.Socket;
 public class ATest {
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = Connection.bindServer("127.0.0.1",7000);
-            Socket socket = serverSocket.accept();
-            Transceiver transceiver = new Transceiver(socket);
-            TransMessage message = transceiver.receiveMessage();
-            message.dePackage("C:\\Users\\19705\\Desktop\\test.pk","00000001");
-            Document document = XMLPhaser.StringToXml(message.getContents());
-            System.out.println(document.getFirstChild().getFirstChild().getTextContent());
+
         } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 }
+//XML测试
+/*ServerSocket serverSocket = Connection.bindServer("127.0.0.1",7000);
+            Socket socket = serverSocket.accept();
+            Transceiver transceiver = new Transceiver(socket);
+            TransMessage message = transceiver.receiveMessage();
+            message.dePackage("C:\\Users\\19705\\Desktop\\test.pk","00000001");
+            Document document = XMLPhaser.StringToXml(message.getContents());
+            System.out.println(document.getFirstChild().getFirstChild().getTextContent());*/
+//报文收发测试
 /*TransMessage transMessage = new TransMessage();
             transMessage.setFromAddress(new byte[]{127,0,0,1});
             transMessage.setToAddress(new byte[]{127,0,0,2});

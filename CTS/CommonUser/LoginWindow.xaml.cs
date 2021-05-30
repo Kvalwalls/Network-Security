@@ -21,17 +21,7 @@ namespace CommonUser
 		public LoginWindow()
 		{
 			InitializeComponent();
-			mediaElement.Source = new Uri(
-				GetParentDirectory(System.AppDomain.CurrentDomain.BaseDirectory, 3)
-				+ "\\ImageResources\\背景_登录动态.gif"
-				);
-		}
-
-		private string GetParentDirectory(string path, int parentCount)
-		{
-			for (int i = 0; i < parentCount; i++)
-				path = System.IO.Path.GetDirectoryName(path);
-			return path;
+			mediaElement.Source = new Uri("..\\..\\ImageResources\\背景_登录动态.gif");
 		}
 
 		private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
@@ -58,7 +48,7 @@ namespace CommonUser
 			user.Upassword = password;
 			user.Uname = "汪帮传";
 			user.Umoney = 1000;
-			user.Uaccess = "01";
+			user.Uaccess = 3;
 			new MainWindow(user).Show();
 			Close();
 		}

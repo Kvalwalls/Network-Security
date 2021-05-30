@@ -1,43 +1,49 @@
 package DataUtils;
 
 public class Seat {
+    //座位号
+    private String SId;
+    //场次号
+    private String OId;
+    //座位状态
+    private byte SStatus;
 
-    private String sid;               //座位号
-    private String oid;               //影厅号
-    private String status;            //座位状态
+    /**
+     * 带参数的构造方法
+     */
+    public Seat(String SId, String OId, byte SStatus) {
+        this.SId = SId;
+        this.OId = OId;
+        this.SStatus = SStatus;
+    }
 
+    /**
+     * 无参数的构造函数
+     */
     public Seat() {
-
     }
 
-    //构造方法
-    public Seat(String sid, String oid, String status) {
-        this.sid = sid;
-        this.oid = oid;
-        this.status = status;
+    public String getSId() {
+        return SId;
     }
 
-    public String getSid() {
-        return sid;
+    public void setSId(String SId) {
+        this.SId = SId;
     }
 
-    public void setSid(String sid) {
-        this.sid = sid;
+    public String getOId() {
+        return OId;
     }
 
-    public String getOid() {
-        return oid;
+    public void setOId(String OId) {
+        this.OId = OId;
     }
 
-    public void setOid(String tid) {
-        this.oid = tid;
+    public byte getSStatus() {
+        return SStatus;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setSStatus(byte SStatus) {
+        this.SStatus = SStatus;
     }
 }

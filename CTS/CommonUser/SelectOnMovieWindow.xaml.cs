@@ -80,7 +80,7 @@ namespace CommonUser
         {
             OnMovie temp = ListView_OnMoviesToday.SelectedItem as OnMovie;
             /*发送请求*/
-            Theater theater = new Theater("T00001", TheaterType.SVIP, 64);
+            Theater theater = new Theater("T00001", EnumTheaterType.SVIP, 64);
             new SelectSeatWindow(temp, movie,theater).Show();
             Close();
         }
@@ -89,7 +89,7 @@ namespace CommonUser
         {
             OnMovie temp = ListView_OnMoviesTomo.SelectedItem as OnMovie;
             /*发送请求*/
-            Theater theater = new Theater("T00001", TheaterType.SVIP, 64);
+            Theater theater = new Theater("T00001", EnumTheaterType.SVIP, 64);
             new SelectSeatWindow(temp, movie, theater).Show();
             Close();
         }
@@ -98,7 +98,7 @@ namespace CommonUser
         {
             OnMovie temp = ListView_OnMoviesAfTomo.SelectedItem as OnMovie;
             /*发送请求*/
-            Theater theater = new Theater("T00001", TheaterType.SVIP, 64);
+            Theater theater = new Theater("T00001", EnumTheaterType.SVIP, 64);
             new SelectSeatWindow(temp, movie, theater).Show();
             Close();
         }

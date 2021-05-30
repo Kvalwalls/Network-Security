@@ -1,4 +1,5 @@
-﻿using CommonUser.Transmission;
+﻿using CommonUser.Kerberos;
+using CommonUser.Transmission;
 using System;
 using System.Configuration;
 using System.Net.Sockets;
@@ -27,11 +28,13 @@ namespace CommonUser
             message.contents = "<Text><i>123456789</i></Text>";
             message.EnPackage("C:\\Users\\19705\\Desktop\\test.sk", "00000001");
             transceiver.SendMessage(message);*/
-            byte[] vs = AddressPhaser.StringToBytes("127 .0 .0 .1 ");
+            /*byte[] vs = AddressPhaser.StringToBytes("127 .0 .0 .1 ");
             foreach (byte b in vs)
                 Console.WriteLine(b.ToString());
             string str = AddressPhaser.BytesToString(vs);
-            Console.WriteLine(str);
+            Console.WriteLine(str);*/
+            /*ASHandler asHandler = ASHandler.GetInstatnce();
+            asHandler.SendRequest();*/
             Close();
         }
     }

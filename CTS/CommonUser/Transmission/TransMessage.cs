@@ -1,4 +1,5 @@
-﻿using CommonUser.Security;
+﻿using CommonUser.Entity;
+using CommonUser.Security;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -56,13 +57,18 @@ namespace CommonUser.Transmission
             try
             {
                 signature = RSAHandler.GenerateSign(rsaSKeyFile, contents);
-                if (cryptCode == 1)
+                if (desKey != null)
+                {
                     contents = DESHandler.Encrypt(desKey, contents);
-                errorCode = 0;
+                    cryptCode = (byte)EnumCryptCode.Crypt;
+                }
+                else
+                    cryptCode = (byte)EnumCryptCode.NoCrypt;
+                errorCode = (byte)EnumErrorCode.NoError;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                errorCode = 1;
+                errorCode = (byte)EnumErrorCode.Error;
             }
         }
 
@@ -75,14 +81,14 @@ namespace CommonUser.Transmission
         {
             try
             {
-                if (cryptCode == 1)
+                if (cryptCode == (byte)EnumCryptCode.Crypt)
                     contents = DESHandler.Decrypt(desKey, contents);
                 if (!RSAHandler.VerifySign(rsaPKeyFile, signature, contents))
-                    errorCode = 1;
+                    errorCode = (byte)EnumErrorCode.Error;
             }
-            catch(Exception ex)
+            catch (Exception)
             {
-                errorCode = 1;
+                errorCode = (byte)EnumErrorCode.Error;
             }
         }
 
