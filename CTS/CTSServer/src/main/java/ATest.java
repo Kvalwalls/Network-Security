@@ -17,6 +17,7 @@ public class ATest {
             message.dePackage("C:\\Users\\19705\\Desktop\\test.pk","00000001");
             Document document = XMLPhaser.StringToXml(message.getContents());
             System.out.println(document.getFirstChild().getFirstChild().getTextContent());
+            transceiver.RePicture(message.getImage(),"001");
         } catch (Exception exception) {
             exception.printStackTrace();
         }

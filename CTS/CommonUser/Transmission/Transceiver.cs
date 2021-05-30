@@ -54,6 +54,14 @@ namespace CommonUser.Transmission
             buffer = new byte[contentLen];
             socket.Receive(buffer);
             message.contents = Encoding.UTF8.GetString(buffer);
+            //图片大小
+            buffer = new byte[4];
+            socket.Receive(buffer);
+            int imgLen = int.Parse(Encoding.UTF8.GetString(buffer).Trim());
+            //图片
+            buffer = new byte[imgLen];
+            socket.Receive(buffer);
+
             return message;
         }
 

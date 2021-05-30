@@ -1,5 +1,6 @@
 ﻿using CommonUser.Security;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,11 +24,13 @@ namespace CommonUser.Transmission
         public string signature { get; set; }
         //报文内容
         public string contents { get; set; }
+        //目的IP地址
+        public byte[] Image { get; set; }
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        public TransMessage(byte[] tAddr, byte[] fAddr, byte serviceT, byte specificT, byte cryptC, string con)
+        public TransMessage(byte[] tAddr, byte[] fAddr, byte serviceT, byte specificT, byte cryptC, string con,byte[] image)
         {
             toAddress = tAddr;
             fromAddress = fAddr;
@@ -35,6 +38,7 @@ namespace CommonUser.Transmission
             specificType = specificT;
             cryptCode = cryptC;
             contents = con;
+            Image = image;
         }
 
         /// <summary>
@@ -93,6 +97,8 @@ namespace CommonUser.Transmission
         public byte[] MessageToBytes()
         {
             List<byte> byteList = new List<byte>();
+            BitArray img = new BitArray(Image);
+            int imgLen = img.Length;
             byteList.AddRange(toAddress);
             byteList.AddRange(fromAddress);
             byteList.Add(serviceType);
@@ -103,6 +109,8 @@ namespace CommonUser.Transmission
             byteList.AddRange(Encoding.UTF8.GetBytes(string.Format("{0,-4}", contents.Length)));
             byteList.AddRange(Encoding.UTF8.GetBytes(signature));
             byteList.AddRange(Encoding.UTF8.GetBytes(contents));
+            byteList.AddRange(BitConverter.GetBytes(imgLen));
+            byteList.AddRange(Image);
             return byteList.ToArray();
         }
     }

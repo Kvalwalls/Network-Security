@@ -1,9 +1,6 @@
 package TransmissionUtils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class Transceiver {
@@ -58,6 +55,28 @@ public class Transceiver {
         buffer = new byte[contentLen];
         dis.read(buffer);
         message.setContents(new String(buffer));
+        //图片大小
+        buffer = new byte[4];
+        dis.read(buffer);
+        int imgLen = Integer.parseInt(new String(buffer).trim());
+        //图片
+        buffer = new byte[imgLen];
+        dis.read(buffer);
+        message.setImage(buffer);
         return message;
+    }
+    //还原接收图片
+    public static void RePicture(byte[] image, String Mid){
+
+        FileOutputStream fos= null;
+        //fos = new FileOutputStream("D:\\1\\2.jpg");
+        try {
+            fos.write(image,0,image.length);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
