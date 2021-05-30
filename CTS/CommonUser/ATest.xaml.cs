@@ -2,6 +2,7 @@
 using CommonUser.Transmission;
 using System;
 using System.Configuration;
+using System.IO;
 using System.Net.Sockets;
 using System.Windows;
 
@@ -36,6 +37,25 @@ namespace CommonUser
             /*ASHandler asHandler = ASHandler.GetInstatnce();
             asHandler.SendRequest();*/
             Close();
+        }
+
+        public static byte[] GetPictureBytes(string filename)       //filename填写图片路径
+        {
+            FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+
+            byte[] buffer = new byte[fs.Length];
+
+            fs.Read(buffer, 0, buffer.Length);
+            fs.Close();
+            return buffer;
+        }
+
+        public static void RePicture(byte[] image, string Mid)
+        {
+            FileStream fs = new FileStream("D:\\1\\M" + Mid + ".jpg", FileMode.Create);
+            fs.Write(image, 0, image.Length);
+            fs.Flush();
+            fs.Close();
         }
     }
 }

@@ -23,17 +23,20 @@ public class TransMessage {
     private String signature;
     //报文内容
     private String contents;
+    //图片
+    private byte[] Image;
 
     /**
      * 构造方法
      */
-    public TransMessage(byte[] tAddr, byte[] fAddr, byte serviceT, byte specificT, byte cryptC, String con) {
+    public TransMessage(byte[] tAddr, byte[] fAddr, byte serviceT, byte specificT, byte cryptC, String con,byte[] image) {
         this.toAddress = tAddr;
         this.fromAddress = fAddr;
         this.serviceType = serviceT;
         this.specificType = specificT;
         this.cryptCode = cryptC;
         this.contents = con;
+        this.Image = image;
     }
 
     /**
@@ -108,6 +111,13 @@ public class TransMessage {
         this.contents = contents;
     }
 
+    public byte[] getImage() {
+        return Image;
+    }
+
+    public void setImage(byte[] image) {
+        this.Image = image;
+    }
     /**
      * 报文封装方法
      *
@@ -165,9 +175,23 @@ public class TransMessage {
             byteList.add(b);
         for (byte b : contents.getBytes())
             byteList.add(b);
+        for (byte b : intToBytes(Image.length))
+            byteList.add(b);
+        for (byte b : Image)
+            byteList.add(b);
         byte[] finalByteList = new byte[byteList.size()];
         for (int i = 0; i < byteList.size(); i++)
             finalByteList[i] = byteList.get(i);
+
         return finalByteList;
+    }
+    //int转byte数组
+    private static byte[] intToBytes(int a) {
+        byte[] bs = new byte[4];
+        for (int i = bs.length - 1; i >= 0; i--) {
+            bs[i] = (byte) (a % 0xFF);
+            a = a / 0xFF;
+        }
+        return bs;
     }
 }
