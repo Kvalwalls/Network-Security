@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿CommonUser
 
 
@@ -13,31 +12,9 @@ DEBUG;TRACE
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\App.xaml
 16-1721623827
 
-261687351238
-15324535629
+28900583746
+151299986112
 ATest.xaml;ControlSeat.xaml;PayWaitingWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;WaitingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;RecordInfoWindow.xaml;UpgradeWindow.xaml;
 
 False
 
-=======
-﻿CommonUser
-
-
-winexe
-C#
-.cs
-F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\
-CommonUser
-none
-false
-DEBUG;TRACE
-F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\App.xaml
-15-1693345838
-
-22-2040781253
-15531001493
-ControlSeat.xaml;PayWaitingWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;WaitingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;RecordInfoWindow.xaml;UpgradeWindow.xaml;
-
-False
-
->>>>>>> ed2734b2b9b06bb8d2ef1d56cc57d525a5b3276e
