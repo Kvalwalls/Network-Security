@@ -1,7 +1,6 @@
 ﻿using CommonUser.Entity;
 using CommonUser.Security;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -61,15 +60,15 @@ namespace CommonUser.Transmission
                 if (desKey != null)
                 {
                     contents = DESHandler.Encrypt(desKey, contents);
-                    cryptCode = (byte)EnumCryptCode.Crypt;
+                    cryptCode = EnumCryptCode.Crypt;
                 }
                 else
-                    cryptCode = (byte)EnumCryptCode.NoCrypt;
-                errorCode = (byte)EnumErrorCode.NoError;
+                    cryptCode = EnumCryptCode.NoCrypt;
+                errorCode = EnumErrorCode.NoError;
             }
             catch (Exception)
             {
-                errorCode = (byte)EnumErrorCode.Error;
+                errorCode = EnumErrorCode.Error;
             }
         }
 
@@ -82,14 +81,14 @@ namespace CommonUser.Transmission
         {
             try
             {
-                if (cryptCode == (byte)EnumCryptCode.Crypt)
+                if (cryptCode == EnumCryptCode.Crypt)
                     contents = DESHandler.Decrypt(desKey, contents);
                 if (!RSAHandler.VerifySign(rsaPKeyFile, signature, contents))
-                    errorCode = (byte)EnumErrorCode.Error;
+                    errorCode = EnumErrorCode.Error;
             }
             catch (Exception)
             {
-                errorCode = (byte)EnumErrorCode.Error;
+                errorCode = EnumErrorCode.Error;
             }
         }
 
@@ -100,16 +99,14 @@ namespace CommonUser.Transmission
         public byte[] MessageToBytes()
         {
             List<byte> byteList = new List<byte>();
-            BitArray img = new BitArray(Image);
-            int imgLen = img.Length;
             byteList.AddRange(toAddress);
             byteList.AddRange(fromAddress);
             byteList.Add(serviceType);
             byteList.Add(specificType);
             byteList.Add(errorCode);
             byteList.Add(cryptCode);
-            byteList.AddRange(Encoding.UTF8.GetBytes(string.Format("{0,-4}", signature.Length)));
-            byteList.AddRange(Encoding.UTF8.GetBytes(string.Format("{0,-4}", contents.Length)));
+            byteList.AddRange(IntBytesPhaser.IntToBytes(signature.Length));
+            byteList.AddRange(IntBytesPhaser.IntToBytes(contents.Length));
             byteList.AddRange(Encoding.UTF8.GetBytes(signature));
             byteList.AddRange(Encoding.UTF8.GetBytes(contents));
             return byteList.ToArray();

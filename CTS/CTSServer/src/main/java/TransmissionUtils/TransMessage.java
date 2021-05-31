@@ -1,5 +1,7 @@
 package TransmissionUtils;
 
+import EnumUtils.EnumCryptCode;
+import EnumUtils.EnumErrorCode;
 import SecurityUtils.DESHandler;
 import SecurityUtils.RSAHandler;
 
@@ -117,11 +119,14 @@ public class TransMessage {
     public void enPackage(String rsaSKeyFile, String desKey) {
         try {
             signature = RSAHandler.generateSign(rsaSKeyFile, contents);
-            if (cryptCode == 1)
+            if (desKey != null) {
                 contents = DESHandler.encrypt(desKey, contents);
-            errorCode = 0;
+                cryptCode = EnumCryptCode.Crypt;
+            } else
+                cryptCode = EnumCryptCode.NoCrypt;
+            errorCode = EnumErrorCode.NoError;
         } catch (Exception e) {
-            errorCode = 1;
+            errorCode = EnumErrorCode.Error;
         }
     }
 
@@ -133,12 +138,12 @@ public class TransMessage {
      */
     public void dePackage(String rsaPKeyFile, String desKey) {
         try {
-            if (cryptCode == 1)
+            if (cryptCode == EnumCryptCode.Crypt)
                 contents = DESHandler.decrypt(desKey, contents);
             if (!RSAHandler.verifySign(rsaPKeyFile, signature, contents))
-                errorCode = 1;
+                errorCode = EnumErrorCode.Error;
         } catch (Exception e) {
-            errorCode = 1;
+            errorCode = EnumErrorCode.Error;
         }
     }
 
@@ -157,9 +162,9 @@ public class TransMessage {
         byteList.add(specificType);
         byteList.add(errorCode);
         byteList.add(cryptCode);
-        for (byte b : String.format("%-4d", signature.length()).getBytes())
+        for (byte b : IntBytesPhaser.intToBytes(signature.length()))
             byteList.add(b);
-        for (byte b : String.format("%-4d", contents.length()).getBytes())
+        for (byte b : IntBytesPhaser.intToBytes(contents.length()))
             byteList.add(b);
         for (byte b : signature.getBytes())
             byteList.add(b);

@@ -100,6 +100,8 @@
     </Compile>
     <Compile Include="Transmission\AddressPhaser.cs" />
     <Compile Include="Transmission\Connection.cs" />
+    <Compile Include="Transmission\IntBytesPhaser.cs" />
+    <Compile Include="Transmission\PicturePhaser.cs" />
     <Compile Include="Transmission\Transceiver.cs" />
     <Compile Include="Transmission\TransMessage.cs" />
     <Compile Include="Transmission\XMLPhaser.cs" />

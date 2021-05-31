@@ -52,11 +52,11 @@ namespace CommonUser.Transmission
             //数字签名长度字段
             buffer = new byte[4];
             socket.Receive(buffer);
-            int signLen = int.Parse(Encoding.UTF8.GetString(buffer).Trim());
+            int signLen = IntBytesPhaser.BytesToInt(buffer);
             //报文内容长度字段
             buffer = new byte[4];
             socket.Receive(buffer);
-            int contentLen = int.Parse(Encoding.UTF8.GetString(buffer).Trim());
+            int contentLen = IntBytesPhaser.BytesToInt(buffer);
             //数字签名字段
             buffer = new byte[signLen];
             socket.Receive(buffer);

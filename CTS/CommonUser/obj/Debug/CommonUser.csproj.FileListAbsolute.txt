@@ -1,7 +1,3 @@
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.exe.config
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.exe
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.pdb
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\ControlSeat.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\ATest.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\ControlSeat.g.cs
@@ -38,9 +34,13 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RegisterWindow.
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\RecordInfoWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\UpgradeWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.g.resources
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.pdb
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.exe.config
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.exe
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\CommonUser.pdb
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.Properties.Resources.resources
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.GenerateResource.cache
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.CopyComplete
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.exe
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.pdb
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csprojAssemblyReference.cache

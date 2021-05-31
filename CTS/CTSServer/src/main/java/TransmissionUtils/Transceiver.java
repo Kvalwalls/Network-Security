@@ -1,15 +1,27 @@
 package TransmissionUtils;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.net.Socket;
 
 public class Transceiver {
     private final Socket socket;
 
+    /**
+     * 带参数的构造方法
+     */
     public Transceiver(Socket socket) {
         this.socket = socket;
     }
 
+    /**
+     * 报文发送方法
+     *
+     * @param message 发送的报文对象
+     * @throws Exception 发送异常
+     */
     public void sendMessage(TransMessage message) throws Exception {
         DataOutputStream dos = new DataOutputStream(
                 new BufferedOutputStream(
@@ -18,6 +30,12 @@ public class Transceiver {
         dos.flush();
     }
 
+    /**
+     * 报文接收方法
+     *
+     * @return 接收的报文对象
+     * @throws Exception 接收异常
+     */
     public TransMessage receiveMessage() throws Exception {
         byte[] buffer = null;
         TransMessage message = new TransMessage();
@@ -42,10 +60,10 @@ public class Transceiver {
         //长度字段
         buffer = new byte[4];
         dis.read(buffer);
-        int signLen = Integer.parseInt(new String(buffer).trim());
+        int signLen = IntBytesPhaser.bytesToInt(buffer);
         buffer = new byte[4];
         dis.read(buffer);
-        int contentLen = Integer.parseInt(new String(buffer).trim());
+        int contentLen = IntBytesPhaser.bytesToInt(buffer);
         //数字签名字段
         buffer = new byte[signLen];
         dis.read(buffer);

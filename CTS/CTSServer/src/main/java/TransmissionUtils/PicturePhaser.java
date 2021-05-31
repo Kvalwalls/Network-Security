@@ -1,45 +1,38 @@
 package TransmissionUtils;
 
-import javax.imageio.stream.FileImageInputStream;
-import javax.imageio.stream.FileImageOutputStream;
 import java.io.*;
+import java.util.Base64;
 
 public class PicturePhaser {
-    //读取图片
-    public static byte[] pictureToBytes(String filename) {
-
-        byte[] data = null;
-        FileImageInputStream input = null;
-        try {
-            input = new FileImageInputStream(new File(filename));
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            int numBytesRead = 0;
-            while ((numBytesRead = input.read(buf)) != -1) {
-                output.write(buf, 0, numBytesRead);
-            }
-            data = output.toByteArray();
-            output.close();
-            input.close();
-        }
-        catch (FileNotFoundException ex1) {
-            ex1.printStackTrace();
-        }
-        catch (IOException ex1) {
-            ex1.printStackTrace();
-        }
-        return data;
-
+    /**
+     * 图片转换Base64方法
+     *
+     * @param picName 图片名称
+     * @return Base64格式字符串
+     * @throws Exception IO异常
+     */
+    public static String pictureToBase64(String picName) throws Exception {
+        InputStream inputStream = new FileInputStream(picName);
+        byte[] data = new byte[inputStream.available()];
+        inputStream.read(data);
+        inputStream.close();
+        Base64.Encoder encoder = Base64.getEncoder();
+        return encoder.encodeToString(data);
     }
-    //字节流写图片文件
-    public static void bytesToPicture(byte[] bytes) {
-        try{
-            FileImageOutputStream imageOutput = new FileImageOutputStream(new File("D:\\1\\M.jpg"));
-            imageOutput.write(bytes, 0, bytes.length);
-            imageOutput.close();
-        } catch(Exception ex) {
-            System.out.println("Exception: " + ex);
-            ex.printStackTrace();
-        }
+
+    /**
+     * Base64转换图片方法
+     *
+     * @param base64Str Base64格式字符串
+     * @param Mid       影片号
+     * @throws Exception IO异常
+     */
+    public static void base64ToPicture(String base64Str, String Mid) throws Exception {
+        String picName = "src\\resources\\MoviePictures\\" + Mid + ".jpg";
+        OutputStream outputStream = new FileOutputStream(picName);
+        Base64.Decoder decoder = Base64.getDecoder();
+        byte[] picBytes = decoder.decode(base64Str.getBytes());
+        outputStream.write(picBytes, 0, picBytes.length);
+        outputStream.close();
     }
 }
