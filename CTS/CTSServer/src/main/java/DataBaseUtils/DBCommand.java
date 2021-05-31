@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class DBCommand {
     //数据库连接
@@ -174,10 +175,7 @@ public class DBCommand {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (user.getUId() != null)
-            return user;
-        else
-            return null;
+        return user;
     }
 
     /**添加人员
@@ -186,8 +184,30 @@ public class DBCommand {
      * @return
      */
     public static boolean insertUser(User user) {
-        return false;
+        String sql = "insert into T_User values('" + user.getUId() + "','" + user.getUName()+ "','" + user.getUPassword()+"','" + user.getUAccess()+"','" + user.getUMoney()+ "')";
+        //创建数据库链接
+        Statement state = null;
+        int a = 0;
+
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if(a==0)return false;
+        else return true;
     }
+
+
 
     /**
      * 删除人员
@@ -216,6 +236,7 @@ public class DBCommand {
         else return true;
     }
 
+
     /**
      * 修改名称
      * @param id 人员号
@@ -239,6 +260,7 @@ public class DBCommand {
         }
         return a == 1;
     }
+
 
     /**
      * 修改密码
@@ -343,8 +365,28 @@ public class DBCommand {
      * @return
      */
     public static boolean verifyLogin(String id,String pwd) {
+        String sql = "select U_Password from t_user where u_id ='" + id + "'";
+        Statement state = null;
+        ResultSet rs = null;
+        try {
+            state = connection.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                if(pwd.equals(rs.getString("U_Password")))return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
+
+
 
 
     /*----影片表T_Movie接口----*/
@@ -430,28 +472,27 @@ public class DBCommand {
     }
 
     /*
-    通过电影ID获取所有Movie实体
+    通过电影ID获取指定Movie实体
     select * from t_movie where m_id=#{arg0};
     参数：id——电影ID
     返回值：Movie数组
      */
-    public static ArrayList<Movie> getAllMoviesById(String id){
+    public static Movie getMoviesById(String id){
         String sql = "select * from t_movie where m_id ='" + id + "'";
         Statement state = null;
         ResultSet rs;
-        ArrayList<Movie> users=new ArrayList<Movie>();
+        Movie f=null;
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                Movie f=new Movie();
+                f=new Movie();
                 f.setMId(rs.getString("m_id"));
                 f.setMName(rs.getString("m_name"));
                 f.setMType(rs.getString("m_type"));
                 f.setTime(Integer.parseInt(rs.getString("m_time")));
                 f.setMComment(Float.parseFloat(rs.getString("m_comment")));
                 f.setDescription(rs.getString("m_description"));
-                users.add(f);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -464,10 +505,7 @@ public class DBCommand {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if(users.size()==0)
-            return null;
-        else
-            return users;
+        return f;
     }
 
     /*
@@ -531,15 +569,55 @@ public class DBCommand {
         else return true;
     }
 
+    //模糊匹配字符串
+    public static boolean FuzzyMatch(String str,String key){
+        String match=".*"+key+".*";
+        return Pattern.matches(match,str);
+    }
+
     /**
      * 在影片名中查询相关关键词
      * @param keyStr
      * @return
      */
     public static ArrayList<Movie> getLikeMovies(String keyStr) {
-        return null;
-    }
+        String sql = "select * from T_Movie";
+        Statement state = null;
+        ResultSet rs;
+        ArrayList<Movie> users=new ArrayList<Movie>();
+        try {
+            state = connection.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                if(FuzzyMatch(rs.getString("M_Name"),keyStr)){
+                    Movie f=new Movie();
+                    f.setMId(rs.getString("m_id"));
+                    f.setMName(rs.getString("m_name"));
+                    f.setMType(rs.getString("m_type"));
+                    f.setTime(Integer.parseInt(rs.getString("m_time")));
+                    f.setMComment(Float.parseFloat(rs.getString("m_comment")));
+                    f.setDescription(rs.getString("m_description"));
+                    users.add(f);
+                }
 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            assert state != null;
+            state.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(users.size()==0)
+            return null;
+        else
+            return users;
+    }
+    
     /*-------------------------------------------------------Theater---------------------------------------------------*/
 
     /*
@@ -581,25 +659,24 @@ public class DBCommand {
     }
 
     /*
-    通过影厅ID获取所有Theater实体
+    通过影厅ID获取指定Theater实体
     select * from T_Theater where t_id=#{arg0};
     参数：id——影厅ID
     返回值：Theater数组
      */
-    public static ArrayList<Theater> getAllTheaterByID(String id){
+    public static Theater getTheaterByID(String id){
         String sql = "select * from T_Theater where t_id='"+id+"'";
         Statement state = null;
         ResultSet rs;
-        ArrayList<Theater> users=new ArrayList<Theater>();
+        Theater f=null;
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                Theater f=new Theater();
+                f=new Theater();
                 f.setTId(rs.getString("t_id"));
                 f.setTType(Byte.parseByte(rs.getString("t_type")));
                 f.setTSize(Integer.parseInt(rs.getString("t_size")));
-                users.add(f);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -612,10 +689,7 @@ public class DBCommand {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if(users.size()==0)
-            return null;
-        else
-            return users;
+        return f;
     }
 
     /*
@@ -778,23 +852,22 @@ public class DBCommand {
     参数：oid——场次号
     返回值：场次动态数组
      */
-    public static ArrayList<OnMovie> getAllOnMoviesByOnId(String oid){
+    public static OnMovie getOnMoviesByOnId(String oid){
         String sql = "select * from T_OnMovie where o_id='"+oid+"'";
         Statement state = null;
         ResultSet rs;
-        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
+        OnMovie f=null;
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                OnMovie f=new OnMovie();
+                f=new OnMovie();
                 f.setOId(rs.getString("o_id"));
                 f.setMId(rs.getString("m_id"));
                 f.setTId(rs.getString("t_id"));
                 f.setOBegin(strToDateLong(rs.getString("o_begintime")));
                 f.setOEnd(strToDateLong(rs.getString("o_endtime")));
                 f.setOPrice(Float.parseFloat(rs.getString("o_price")));
-                users.add(f);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -807,10 +880,7 @@ public class DBCommand {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if(users.size()==0)
-            return null;
-        else
-            return users;
+        return f;
     }
 
     /*
@@ -962,6 +1032,7 @@ public class DBCommand {
     public static boolean addOnMovie(OnMovie onMovie) throws ParseException {
         List<OnMovie> t=getAllOnMoviesByTheaterId(onMovie.getTId());
         //判断是否有时间冲突
+        assert t != null;
         for(OnMovie onMovie1:t){
             if(!((CompareTime(onMovie.getOBegin(),onMovie1.getOEnd())==1)||(CompareTime(onMovie.getOEnd(),onMovie1.getOBegin())==-1))) {
                 System.out.println("addOnMovie failed: Time conflict!");
@@ -983,6 +1054,7 @@ public class DBCommand {
         }
 
         try {
+            assert state != null;
             state.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -990,7 +1062,7 @@ public class DBCommand {
         }
 
         //添加座位
-        int size=getAllTheaterByID(onMovie.getTId()).get(0).getTSize();
+        int size=getTheaterByID(onMovie.getTId()).getTSize();
         int row=size/16;
         for(int i=1;i<=row;i++){
             for(int j=1;j<=16;j++){
@@ -1033,6 +1105,7 @@ public class DBCommand {
         }
 
         try {
+            assert state != null;
             state.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -1179,6 +1252,7 @@ public class DBCommand {
         }
 
         try {
+            assert state != null;
             state.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
