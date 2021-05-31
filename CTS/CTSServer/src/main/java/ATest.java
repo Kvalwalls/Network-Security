@@ -1,13 +1,18 @@
+import DataBaseUtils.DBCommand;
+import DataUtils.User;
+import PropertiesUtils.PropertiesHandler;
 import TransmissionUtils.*;
 import org.w3c.dom.Document;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 
 public class ATest {
     public static void main(String[] args) {
         try {
-
+            List<User> temp = DBCommand.getAllUsersByAccess((byte) 0);
+            temp.forEach((User u)-> System.out.println(u.getUName()));
         } catch (Exception exception) {
             exception.printStackTrace();
         }

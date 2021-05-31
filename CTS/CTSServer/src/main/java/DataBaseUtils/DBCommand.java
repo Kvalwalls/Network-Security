@@ -1,6 +1,7 @@
 package DataBaseUtils;
 
 import DataUtils.*;
+import PropertiesUtils.PropertiesHandler;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -11,35 +12,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBCommand {
-    //数据库引擎
-    private static String JDBC_DRIVER;
-    //数据库数据源
-    private static String DB_URL;
-    //数据库用户名
-    private static String Name;
-    //数据库密码
-    private static String Pwd;
     //数据库连接
-    private static Connection conn;
+    private static Connection connection;
 
+    //初始化
     static {
-        JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        DB_URL = "jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai";
-        Name = "root";
-        Pwd = "wbc123";
         try {
+            //数据库引擎
+            String JDBC_DRIVER = PropertiesHandler.getPropertiesElement("JDBC_Driver");
+            //数据库数据源
+            String DB_URL = PropertiesHandler.getPropertiesElement("DB_URL");
+            //数据库用户名
+            String USER = PropertiesHandler.getPropertiesElement("User");
+            //数据库密码
+            String PWD = PropertiesHandler.getPropertiesElement("Password");
             Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL, Name, Pwd);
+            connection = DriverManager.getConnection(DB_URL, USER, PWD);
             System.out.println("数据库连接成功！");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("数据库连接失败！");
         }
     }
+
     /*-------------------------------------------------------User---------------------------------------------------*/
     /**
      * 获取所有User实体
-     * @return User对象数组
+     * @return User对象列表
      */
     public static ArrayList<User> getAllUsers(){
         String sql = "select * from t_user";
@@ -47,7 +46,7 @@ public class DBCommand {
         ResultSet rs = null;
         ArrayList<DataUtils.User> users=new ArrayList<User>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.User f = new DataUtils.User();
@@ -61,30 +60,27 @@ public class DBCommand {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
             assert state != null;
             state.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return users;       //返回用户
+        return users;
     }
 
-
-    /*
-    select * from t_user where u_access=#{arg0};
-    参数：用户权限
-    返回值：所有符合要求的User实体
+    /**
+     * 根据权限获取User实体
+     * @param access 权限
+     * @return User对象列表
      */
-    public static ArrayList<DataUtils.User> getAllUsersByAccess(String access){
-        String sql = "select * from t_user where u_access ='" + access + "'";
+    public static ArrayList<DataUtils.User> getAllUsersByAccess(byte access){
+        String sql = "select * from t_user where u_access ='" + Byte.toString(access) + "'";
         Statement state = null;
         ResultSet rs;
         ArrayList<DataUtils.User> users=new ArrayList<User>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.User f=new DataUtils.User();
@@ -123,7 +119,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<DataUtils.User> users=new ArrayList<User>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.User f=new DataUtils.User();
@@ -162,7 +158,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<DataUtils.User> users=new ArrayList<User>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.User f=new DataUtils.User();
@@ -202,7 +198,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -230,7 +226,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -259,7 +255,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -290,7 +286,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -321,7 +317,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Movie> users=new ArrayList<Movie>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Movie f=new Movie();
@@ -362,7 +358,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Movie> users=new ArrayList<Movie>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Movie f=new Movie();
@@ -403,7 +399,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Movie> users=new ArrayList<Movie>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Movie f=new Movie();
@@ -445,7 +441,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -477,7 +473,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -509,7 +505,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Theater> users=new ArrayList<Theater>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Theater f=new Theater();
@@ -547,7 +543,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Theater> users=new ArrayList<Theater>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Theater f=new Theater();
@@ -585,7 +581,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Theater> users=new ArrayList<Theater>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Theater f=new Theater();
@@ -625,7 +621,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -657,7 +653,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -698,7 +694,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<OnMovie> users=new ArrayList<OnMovie>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
@@ -739,7 +735,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<OnMovie> users=new ArrayList<OnMovie>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
@@ -780,7 +776,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<OnMovie> users=new ArrayList<OnMovie>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
@@ -821,7 +817,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<OnMovie> users=new ArrayList<OnMovie>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
@@ -862,7 +858,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<OnMovie> users=new ArrayList<OnMovie>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 OnMovie f=new OnMovie();
@@ -931,7 +927,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -981,7 +977,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1012,7 +1008,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Seat> users=new ArrayList<Seat>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Seat f=new Seat();
@@ -1050,7 +1046,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Seat> users=new ArrayList<Seat>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Seat f=new Seat();
@@ -1088,7 +1084,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Seat> users=new ArrayList<Seat>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Seat f=new Seat();
@@ -1127,7 +1123,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1157,7 +1153,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<DataUtils.Record> users=new ArrayList<DataUtils.Record>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.Record f=new DataUtils.Record();
@@ -1198,7 +1194,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<DataUtils.Record> users=new ArrayList<DataUtils.Record>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.Record f=new DataUtils.Record();
@@ -1239,7 +1235,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<DataUtils.Record> users=new ArrayList<DataUtils.Record>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 DataUtils.Record f=new DataUtils.Record();
@@ -1281,7 +1277,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1310,7 +1306,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1341,7 +1337,7 @@ public class DBCommand {
         ResultSet rs;
         ArrayList<Idk> users=new ArrayList<Idk>();
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
                 Idk f=new Idk();
@@ -1379,7 +1375,7 @@ public class DBCommand {
         int a = 0;
 
         try {
-            state = conn.createStatement();
+            state = connection.createStatement();
             a = state.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
