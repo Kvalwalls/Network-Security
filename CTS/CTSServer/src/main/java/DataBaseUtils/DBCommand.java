@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DBCommand {
@@ -35,7 +36,7 @@ public class DBCommand {
         }
     }
 
-    /*-------------------------------------------------------User---------------------------------------------------*/
+    /*----人员表T_User接口----*/
     /**
      * 获取所有User实体
      * @return User对象列表
@@ -74,10 +75,10 @@ public class DBCommand {
      * @param access 权限
      * @return User对象列表
      */
-    public static ArrayList<DataUtils.User> getAllUsersByAccess(byte access){
+    public static ArrayList<DataUtils.User> getUsersByAccess(byte access){
         String sql = "select * from t_user where u_access ='" + Byte.toString(access) + "'";
         Statement state = null;
-        ResultSet rs;
+        ResultSet rs = null;
         ArrayList<DataUtils.User> users=new ArrayList<User>();
         try {
             state = connection.createStatement();
@@ -94,90 +95,10 @@ public class DBCommand {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
             assert state != null;
             state.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
-            return null;        //数据库中无指定商店，获取菜单失败
-        else
-            return users;       //返回菜单
-    }
-
-    /*
-    select * from t_user where u_name=#{name};
-    参数：用户名
-    返回值：所有符合要求的User实体
-     */
-    public static ArrayList<DataUtils.User> getAllUsersByNames(String name){
-        String sql = "select * from t_user where u_name ='" + name + "'";
-        Statement state = null;
-        ResultSet rs;
-        ArrayList<DataUtils.User> users=new ArrayList<User>();
-        try {
-            state = connection.createStatement();
-            rs = state.executeQuery(sql);
-            while (rs.next()) {
-                DataUtils.User f=new DataUtils.User();
-                f.setUId(rs.getString("u_id"));
-                f.setUName(rs.getString("u_name"));
-                f.setUPassword(rs.getString("u_password"));
-                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
-                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
-                users.add(f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
-            return null;        //数据库中无指定商店，获取菜单失败
-        else
-            return users;
-    }
-
-    /*
-    select * from t_user where u_id=#{id};
-    参数：用户ID
-    返回值：所有符合要求的User实体
-     */
-    public static ArrayList<DataUtils.User> getUserById(String id){
-        String sql = "select * from t_user where u_id ='" + id + "'";
-        Statement state = null;
-        ResultSet rs;
-        ArrayList<DataUtils.User> users=new ArrayList<User>();
-        try {
-            state = connection.createStatement();
-            rs = state.executeQuery(sql);
-            while (rs.next()) {
-                DataUtils.User f=new DataUtils.User();
-                f.setUId(rs.getString("u_id"));
-                f.setUName(rs.getString("u_name"));
-                f.setUPassword(rs.getString("u_password"));
-                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
-                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
-                users.add(f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         if(users.size()==0)
@@ -186,102 +107,95 @@ public class DBCommand {
             return users;
     }
 
-    /*
-    update t_user set u_name=#{name} where u_id=#{id};
-    参数：id——待修改的用户ID，name——指定用户的新用户名
-    返回值：修改成功——true，修改失败——false
+    /**
+     * 根据名称获取User实体
+     * @param name 名称
+     * @return User对象列表
      */
-    public static boolean updateUID(String name ,String id){
-        String sql = "update t_user set u_name='" + name +  "'"+" where u_id='" + id+"'";
-        //创建数据库链接
+    public static ArrayList<DataUtils.User> getUsersByName(String name){
+        String sql = "select * from t_user where u_name ='" + name + "'";
         Statement state = null;
-        int a = 0;
-
+        ResultSet rs = null;
+        ArrayList<DataUtils.User> users=new ArrayList<User>();
         try {
             state = connection.createStatement();
-            a = state.executeUpdate(sql);
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                DataUtils.User f=new DataUtils.User();
+                f.setUId(rs.getString("u_id"));
+                f.setUName(rs.getString("u_name"));
+                f.setUPassword(rs.getString("u_password"));
+                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
+                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
+                users.add(f);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
+            assert state != null;
             state.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if(a==0)return false;
-        else return true;
+        if(users.size()==0)
+            return null;
+        else
+            return users;
     }
 
-    /*
-    update t_user set u_password=#{password} where u_id=#{id};
-    参数：id——待修改的用户ID，password——指定用户的新密码
-    返回值：修改成功——true，修改失败——false
+    /**
+     * 根据人员号获取User实体
+     * @param id 人员号
+     * @return User对象列表
      */
-    public static boolean updatePassword(String id,String password){
-        String sql = "update t_user set u_password='" + password +  "'"+" where u_id='" + id+"'";
-        //创建数据库链接
+    public static User getUserById(String id) {
+        String sql = "select * from t_user where u_id ='" + id + "'";
         Statement state = null;
-        int a = 0;
-
+        ResultSet rs = null;
+        User user = null;
         try {
             state = connection.createStatement();
-            a = state.executeUpdate(sql);
+            rs = state.executeQuery(sql);
+            if (rs.next()) {
+                user = new User();
+                user.setUId(rs.getString("u_id"));
+                user.setUName(rs.getString("u_name"));
+                user.setUPassword(rs.getString("u_password"));
+                user.setUAccess(Byte.parseByte(rs.getString("u_access")));
+                user.setUMoney(Float.parseFloat(rs.getString("u_money")));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
+            assert state != null;
             state.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if(a==0)return false;
-        else return true;
-
+        if (user.getUId() != null)
+            return user;
+        else
+            return null;
     }
 
-    /*
-    update t_user set u_access=#{access} where u_id=#{id};
-    参数：id——待修改的用户ID，access——指定用户的新权限
-    返回值：修改成功——true，修改失败——false
+    /**添加人员
+     *
+     * @param user
+     * @return
      */
-    public static boolean updateAccess(String id,String access){
-        String sql = "update t_user set u_access='" + access +  "'"+" where u_id='" + id+"'";
-        //创建数据库链接
-        Statement state = null;
-        int a = 0;
-
-        try {
-            state = connection.createStatement();
-            a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(a==0)return false;
-        else return true;
+    public static boolean insertUser(User user) {
+        return false;
     }
 
-    /*
-    根据用户表中的用户ID删除指定user
-    delete from t_user where u_id=#{id};
-    参数：id——待删除的用户ID
-    返回值：删除成功——true，删除失败——false
+    /**
+     * 删除人员
+     * @param id 人员号
+     * @return 修改结果
      */
     public static boolean deleteUser(String id){
         String sql = "delete from t_user where u_id='" +id+ "'";
-        //String sql = "delete from course where id='" + id + "'";
-        //创建数据库链接
-        //Connection conn = DBUtil.getConnection();
         Statement state = null;
         int a = 0;
 
@@ -302,14 +216,142 @@ public class DBCommand {
         else return true;
     }
 
+    /**
+     * 修改名称
+     * @param id 人员号
+     * @param name 修改后的人员名称
+     * @return 修改结果
+     */
+    public static boolean modifyUName(String id ,String name) {
+        String sql = "update t_user set u_name='" + name + "'" + " where u_id='" + id + "'";
+        Statement state = null;
+        int a = 0;
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            state.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a == 1;
+    }
 
-    /*-------------------------------------------------------Movie---------------------------------------------------*/
+    /**
+     * 修改密码
+     * @param id 人员号
+     * @param password 修改后的人员密码
+     * @return 修改结果
+     */
+    public static boolean modifyPassword(String id,String password) {
+        String sql = "update t_user set u_password='" + password + "'" + " where u_id='" + id + "'";
+        Statement state = null;
+        int a = 0;
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            state.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a == 1;
+    }
 
-    /*
-    获取所有Movie实体
-    select * from t_Movie
-    参数：无
-    返回值：Movie数组
+    /**
+     * 修改权限
+     * @param id 人员号
+     * @param access 修改后的人员权限
+     * @return 修改结果
+     */
+    public static boolean modifyAccess(String id,String access) {
+        String sql = "update t_user set u_access='" + access +  "'"+" where u_id='" + id+"'";
+        Statement state = null;
+        int a = 0;
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            state.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a == 1;
+    }
+
+    /**
+     * 账户充值
+     * @param id
+     * @param money
+     * @return
+     */
+    public static boolean fundMoney(String id,Float money) {
+        String sql = "update t_user set u_money=u_money+'" + money +  "'"+" where u_id='" + id+"'";
+        Statement state = null;
+        int a = 0;
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            state.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a == 1;
+    }
+
+    /**
+     * 账户支付
+     * @param id
+     * @param money
+     * @return
+     */
+    public static boolean payMoney(String id,Float money) {
+        String sql = "update t_user set u_money=u_money-'" + money +  "'"+" where u_id='" + id+"'";
+        Statement state = null;
+        int a = 0;
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            state.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a == 1;
+    }
+
+    /**
+     * 验证登录
+     * @param id
+     * @param pwd
+     * @return
+     */
+    public static boolean verifyLogin(String id,String pwd) {
+        return false;
+    }
+
+
+    /*----影片表T_Movie接口----*/
+
+    /**
+     *
+     * @return
      */
     public static ArrayList<Movie> getAllMovies(){
         String sql = "select * from t_movie";
@@ -352,7 +394,7 @@ public class DBCommand {
     参数：name——电影名
     返回值：Movie数组
      */
-    public static ArrayList<Movie> getAllMoviesByName(String name){
+    public static ArrayList<Movie> getMoviesByName(String name){
         String sql = "select * from t_Movie where m_name ='" + name + "'";
         Statement state = null;
         ResultSet rs;
@@ -489,7 +531,14 @@ public class DBCommand {
         else return true;
     }
 
-
+    /**
+     * 在影片名中查询相关关键词
+     * @param keyStr
+     * @return
+     */
+    public static ArrayList<Movie> getLikeMovies(String keyStr) {
+        return null;
+    }
 
     /*-------------------------------------------------------Theater---------------------------------------------------*/
 
