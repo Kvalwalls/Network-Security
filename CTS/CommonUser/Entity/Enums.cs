@@ -16,12 +16,14 @@
     //Kerberos服务具体类型枚举
     public class EnumKerberos
     {
+        //错误
+        public const byte Error = 0;
         //请求
-        public const byte Request = 0;
+        public const byte Request = 1;
         //回复
-        public const byte Reply = 1;
+        public const byte Reply = 2;
         //结束
-        public const byte End = 2;
+        public const byte End = 3;
     }
 
     //加密码枚举

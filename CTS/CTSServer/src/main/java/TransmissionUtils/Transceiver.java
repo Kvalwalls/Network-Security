@@ -74,4 +74,15 @@ public class Transceiver {
         message.setContents(new String(buffer));
         return message;
     }
+
+    /**
+     * 关闭数据收发器方法
+     *
+     * @throws Exception 关闭异常
+     */
+    public void closeTransceiver() throws Exception {
+        socket.shutdownInput();
+        socket.shutdownOutput();
+        socket.close();
+    }
 }

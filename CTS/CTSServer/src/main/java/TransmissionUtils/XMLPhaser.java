@@ -29,7 +29,7 @@ public class XMLPhaser {
     }
 
     /**
-     * xmlDocument转换xmlDocument方法
+     * xmlDocument转换xml字符串方法
      *
      * @param xmlDoc xmlDocument
      * @return xml字符串

@@ -42,7 +42,6 @@ public class LoggerHandler {
     }
 
     public void logLogin(User user, Socket socket) {
-
         logger.info("\n用户登录系统\n" +
                 "用户号：" + user.getUId() + "\n" +
                 "用户名：" + user.getUName() + "\n" +

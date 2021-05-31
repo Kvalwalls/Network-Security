@@ -56,7 +56,6 @@ namespace CommonUser.Transmission
         {
             try
             {
-                signature = RSAHandler.GenerateSign(rsaSKeyFile, contents);
                 if (desKey != null)
                 {
                     contents = DESHandler.Encrypt(desKey, contents);

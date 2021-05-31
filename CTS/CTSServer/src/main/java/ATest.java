@@ -11,10 +11,8 @@ import java.util.List;
 
 public class ATest {
     public static void main(String[] args) {
-
         try {
-            if(DBCommand.decreaseMoney("A00001", (float) 10000.5))
-                System.out.println(DBCommand.getUserById("A00001").getUMoney());
+
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -55,3 +53,17 @@ public class ATest {
 /*byte[] temp = IntBytesPhaser.intToBytes(123456);
             int num = IntBytesPhaser.bytesToInt(temp);
             System.out.println(num);*/
+
+/*ServerSocket serverSocket = Connection.bindServer("127.0.0.1",7000);
+            Socket socket = serverSocket.accept();
+            Transceiver transceiver = new Transceiver(socket);
+            TransMessage transMessage = new TransMessage();
+            transMessage.setFromAddress(new byte[]{127,0,0,1});
+            transMessage.setToAddress(new byte[]{127,0,0,2});
+            transMessage.setCryptCode((byte) 1);
+            transMessage.setServiceType((byte) 0);
+            transMessage.setSpecificType((byte) 0);
+            transMessage.setContents("");
+            transMessage.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk","00000000");
+            System.out.println(transMessage.getSignature());
+            transceiver.sendMessage(transMessage);*/

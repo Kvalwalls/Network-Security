@@ -1,4 +1,6 @@
-﻿using CommonUser.Transmission;
+﻿using CommonUser.Kerberos;
+using CommonUser.Transmission;
+using System;
 using System.Net.Sockets;
 using System.Windows;
 
@@ -13,6 +15,7 @@ namespace CommonUser
         {
             InitializeComponent();
             Hide();
+            
             Close();
         }
     }
@@ -54,3 +57,9 @@ asHandler.SendRequest();*/
     TransMessage message = transceiver.ReceiveMessage();
     message.DePackage("..\\..\\KeyFiles\\Client.pk", "00000000");
     PicturePhaser.Base64ToPicture(message.contents,"rnm");*/
+
+/*Socket socket = Connection.ConnectServer("127.0.0.1", 7000);
+        Transceiver transceiver = new Transceiver(socket);
+        TransMessage message = transceiver.ReceiveMessage();
+        message.DePackage("..\\..\\KeyFiles\\AS.pk", "00000000");
+        Console.WriteLine(message.errorCode);*/

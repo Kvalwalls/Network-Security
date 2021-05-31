@@ -67,5 +67,15 @@ namespace CommonUser.Transmission
             message.contents = Encoding.UTF8.GetString(buffer);
             return message;
         }
+
+        /// <summary>
+        /// 关闭数据收发器函数
+        /// </summary>
+        public void CloseTransceiver()
+        {
+            socket.Shutdown(SocketShutdown.Receive);
+            socket.Shutdown(SocketShutdown.Send);
+            socket.Close();
+        }
     }
 }
