@@ -9,7 +9,7 @@
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <!--找回密码Label-->
         <Label HorizontalAlignment="Center" Foreground="Black" Content="找回密码"   VerticalAlignment="Top" FontSize="36"/>
