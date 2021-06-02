@@ -35,7 +35,7 @@ namespace CommonUser.Kerberos
             {
                 long ts2 = long.Parse(contents[2]);
                 long lifetime = long.Parse(contents[3]);
-                if (VerifyTS(ts2, lifetime) && contents[1].Equals(ConfigurationManager.AppSettings["TGS_ID"]))
+                if (Tools.VerifyTS(ts2, lifetime) && contents[1].Equals(ConfigurationManager.AppSettings["TGS_ID"]))
                 {
                     keyAndTicket = new string[2] 
                     {
@@ -54,8 +54,8 @@ namespace CommonUser.Kerberos
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
             //根节点
-            XmlElement end = document.CreateElement("as_end");
-            document.AppendChild(end);
+            XmlElement endEle = document.CreateElement("as_end");
+            document.AppendChild(endEle);
             //报文初始化
             TransMessage message = new TransMessage();
             message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
@@ -63,7 +63,7 @@ namespace CommonUser.Kerberos
             message.serviceType = EnumServiceType.AS;
             message.specificType = EnumKerberos.End;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage("..\\..\\KeyFiles\\Client1.sk", null);
+            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
             transceiver.SendMessage(message);
             transceiver.CloseTransceiver();
         }
@@ -76,19 +76,19 @@ namespace CommonUser.Kerberos
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
             //根节点
-            XmlElement certification = document.CreateElement("as_certification");
+            XmlElement certificationEle = document.CreateElement("as_certification");
             //子节点
-            XmlElement ID_c = document.CreateElement("id_c");
-            ID_c.InnerText = ConfigurationManager.AppSettings["My_ID"];
-            XmlElement ID_tgs = document.CreateElement("id_tgs");
-            ID_tgs.InnerText = ConfigurationManager.AppSettings["TGS_ID"];
-            XmlElement TS1 = document.CreateElement("ts1");
-            TS1.InnerText = GenerateTS().ToString();
+            XmlElement id_cEle = document.CreateElement("id_c");
+            id_cEle.InnerText = ConfigurationManager.AppSettings["My_ID"];
+            XmlElement id_tgsEle = document.CreateElement("id_tgs");
+            id_tgsEle.InnerText = ConfigurationManager.AppSettings["TGS_ID"];
+            XmlElement ts1Ele = document.CreateElement("ts1");
+            ts1Ele.InnerText = Tools.GenerateTS().ToString();
             //形成树结构
-            certification.AppendChild(ID_c);
-            certification.AppendChild(ID_tgs);
-            certification.AppendChild(TS1);
-            document.AppendChild(certification);
+            certificationEle.AppendChild(id_cEle);
+            certificationEle.AppendChild(id_tgsEle);
+            certificationEle.AppendChild(ts1Ele);
+            document.AppendChild(certificationEle);
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
@@ -97,7 +97,7 @@ namespace CommonUser.Kerberos
             message.serviceType = EnumServiceType.AS;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage("..\\..\\KeyFiles\\Client1.sk", null);
+            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
             transceiver.SendMessage(message);
         }
 
@@ -105,7 +105,7 @@ namespace CommonUser.Kerberos
         {
             string[] contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage("..\\..\\KeyFiles\\AS.pk", ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
             if(message.errorCode == EnumErrorCode.NoError)
             {
                 contents = new string[5];
@@ -128,14 +128,6 @@ namespace CommonUser.Kerberos
             }
             return contents;
         }
-        private static long GenerateTS()
-        {
-            TimeSpan timeSpan = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return Convert.ToInt64(timeSpan.TotalSeconds);
-        }
-        private static bool VerifyTS(long ts, long lifetime)
-        {
-            return (GenerateTS() - ts < lifetime);
-        }
+        
     }
 }

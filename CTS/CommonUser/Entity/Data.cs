@@ -1,4 +1,8 @@
-﻿namespace CommonUser.Entity
+﻿using CommonUser.Kerberos;
+using CommonUser.Security;
+using System.Xml;
+
+namespace CommonUser.Entity
 {
     //用户
     public class User
@@ -189,41 +193,6 @@
         public Record() { }
     }
 
-    //票据
-    public class Ticket
-    {
-        //密钥
-        public string key { get; set; }
-        //客户端ID
-        public string ID_c { get; set; }
-        //客户端IP地址
-        public string AD_c { get; set; }
-        //目的机器ID
-        public string ID_dest { get; set; }
-        //时间戳
-        public long timeStamp { get; set; }
-        //生命周期
-        public long lifeTime { get; set; }
-
-        /// <summary>
-        /// 带参数的构造函数
-        /// </summary>
-        public Ticket(string key, string iD_c, string aD_c, string iD_dest, long timeStamp, long lifeTime)
-        {
-            this.key = key;
-            ID_c = iD_c;
-            AD_c = aD_c;
-            ID_dest = iD_dest;
-            this.timeStamp = timeStamp;
-            this.lifeTime = lifeTime;
-        }
-
-        /// <summary>
-        /// 无参数的构造函数
-        /// </summary>
-        public Ticket() { }
-    }
-
     //身份验证
     public class Authenticator
     {
@@ -248,5 +217,25 @@
         /// 无参数的构造函数
         /// </summary>
         public Authenticator() { }
+
+        public string generateAuthenticator(string enKey)
+        {
+            //创建XMLDocument
+            XmlDocument document = new XmlDocument();
+            //根节点
+            XmlElement authenticator = document.CreateElement("authenticator");
+            //子节点
+            XmlElement ID_cEle = document.CreateElement("id_c");
+            ID_cEle.InnerText = ID_c;
+            XmlElement AD_cEle = document.CreateElement("ad_c");
+            AD_cEle.InnerText = AD_c;
+            XmlElement TS3Ele = document.CreateElement("ts3");
+            TS3Ele.InnerText = Tools.GenerateTS().ToString();
+            //形成树结构
+            authenticator.AppendChild(ID_cEle);
+            authenticator.AppendChild(AD_cEle);
+            authenticator.AppendChild(TS3Ele);
+            return DESHandler.Encrypt(enKey, authenticator.InnerXml);
+        }
     }
 }

@@ -17,11 +17,13 @@ namespace CommonUser
             Hide();
             try
             {
-                ASHandler asHandler = ASHandler.GetInstatnce();
+                TGSHandler handler = TGSHandler.GetInstatnce();
+                handler.TGSCertification("12345678","12345678");
+                /*ASHandler asHandler = ASHandler.GetInstatnce();
                 String[] keyAndTicket = asHandler.ASCertification();
                 Console.WriteLine(keyAndTicket[0]);
                 Console.WriteLine(keyAndTicket[1]);
-                asHandler.CloseASConnection();
+                asHandler.CloseASConnection();*/
                 /*Socket socket = Connection.ConnectServer("127.0.0.1", 7000);
                 Transceiver transceiver = new Transceiver(socket);
                 TransMessage message = transceiver.ReceiveMessage();

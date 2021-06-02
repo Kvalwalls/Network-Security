@@ -87,6 +87,8 @@
     </Compile>
     <Compile Include="Entity\Enums.cs" />
     <Compile Include="Kerberos\ASHandler.cs" />
+    <Compile Include="Kerberos\TGSHandler.cs" />
+    <Compile Include="Kerberos\Tools.cs" />
     <Compile Include="Security\DESHandler.cs" />
     <Compile Include="PayWaitingWindow.xaml.cs">
       <DependentUpon>PayWaitingWindow.xaml</DependentUpon>

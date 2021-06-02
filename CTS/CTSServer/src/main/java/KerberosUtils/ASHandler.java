@@ -13,30 +13,39 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.net.Socket;
-import java.util.Arrays;
 
 public class ASHandler implements Runnable {
+    //生命周期
     private static final int LIFE_TIME = 60;
+    //数据收发器
     private final Transceiver transceiver;
+    //连接计数
     private final int counter;
 
     /**
      * 构造方法
      *
-     * @param socket socket用于初始化transceiver
+     * @param socket  socket用于初始化transceiver
+     * @param counter 连接计数
      */
-    public ASHandler(Socket socket,int counter) {
+    public ASHandler(Socket socket, int counter) {
         this.transceiver = new Transceiver(socket);
         this.counter = counter;
     }
 
+    /**
+     * 线程执行方法
+     */
     @Override
     public void run() {
         try {
-            while(true) {
+            while (true) {
                 TransMessage message = transceiver.receiveMessage();
-                message.dePackage("src\\resourcesAS\\KeyFiles\\Client1.pk",null);
-                switch(message.getSpecificType()) {
+                String rsaPKFile = "src\\resourcesAS\\KeyFiles\\"
+                        + PropertiesHandler.getPropertiesElement(AddressPhaser.bytesToString(message.getFromAddress()))
+                        + ".pk";
+                message.dePackage(rsaPKFile, null);
+                switch (message.getSpecificType()) {
                     case EnumKerberos.Request: {
                         TransMessage replyMessage = null;
                         //报文有错误
@@ -77,14 +86,14 @@ public class ASHandler implements Runnable {
                         ticket.setTimestamp(ts2);
                         ticket.setLifetime(LIFE_TIME);
                         String strTicket = ticket.generateTicket(key_tgs);
-                        String[] contents = new String[] {
+                        String[] contents = new String[]{
                                 sessionKey,
                                 id_tgs,
                                 String.valueOf(ts2),
                                 String.valueOf(LIFE_TIME),
                                 strTicket
                         };
-                        replyMessage = generateNormalReply(message.getFromAddress(),contents,key_c);
+                        replyMessage = generateNormalReply(message.getFromAddress(), contents, key_c);
                         transceiver.sendMessage(replyMessage);
                     }
                     case EnumKerberos.End: {
@@ -101,11 +110,20 @@ public class ASHandler implements Runnable {
         }
     }
 
-    private TransMessage generateNormalReply(byte[] toAddr,String[] contents,String key_c) throws Exception {
+    /**
+     * 生成正常回复报文
+     *
+     * @param toAddr   目的IP地址
+     * @param contents 内容
+     * @param key_c    id_c对应密钥
+     * @return 报文对象
+     * @throws Exception 异常
+     */
+    private TransMessage generateNormalReply(byte[] toAddr, String[] contents, String key_c) throws Exception {
         //创建XMLDocument
         Document document = XMLBuilder.buildXMLDoc();
         //根节点
-        Element root = document.createElement("reply");
+        Element root = document.createElement("as_reply");
         //子节点
         Element keyElement = document.createElement("key");
         keyElement.setTextContent(contents[0]);
@@ -136,11 +154,18 @@ public class ASHandler implements Runnable {
         return message;
     }
 
+    /**
+     * 生成错误回复报文
+     *
+     * @param toAddr 目的IP地址
+     * @return 报文对象
+     * @throws Exception 异常
+     */
     private TransMessage generateErrorReply(String toAddr) throws Exception {
         //创建XMLDocument
         Document document = XMLBuilder.buildXMLDoc();
         //根节点
-        Element root = document.createElement("error");
+        Element root = document.createElement("as_error");
         document.appendChild(root);
         //报文初始化
         TransMessage message = new TransMessage();
