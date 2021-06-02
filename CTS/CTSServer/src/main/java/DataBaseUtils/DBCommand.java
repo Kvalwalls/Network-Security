@@ -1,17 +1,17 @@
 package DataBaseUtils;
 
+import DataUtils.Record;
 import DataUtils.*;
+import EnumUtils.EnumSeatStatus;
 import PropertiesUtils.PropertiesHandler;
+import TransmissionUtils.DatePhaser;
 
-import java.sql.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class DBCommand {
     //数据库连接
@@ -38,115 +38,39 @@ public class DBCommand {
     }
 
     /*----人员表T_User接口----*/
+
     /**
      * 获取所有User实体
+     *
      * @return User对象列表
      */
-    public static ArrayList<User> getAllUsers(){
+    public static ArrayList<User> getAllUsers() {
         String sql = "select * from t_user";
         Statement state = null;
         ResultSet rs = null;
-        ArrayList<DataUtils.User> users=new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                DataUtils.User f = new DataUtils.User();
-                f.setUId(rs.getString("u_id"));
-                f.setUName(rs.getString("u_name"));
-                f.setUPassword(rs.getString("u_password"));
-                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
-                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
-                users.add(f);
+                User temp = new User();
+                temp.setUId(rs.getString("u_id"));
+                temp.setUName(rs.getString("u_name"));
+                temp.setUPassword(rs.getString("u_password"));
+                temp.setUAccess(Byte.parseByte(rs.getString("u_access")));
+                temp.setUMoney(Float.parseFloat(rs.getString("u_money")));
+                users.add(temp);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            assert state != null;
             state.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return users;
     }
 
     /**
-     * 根据权限获取User实体
-     * @param access 权限
-     * @return User对象列表
-     */
-    public static ArrayList<DataUtils.User> getUsersByAccess(byte access){
-        String sql = "select * from t_user where u_access ='" + Byte.toString(access) + "'";
-        Statement state = null;
-        ResultSet rs = null;
-        ArrayList<DataUtils.User> users=new ArrayList<User>();
-        try {
-            state = connection.createStatement();
-            rs = state.executeQuery(sql);
-            while (rs.next()) {
-                DataUtils.User f=new DataUtils.User();
-                f.setUId(rs.getString("u_id"));
-                f.setUName(rs.getString("u_name"));
-                f.setUPassword(rs.getString("u_password"));
-                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
-                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
-                users.add(f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if(users.size()==0)
-            return null;
-        else
-            return users;
-    }
-
-    /**
-     * 根据名称获取User实体
-     * @param name 名称
-     * @return User对象列表
-     */
-    public static ArrayList<DataUtils.User> getUsersByName(String name){
-        String sql = "select * from t_user where u_name ='" + name + "'";
-        Statement state = null;
-        ResultSet rs = null;
-        ArrayList<DataUtils.User> users=new ArrayList<User>();
-        try {
-            state = connection.createStatement();
-            rs = state.executeQuery(sql);
-            while (rs.next()) {
-                DataUtils.User f=new DataUtils.User();
-                f.setUId(rs.getString("u_id"));
-                f.setUName(rs.getString("u_name"));
-                f.setUPassword(rs.getString("u_password"));
-                f.setUAccess(Byte.parseByte(rs.getString("u_access")));
-                f.setUMoney(Float.parseFloat(rs.getString("u_money")));
-                users.add(f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if(users.size()==0)
-            return null;
-        else
-            return users;
-    }
-
-    /**
      * 根据人员号获取User实体
+     *
      * @param id 人员号
      * @return User对象列表
      */
@@ -166,1353 +90,1109 @@ public class DBCommand {
                 user.setUAccess(Byte.parseByte(rs.getString("u_access")));
                 user.setUMoney(Float.parseFloat(rs.getString("u_money")));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            assert state != null;
             state.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return user;
     }
 
-    /**添加人员
+    /**
+     * 通过权限获取User实体
      *
-     * @param user
-     * @return
+     * @param access 权限
+     * @return User对象列表
+     */
+    public static ArrayList<User> getUsersByAccess(byte access) {
+        String sql = "select * from t_user where u_access ='" + Byte.toString(access) + "'";
+        Statement state = null;
+        ResultSet rs = null;
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            state = connection.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                User temp = new User();
+                temp.setUId(rs.getString("u_id"));
+                temp.setUName(rs.getString("u_name"));
+                temp.setUPassword(rs.getString("u_password"));
+                temp.setUAccess(Byte.parseByte(rs.getString("u_access")));
+                temp.setUMoney(Float.parseFloat(rs.getString("u_money")));
+                users.add(temp);
+            }
+            state.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (users.size() == 0)
+            return null;
+        else
+            return users;
+    }
+
+    /**
+     * 根据名称获取User实体
+     *
+     * @param name 名称
+     * @return User对象列表
+     */
+    public static ArrayList<User> getUsersByName(String name) {
+        String sql = "select * from t_user where u_name ='" + name + "'";
+        Statement state = null;
+        ResultSet rs = null;
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            state = connection.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                User temp = new User();
+                temp.setUId(rs.getString("u_id"));
+                temp.setUName(rs.getString("u_name"));
+                temp.setUPassword(rs.getString("u_password"));
+                temp.setUAccess(Byte.parseByte(rs.getString("u_access")));
+                temp.setUMoney(Float.parseFloat(rs.getString("u_money")));
+                users.add(temp);
+            }
+            state.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (users.size() == 0)
+            return null;
+        else
+            return users;
+    }
+
+    /**
+     * 添加User实体
+     *
+     * @param user 人员对象
+     * @return 添加结果
      */
     public static boolean insertUser(User user) {
-        String sql = "insert into T_User values('" + user.getUId() + "','" + user.getUName()+ "','" + user.getUPassword()+"','" + user.getUAccess()+"','" + user.getUMoney()+ "')";
-        //创建数据库链接
+        //判断主码不存在
+        if (getUserById(user.getUId()) != null)
+            return false;
+        String sql = "insert into T_User values('"
+                + user.getUId() + "','"
+                + user.getUName() + "','"
+                + user.getUPassword() + "','"
+                + user.getUAccess() + "','"
+                + user.getUMoney() + "')";
         Statement state = null;
         int a = 0;
-
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        if(a==0)return false;
-        else return true;
+        return a == 1;
     }
 
-
-
     /**
-     * 删除人员
-     * @param id 人员号
-     * @return 修改结果
+     * 删除User实体
+     *
+     * @param id 用户号
+     * @return 删除结果
      */
-    public static boolean deleteUser(String id){
-        String sql = "delete from t_user where u_id='" +id+ "'";
+    public static boolean deleteUser(String id) {
+        String sql = "delete from t_user where u_id='" + id + "'";
         Statement state = null;
         int a = 0;
-
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(a==0)return false;
-        else return true;
+        return a == 1;
     }
 
-
     /**
-     * 修改名称
-     * @param id 人员号
-     * @param name 修改后的人员名称
+     * 修改User名称
+     *
+     * @param id   人员号
+     * @param name 新名称
      * @return 修改结果
      */
-    public static boolean modifyUName(String id ,String name) {
+    public static boolean updateUName(String id, String name) {
         String sql = "update t_user set u_name='" + name + "'" + " where u_id='" + id + "'";
         Statement state = null;
         int a = 0;
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
             state.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return a == 1;
     }
 
-
     /**
-     * 修改密码
-     * @param id 人员号
-     * @param password 修改后的人员密码
+     * 修改USer密码
+     *
+     * @param id       人员号
+     * @param password 新密码
      * @return 修改结果
      */
-    public static boolean modifyPassword(String id,String password) {
-        String sql = "update t_user set u_password='" + password + "'" + " where u_id='" + id + "'";
+    public static boolean updatePassword(String id, String password) {
+        String sql = "update t_user set u_password='" + password + "'"
+                + " where u_id='" + id + "'";
         Statement state = null;
         int a = 0;
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
             state.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return a == 1;
     }
 
     /**
-     * 修改权限
-     * @param id 人员号
-     * @param access 修改后的人员权限
+     * 修改User权限
+     *
+     * @param id     人员号
+     * @param access 新权限
      * @return 修改结果
      */
-    public static boolean modifyAccess(String id,String access) {
-        String sql = "update t_user set u_access='" + access +  "'"+" where u_id='" + id+"'";
+    public static boolean updateAccess(String id, byte access) {
+        String sql = "update t_user set u_access='" + access + "'" + " where u_id='" + id + "'";
         Statement state = null;
         int a = 0;
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
             state.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return a == 1;
     }
 
     /**
-     * 账户充值
-     * @param id
-     * @param money
-     * @return
+     * User账户充值
+     *
+     * @param id    人员号
+     * @param money 充值金额
+     * @return 充值结果
      */
-    public static boolean fundMoney(String id,Float money) {
-        String sql = "update t_user set u_money=u_money+'" + money +  "'"+" where u_id='" + id+"'";
+    public static boolean fundMoney(String id, Float money) {
+        String sql = "update t_user set u_money=u_money+'" + money + "'" + " where u_id='" + id + "'";
         Statement state = null;
         int a = 0;
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
             state.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return a == 1;
     }
 
     /**
-     * 账户支付
-     * @param id
-     * @param money
-     * @return
+     * User账户支付
+     *
+     * @param id    用户号
+     * @param money 支付的金额
+     * @return 支付结果
      */
-    public static boolean payMoney(String id,Float money) {
-        String sql = "update t_user set u_money=u_money-'" + money +  "'"+" where u_id='" + id+"'";
+    public static boolean payMoney(String id, Float money) {
+        if (getUserById(id).getUMoney() < money)
+            return false;
+        String sql = "update t_user set u_money=u_money-'" + money + "'" + " where u_id='" + id + "'";
         Statement state = null;
         int a = 0;
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
             state.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return a == 1;
     }
-
-    /**
-     * 验证登录
-     * @param id
-     * @param pwd
-     * @return
-     */
-    public static boolean verifyLogin(String id,String pwd) {
-        String sql = "select U_Password from t_user where u_id ='" + id + "'";
-        Statement state = null;
-        ResultSet rs = null;
-        try {
-            state = connection.createStatement();
-            rs = state.executeQuery(sql);
-            while (rs.next()) {
-                if(pwd.equals(rs.getString("U_Password")))return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-
-
 
     /*----影片表T_Movie接口----*/
 
     /**
+     * 获取所有Movie实体
      *
-     * @return
+     * @return Movie对象列表
      */
-    public static ArrayList<Movie> getAllMovies(){
+    public static ArrayList<Movie> getAllMovies() {
         String sql = "select * from t_movie";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<Movie> users=new ArrayList<Movie>();
+        ResultSet rs = null;
+        ArrayList<Movie> movies = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                Movie f=new Movie();
-                f.setMId(rs.getString("m_id"));
-                f.setMName(rs.getString("m_name"));
-                f.setMType(rs.getString("m_type"));
-                f.setTime(Integer.parseInt(rs.getString("m_time")));
-                f.setMComment(Float.parseFloat(rs.getString("m_comment")));
-                f.setDescription(rs.getString("m_description"));
-                users.add(f);
+                Movie temp = new Movie();
+                temp.setMId(rs.getString("m_id"));
+                temp.setMName(rs.getString("m_name"));
+                temp.setMType(rs.getString("m_type"));
+                temp.setTime(Integer.parseInt(rs.getString("m_time")));
+                temp.setMComment(Float.parseFloat(rs.getString("m_comment")));
+                temp.setDescription(rs.getString("m_description"));
+                movies.add(temp);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
-            return null;        //数据库中无指定商店，获取菜单失败
-        else
-            return users;       //返回菜单
-    }
-
-    /*
-    通过电影名获取所有Movie实体
-    select * from t_Movie where m_name=#{arg0};
-    参数：name——电影名
-    返回值：Movie数组
-     */
-    public static ArrayList<Movie> getMoviesByName(String name){
-        String sql = "select * from t_Movie where m_name ='" + name + "'";
-        Statement state = null;
-        ResultSet rs;
-        ArrayList<Movie> users=new ArrayList<Movie>();
-        try {
-            state = connection.createStatement();
-            rs = state.executeQuery(sql);
-            while (rs.next()) {
-                Movie f=new Movie();
-                f.setMId(rs.getString("m_id"));
-                f.setMName(rs.getString("m_name"));
-                f.setMType(rs.getString("m_type"));
-                f.setTime(Integer.parseInt(rs.getString("m_time")));
-                f.setMComment(Float.parseFloat(rs.getString("m_comment")));
-                f.setDescription(rs.getString("m_description"));
-                users.add(f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (movies.size() == 0)
             return null;
         else
-            return users;
-    }
-
-    /*
-    通过电影ID获取指定Movie实体
-    select * from t_movie where m_id=#{arg0};
-    参数：id——电影ID
-    返回值：Movie数组
-     */
-    public static Movie getMoviesById(String id){
-        String sql = "select * from t_movie where m_id ='" + id + "'";
-        Statement state = null;
-        ResultSet rs;
-        Movie f=null;
-        try {
-            state = connection.createStatement();
-            rs = state.executeQuery(sql);
-            while (rs.next()) {
-                f=new Movie();
-                f.setMId(rs.getString("m_id"));
-                f.setMName(rs.getString("m_name"));
-                f.setMType(rs.getString("m_type"));
-                f.setTime(Integer.parseInt(rs.getString("m_time")));
-                f.setMComment(Float.parseFloat(rs.getString("m_comment")));
-                f.setDescription(rs.getString("m_description"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return f;
-    }
-
-    /*
-    添加电影
-    insert into t_movie values(#{M_id},#{M_name},#{M_type},#{M_time},#{M_comment},#{M_picture},#{M_description})
-    参数：待添加电影实体
-    返回值：添加成功——true，添加失败——false
-     */
-    public static boolean AddMovie(Movie movie){
-        String sql = "insert into t_movie values('" + movie.getMId() + "','" + movie.getMName()+ "','" + movie.getMType()+ "','" + movie.getTime()+ "','" + movie.getMComment()+ "','"  + movie.getDescription()+ "')";
-        //创建数据库链接
-        Statement state = null;
-        int a = 0;
-
-        try {
-            state = connection.createStatement();
-            a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        if(a==0)return false;
-        else return true;
-    }
-
-    /*
-    根据电影ID删除指定电影
-    delete from t_movie where m_id=#{arg0};
-    参数：id——待删除电影ID
-    返回值：删除成功——true，删除失败——false
-     */
-    public static boolean deleteMovieById(String id){
-        String sql = "delete from t_movie where m_id='" +id+ "'";
-        //String sql = "delete from course where id='" + id + "'";
-        //创建数据库链接
-        //Connection conn = DBUtil.getConnection();
-        Statement state = null;
-        int a = 0;
-
-        try {
-            state = connection.createStatement();
-            a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(a==0)return false;
-        else return true;
-    }
-
-    //模糊匹配字符串
-    public static boolean FuzzyMatch(String str,String key){
-        String match=".*"+key+".*";
-        return Pattern.matches(match,str);
+            return movies;
     }
 
     /**
-     * 在影片名中查询相关关键词
-     * @param keyStr
-     * @return
+     * 通过电影号获取Movie实体
+     *
+     * @param id 电影号
+     * @return Movie对象
      */
-    public static ArrayList<Movie> getLikeMovies(String keyStr) {
-        String sql = "select * from T_Movie";
+    public static Movie getMovieById(String id) {
+        String sql = "select * from t_movie where m_id ='" + id + "'";
         Statement state = null;
         ResultSet rs;
-        ArrayList<Movie> users=new ArrayList<Movie>();
+        Movie movie = null;
+        try {
+            state = connection.createStatement();
+            rs = state.executeQuery(sql);
+            if (rs.next()) {
+                movie = new Movie();
+                movie.setMId(rs.getString("m_id"));
+                movie.setMName(rs.getString("m_name"));
+                movie.setMType(rs.getString("m_type"));
+                movie.setTime(Integer.parseInt(rs.getString("m_time")));
+                movie.setMComment(Float.parseFloat(rs.getString("m_comment")));
+                movie.setDescription(rs.getString("m_description"));
+            }
+            state.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return movie;
+    }
+
+    /**
+     * 通过名称获取Movie实体
+     *
+     * @param name 名称
+     * @return Movie对象列表
+     */
+    public static ArrayList<Movie> getMoviesByName(String name) {
+        String sql = "select * from t_Movie where m_name ='" + name + "'";
+        Statement state = null;
+        ResultSet rs = null;
+        ArrayList<Movie> movies = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                if(FuzzyMatch(rs.getString("M_Name"),keyStr)){
-                    Movie f=new Movie();
-                    f.setMId(rs.getString("m_id"));
-                    f.setMName(rs.getString("m_name"));
-                    f.setMType(rs.getString("m_type"));
-                    f.setTime(Integer.parseInt(rs.getString("m_time")));
-                    f.setMComment(Float.parseFloat(rs.getString("m_comment")));
-                    f.setDescription(rs.getString("m_description"));
-                    users.add(f);
-                }
-
+                Movie temp = new Movie();
+                temp.setMId(rs.getString("m_id"));
+                temp.setMName(rs.getString("m_name"));
+                temp.setMType(rs.getString("m_type"));
+                temp.setTime(Integer.parseInt(rs.getString("m_time")));
+                temp.setMComment(Float.parseFloat(rs.getString("m_comment")));
+                temp.setDescription(rs.getString("m_description"));
+                movies.add(temp);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (movies.size() == 0)
             return null;
         else
-            return users;
+            return movies;
     }
-    
-    /*-------------------------------------------------------Theater---------------------------------------------------*/
 
-    /*
-    获取所有Movie实体
-    select * from T_Theater ;
-    参数：无
-    返回值：theater数组
+    /**
+     * 添加Movie实体
+     *
+     * @param movie Movie实体
+     * @return 添加结果
      */
-    public static ArrayList<Theater> getAllTheater(){
+    public static boolean insertMovie(Movie movie) {
+        //判断主码不存在
+        if (getMovieById(movie.getMId()) != null)
+            return false;
+        String sql = "insert into t_movie values('" + movie.getMId() + "','"
+                + movie.getMName() + "','"
+                + movie.getMType() + "','"
+                + movie.getTime() + "','"
+                + movie.getMComment() + "','"
+                + movie.getDescription() + "')";
+        Statement state = null;
+        int a = 0;
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+            state.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return a == 1;
+    }
+
+    /**
+     * 删除Movie实体
+     *
+     * @param id 电影号
+     * @return 删除结果
+     */
+    public static boolean deleteMovie(String id) {
+        String sql = "delete from t_movie where m_id='" + id + "'";
+        Statement state = null;
+        int a = 0;
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+            state.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return a == 1;
+    }
+
+
+    /*----影厅表T_Theater接口----*/
+
+    /**
+     * 获取所有Theater实体
+     *
+     * @return Theater对象列表
+     */
+    public static ArrayList<Theater> getAllTheaters() {
         String sql = "select * from T_Theater";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<Theater> users=new ArrayList<Theater>();
+        ResultSet rs = null;
+        ArrayList<Theater> users = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                Theater f=new Theater();
-                f.setTId(rs.getString("t_id"));
-                f.setTType(Byte.parseByte(rs.getString("t_type")));
-                f.setTSize(Integer.parseInt(rs.getString("t_size")));
-                users.add(f);
+                Theater temp = new Theater();
+                temp.setTId(rs.getString("t_id"));
+                temp.setTType(Byte.parseByte(rs.getString("t_type")));
+                temp.setTSize(Integer.parseInt(rs.getString("t_size")));
+                users.add(temp);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (users.size() == 0)
             return null;
         else
             return users;
     }
 
-    /*
-    通过影厅ID获取指定Theater实体
-    select * from T_Theater where t_id=#{arg0};
-    参数：id——影厅ID
-    返回值：Theater数组
+    /**
+     * 通过影厅号获取Theater实体
+     *
+     * @param id 影厅号
+     * @return Theater对象列表
      */
-    public static Theater getTheaterByID(String id){
-        String sql = "select * from T_Theater where t_id='"+id+"'";
+    public static Theater getTheaterById(String id) {
+        String sql = "select * from T_Theater where t_id='" + id + "'";
         Statement state = null;
-        ResultSet rs;
-        Theater f=null;
+        ResultSet rs = null;
+        Theater theater = null;
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
-            while (rs.next()) {
-                f=new Theater();
-                f.setTId(rs.getString("t_id"));
-                f.setTType(Byte.parseByte(rs.getString("t_type")));
-                f.setTSize(Integer.parseInt(rs.getString("t_size")));
+            if (rs.next()) {
+                theater = new Theater();
+                theater.setTId(rs.getString("t_id"));
+                theater.setTType(Byte.parseByte(rs.getString("t_type")));
+                theater.setTSize(Integer.parseInt(rs.getString("t_size")));
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return f;
+        return theater;
     }
 
-    /*
-    通过影厅类型获取所有Movie实体
-    select * from T_Theater where t_type=#{arg0};
-    参数：type——影厅类型
-    返回值：Theater数组
+    /**
+     * 通过类型获取Theater实体
+     *
+     * @param type 类型
+     * @return Theater对象列表
      */
-    public static ArrayList<Theater> getAllTheaterByType(String type){
-        String sql = "select * from T_Theater where t_type='"+type+"'";
+    public static ArrayList<Theater> getTheatersByType(byte type) {
+        String sql = "select * from T_Theater where t_type='" + type + "'";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<Theater> users=new ArrayList<Theater>();
+        ResultSet rs = null;
+        ArrayList<Theater> theaters = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                Theater f=new Theater();
-                f.setTId(rs.getString("t_id"));
-                f.setTType(Byte.parseByte(rs.getString("t_type")));
-                f.setTSize(Integer.parseInt(rs.getString("t_size")));
-                users.add(f);
+                Theater temp = new Theater();
+                temp.setTId(rs.getString("t_id"));
+                temp.setTType(Byte.parseByte(rs.getString("t_type")));
+                temp.setTSize(Integer.parseInt(rs.getString("t_size")));
+                theaters.add(temp);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (theaters.size() == 0)
             return null;
         else
-            return users;
+            return theaters;
     }
 
-    /*
-   添加电影
-   insert into t_theater values(#{T_id},#{T_type},#{T_size});
-   参数：待添加影厅实体
-   返回值：添加成功——true，添加失败——false
-    */
-    public static boolean addTheater(Theater theater){
-        if(theater.getTSize()%16!=0)return false;
-        String sql = "insert into t_theater values('" + theater.getTId() + "','" + theater.getTType()+ "','" + theater.getTSize()+ "')";
-        //创建数据库链接
+    /**
+     * 添加Theater实体
+     *
+     * @param theater Theater实体
+     * @return 添加结果
+     */
+    public static boolean insertTheater(Theater theater) {
+        //判断主码不存在
+        if (getTheaterById(theater.getTId()) != null)
+            return false;
+        if (theater.getTSize() % 16 != 0)
+            theater.setTSize(theater.getTSize() % 16);
+        String sql = "insert into t_theater values('"
+                + theater.getTId() + "','"
+                + theater.getTType() + "','"
+                + theater.getTSize() + "')";
         Statement state = null;
         int a = 0;
-
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        if(a==0)return false;
-        else return true;
+        return a == 1;
     }
 
-    /*
-    根据电影ID删除指定电影
-    delete from t_theater where t_id=#{arg0};
-    参数：id——待删除影厅ID
-    返回值：删除成功——true，删除失败——false
+    /**
+     * 删除Theater实体
+     *
+     * @param id 影厅号
+     * @return 删除结果
      */
-    public static boolean deleteTheater(String id){
-        String sql = "delete from t_theater where t_id='" +id+ "'";
-        //String sql = "delete from course where id='" + id + "'";
-        //创建数据库链接
-        //Connection conn = DBUtil.getConnection();
+    public static boolean deleteTheater(String id) {
+        String sql = "delete from t_theater where t_id='" + id + "'";
         Statement state = null;
         int a = 0;
-
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(a==0)return false;
-        else return true;
+        return a == 1;
     }
 
-    /*-------------------------------------------------------OnMovie---------------------------------------------------*/
+    /*----场次表T_OnMovie接口----*/
 
-    public static java.util.Date strToDateLong(String strDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        ParsePosition pos = new ParsePosition(0);
-        java.util.Date strtodate = formatter.parse(strDate, pos);
-        return strtodate;
-    }
-    public static String dateToString(java.util.Date date) {
-        SimpleDateFormat sformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//日期格式
-        String tiem = sformat.format(date);
-        return tiem;
-    }
-    /*
-    获取所有场次实体
-    select * from T_OnMovie;
-    参数：无
-    返回值：场次动态数组
+    /**
+     * 获取所有OnMovie实体
+     *
+     * @return OnMovie对象列表
      */
-    public static ArrayList<OnMovie> getAllOnMovies(){
+    public static ArrayList<OnMovie> getAllOnMovies() {
         String sql = "select * from T_OnMovie";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
+        ResultSet rs = null;
+        ArrayList<OnMovie> onMovies = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                OnMovie f=new OnMovie();
-                f.setOId(rs.getString("o_id"));
-                f.setMId(rs.getString("m_id"));
-                f.setTId(rs.getString("t_id"));
-                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
-                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
-                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
-                users.add(f);
+                OnMovie temp = new OnMovie();
+                temp.setOId(rs.getString("o_id"));
+                temp.setMId(rs.getString("m_id"));
+                temp.setTId(rs.getString("t_id"));
+                temp.setOBegin(DatePhaser.dateStrToDate(rs.getString("o_beginTime")));
+                temp.setOEnd(DatePhaser.dateStrToDate(rs.getString("o_endTime")));
+                temp.setOPrice(Float.parseFloat(rs.getString("o_price")));
+                onMovies.add(temp);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (onMovies.size() == 0)
             return null;
         else
-            return users;
+            return onMovies;
     }
 
-    /*
-    根据场次号获取所有场次实体
-    select * from T_OnMovie where o_id=#{arg0};
-    参数：oid——场次号
-    返回值：场次动态数组
+    /**
+     * 通过场次号获取OnMovie实体
+     *
+     * @param oid 场次号
+     * @return OnMovie对象
      */
-    public static OnMovie getOnMoviesByOnId(String oid){
-        String sql = "select * from T_OnMovie where o_id='"+oid+"'";
+    public static OnMovie getOnMovieByOId(String oid) {
+        String sql = "select * from T_OnMovie where o_id='" + oid + "'";
         Statement state = null;
         ResultSet rs;
-        OnMovie f=null;
+        OnMovie onMovie = null;
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                f=new OnMovie();
-                f.setOId(rs.getString("o_id"));
-                f.setMId(rs.getString("m_id"));
-                f.setTId(rs.getString("t_id"));
-                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
-                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
-                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
+                onMovie = new OnMovie();
+                onMovie.setOId(rs.getString("o_id"));
+                onMovie.setMId(rs.getString("m_id"));
+                onMovie.setTId(rs.getString("t_id"));
+                onMovie.setOBegin(DatePhaser.dateStrToDate(rs.getString("o_beginTime")));
+                onMovie.setOEnd(DatePhaser.dateStrToDate(rs.getString("o_endTime")));
+                onMovie.setOPrice(Float.parseFloat(rs.getString("o_price")));
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return f;
+        return onMovie;
     }
 
-    /*
-    根据影片号获取所有场次实体
-    select * from T_OnMovie where m_id=#{arg0};
-    参数：mid——影片号
-    返回值：场次动态数组
+    /**
+     * 通过影片号获取OnMovie实体
+     *
+     * @param mid 影片号
+     * @return OnMovie对象列表
      */
-    public static ArrayList<OnMovie> getAllOnMoviesByMovieId(String mid){
-        String sql = "select * from T_OnMovie where m_id='"+mid+"'";
+    public static ArrayList<OnMovie> getOnMoviesByMId(String mid) {
+        String sql = "select * from T_OnMovie where m_id='" + mid + "'";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
+        ResultSet rs = null;
+        ArrayList<OnMovie> onMovies = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                OnMovie f=new OnMovie();
-                f.setOId(rs.getString("o_id"));
-                f.setMId(rs.getString("m_id"));
-                f.setTId(rs.getString("t_id"));
-                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
-                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
-                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
-                users.add(f);
+                OnMovie temp = new OnMovie();
+                temp.setOId(rs.getString("o_id"));
+                temp.setMId(rs.getString("m_id"));
+                temp.setTId(rs.getString("t_id"));
+                temp.setOBegin(DatePhaser.dateStrToDate(rs.getString("o_beginTime")));
+                temp.setOEnd(DatePhaser.dateStrToDate(rs.getString("o_endTime")));
+                temp.setOPrice(Float.parseFloat(rs.getString("o_price")));
+                onMovies.add(temp);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (onMovies.size() == 0)
             return null;
         else
-            return users;
+            return onMovies;
     }
 
-    /*
-    根据影厅号获取所有场次实体
-    select * from T_OnMovie where t_id=#{arg0};
-    参数：tid——影厅号
-    返回值：场次动态数组
+    /**
+     * 通过影厅号获取OnMovie实体
+     *
+     * @param tid 影厅号
+     * @return OnMovie对象列表
      */
-    public static ArrayList<OnMovie> getAllOnMoviesByTheaterId(String tid){
-        String sql = "select * from T_OnMovie where t_id='"+tid+"'";
+    public static ArrayList<OnMovie> getOnMoviesByTId(String tid) {
+        String sql = "select * from T_OnMovie where t_id='" + tid + "'";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
+        ResultSet rs = null;
+        ArrayList<OnMovie> onMovies = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                OnMovie f=new OnMovie();
-                f.setOId(rs.getString("o_id"));
-                f.setMId(rs.getString("m_id"));
-                f.setTId(rs.getString("t_id"));
-                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
-                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
-                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
-                users.add(f);
+                OnMovie temp = new OnMovie();
+                temp.setOId(rs.getString("o_id"));
+                temp.setMId(rs.getString("m_id"));
+                temp.setTId(rs.getString("t_id"));
+                temp.setOBegin(DatePhaser.dateStrToDate(rs.getString("o_beginTime")));
+                temp.setOEnd(DatePhaser.dateStrToDate(rs.getString("o_endTime")));
+                temp.setOPrice(Float.parseFloat(rs.getString("o_price")));
+                onMovies.add(temp);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (onMovies.size() == 0)
             return null;
         else
-            return users;
+            return onMovies;
     }
 
-    /*
-    根据开始时间获取所有场次实体
-    select * from T_OnMovie where o_begintime=#{arg0};
-    参数：begintime——开始时间
-    返回值：场次动态数组
+    /**
+     * 数字补零转换字符串
+     *
+     * @param i 数字值
+     * @return 字符串
      */
-    public static ArrayList<OnMovie> getAllOnMoviesByBeginTime(String begintime){
-        String sql = "select * from T_OnMovie where o_begintime='"+begintime+"'";
-        Statement state = null;
-        ResultSet rs;
-        ArrayList<OnMovie> users=new ArrayList<OnMovie>();
-        try {
-            state = connection.createStatement();
-            rs = state.executeQuery(sql);
-            while (rs.next()) {
-                OnMovie f=new OnMovie();
-                f.setOId(rs.getString("o_id"));
-                f.setMId(rs.getString("m_id"));
-                f.setTId(rs.getString("t_id"));
-                f.setOBegin(strToDateLong(rs.getString("o_begintime")));
-                f.setOEnd(strToDateLong(rs.getString("o_endtime")));
-                f.setOPrice(Float.parseFloat(rs.getString("o_price")));
-                users.add(f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private static String getString(int i) {
+        if (i > 0 && i < 10) {
+            return "0" + i;
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
-            return null;
-        else
-            return users;
-    }
-
-    /*
-    如果data1=data2  return 0;
-    如果data1>data2  return 1;
-    如果data1<data2  return -1;
-     */
-    public static int CompareTime(java.util.Date data1,java.util.Date data2) throws ParseException {
-        String DateStr1 = dateToString(data1);
-        String DateStr2 = dateToString(data2);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        java.util.Date dateTime1 = dateFormat.parse(DateStr1);
-        java.util.Date dateTime2 = dateFormat.parse(DateStr2);
-        int i = dateTime1.compareTo(dateTime2);
-        return i;
-    }
-
-
-
-    /*
-    根据OnMovie实体添加场次信息
-    insert into t_onmovie values(#{O_id},#{M_id},#{T_id},#{O_beginTime},#{O_endTime},#{O_price});
-    参数：onMovie——场次实体
-    返回值：true——添加成功，false——添加失败
-     */
-    public static boolean addOnMovie(OnMovie onMovie) throws ParseException {
-        List<OnMovie> t=getAllOnMoviesByTheaterId(onMovie.getTId());
-        //判断是否有时间冲突
-        assert t != null;
-        for(OnMovie onMovie1:t){
-            if(!((CompareTime(onMovie.getOBegin(),onMovie1.getOEnd())==1)||(CompareTime(onMovie.getOEnd(),onMovie1.getOBegin())==-1))) {
-                System.out.println("addOnMovie failed: Time conflict!");
-                return false;
-            }
-        }
-
-        //若没有时间冲突，根据外键约束先添加场次，然后添加座位
-        String sql = "insert into t_onmovie values('" + onMovie.getOId() + "','" + onMovie.getMId()+ "','" + onMovie.getTId()+ "','" + dateToString(onMovie.getOBegin())+ "','" + dateToString(onMovie.getOEnd())+ "','" + onMovie.getOPrice() + "')";
-        //创建数据库链接
-        Statement state = null;
-        int a = 0;
-
-        try {
-            state = connection.createStatement();
-            a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        //添加座位
-        int size=getTheaterByID(onMovie.getTId()).getTSize();
-        int row=size/16;
-        for(int i=1;i<=row;i++){
-            for(int j=1;j<=16;j++){
-                addSeat(new Seat(getString(i)+getString(j),onMovie.getOId(),Byte.parseByte("0")));
-            }
-        }
-
-        if(a==0)return false;
-        else return true;
-    }
-    public static String  getString(int i){
-        if(i>0&&i<10){
-            return "0"+i;
-        }
-        if(i>=10&&i<=99){
+        if (i >= 10 && i <= 99) {
             return Integer.toString(i);
         }
         return null;
     }
 
-    /*
-    根据场次号删除指定电影
-    delete from t_onmovie where o_id=#{arg0};
-    参数：oid——待删除场次号
-    返回值：删除成功——true，删除失败——false
+    /**
+     * 添加OnMovie实体
+     *
+     * @param onMovie OnMovie对象
+     * @return 添加结果
      */
-    public static boolean deleteOnMovie(String oid){
-        String sql = "delete from t_onmovie where o_id='" +oid+ "'";
-        //String sql = "delete from course where id='" + id + "'";
-        //创建数据库链接
-        //Connection conn = DBUtil.getConnection();
+    public static boolean insertOnMovie(OnMovie onMovie) {
+        //判断外码存在
+        if ((getMovieById(onMovie.getMId()) == null) ||
+                (getTheaterById(onMovie.getTId()) == null))
+            return false;
+        //判断主码不存在
+        if (getOnMovieByOId(onMovie.getOId()) != null)
+            return false;
+        //判断时间的正确性
+        if (onMovie.getOEnd().before(onMovie.getOBegin()))
+            return false;
+        List<OnMovie> onMovies = getOnMoviesByTId(onMovie.getTId());
+        //判断是否有时间冲突
+        if (onMovies != null)
+            for (OnMovie temp : onMovies)
+                if (onMovie.getOBegin().before(DatePhaser.addDateMinutes(temp.getOEnd(), 10)))
+                    return false;
+        //添加场次
+        String sql = "insert into t_onMovie values('" + onMovie.getOId() + "','"
+                + onMovie.getMId() + "','"
+                + onMovie.getTId() + "','"
+                + DatePhaser.dateToDateStr(onMovie.getOBegin()) + "','"
+                + DatePhaser.dateToDateStr(onMovie.getOEnd()) + "','"
+                + onMovie.getOPrice() + "')";
         Statement state = null;
         int a = 0;
-
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        //添加座位
+        int size = getTheaterById(onMovie.getTId()).getTSize();
+        int row = size / 16;
         try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            for (int i = 1; i <= row; i++)
+                for (int j = 1; j <= 16; j++)
+                    if (!insertSeat(new Seat(getString(i) + getString(j),
+                            onMovie.getOId(),
+                            EnumSeatStatus.Unselected)))
+                        throw new Exception("座位添加异常");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if(a==0)return false;
-        else return true;
+        return a == 1;
+    }
+
+    /**
+     * 删除场次
+     *
+     * @param oid 场次号
+     * @return 删除结果
+     */
+    public static boolean deleteOnMovie(String oid) {
+        String sql = "delete from t_onMovie where o_id='" + oid + "'";
+        Statement state = null;
+        int a = 0;
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+            state.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return a == 1;
     }
 
 
-    /*-------------------------------------------------------Seat---------------------------------------------------*/
+    /*----座位表T_Seat接口----*/
 
-    /*
-    获取所有座位实体
-    select * from T_Seat;
-    参数：无
-    返回值：座位动态数组
+    /**
+     * 获取所有Seat实体
+     *
+     * @return Seat信息
      */
-    public static ArrayList<Seat> getAllSeat(){
+    public static ArrayList<Seat> getAllSeat() {
         String sql = "select * from T_Seat";
         Statement state = null;
         ResultSet rs;
-        ArrayList<Seat> users=new ArrayList<Seat>();
+        ArrayList<Seat> seats = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                Seat f=new Seat();
+                Seat f = new Seat();
                 f.setOId(rs.getString("o_id"));
                 f.setSId(rs.getString("s_id"));
                 f.setSStatus(Byte.parseByte(rs.getString("s_status")));
-                users.add(f);
+                seats.add(f);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (seats.size() == 0)
             return null;
         else
-            return users;
+            return seats;
     }
 
-    /*
-    根据座位号获取所有座位实体
-    select * from T_Seat where s_id=#{arg0};
-    参数：sid——座位号
-    返回值：座位动态数组
+    /**
+     * 通过场次号获取Seat实体
+     *
+     * @param oid 场次号
+     * @return Seat对象列表
      */
-    public static ArrayList<Seat> getAllSeatBySid(String sid){
-        String sql = "select * from T_Seat where s_id='"+sid+"'";
+    public static ArrayList<Seat> getSeatsByOid(String oid) {
+        String sql = "select * from T_Seat where o_id='" + oid + "'";
         Statement state = null;
         ResultSet rs;
-        ArrayList<Seat> users=new ArrayList<Seat>();
+        ArrayList<Seat> users = new ArrayList<Seat>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                Seat f=new Seat();
+                Seat f = new Seat();
                 f.setOId(rs.getString("o_id"));
                 f.setSId(rs.getString("s_id"));
                 f.setSStatus(Byte.parseByte(rs.getString("s_status")));
                 users.add(f);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (users.size() == 0)
             return null;
         else
             return users;
     }
 
-    /*
-    根据场次号获取所有座位实体
-    select * from T_Seat where o_id=#{arg0};
-    参数：oid——场次号
-    返回值：座位动态数组
+    /**
+     * 通过场次号获取Seat实体
+     *
+     * @param oid 场次号
+     * @return Seat对象列表
      */
-    public static ArrayList<Seat> getAllSeatByOid(String oid){
-        String sql = "select * from T_Seat where o_id='"+oid+"'";
+    public static Seat getSeatsByOidSid(String oid, String sid) {
+        String sql = "select * from T_Seat where o_id='" + oid + "'"
+                + "and s_id='" + sid + "'";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<Seat> users=new ArrayList<Seat>();
+        ResultSet rs = null;
+        Seat seat = null;
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
-            while (rs.next()) {
-                Seat f=new Seat();
-                f.setOId(rs.getString("o_id"));
-                f.setSId(rs.getString("s_id"));
-                f.setSStatus(Byte.parseByte(rs.getString("s_status")));
-                users.add(f);
+            if (rs.next()) {
+                seat = new Seat();
+                seat.setOId(rs.getString("o_id"));
+                seat.setSId(rs.getString("s_id"));
+                seat.setSStatus(Byte.parseByte(rs.getString("s_status")));
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
-            return null;
-        else
-            return users;
+        return seat;
     }
 
-    /*
-    根据Seat实体添加场次信息
-    insert into T_Seat values(#{O_id},#{S_id},#{S_status})
-    参数：seat——场次实体
-    返回值：true——添加成功，false——添加失败
+    /**
+     * 添加Seat实体
+     *
+     * @param seat Seat对象
+     * @return 添加结果
      */
-    private static boolean addSeat(Seat seat){
-        String sql = "insert into T_Seat values('" + seat.getOId() + "','" + seat.getSId()+ "','" + seat.getSStatus()+ "')";
-        //创建数据库链接
+    private static boolean insertSeat(Seat seat) {
+        //判断主码不存在
+        if (getSeatsByOidSid(seat.getOId(), seat.getSId()) != null)
+            return false;
+        //判断外码存在
+        if (getOnMovieByOId(seat.getOId()) == null)
+            return false;
+        String sql = "insert into T_Seat values('" + seat.getOId() + "','"
+                + seat.getSId() + "','"
+                + seat.getSStatus() + "')";
         Statement state = null;
         int a = 0;
-
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        if(a==0)return false;
-        else return true;
+        return a == 1;
     }
 
-    /*-------------------------------------------------------Record---------------------------------------------------*/
-    /*
-    获取所有购票信息
-    select * from T_Record;
-    参数：无
-    返回值：Record动态数组
+    /**
+     * 修改座位状态
+     *
+     * @param oid       场次号
+     * @param sid       座位号
+     * @param newStatus 新座位状态
+     * @return 修改结果
      */
-    public static ArrayList<DataUtils.Record> getAllRecord(){
+    public static boolean updateSeatStatus(String oid, String sid, byte newStatus) {
+        String sql = "update T_Seat set s_status = '" + newStatus + "'"
+                + " where o_id = '" + oid
+                + "' and s_id = '" + sid + "'";
+        Statement state = null;
+        int a = 0;
+        try {
+            state = connection.createStatement();
+            a = state.executeUpdate(sql);
+            state.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return a == 1;
+    }
+
+
+    /*----购票记录表T_Record接口----*/
+
+    /**
+     * 获取所有Record实体
+     *
+     * @return Record对象列表
+     */
+    public static ArrayList<Record> getAllRecord() {
         String sql = "select * from T_Record";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<DataUtils.Record> users=new ArrayList<DataUtils.Record>();
+        ResultSet rs = null;
+        ArrayList<Record> records = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                DataUtils.Record f=new DataUtils.Record();
-                f.setUId(rs.getString("u_id"));
-                f.setOId(rs.getString("o_id"));
-                f.setSId(rs.getString("s_id"));
-                f.setRTime(strToDateLong(rs.getString("r_time")));
-                f.setRPrice(Float.parseFloat(rs.getString("r_price")));
-                f.setStatus(Byte.parseByte(rs.getString("r_status")));
-                users.add(f);
+                Record temp = new Record();
+                temp.setUId(rs.getString("u_id"));
+                temp.setOId(rs.getString("o_id"));
+                temp.setSId(rs.getString("s_id"));
+                temp.setRTime(DatePhaser.dateStrToDate(rs.getString("r_time")));
+                temp.setRPrice(Float.parseFloat(rs.getString("r_price")));
+                temp.setStatus(Byte.parseByte(rs.getString("r_status")));
+                records.add(temp);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (records.size() == 0)
             return null;
         else
-            return users;
+            return records;
     }
 
-    /*
-    根据用户号获取购票信息
-    select * from T_Record where u_id=#{arg0};
-    参数：uid——用户ID
-    返回值：Record动态数组
+    /**
+     * 通过用户号、场次号、座位号获取Record实体
+     *
+     * @param uid 用户号
+     * @param oid 场次号
+     * @param sid 座位号
+     * @return Record对象
      */
-    public static ArrayList<DataUtils.Record> getAllRecordByUid(String uid){
-        String sql = "select * from T_Record where u_id='"+uid+"'";
+    public static Record getRecordByUidOidSid(String uid, String oid, String sid) {
+        String sql = "select * from T_Record where u_id='" + uid + "'"
+                + "and o_id='" + oid + "'"
+                + "and s_id='" + sid + "'";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<DataUtils.Record> users=new ArrayList<DataUtils.Record>();
+        ResultSet rs = null;
+        Record record = null;
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
-            while (rs.next()) {
-                DataUtils.Record f=new DataUtils.Record();
-                f.setUId(rs.getString("u_id"));
-                f.setOId(rs.getString("o_id"));
-                f.setSId(rs.getString("s_id"));
-                f.setRTime(strToDateLong(rs.getString("r_time")));
-                f.setRPrice(Float.parseFloat(rs.getString("r_price")));
-                f.setStatus(Byte.parseByte(rs.getString("r_status")));
-                users.add(f);
+            if (rs.next()) {
+                record = new Record();
+                record.setUId(rs.getString("u_id"));
+                record.setOId(rs.getString("o_id"));
+                record.setSId(rs.getString("s_id"));
+                record.setRTime(DatePhaser.dateStrToDate(rs.getString("r_time")));
+                record.setRPrice(Float.parseFloat(rs.getString("r_price")));
+                record.setStatus(Byte.parseByte(rs.getString("r_status")));
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
-            return null;
-        else
-            return users;
+        return record;
     }
 
-    /*
-    根据场次号获取购票信息
-    select * from T_Record where o_id=#{arg0};
-    参数：oid——场次号
-    返回值：Record动态数组
+    /**
+     * 通过用户号获取Record实体
+     *
+     * @param uid 用户号
+     * @return Record对象列表
      */
-    public static ArrayList<DataUtils.Record> getAllRecordByOid(String oid){
-        String sql = "select * from T_Record where o_id='"+oid+"'";
+    public static ArrayList<Record> getRecordByUid(String uid) {
+        String sql = "select * from T_Record where u_id='" + uid + "'";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<DataUtils.Record> users=new ArrayList<DataUtils.Record>();
+        ResultSet rs = null;
+        ArrayList<Record> records = new ArrayList<>();
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
             while (rs.next()) {
-                DataUtils.Record f=new DataUtils.Record();
-                f.setUId(rs.getString("u_id"));
-                f.setOId(rs.getString("o_id"));
-                f.setSId(rs.getString("s_id"));
-                f.setRTime(strToDateLong(rs.getString("r_time")));
-                f.setRPrice(Float.parseFloat(rs.getString("r_price")));
-                f.setStatus(Byte.parseByte(rs.getString("r_status")));
-                users.add(f);
+                DataUtils.Record temp = new DataUtils.Record();
+                temp.setUId(rs.getString("u_id"));
+                temp.setOId(rs.getString("o_id"));
+                temp.setSId(rs.getString("s_id"));
+                temp.setRTime(DatePhaser.dateStrToDate(rs.getString("r_time")));
+                temp.setRPrice(Float.parseFloat(rs.getString("r_price")));
+                temp.setStatus(Byte.parseByte(rs.getString("r_status")));
+                records.add(temp);
             }
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
+        if (records.size() == 0)
             return null;
         else
-            return users;
+            return records;
     }
 
-    /*
-    根据用户号，座位号，场次号获取指定购票信息
-    update T_Record set r_status=#{arg3} where u_id=#{arg0} and s_id=#{arg1} and o_id=#{arg2};
-    参数：uid——用户号，sid——座位号，oid——场次号
-    返回值：true——更新成功，false——更新失败
+    /**
+     * 根据场次号获取Record实体
+     *
+     * @param oid 场次号
+     * @return Record对象列表
      */
-    public static boolean updateStatus(String U_id,String S_id,String O_id,String newStatus){
-        String sql = "update T_Record set r_status = '" + newStatus +  "'"+" where u_id = '" + U_id+"' and s_id = '"+S_id+"' and oid = '"+O_id+"'";
-        //创建数据库链接
+    public static ArrayList<Record> getRecordByOid(String oid) {
+        String sql = "select * from T_Record where o_id='" + oid + "'";
+        Statement state = null;
+        ResultSet rs = null;
+        ArrayList<Record> records = new ArrayList<>();
+        try {
+            state = connection.createStatement();
+            rs = state.executeQuery(sql);
+            while (rs.next()) {
+                DataUtils.Record temp = new DataUtils.Record();
+                temp.setUId(rs.getString("u_id"));
+                temp.setOId(rs.getString("o_id"));
+                temp.setSId(rs.getString("s_id"));
+                temp.setRTime(DatePhaser.dateStrToDate(rs.getString("r_time")));
+                temp.setRPrice(Float.parseFloat(rs.getString("r_price")));
+                temp.setStatus(Byte.parseByte(rs.getString("r_status")));
+                records.add(temp);
+            }
+            state.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (records.size() == 0)
+            return null;
+        else
+            return records;
+    }
+
+    /**
+     * 修改Record状态
+     *
+     * @param uid      用户号
+     * @param sid      座位号
+     * @param oid      场次号
+     * @param newStatus 新状态
+     * @return 修改结果
+     */
+    public static boolean updateRecordStatus(String uid, String sid, String oid, String newStatus) {
+        String sql = "update T_Record set r_status = '" + newStatus + "'"
+                + " where u_id = '" + uid
+                + "' and s_id = '" + sid
+                + "' and o_id = '" + oid + "'";
         Statement state = null;
         int a = 0;
-
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(a==0)return false;
-        else return true;
+        return a == 1;
     }
 
-    /*
-    根据Record实体添加购票信息
-    insert into T_Record values(#{U_id},#{O_id},#{S_id},#{R_time},#{R_price},#{R_status});
-    参数：record——购票实体
-    返回值：true——添加成功，false——添加失败
+    /**
+     * 添加Record实体
+     *
+     * @param record Record对象
+     * @return 添加结果
      */
-    public static boolean addRecord(DataUtils.Record record){
-        String sql = "insert into T_Record values('" + record.getUId() + "','" + record.getOId()+ "','" + record.getSId()+ "','" + dateToString(record.getRTime())+ "','" + record.getRPrice()+ "','" + record.getStatus() + "')";
-        //创建数据库链接
+    public static boolean insertRecord(Record record) {
+        //判断外码存在
+        if (getSeatsByOidSid(record.getOId(), record.getSId()) == null)
+            return false;
+        if (getUserById(record.getUId()) == null)
+            return false;
+        //判断主码不存在
+        if (getRecordByUidOidSid(record.getUId(), record.getOId(), record.getSId()) != null)
+            return false;
+        String sql = "insert into T_Record values('" + record.getUId() + "','"
+                + record.getOId() + "','"
+                + record.getSId() + "','"
+                + DatePhaser.dateToDateStr(record.getRTime()) + "','"
+                + record.getRPrice() + "','"
+                + record.getStatus() + "')";
         Statement state = null;
         int a = 0;
-
         try {
             state = connection.createStatement();
             a = state.executeUpdate(sql);
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        if(a==0)return false;
-        else return true;
+        return a == 1;
     }
 
 
-    /*-------------------------------------------------------Idk---------------------------------------------------*/
-    /*
-    根据指定ID获取key
-    select * from T_IDK where id=#{arg0};
-    参数：指定IDK的id
-    返回值：idk实体
+    /*----密钥表T_IDK接口----*/
+
+    /**
+     * 通过机器号获取对应密钥
+     *
+     * @param id 机器号
+     * @return 密钥
      */
-    public static ArrayList<Idk> getIDKById(String id){
-        String sql = "select * from T_IDK where id='"+id+"'";
+    public static String getKeyById(String id) {
+        String sql = "select * from T_IDK where Id='" + id + "'";
         Statement state = null;
-        ResultSet rs;
-        ArrayList<Idk> users=new ArrayList<Idk>();
+        ResultSet rs = null;
+        String key = null;
         try {
             state = connection.createStatement();
             rs = state.executeQuery(sql);
-            while (rs.next()) {
-                Idk f=new Idk();
-                f.setId(rs.getString("id"));
-                f.setT_key(rs.getString("t_key"));
-                users.add(f);
-            }
+            if (rs.next())
+                key = rs.getString("I_Key");
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            assert state != null;
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if(users.size()==0)
-            return null;
-        else
-            return users;
+        return key;
     }
-
-    /*
-    添加Idk实体
-    insert into T_IDK values(#{id},#{t_key});
-    参数：Idk实体
-    返回值：true——添加成功  false——添加失败
-     */
-    public static boolean addIDK(Idk idk){
-        String sql = "insert into T_IDK(Id,t_key) values('" + idk.getId() + "','" + idk.getT_key() + "')";
-        //创建数据库链接
-        Statement state = null;
-        int a = 0;
-
-        try {
-            state = connection.createStatement();
-            a = state.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            state.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        if(a==0)return false;
-        else return true;
-    }
-
 }

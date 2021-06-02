@@ -84,8 +84,8 @@ public class ASHandler implements Runnable {
                 PropertiesHandler.getPropertiesElement("My_IPAddress")));
         message.setServiceType(EnumServiceType.AS);
         message.setSpecificType(EnumKerberos.Reply);
-        //这里的key要修改
         message.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk", "0000");
+        return null;
     }
 
     private TransMessage generateErrorReply(String toAddr) {

@@ -1,18 +1,24 @@
 import DataBaseUtils.DBCommand;
+import DataUtils.Movie;
+import DataUtils.OnMovie;
+import DataUtils.Record;
+import DataUtils.Theater;
 import DataUtils.User;
+import EnumUtils.EnumRecordStatus;
+import EnumUtils.EnumSeatStatus;
+import EnumUtils.EnumTheaterType;
 import EnumUtils.EnumUserAccess;
-import PropertiesUtils.PropertiesHandler;
-import TransmissionUtils.*;
-import org.w3c.dom.Document;
+import TransmissionUtils.DatePhaser;
 
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class ATest {
     public static void main(String[] args) {
         try {
-
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -67,3 +73,46 @@ public class ATest {
             transMessage.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk","00000000");
             System.out.println(transMessage.getSignature());
             transceiver.sendMessage(transMessage);*/
+
+/*            User user = new User();
+
+            user.setUId("U00002");
+            user.setUName("李正浩");
+            user.setUPassword("lzh123456789");
+            user.setUAccess(EnumUserAccess.U_VIP);
+            user.setUMoney(1000);
+            DBCommand.insertUser(user);
+
+            ArrayList<User> temp = DBCommand.getAllUsers();
+            temp.forEach((User u) -> System.out.println(u.getUName()));
+
+            System.out.println(DBCommand.getUserById("U00002").getUName());
+            System.out.println(DBCommand.findPassword("U00002", "李正浩"));
+            DBCommand.updateAccess("U00002", EnumUserAccess.U_SVIP);
+            DBCommand.updateUName("U00002", "lzh");
+            DBCommand.updatePassword("U00002", "lzh123");
+            if (DBCommand.payMoney("U00002", (float) 10001))
+                System.out.println("OK");
+            System.out.println(DBCommand.fundMoney("U00002", (float) 10000));
+            System.out.println(DBCommand.payMoney("U00002", (float) 10001));
+            System.out.println(DBCommand.getUserById("U00002").getUName());
+            System.out.println(DBCommand.getUserById("U00002").getUMoney());
+            System.out.println(DBCommand.getUserById("U00002").getUAccess());
+            System.out.println(DBCommand.getUserById("U00002").getUPassword());
+            DBCommand.deleteUser("U00002");
+            ArrayList<User> da = DBCommand.getAllUsers();
+            da.forEach((User u) -> System.out.println(u.getUName()));*/
+
+/*Theater t = new Theater("T00001",EnumTheaterType.Comm,64);
+            Movie m = new Movie("M00001","我","WWW",120,10,"123456");
+            DBCommand.insertMovie(m);
+            DBCommand.insertTheater(t);
+            OnMovie o = new OnMovie();
+            Date date = DatePhaser.addDateMinutes(new Date(),1000);
+            o.setMId("M00001");
+            o.setOId("O00000");
+            o.setOPrice(35);
+            o.setTId("T00001");
+            o.setOBegin(date);
+            o.setOEnd(DatePhaser.addDateMinutes(date,100));
+            System.out.println(DBCommand.insertOnMovie(o));*/

@@ -1,4 +1,4 @@
-/*drop TABLE t_record;
+/*drop TABLE t_Record;
 drop TABLE t_Seat;
 drop TABLE t_onmovie;
 drop TABLE T_User;
@@ -30,8 +30,8 @@ create table T_OnMovie (
 	O_Id Varchar(20) not null primary key,
 	M_Id Varchar(20) not null,
 	T_Id Varchar(20) not null,
-	O_BeginTime Datetime not null,
-	O_EndTime Datetime not null,
+	O_BeginTime Varchar(25) not null,
+	O_EndTime Varchar(25) not null,
 	O_Price Float not null,
 	foreign key(M_Id) references t_movie(M_Id),
 	foreign key(T_Id) references t_theater(T_Id),
@@ -49,7 +49,7 @@ create table T_Record (
 	U_Id Varchar(20) not null,
 	O_Id Varchar(20) not null,
 	S_Id Varchar(20) not null,
-	R_Time Datetime not null,
+	R_Time Varchar(25)  not null,
 	R_Price Float not null,
 	R_Status Varchar(1) not null,
 	primary key(U_Id,S_Id,O_Id),
@@ -58,5 +58,5 @@ create table T_Record (
 );
 create table T_IDK ( 
 	Id varchar(20) not null primary key,
-	t_key varchar(8) not null
+	I_Key varchar(8) not null
 );
