@@ -21,7 +21,7 @@ public class XMLPhaser {
      * @return xmlDocument
      * @throws Exception 转换异常
      */
-    public static Document StringToDoc(String xmlStr) throws Exception {
+    public static Document stringToDoc(String xmlStr) throws Exception {
         InputSource is = new InputSource(new StringReader(xmlStr));
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -35,7 +35,7 @@ public class XMLPhaser {
      * @return xml字符串
      * @throws Exception 转换异常
      */
-    public static String DocToString(Document xmlDoc) throws Exception {
+    public static String docToString(Document xmlDoc) throws Exception {
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer = factory.newTransformer();
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");

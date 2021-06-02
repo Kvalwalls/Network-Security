@@ -339,7 +339,7 @@ public class DBCommand {
                 temp.setMId(rs.getString("m_id"));
                 temp.setMName(rs.getString("m_name"));
                 temp.setMType(rs.getString("m_type"));
-                temp.setTime(Integer.parseInt(rs.getString("m_time")));
+                temp.setMTime(Integer.parseInt(rs.getString("m_time")));
                 temp.setMComment(Float.parseFloat(rs.getString("m_comment")));
                 temp.setDescription(rs.getString("m_description"));
                 movies.add(temp);
@@ -373,7 +373,7 @@ public class DBCommand {
                 movie.setMId(rs.getString("m_id"));
                 movie.setMName(rs.getString("m_name"));
                 movie.setMType(rs.getString("m_type"));
-                movie.setTime(Integer.parseInt(rs.getString("m_time")));
+                movie.setMTime(Integer.parseInt(rs.getString("m_time")));
                 movie.setMComment(Float.parseFloat(rs.getString("m_comment")));
                 movie.setDescription(rs.getString("m_description"));
             }
@@ -403,7 +403,7 @@ public class DBCommand {
                 temp.setMId(rs.getString("m_id"));
                 temp.setMName(rs.getString("m_name"));
                 temp.setMType(rs.getString("m_type"));
-                temp.setTime(Integer.parseInt(rs.getString("m_time")));
+                temp.setMTime(Integer.parseInt(rs.getString("m_time")));
                 temp.setMComment(Float.parseFloat(rs.getString("m_comment")));
                 temp.setDescription(rs.getString("m_description"));
                 movies.add(temp);
@@ -431,7 +431,7 @@ public class DBCommand {
         String sql = "insert into t_movie values('" + movie.getMId() + "','"
                 + movie.getMName() + "','"
                 + movie.getMType() + "','"
-                + movie.getTime() + "','"
+                + movie.getMTime() + "','"
                 + movie.getMComment() + "','"
                 + movie.getDescription() + "')";
         Statement state = null;

@@ -20,19 +20,29 @@ public class Authenticator {
     /**
      * 无参数的构造方法
      */
-    public Authenticator() {
-
-    }
+    public Authenticator() { }
 
     public String getID_c() {
         return ID_c;
+    }
+
+    public void setID_c(String ID_c) {
+        this.ID_c = ID_c;
     }
 
     public String getAD_c() {
         return AD_c;
     }
 
+    public void setAD_c(String AD_c) {
+        this.AD_c = AD_c;
+    }
+
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

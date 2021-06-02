@@ -8,8 +8,15 @@ import EnumUtils.EnumRecordStatus;
 import EnumUtils.EnumSeatStatus;
 import EnumUtils.EnumTheaterType;
 import EnumUtils.EnumUserAccess;
+import KerberosUtils.Tools;
+import SecurityUtils.RSAHandler;
+import TransmissionUtils.Connection;
 import TransmissionUtils.DatePhaser;
+import TransmissionUtils.TransMessage;
+import TransmissionUtils.Transceiver;
 
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +26,18 @@ import java.util.Date;
 public class ATest {
     public static void main(String[] args) {
         try {
+            ServerSocket serverSocket = Connection.bindServer("127.0.0.1",7000);
+            Socket socket = serverSocket.accept();
+            Transceiver transceiver = new Transceiver(socket);
+            TransMessage message = new TransMessage();
+            message.setFromAddress(new byte[]{127,0,0,1});
+            message.setToAddress(new byte[]{127,0,0,2});
+            message.setServiceType((byte) 0);
+            message.setSpecificType((byte) 0);
+            message.setCryptCode((byte) 1);
+            message.setContents("123");
+            message.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk","00000000");
+            transceiver.sendMessage(message);
         } catch (Exception exception) {
             exception.printStackTrace();
         }

@@ -26,8 +26,7 @@ public class User {
     /**
      * 无参数的构造方法
      */
-    public User() {
-    }
+    public User() { }
 
     public String getUId() {
         return UId;

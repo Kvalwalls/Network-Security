@@ -31,8 +31,7 @@ public class OnMovie {
     /**
      * 无参数的构造方法
      */
-    public OnMovie() {
-    }
+    public OnMovie() { }
 
     public String getOId() {
         return OId;

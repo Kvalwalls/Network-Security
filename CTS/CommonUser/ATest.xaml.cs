@@ -15,8 +15,24 @@ namespace CommonUser
         {
             InitializeComponent();
             Hide();
-            
-            Close();
+            try
+            {
+                ASHandler asHandler = ASHandler.GetInstatnce();
+                String[] keyAndTicket = asHandler.ASCertification();
+                Console.WriteLine(keyAndTicket[0]);
+                Console.WriteLine(keyAndTicket[1]);
+                asHandler.CloseASConnection();
+                /*Socket socket = Connection.ConnectServer("127.0.0.1", 7000);
+                Transceiver transceiver = new Transceiver(socket);
+                TransMessage message = transceiver.ReceiveMessage();
+                message.DePackage("..\\..\\KeyFiles\\AS.pk", "00000000");
+                Console.WriteLine(message.fromAddress.Length);*/
+                Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
         }
     }
 }

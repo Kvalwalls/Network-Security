@@ -1,5 +1,12 @@
 package DataUtils;
 
+import SecurityUtils.DESHandler;
+import TransmissionUtils.XMLBuilder;
+import TransmissionUtils.XMLPhaser;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+
 public class Ticket {
     //密钥
     private String key;
@@ -29,9 +36,7 @@ public class Ticket {
     /**
      * 无参数的构造方法
      */
-    public Ticket() {
-
-    }
+    public Ticket() { }
 
     public String getKey() {
         return key;
@@ -79,5 +84,36 @@ public class Ticket {
 
     public void setLifetime(long lifetime) {
         this.lifetime = lifetime;
+    }
+
+    public String generateTicket(String enKey) throws Exception {
+        //创建XMLDocument
+        Document document = XMLBuilder.buildXMLDoc();
+        //根节点
+        Element ticketEle = document.createElement("ticket");
+        //子节点
+        Element keyEle = document.createElement("key");
+        keyEle.setTextContent(key);
+        Element id_cEle = document.createElement("id_c");
+        id_cEle.setTextContent(ID_c);
+        Element ad_cEle = document.createElement("ad_c");
+        ad_cEle.setTextContent(AD_c);
+        Element id_destEle = document.createElement("id_dest");
+        id_destEle.setTextContent(ID_dest);
+        Element ts2Ele = document.createElement("ts2");
+        ts2Ele.setTextContent(String.valueOf(timestamp));
+        Element lifetimeEle = document.createElement("lifetime");
+        lifetimeEle.setTextContent(String.valueOf(lifetime));
+        //形成树结构
+        ticketEle.appendChild(keyEle);
+        ticketEle.appendChild(id_cEle);
+        ticketEle.appendChild(ad_cEle);
+        ticketEle.appendChild(id_destEle);
+        ticketEle.appendChild(ts2Ele);
+        ticketEle.appendChild(lifetimeEle);
+        document.appendChild(ticketEle);
+        //加密
+        String text = XMLPhaser.docToString(document);
+        return DESHandler.encrypt(enKey,text);
     }
 }

@@ -7,7 +7,7 @@ public class AddressPhaser {
      * @param addrStr 字符串形式的地址
      * @return 字节流形式的地址
      */
-    public static byte[] StringToBytes(String addrStr) {
+    public static byte[] stringToBytes(String addrStr) {
         String[] subAddrStrings = addrStr.replace("\\s", "").split("\\.");
         byte[] subAddrBytes = new byte[4];
         for (int i = 0; i < 4; i++)
@@ -21,7 +21,7 @@ public class AddressPhaser {
      * @param addrBytes 字节流形式的地址
      * @return 字符串形式的地址
      */
-    public static String BytesToString(byte[] addrBytes) {
+    public static String bytesToString(byte[] addrBytes) {
         StringBuilder addrStr = new StringBuilder();
         for (int i = 0; i < 4; i++) {
             addrStr.append(addrBytes[i]);

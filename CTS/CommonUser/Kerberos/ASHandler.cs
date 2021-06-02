@@ -37,15 +37,40 @@ namespace CommonUser.Kerberos
                 long lifetime = long.Parse(contents[3]);
                 if (VerifyTS(ts2, lifetime) && contents[1].Equals(ConfigurationManager.AppSettings["TGS_ID"]))
                 {
-                    keyAndTicket = new string[2];
-                    keyAndTicket[0] = contents[0];
-                    keyAndTicket[1] = contents[4];
+                    keyAndTicket = new string[2] 
+                    {
+                        contents[0],
+                        contents[4]
+                    };
                 }
                 else
                     keyAndTicket = ASCertification();
             }
             return keyAndTicket;
         }
+
+        public void CloseASConnection()
+        {
+            //创建XMLDocument
+            XmlDocument document = new XmlDocument();
+            //根节点
+            XmlElement end = document.CreateElement("as_end");
+            document.AppendChild(end);
+            //报文初始化
+            TransMessage message = new TransMessage();
+            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
+            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["AS_IPAddress"]);
+            message.serviceType = EnumServiceType.AS;
+            message.specificType = EnumKerberos.End;
+            message.contents = XMLPhaser.XmlToString(document);
+            message.EnPackage("..\\..\\KeyFiles\\Client1.sk", null);
+            transceiver.SendMessage(message);
+            transceiver.CloseTransceiver();
+        }
+
+        /// <summary>
+        /// 发送请求
+        /// </summary>
         private void SendRequest()
         {
             //创建XMLDocument
@@ -64,6 +89,7 @@ namespace CommonUser.Kerberos
             certification.AppendChild(ID_tgs);
             certification.AppendChild(TS1);
             document.AppendChild(certification);
+            Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
             message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
@@ -71,9 +97,10 @@ namespace CommonUser.Kerberos
             message.serviceType = EnumServiceType.AS;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage("..\\..\\KeyFiles\\Client.sk", null);
+            message.EnPackage("..\\..\\KeyFiles\\Client1.sk", null);
             transceiver.SendMessage(message);
         }
+
         private string[] ReceiveReply()
         {
             string[] contents = null;

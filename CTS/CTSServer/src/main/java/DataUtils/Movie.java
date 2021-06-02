@@ -8,7 +8,7 @@ public class Movie {
     //类型
     private String MType;
     //时长
-    private int time;
+    private int MTime;
     //评分
     private float MComment;
     //简介
@@ -17,11 +17,11 @@ public class Movie {
     /**
      * 带参数的构造方法
      */
-    public Movie(String MId, String MName, String MType, int time, float MComment, String description) {
+    public Movie(String MId, String MName, String MType, int MTime, float MComment, String description) {
         this.MId = MId;
         this.MName = MName;
         this.MType = MType;
-        this.time = time;
+        this.MTime = MTime;
         this.MComment = MComment;
         this.description = description;
     }
@@ -57,12 +57,12 @@ public class Movie {
         this.MType = MType;
     }
 
-    public int getTime() {
-        return time;
+    public int getMTime() {
+        return MTime;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public void setMTime(int MTime) {
+        this.MTime = MTime;
     }
 
     public float getMComment() {

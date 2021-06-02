@@ -1,33 +1,33 @@
 package KerberosUtils;
 
 import DataBaseUtils.DBCommand;
-import EnumUtils.EnumCryptCode;
+import DataUtils.Ticket;
 import EnumUtils.EnumErrorCode;
 import EnumUtils.EnumKerberos;
 import EnumUtils.EnumServiceType;
 import PropertiesUtils.PropertiesHandler;
-import TransmissionUtils.AddressPhaser;
-import TransmissionUtils.TransMessage;
-import TransmissionUtils.Transceiver;
-import TransmissionUtils.XMLBuilder;
+import TransmissionUtils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.net.Socket;
-import java.util.Properties;
+import java.util.Arrays;
 
 public class ASHandler implements Runnable {
-    private static final int LIFE_TIME = 100000;
+    private static final int LIFE_TIME = 60;
     private final Transceiver transceiver;
-    private String encryptKey;
+    private final int counter;
 
     /**
      * 构造方法
      *
      * @param socket socket用于初始化transceiver
      */
-    public ASHandler(Socket socket) {
+    public ASHandler(Socket socket,int counter) {
         this.transceiver = new Transceiver(socket);
+        this.counter = counter;
     }
 
     @Override
@@ -35,14 +35,61 @@ public class ASHandler implements Runnable {
         try {
             while(true) {
                 TransMessage message = transceiver.receiveMessage();
-                message.dePackage("src\\resourcesAS\\KeyFiles\\Client.pk",null);
-
+                message.dePackage("src\\resourcesAS\\KeyFiles\\Client1.pk",null);
                 switch(message.getSpecificType()) {
                     case EnumKerberos.Request: {
-
+                        TransMessage replyMessage = null;
+                        //报文有错误
+                        if (message.getErrorCode() == EnumErrorCode.Error) {
+                            replyMessage = generateErrorReply(AddressPhaser.bytesToString(message.getFromAddress()));
+                            transceiver.sendMessage(replyMessage);
+                            continue;
+                        }
+                        //解析XMLDocument
+                        String id_c = null, id_tgs = null;
+                        long ts1 = 0;
+                        Document document = XMLPhaser.stringToDoc(message.getContents());
+                        Element certification = document.getDocumentElement();
+                        NodeList nodeList = certification.getChildNodes();
+                        for (int i = 0; i < nodeList.getLength(); i++) {
+                            Node childNode = nodeList.item(i);
+                            switch (childNode.getNodeName()) {
+                                case "id_c" -> id_c = childNode.getTextContent();
+                                case "id_tgs" -> id_tgs = childNode.getTextContent();
+                                case "ts1" -> ts1 = Long.parseLong(childNode.getTextContent());
+                            }
+                        }
+                        //报文超过生命周期
+                        if (!Tools.verifyTS(ts1, LIFE_TIME)) {
+                            replyMessage = generateErrorReply(AddressPhaser.bytesToString(message.getFromAddress()));
+                            transceiver.sendMessage(replyMessage);
+                            continue;
+                        }
+                        String key_tgs = DBCommand.getKeyById(id_tgs);
+                        String key_c = DBCommand.getKeyById(id_c);
+                        String sessionKey = Tools.generateSessionK();
+                        long ts2 = Tools.generateTS();
+                        Ticket ticket = new Ticket();
+                        ticket.setKey(sessionKey);
+                        ticket.setID_c(id_c);
+                        ticket.setAD_c(AddressPhaser.bytesToString(message.getFromAddress()));
+                        ticket.setID_dest(id_tgs);
+                        ticket.setTimestamp(ts2);
+                        ticket.setLifetime(LIFE_TIME);
+                        String strTicket = ticket.generateTicket(key_tgs);
+                        String[] contents = new String[] {
+                                sessionKey,
+                                id_tgs,
+                                String.valueOf(ts2),
+                                String.valueOf(LIFE_TIME),
+                                strTicket
+                        };
+                        replyMessage = generateNormalReply(message.getFromAddress(),contents,key_c);
+                        transceiver.sendMessage(replyMessage);
                     }
                     case EnumKerberos.End: {
-
+                        transceiver.closeTransceiver();
+                        System.out.println("断开第 " + counter + " 个连接!");
                         return;
                     }
                     default:
@@ -54,7 +101,7 @@ public class ASHandler implements Runnable {
         }
     }
 
-    private TransMessage generateNormalReply(String toAddr,String[] contents) throws Exception {
+    private TransMessage generateNormalReply(byte[] toAddr,String[] contents,String key_c) throws Exception {
         //创建XMLDocument
         Document document = XMLBuilder.buildXMLDoc();
         //根节点
@@ -79,32 +126,31 @@ public class ASHandler implements Runnable {
         document.appendChild(root);
         //报文初始化
         TransMessage message = new TransMessage();
-        message.setToAddress(AddressPhaser.StringToBytes(toAddr));
-        message.setFromAddress(AddressPhaser.StringToBytes(
+        message.setToAddress(toAddr);
+        message.setFromAddress(AddressPhaser.stringToBytes(
                 PropertiesHandler.getPropertiesElement("My_IPAddress")));
         message.setServiceType(EnumServiceType.AS);
         message.setSpecificType(EnumKerberos.Reply);
-        message.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk", "0000");
-        return null;
-    }
-
-    private TransMessage generateErrorReply(String toAddr) {
-        TransMessage message = new TransMessage();
-        message.setToAddress(AddressPhaser.StringToBytes(toAddr));
-        message.setFromAddress(AddressPhaser.StringToBytes(
-                PropertiesHandler.getPropertiesElement("My_IPAddress")));
-        message.setServiceType(EnumServiceType.AS);
-        message.setSpecificType(EnumKerberos.Error);
-        message.setContents("ASError");
-        message.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk", null);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk", key_c);
         return message;
     }
 
-    private long generateTS() {
-        return (System.currentTimeMillis() / 1000);
-    }
-
-    private boolean verifyTS(long ts, long lifetime) {
-        return (generateTS() - ts < lifetime);
+    private TransMessage generateErrorReply(String toAddr) throws Exception {
+        //创建XMLDocument
+        Document document = XMLBuilder.buildXMLDoc();
+        //根节点
+        Element root = document.createElement("error");
+        document.appendChild(root);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(AddressPhaser.stringToBytes(toAddr));
+        message.setFromAddress(AddressPhaser.stringToBytes(
+                PropertiesHandler.getPropertiesElement("My_IPAddress")));
+        message.setServiceType(EnumServiceType.AS);
+        message.setSpecificType(EnumKerberos.Error);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk", null);
+        return message;
     }
 }

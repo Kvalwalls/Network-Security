@@ -3,7 +3,6 @@ package LogUtils;
 import DataUtils.User;
 import TransmissionUtils.AddressPhaser;
 import TransmissionUtils.TransMessage;
-import com.sun.jdi.LongType;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -57,8 +56,8 @@ public class LoggerHandler {
 
     public void logTransMessage(TransMessage transMessage) {
         logger.info("\n报文日志\n" +
-                "源IP地址：" + AddressPhaser.BytesToString(transMessage.getFromAddress()) + "\n" +
-                "目的IP地址：" + AddressPhaser.BytesToString(transMessage.getToAddress()) + "\n" +
+                "源IP地址：" + AddressPhaser.bytesToString(transMessage.getFromAddress()) + "\n" +
+                "目的IP地址：" + AddressPhaser.bytesToString(transMessage.getToAddress()) + "\n" +
                 "服务类型：" + transMessage.getServiceType() + "\n" +
                 "具体类型：" + transMessage.getSpecificType() + "\n" +
                 "加密码：" + transMessage.getCryptCode() + "\n" +

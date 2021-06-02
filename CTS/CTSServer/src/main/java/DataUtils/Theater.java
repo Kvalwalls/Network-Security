@@ -3,16 +3,13 @@ package DataUtils;
 public class Theater {
     //影厅号
     private String TId;
-    //影厅类型
+    //类型
     private byte TType;
-    //影厅大小
+    //大小
     private int TSize;
 
     /**
      * 带参数的构造方法
-     * @param TId
-     * @param TType
-     * @param TSize
      */
     public Theater(String TId, byte TType, int TSize) {
         this.TId = TId;
@@ -22,9 +19,7 @@ public class Theater {
     /**
      * 无参数的构造方法
      */
-    public Theater() {
-
-    }
+    public Theater() { }
 
     public String getTId() {
         return TId;

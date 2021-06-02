@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class Record {
     //用户号
-    public String UId;
+    private String UId;
     //场次号
-    public String OId;
+    private String OId;
     //座位号
-    public String SId;
+    private String SId;
     //购票时间
-    public Date RTime;
+    private Date RTime;
     //实际价格
-    public float RPrice;
+    private float RPrice;
     //购票状态
-    public byte RStatus;
+    private byte RStatus;
 
     /**
      * 带参数的构造方法
@@ -31,9 +31,7 @@ public class Record {
     /**
      * 无参数的构造方法
      */
-    public Record() {
-
-    }
+    public Record() { }
 
     public String getUId() {
         return UId;

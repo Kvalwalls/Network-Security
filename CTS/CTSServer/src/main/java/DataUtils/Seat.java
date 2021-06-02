@@ -20,8 +20,7 @@ public class Seat {
     /**
      * 无参数的构造函数
      */
-    public Seat() {
-    }
+    public Seat() { }
 
     public String getSId() {
         return SId;

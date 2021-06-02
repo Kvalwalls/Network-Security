@@ -40,7 +40,7 @@
     {
         //无错误
         public const byte NoError = 0;
-        //错误
+        //有错误
         public const byte Error = 1;
     }
 

@@ -28,13 +28,12 @@ namespace CommonUser.Transmission
         /// <summary>
         /// 构造函数
         /// </summary>
-        public TransMessage(byte[] tAddr, byte[] fAddr, byte serviceT, byte specificT, byte cryptC, string con)
+        public TransMessage(byte[] tAddr, byte[] fAddr, byte serviceT, byte specificT, string con)
         {
             toAddress = tAddr;
             fromAddress = fAddr;
             serviceType = serviceT;
             specificType = specificT;
-            cryptCode = cryptC;
             contents = con;
         }
 
@@ -56,6 +55,7 @@ namespace CommonUser.Transmission
         {
             try
             {
+                signature = RSAHandler.GenerateSign(rsaSKeyFile, contents);
                 if (desKey != null)
                 {
                     contents = DESHandler.Encrypt(desKey, contents);

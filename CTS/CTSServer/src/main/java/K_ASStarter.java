@@ -15,8 +15,8 @@ public class K_ASStarter {
             int counter = 1;
             while (true) {
                 Socket socket = serverSocket.accept();
+                Thread t = new Thread(new ASHandler(socket, counter));
                 System.out.println("建立第 " + (counter++) + " 个连接!");
-                Thread t = new Thread(new ASHandler(socket));
                 t.start();
             }
         } catch (IOException e) {
