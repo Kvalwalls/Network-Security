@@ -9,7 +9,7 @@
     <Grid Name="Grid_SelectOnMovie" DataContext="Binding">
         <!--背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态_渐变切片.png"/>
         </Grid.Background>
         <Image Source="{Binding Path=Mpicture}" Margin="364,10,9.6,335.4"/>
         <TextBlock Text="{Binding Path=Mname}" FontSize="30" Margin="10,75,182.6,425.4"  TextWrapping="Wrap" Block.TextAlignment="Center"

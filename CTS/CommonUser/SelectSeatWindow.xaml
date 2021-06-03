@@ -47,7 +47,7 @@
                 VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Disabled" 
                  VerticalAlignment="Top"  VerticalContentAlignment="Center" Width="695"/>
         <Label Content="大银幕" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" Background="Black"
-              Foreground="White" FontSize="15" Width="500" Margin="255,145,198.6,385.4"/>
+              Foreground="White" FontSize="22" Width="500" Margin="255,133,198.6,397.4"/>
         <Grid Name="Grid_Seats" Margin="10,200,10,100" />
     </Grid>
 </Window>

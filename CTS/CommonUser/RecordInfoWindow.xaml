@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="票据信息" Height="450" Width="500" ResizeMode="NoResize">
     <!--Grid背景-->
-    <Grid>
+    <Grid Name="Grid_RecordInfo" DataContext="Binding">
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Stretch="UniformToFill" Opacity="0.8"></ImageBrush>
         </Grid.Background>
@@ -55,5 +55,6 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <Label Name="Label_Info" Opacity="0" HorizontalAlignment="Left" Margin="87,105,0,164" VerticalAlignment="Center" Height="151" Width="294" FontSize="20"/>
     </Grid>
 </Window>

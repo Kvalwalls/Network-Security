@@ -373,5 +373,14 @@
   <ItemGroup>
     <Folder Include="KeyFiles\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\背景_界面静态_蓝色菱形切片.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\背景_界面静态_渐变切片.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageResources\背景_界面静态_蓝色浮雕.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

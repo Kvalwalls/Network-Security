@@ -12,7 +12,7 @@
             <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <!--升级权限Label-->
-        <Label HorizontalAlignment="Center" Foreground="Black" Content="升级权限" VerticalAlignment="Top" FontSize="36"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="升级权限" VerticalAlignment="Top" FontSize="36" Margin="126,22,113.6,0"/>
         <!--确定Button-->
         <Button Name="Button_Upgrade" Content="确定" FontSize="22"  Margin="10,354,249.6,10" Foreground="White" 
                 MouseEnter="Button_MouseEnter"
@@ -43,13 +43,13 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Image Margin="28,65,324.6,315" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
-        <Image Margin="28,135,324.6,245" Source="ImageResources\图标(黑)_权限.png" Stretch="Fill"/>
-        <Image Margin="28,210,324.6,170" Source="ImageResources\图标(黑)_选择.png" Stretch="Fill" RenderTransformOrigin="0.539,0.755"/>
-        <TextBlock Name="TextBlock_Id" Text="账号：" VerticalAlignment="Center" FontSize="22" Margin="81,61,53.6,309"/>
-        <TextBlock Name="TextBlock_Access" Text="权限："  VerticalAlignment="Center" FontSize="22" Margin="81,130,53.6,240"/>
+        <Image Margin="34,93,318.6,287" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
+        <Image Margin="34,163,318.6,217" Source="ImageResources\图标(黑)_权限.png" Stretch="Fill"/>
+        <Image Margin="34,238,318.6,142" Source="ImageResources\图标(黑)_选择.png" Stretch="Fill" RenderTransformOrigin="0.539,0.755"/>
+        <TextBlock Name="TextBlock_Id" Text="账号：" VerticalAlignment="Center" FontSize="22" Margin="87,100,47.6,292"/>
+        <TextBlock Name="TextBlock_Access" Text="权限："  VerticalAlignment="Center" FontSize="22" Margin="87,169,47.6,223"/>
         <ComboBox Name="ComboBox_Access" FontSize="26" Opacity="1"
-                  Text="请选择权限：" SelectedIndex="-1" Margin="81,205,73.6,165">
+                  Text="请选择权限：" SelectedIndex="-1" Margin="87,233,67.6,137">
             <ComboBoxItem Name="Access_VIP" Content="VIP用户" 
                           VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                           Width="200" Height="30" FontSize="24"/>

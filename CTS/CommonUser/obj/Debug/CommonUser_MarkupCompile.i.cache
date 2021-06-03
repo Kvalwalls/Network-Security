@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\
 CommonUser
 none
 false
 DEBUG;TRACE
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\App.xaml
+F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\App.xaml
 16-1721623827
 
-35-716558706
-151299986112
+38-309312267
+15531001493
 ATest.xaml;ControlSeat.xaml;PayWaitingWindow.xaml;SelectOnMovieWindow.xaml;SelectSeatWindow.xaml;WaitingWindow.xaml;MovieInfoWindow.xaml;MsgShowWindow.xaml;MyPayWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RechargeWindow.xaml;RefindWindow.xaml;RegisterWindow.xaml;RecordInfoWindow.xaml;UpgradeWindow.xaml;
 
-False
+True
 

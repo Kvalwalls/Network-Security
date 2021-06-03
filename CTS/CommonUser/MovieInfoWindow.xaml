@@ -9,7 +9,7 @@
     <Grid x:Name="Grid_Info" DataContext="{Binding}">
         <!--背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态_渐变切片.png"/>
         </Grid.Background>
         <Image Source="{Binding Path=Mpicture}" Margin="10,10,363.6,300.4"/>
         <TextBlock Text="{Binding Path=Mname}" FontSize="28" Margin="235,10,9.6,490.4"  TextWrapping="Wrap" Block.TextAlignment="Center"
