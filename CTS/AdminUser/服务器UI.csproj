@@ -80,12 +80,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data.cs" />
     <Compile Include="Entity\Data.cs" />
     <Compile Include="Entity\Enums.cs" />
     <Compile Include="Kerberos\ASHandler.cs" />
     <Compile Include="Kerberos\TGSHandler.cs" />
     <Compile Include="Kerberos\Tools.cs" />
+    <Compile Include="Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MovieInfo.xaml.cs">
       <DependentUpon>MovieInfo.xaml</DependentUpon>
     </Compile>
@@ -121,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

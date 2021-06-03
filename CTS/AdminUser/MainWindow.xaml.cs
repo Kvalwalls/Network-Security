@@ -36,7 +36,7 @@ namespace 服务器UI
         private static List<Record> records = new List<Record>();
         //private static TransMessage trans;
 
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
             InitTextBlock_Time();
