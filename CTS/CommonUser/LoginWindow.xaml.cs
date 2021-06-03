@@ -21,7 +21,10 @@ namespace CommonUser
 		public LoginWindow()
 		{
 			InitializeComponent();
-			mediaElement.Source = new Uri("..\\..\\ImageResources\\背景_登录动态.gif");
+			string path1 = System.IO.Directory.GetCurrentDirectory();
+			string path2 = System.IO.Directory.GetParent(path1).ToString();
+			string path3 = System.IO.Directory.GetParent(path2).ToString();
+			mediaElement.Source = new Uri("F:\\My FILS\\大三\\lotSafe\\Network-Security\\CTS\\CommonUser\\ImageResources\\背景_登录动态.gif");
 		}
 
 		private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)

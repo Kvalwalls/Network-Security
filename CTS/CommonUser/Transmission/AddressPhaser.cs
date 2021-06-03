@@ -1,4 +1,6 @@
-﻿namespace CommonUser.Transmission
+﻿using System.Text;
+
+namespace CommonUser.Transmission
 {
     class AddressPhaser
     {
@@ -7,13 +9,13 @@
         /// </summary>
         /// <param name="addrStr">字符串形式的IP地址</param>
         /// <returns>字节流形式的IP地址</returns>
-        public static byte[] StringToBytes(string addrStr)
+        public static byte[] StringToBytes(string addrString)
         {
-            string[] subAddrStrs = addrStr.Replace("\\s", "").Split('.');
-            byte[] subAddrBytes = new byte[4];
+            string[] subAddrStrings = addrString.Replace("\\s", "").Split('.');
+            byte[] addrBytes = new byte[4];
             for (int i = 0; i < 4; i++)
-                subAddrBytes[i] = byte.Parse(subAddrStrs[i]);
-            return subAddrBytes;
+                addrBytes[i] = byte.Parse(subAddrStrings[i]);
+            return addrBytes;
         }
 
         /// <summary>
@@ -23,14 +25,14 @@
         /// <returns>字符串形式的IP地址</returns>
         public static string BytesToString(byte[] addrBytes)
         {
-            string addrStr = "";
+            StringBuilder addrString = new StringBuilder();
             for (int i = 0; i < 4; i++)
             {
-                addrStr += addrBytes[i].ToString();
+                addrString.Append(addrBytes[i].ToString());
                 if (i != 3)
-                    addrStr += ".";
+                    addrString.Append(".");
             }
-            return addrStr;
+            return addrString.ToString();
         }
     }
 }

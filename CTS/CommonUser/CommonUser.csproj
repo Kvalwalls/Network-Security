@@ -89,6 +89,7 @@
     <Compile Include="Kerberos\ASHandler.cs" />
     <Compile Include="Kerberos\TGSHandler.cs" />
     <Compile Include="Kerberos\Tools.cs" />
+    <Compile Include="Kerberos\VHandler.cs" />
     <Compile Include="Security\DESHandler.cs" />
     <Compile Include="PayWaitingWindow.xaml.cs">
       <DependentUpon>PayWaitingWindow.xaml</DependentUpon>

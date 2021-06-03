@@ -15,7 +15,6 @@ namespace CommonUser
         {
             InitializeComponent();
             Hide();
-
             ASHandler asHandler = ASHandler.GetInstatnce();
             string[] ASKeyAndTicket = asHandler.ASCertification();
             asHandler.CloseASConnection();
@@ -24,7 +23,6 @@ namespace CommonUser
             tgsHandler.CloseTGSConnection();
             Console.WriteLine(TGSKeyAndTicket[0]);
             Console.WriteLine(TGSKeyAndTicket[1]);
-
             Close();
 
         }
@@ -73,3 +71,12 @@ asHandler.SendRequest();*/
         TransMessage message = transceiver.ReceiveMessage();
         message.DePackage("..\\..\\KeyFiles\\AS.pk", "00000000");
         Console.WriteLine(message.errorCode);*/
+
+/*ASHandler asHandler = ASHandler.GetInstatnce();
+        string[] ASKeyAndTicket = asHandler.ASCertification();
+        asHandler.CloseASConnection();
+        TGSHandler tgsHandler = TGSHandler.GetInstatnce();
+        string[] TGSKeyAndTicket = tgsHandler.TGSCertification(ASKeyAndTicket[0], ASKeyAndTicket[1]);
+        tgsHandler.CloseTGSConnection();
+        Console.WriteLine(TGSKeyAndTicket[0]);
+        Console.WriteLine(TGSKeyAndTicket[1]);*/
