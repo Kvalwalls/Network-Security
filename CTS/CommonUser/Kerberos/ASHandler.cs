@@ -9,8 +9,14 @@ namespace CommonUser.Kerberos
 {
     class ASHandler
     {
+        //数据收发器
         private readonly Transceiver transceiver;
+        //ASHandler实例
         private static ASHandler instance = new ASHandler();
+
+        /// <summary>
+        /// 私有构造函数
+        /// </summary>
         private ASHandler()
         {
             Socket socket = Connection.ConnectServer(
@@ -20,31 +26,38 @@ namespace CommonUser.Kerberos
             if (transceiver == null)
                 throw new Exception("Transceiver错误！");
         }
+
+        /// <summary>
+        /// 获取ASHandler实例函数
+        /// </summary>
+        /// <returns></returns>
         public static ASHandler GetInstance()
         {
             return instance;
         }
+
+        /// <summary>
+        /// AS认证函数
+        /// </summary>
+        /// <returns>Key(c,tgs)+Ticket_tgs</returns>
         public string[] ASCertification()
         {
             string[] keyAndTicket = null;
+            //发送请求
             SendRequest();
+            //接收回复
             string[] contents = ReceiveReply();
             if (contents == null)
-                throw new Exception("AS验证错误！");
+                throw new Exception("AS认证错误！");
             else
             {
                 long ts2 = long.Parse(contents[2]);
                 long lifetime = long.Parse(contents[3]);
+                //回复报文的验证
                 if (ToolsKerberos.VerifyTS(ts2, lifetime) && contents[1].Equals(ConfigurationManager.AppSettings["TGS_ID"]))
-                {
-                    keyAndTicket = new string[2]
-                    {
-                        contents[0],
-                        contents[4]
-                    };
-                }
+                    keyAndTicket = new string[2] { contents[0], contents[4] };
                 else
-                    throw new Exception("AS验证错误！");
+                    throw new Exception("AS认证错误！");
             }
             return keyAndTicket;
         }
@@ -89,10 +102,6 @@ namespace CommonUser.Kerberos
             certificationElement.AppendChild(id_tgsElement);
             certificationElement.AppendChild(ts1Element);
             document.AppendChild(certificationElement);
-            
-            Console.WriteLine("ASSend");
-            Console.WriteLine(XMLPhaser.XmlToString(document));
-
             //报文初始化
             TransMessage message = new TransMessage();
             message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
@@ -104,17 +113,19 @@ namespace CommonUser.Kerberos
             transceiver.SendMessage(message);
         }
 
+        /// <summary>
+        /// 接收回复函数
+        /// </summary>
+        /// <returns>回复报文内容</returns>
         private string[] ReceiveReply()
         {
             string[] contents = null;
+            //接收报文
             TransMessage message = transceiver.ReceiveMessage();
             message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
-            
-            Console.WriteLine("ASReceive");
-            Console.WriteLine(message.contents);
-
             if (message.errorCode == EnumErrorCode.NoError)
             {
+                //分析报文内容
                 contents = new string[5];
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
                 XmlElement xmlRoot = document.DocumentElement;

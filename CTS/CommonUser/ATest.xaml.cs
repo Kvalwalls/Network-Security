@@ -13,20 +13,13 @@ namespace CommonUser
         {
             InitializeComponent();
             Hide();
-            ASHandler asHandler = ASHandler.GetInstance();
-            string[] ASKeyAndTicket = asHandler.ASCertification();
-            asHandler.CloseASConnection();
-            TGSHandler tgsHandler = TGSHandler.GetInstance();
-            string[] TGSKeyAndTicket = tgsHandler.TGSCertification(ASKeyAndTicket[0], ASKeyAndTicket[1]);
-            tgsHandler.CloseTGSConnection();
-            VHandler vHandler = VHandler.GetInstance();
-            string sessionKey = vHandler.VCertification(TGSKeyAndTicket[0], TGSKeyAndTicket[1]);
-            Console.WriteLine(sessionKey);
+            
             Close();
-
         }
     }
 }
+
+//乱七八糟的测试代码
 /*Socket socket = Connection.ConnectServer("127.0.0.1", 7000);
             Transceiver transceiver = new Transceiver(socket);
             TransMessage message = new TransMessage();
@@ -79,3 +72,12 @@ asHandler.SendRequest();*/
         tgsHandler.CloseTGSConnection();
         Console.WriteLine(TGSKeyAndTicket[0]);
         Console.WriteLine(TGSKeyAndTicket[1]);*/
+/*ASHandler asHandler = ASHandler.GetInstance();
+    string[] ASKeyAndTicket = asHandler.ASCertification();
+    asHandler.CloseASConnection();
+    TGSHandler tgsHandler = TGSHandler.GetInstance();
+    string[] TGSKeyAndTicket = tgsHandler.TGSCertification(ASKeyAndTicket[0], ASKeyAndTicket[1]);
+    tgsHandler.CloseTGSConnection();
+    VHandler vHandler = VHandler.GetInstance();
+    string sessionKey = vHandler.VCertification(TGSKeyAndTicket[0], TGSKeyAndTicket[1]);
+    Console.WriteLine(sessionKey);*/

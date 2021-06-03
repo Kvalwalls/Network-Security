@@ -1,6 +1,7 @@
 ﻿using CommonUser.Kerberos;
 using CommonUser.Security;
 using CommonUser.Transmission;
+using System;
 using System.Xml;
 
 namespace CommonUser.Entity
@@ -231,13 +232,14 @@ namespace CommonUser.Entity
             XmlElement AD_cElement = document.CreateElement("ad_c");
             AD_cElement.InnerText = AD_c;
             XmlElement TSElement = document.CreateElement("ts");
-            TSElement.InnerText = ToolsKerberos.GenerateTS().ToString();
+            TSElement.InnerText = timestamp.ToString();
+            Console.WriteLine("generateAuthenticator" + timestamp);
             //形成树结构
             authenticator.AppendChild(ID_cElement);
             authenticator.AppendChild(AD_cElement);
             authenticator.AppendChild(TSElement);
             document.AppendChild(authenticator);
-            return DESHandler.Encrypt(enKey,XMLPhaser.XmlToString(document));
+            return DESHandler.Encrypt(enKey, XMLPhaser.XmlToString(document));
         }
     }
 }

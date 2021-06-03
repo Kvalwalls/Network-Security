@@ -79,6 +79,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppServices\AUVHandler.cs" />
+    <Compile Include="AppServices\CUVHandler.cs" />
     <Compile Include="ATest.xaml.cs">
       <DependentUpon>ATest.xaml</DependentUpon>
     </Compile>
@@ -88,8 +90,8 @@
     <Compile Include="Entity\Enums.cs" />
     <Compile Include="Kerberos\ASHandler.cs" />
     <Compile Include="Kerberos\TGSHandler.cs" />
-    <Compile Include="Kerberos\Tools.cs" />
-    <Compile Include="Kerberos\VHandler.cs" />
+    <Compile Include="Kerberos\ToolsKerberos.cs" />
+    <Compile Include="AppServices\VHandler.cs" />
     <Compile Include="Security\DESHandler.cs" />
     <Compile Include="PayWaitingWindow.xaml.cs">
       <DependentUpon>PayWaitingWindow.xaml</DependentUpon>
@@ -230,6 +232,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="KeyFiles\AS.pk" />
+    <None Include="KeyFiles\Client1.pk" />
+    <None Include="KeyFiles\Client1.sk" />
+    <None Include="KeyFiles\TGS.pk" />
+    <None Include="KeyFiles\V.pk" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -371,9 +378,7 @@
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_可选座位.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="KeyFiles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="ImageResources\背景_界面静态_蓝色菱形切片.png" />
   </ItemGroup>

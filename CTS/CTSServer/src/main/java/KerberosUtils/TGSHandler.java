@@ -40,7 +40,6 @@ public class TGSHandler implements Runnable {
                         + PropertiesHandler.getElement(AddressPhaser.bytesToString(message.getFromAddress()))
                         + ".pk";
                 message.dePackage(rsaPKFile, null);
-                System.out.println(message.getContents());
                 switch (message.getSpecificType()) {
                     case EnumKerberos.Request: {
                         TransMessage replyMessage = null;
@@ -132,7 +131,6 @@ public class TGSHandler implements Runnable {
         message.setServiceType(EnumServiceType.AS);
         message.setSpecificType(EnumKerberos.Reply);
         message.setContents(XMLPhaser.docToString(document));
-        System.out.println(message.getContents());
         message.enPackage(PropertiesHandler.getElement("TGS_SKeyFile"), key_c_tgs);
         return message;
     }

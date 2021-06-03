@@ -9,9 +9,14 @@ namespace CommonUser.Kerberos
 {
     class TGSHandler
     {
-        private const int LIFE_TIME = 60;
+        //数据收发器
         private readonly Transceiver transceiver;
+        //TGSHandler实例
         private static TGSHandler instance = new TGSHandler();
+
+        /// <summary>
+        /// 私有构造函数
+        /// </summary>
         private TGSHandler()
         {
             Socket socket = Connection.ConnectServer(
@@ -21,33 +26,46 @@ namespace CommonUser.Kerberos
             if (transceiver == null)
                 throw new Exception("Transceiver错误！");
         }
+
+        /// <summary>
+        /// 获取TGSHandler实例函数
+        /// </summary>
+        /// <returns>TGSHandler实例</returns>
         public static TGSHandler GetInstance()
         {
             return instance;
         }
+
+        /// <summary>
+        /// TGS认证函数
+        /// </summary>
+        /// <param name="sessionKey">Key(c,tgs)</param>
+        /// <param name="ticket_tgs">Ticket_tgs</param>
+        /// <returns>Key(c,v)+Ticket_v</returns>
         public string[] TGSCertification(string sessionKey, string ticket_tgs)
         {
             string[] keyAndTicket = null;
+            //发送请求
             SendRequest(sessionKey,ticket_tgs);
+            //接收回复
             string[] contents = ReceiveReply(sessionKey);
             if (contents == null)
-                throw new Exception("TGS验证错误！");
+                throw new Exception("TGS认证错误！");
             else
             {
                 long ts4 = long.Parse(contents[2]);
-                if (ToolsKerberos.VerifyTS(ts4, LIFE_TIME) && contents[1].Equals(ConfigurationManager.AppSettings["V_ID"]))
-                {
-                    keyAndTicket = new string[2]
-                    {
-                        contents[0],
-                        contents[3]
-                    };
-                }
+                //回复报文的验证
+                if (ToolsKerberos.VerifyTS(ts4, ToolsKerberos.LIFE_TIME) && contents[1].Equals(ConfigurationManager.AppSettings["V_ID"]))
+                    keyAndTicket = new string[2] { contents[0], contents[3] };
                 else
-                    throw new Exception("TGS验证错误！");
+                    throw new Exception("TGS认证错误！");
             }
             return keyAndTicket;
         }
+
+        /// <summary>
+        /// 关闭TGS连接函数
+        /// </summary>
         public void CloseTGSConnection()
         {
             //创建XMLDocument
@@ -66,6 +84,12 @@ namespace CommonUser.Kerberos
             transceiver.SendMessage(message);
             transceiver.CloseTransceiver();
         }
+
+        /// <summary>
+        /// 发送请求函数
+        /// </summary>
+        /// <param name="sessionKey">Key(c,tgs)</param>
+        /// <param name="ticket_tgs">Tikcket_tgs</param>
         private void SendRequest(string sessionKey, string ticket_tgs)
         {
             //创建XMLDocument
@@ -88,10 +112,6 @@ namespace CommonUser.Kerberos
             certificationElement.AppendChild(ticket_tgsElement);
             certificationElement.AppendChild(authenticator_cElement);
             document.AppendChild(certificationElement);
-            
-            Console.WriteLine("TGSSend");
-            Console.WriteLine(XMLPhaser.XmlToString(document));
-
             //报文初始化
             TransMessage message = new TransMessage();
             message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
@@ -102,17 +122,21 @@ namespace CommonUser.Kerberos
             message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
             transceiver.SendMessage(message);
         }
+
+        /// <summary>
+        /// 接收回复函数
+        /// </summary>
+        /// <param name="sessionKey">Key(c,tgs)</param>
+        /// <returns>回复报文内容</returns>
         private string[] ReceiveReply(string sessionKey)
         {
             string[] contents = null;
+            //接收报文
             TransMessage message = transceiver.ReceiveMessage();
             message.DePackage(ConfigurationManager.AppSettings["TGS_PKeyFile"], sessionKey);
-
-            Console.WriteLine("TGSReceive");
-            Console.WriteLine(message.contents);
-
             if (message.errorCode == EnumErrorCode.NoError)
             {
+                //分析报文内容
                 contents = new string[4];
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
                 XmlElement xmlRoot = document.DocumentElement;

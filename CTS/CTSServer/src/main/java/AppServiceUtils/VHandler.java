@@ -25,7 +25,6 @@ public abstract class VHandler {
                     + PropertiesHandler.getElement(AddressPhaser.bytesToString(message.getFromAddress()))
                     + ".pk";
             message.dePackage(rsaPKFile, null);
-            System.out.println(message.getContents());
             if(message.getSpecificType() == EnumKerberos.Request) {
                 TransMessage replyMessage = null;
                 //报文有错误
@@ -59,9 +58,10 @@ public abstract class VHandler {
                 }
                 sessionKey = vTicket.getKey();
                 replyMessage = generateNormalReply(message.getFromAddress(),
-                        String.valueOf(vTicket.getTimestamp() + 1),
+                        vTicket.getTimestamp() + 1,
                         vTicket.getKey(),
                         message.getServiceType());
+                transceiver.sendMessage(replyMessage);
                 return true;
             } else {
                 return false;
@@ -69,14 +69,14 @@ public abstract class VHandler {
         }
     }
 
-    private TransMessage generateNormalReply(byte[] toAddr,String contents,String key_c_v,byte type) throws Exception {
+    private TransMessage generateNormalReply(byte[] toAddr,long ts5plus,String key_c_v,byte type) throws Exception {
         //创建XMLDocument
         Document document = XMLBuilder.buildXMLDoc();
         //根节点
         Element root = document.createElement("v_reply");
         //子节点
         Element ts5plusElement = document.createElement("ts5plus");
-        ts5plusElement.setTextContent(contents);
+        ts5plusElement.setTextContent(String.valueOf(ts5plus));
         root.appendChild(ts5plusElement);
         document.appendChild(root);
         //报文初始化
@@ -89,7 +89,7 @@ public abstract class VHandler {
             message.setFromAddress(AddressPhaser.stringToBytes(
                     PropertiesHandler.getElement("CUV_IPAddress")));
         message.setServiceType(type);
-        message.setSpecificType(EnumKerberos.Error);
+        message.setSpecificType(EnumKerberos.Reply);
         message.setContents(XMLPhaser.docToString(document));
         if (type == EnumServiceType.AUV)
             message.enPackage(PropertiesHandler.getElement("AUV_SKeyFile"), key_c_v);

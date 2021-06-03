@@ -43,7 +43,6 @@ public class ASHandler implements Runnable {
                         + PropertiesHandler.getElement(AddressPhaser.bytesToString(message.getFromAddress()))
                         + ".pk";
                 message.dePackage(rsaPKFile, null);
-                System.out.println(message.getContents());
                 switch (message.getSpecificType()) {
                     case EnumKerberos.Request: {
                         TransMessage replyMessage = null;
