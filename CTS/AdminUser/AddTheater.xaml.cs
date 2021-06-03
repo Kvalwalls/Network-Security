@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminUser.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,12 +60,27 @@ namespace 服务器UI
             }
             else
             {
-                Theater n = new Theater(Id, Type, Size);
+                byte type = 0;
+                if(Type == "普通影厅")
+                {
+                    type = 0;
+                }
+                else if(Type == "VIP影厅")
+                {
+                    type = 1;
+                }
+                else if (Type == "SVIP影厅")
+                {
+                    type = 2;
+                }
+                Theater n = new Theater(Id, type, Size);
+                //addTheaterRequest();
+                //addTheaterReply();
                 //int result = dgl.CreateStore(s);
                 int result = 1;
                 for (int i = 0; i < SubTheaters.Count; i++)
                 {
-                    if (Id == SubTheaters[i].id)
+                    if (Id == SubTheaters[i].Tid)
                     {
                         MessageBox.Show("已有该影厅");
                         result = 0;
@@ -111,7 +127,7 @@ namespace 服务器UI
                     string Id = TextBox_id.Text;
                     for (int i = 0; i < SubTheaters.Count; i++)
                     {
-                        if (Id == SubTheaters[i].id)
+                        if (Id == SubTheaters[i].Tid)
                         {
                             IdTip.Text = "影厅号重复，请重新输入！";
                             IdTip.Visibility = Visibility.Visible;
@@ -167,7 +183,7 @@ namespace 服务器UI
                 string Id = TextBox_id.Text;
                 for (int i = 0; i < SubTheaters.Count; i++)
                 {
-                    if (Id == SubTheaters[i].id)
+                    if (Id == SubTheaters[i].Tid)
                     {
                         IdTip.Text = "影厅号重复，请重新输入！";
                         IdTip.Visibility = Visibility.Visible;

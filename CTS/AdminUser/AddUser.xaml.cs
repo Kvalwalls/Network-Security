@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminUser.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,12 +67,27 @@ namespace 服务器UI
             }
             else
             {
-                User n = new User(Id, Name, Password, Access, Money);
+                byte access = 0;
+                if(Access == "普通用户")
+                {
+                    access = 0;
+                }
+                else if (Access == "VIP用户")
+                {
+                    access = 1;
+                }
+                else if (Access == "SVIP用户")
+                {
+                    access = 2;
+                }
+                User n = new User(Id, Name, Password, access, Money);
                 //int result = dgl.CreateStore(s);
+                //addUserRequest();
+                //addUserReply();
                 int result = 1;
                 for (int i=0;i<SubUsers.Count;i++)
                 {
-                    if(Id == SubUsers[i].id)
+                    if(Id == SubUsers[i].Uid)
                     {
                         MessageBox.Show("已有该用户");
                         result = 0;
@@ -118,7 +134,7 @@ namespace 服务器UI
                     string Id = TextBox_id.Text;
                     for (int i = 0; i < SubUsers.Count; i++)
                     {
-                        if (Id == SubUsers[i].id)
+                        if (Id == SubUsers[i].Uid)
                         {
                             IdTip.Text = "用户号重复，请重新输入！";
                             IdTip.Visibility = Visibility.Visible;
@@ -190,7 +206,7 @@ namespace 服务器UI
                 string Id = TextBox_id.Text;
                 for (int i = 0; i < SubUsers.Count; i++)
                 {
-                    if (Id == SubUsers[i].id)
+                    if (Id == SubUsers[i].Uid)
                     {
                         IdTip.Text = "用户号重复，请重新输入！";
                         IdTip.Visibility = Visibility.Visible;

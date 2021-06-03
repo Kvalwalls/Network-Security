@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminUser.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,11 +27,10 @@ namespace 服务器UI
             OnMovie.Text += oid;
             for (int i = 0; i < records.Count; i++)
             {
-                if (records[i].oid == oid)
+                if (records[i].Oid == oid)
                 {
-                    RecordForOnMovieSta r = new RecordForOnMovieSta(records[i].uid, records[i].sid, records[i].time, records[i].price, records[i].status);
-                    OnMovieStaList.Items.Add(r);
-                    total += r.price;
+                    OnMovieStaList.Items.Add(records[i]);
+                    total += records[i].Rprice;
                 }
             }
             OnMovieStaList.Items.Refresh();

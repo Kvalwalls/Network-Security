@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminUser.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,9 +39,9 @@ namespace 服务器UI
             int Dtime = 0;
             for (int i=0; i< SubMovies.Count;i++)
             {
-                if(SubMovies[i].id == Mid)
+                if(SubMovies[i].Mid == Mid)
                 {
-                    Dtime = SubMovies[i].time;
+                    Dtime = SubMovies[i].Mtime;
                 }
             }
             DateTime EndTime = Convert.ToDateTime(Start).AddMinutes(Dtime);
@@ -82,13 +83,15 @@ namespace 服务器UI
             {
                 
                 OnMovie n = new OnMovie(Oid, Mid, Tid, BTime, ETime, Price);
+                //addOnMovieRequest();
+                //addOnMovieReply();
                 //int result = dgl.CreateStore(s);
                 int result = 1;
                 bool mexist = false;
                 bool pexist = false;
                 for (int i = 0; i < SubOnMovies.Count; i++)
                 {
-                    if (Oid == SubOnMovies[i].oid)
+                    if (Oid == SubOnMovies[i].Oid)
                     {
                         MessageBox.Show("已有该场次");
                         result = 0;
@@ -97,7 +100,7 @@ namespace 服务器UI
 
                 for (int i = 0; i < SubOnMovies.Count; i++)
                 {
-                    if (Mid == SubOnMovies[i].mid)
+                    if (Mid == SubOnMovies[i].Mid)
                     {
                         mexist = true;
                     }
@@ -111,7 +114,7 @@ namespace 服务器UI
 
                 for (int i = 0; i < SubOnMovies.Count; i++)
                 {
-                    if (Tid == SubOnMovies[i].tid)
+                    if (Tid == SubOnMovies[i].Tid)
                     {
                         pexist = true;
                     }
@@ -124,9 +127,9 @@ namespace 服务器UI
 
                 for (int i = 0; i < SubOnMovies.Count; i++)
                 {
-                    if (Tid == SubOnMovies[i].tid)
+                    if (Tid == SubOnMovies[i].Tid)
                     {
-                        if (DateTime.Compare(SubOnMovies[i].endtime, BTime) < 0 || DateTime.Compare(SubOnMovies[i].begintime, ETime) > 0)
+                        if (DateTime.Compare(SubOnMovies[i].Oend, BTime) < 0 || DateTime.Compare(SubOnMovies[i].Obegin, ETime) > 0)
                         {
                             PriceTip.Visibility = Visibility.Hidden;
                         }
@@ -188,7 +191,7 @@ namespace 服务器UI
                     string Id = TextBox_oid.Text;
                     for (int i = 0; i < SubOnMovies.Count; i++)
                     {
-                        if (Id == SubOnMovies[i].oid)
+                        if (Id == SubOnMovies[i].Oid)
                         {
                             OidTip.Text = "场次号重复，请重新输入！";
                             OidTip.Visibility = Visibility.Visible;
@@ -212,7 +215,7 @@ namespace 服务器UI
                 string Id = TextBox_oid.Text;
                 for (int i = 0; i < SubOnMovies.Count; i++)
                 {
-                    if (Id == SubOnMovies[i].oid)
+                    if (Id == SubOnMovies[i].Oid)
                     {
                         OidTip.Text = "场次号重复，请重新输入！";
                         OidTip.Visibility = Visibility.Visible;
@@ -238,7 +241,7 @@ namespace 服务器UI
                     bool exist = false;
                     for (int i = 0; i < SubOnMovies.Count; i++)
                     {
-                        if (Id == SubOnMovies[i].mid)
+                        if (Id == SubOnMovies[i].Mid)
                         {
                             exist = true;
                         }
@@ -266,7 +269,7 @@ namespace 服务器UI
                 bool exist = false;
                 for (int i = 0; i < SubOnMovies.Count; i++)
                 {
-                    if (Id == SubOnMovies[i].mid)
+                    if (Id == SubOnMovies[i].Mid)
                     {
                         exist = true;
                     }
@@ -295,7 +298,7 @@ namespace 服务器UI
                     bool exist = false;
                     for (int i = 0; i < SubOnMovies.Count; i++)
                     {
-                        if (Id == SubOnMovies[i].tid)
+                        if (Id == SubOnMovies[i].Tid)
                         {
                             exist = true;
                         }
@@ -323,7 +326,7 @@ namespace 服务器UI
                 bool exist = false;
                 for (int i = 0; i < SubOnMovies.Count; i++)
                 {
-                    if (Id == SubOnMovies[i].tid)
+                    if (Id == SubOnMovies[i].Tid)
                     {
                         exist = true;
                     }

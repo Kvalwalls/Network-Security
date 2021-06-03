@@ -3,7 +3,7 @@ using AdminUser.Security;
 using System;
 using System.Xml;
 
-namespace CommonUser.Entity
+namespace AdminUser.Entity
 {
     //用户
     public class User
@@ -16,7 +16,8 @@ namespace CommonUser.Entity
         public string Upassword { get; set; }
         //权限
         public byte Uaccess { get; set; }
-         //余额
+        public string UAccess { get; set; }
+        //余额
         public float Umoney { get; set; }
 
         /// <summary>
@@ -79,6 +80,7 @@ namespace CommonUser.Entity
         public string Tid { get; set; }
         //类型
         public byte Ttype { get; set; }
+        public string TType { get; set; }
         //大小
         public int Tsize { get; set; }
 
@@ -108,16 +110,16 @@ namespace CommonUser.Entity
         //影厅号
         public string Tid { get; set; }
         //开始时间
-        public string Obegin { get; set; }
+        public DateTime Obegin { get; set; }
         //结束时间
-        public string Oend { get; set; }
+        public DateTime Oend { get; set; }
         //价格
         public float Oprice { get; set; }
 
         /// <summary>
         /// 带参数的构造函数
         /// </summary>
-        public OnMovie(string oid, string mid, string tid, string obegin, string oend, float oprice)
+        public OnMovie(string oid, string mid, string tid, DateTime obegin, DateTime oend, float oprice)
         {
             Oid = oid;
             Mid = mid;
@@ -142,7 +144,7 @@ namespace CommonUser.Entity
         public string Oid { get; set; }
         //状态
         public byte Sstatus { get; set; }
-        
+
         /// <summary>
         /// 带参数的构造函数
         /// </summary>
@@ -169,16 +171,17 @@ namespace CommonUser.Entity
         //座位号
         public string Sid { get; set; }
         //购票时间
-        public string Rtime { get; set; }
+        public DateTime Rtime { get; set; }
 		//实际价格
         public float Rprice { get; set; }
         //购票状态
 		public byte Rstatus { get; set; }
+        public string RStatus { get; set; }
 
         /// <summary>
         /// 带参数的构造函数
         /// </summary>
-        public Record(string uid, string oid, string sid, string rtime, float rprice, byte rstatus)
+        public Record(string uid, string oid, string sid, DateTime rtime, float rprice, byte rstatus)
         {
             Uid = uid;
             Oid = oid;
