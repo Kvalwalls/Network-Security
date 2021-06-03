@@ -5,6 +5,8 @@ import TransmissionUtils.XMLBuilder;
 import TransmissionUtils.XMLPhaser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 
 public class Ticket {
@@ -24,13 +26,22 @@ public class Ticket {
     /**
      * 带参数的构造方法
      */
-    public Ticket(String key, String ID_c, String AD_c, String ID_dest, long timestamp, long lifetime) {
-        this.key = key;
-        this.ID_c = ID_c;
-        this.AD_c = AD_c;
-        this.ID_dest = ID_dest;
-        this.timestamp = timestamp;
-        this.lifetime = lifetime;
+    public Ticket(String ticketStr,String enKey) throws Exception {
+        ticketStr = DESHandler.decrypt(enKey,ticketStr);
+        Document document = XMLPhaser.stringToDoc(ticketStr);
+        Element ticketEle = document.getDocumentElement();
+        NodeList nodeList = ticketEle.getChildNodes();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "key" -> key = childNode.getTextContent();
+                case "id_c" -> ID_c = childNode.getTextContent();
+                case "ad_c" -> AD_c = childNode.getTextContent();
+                case "id_dest" -> ID_dest = childNode.getTextContent();
+                case "ts" -> timestamp = Long.parseLong(childNode.getTextContent());
+                case "lifetime" -> lifetime = Long.parseLong(childNode.getTextContent());
+            }
+        }
     }
 
     /**
@@ -100,7 +111,7 @@ public class Ticket {
         ad_cEle.setTextContent(AD_c);
         Element id_destEle = document.createElement("id_dest");
         id_destEle.setTextContent(ID_dest);
-        Element ts2Ele = document.createElement("ts2");
+        Element ts2Ele = document.createElement("ts");
         ts2Ele.setTextContent(String.valueOf(timestamp));
         Element lifetimeEle = document.createElement("lifetime");
         lifetimeEle.setTextContent(String.valueOf(lifetime));

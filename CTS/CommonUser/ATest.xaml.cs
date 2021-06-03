@@ -15,26 +15,18 @@ namespace CommonUser
         {
             InitializeComponent();
             Hide();
-            try
-            {
-                TGSHandler handler = TGSHandler.GetInstatnce();
-                handler.TGSCertification("12345678","12345678");
-                /*ASHandler asHandler = ASHandler.GetInstatnce();
-                String[] keyAndTicket = asHandler.ASCertification();
-                Console.WriteLine(keyAndTicket[0]);
-                Console.WriteLine(keyAndTicket[1]);
-                asHandler.CloseASConnection();*/
-                /*Socket socket = Connection.ConnectServer("127.0.0.1", 7000);
-                Transceiver transceiver = new Transceiver(socket);
-                TransMessage message = transceiver.ReceiveMessage();
-                message.DePackage("..\\..\\KeyFiles\\AS.pk", "00000000");
-                Console.WriteLine(message.fromAddress.Length);*/
-                Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-            }
+
+            ASHandler asHandler = ASHandler.GetInstatnce();
+            string[] ASKeyAndTicket = asHandler.ASCertification();
+            asHandler.CloseASConnection();
+            TGSHandler tgsHandler = TGSHandler.GetInstatnce();
+            string[] TGSKeyAndTicket = tgsHandler.TGSCertification(ASKeyAndTicket[0], ASKeyAndTicket[1]);
+            tgsHandler.CloseTGSConnection();
+            Console.WriteLine(TGSKeyAndTicket[0]);
+            Console.WriteLine(TGSKeyAndTicket[1]);
+
+            Close();
+
         }
     }
 }

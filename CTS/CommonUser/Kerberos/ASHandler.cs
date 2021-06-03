@@ -54,8 +54,8 @@ namespace CommonUser.Kerberos
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
             //根节点
-            XmlElement endEle = document.CreateElement("as_end");
-            document.AppendChild(endEle);
+            XmlElement endElement = document.CreateElement("as_end");
+            document.AppendChild(endElement);
             //报文初始化
             TransMessage message = new TransMessage();
             message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
@@ -76,20 +76,23 @@ namespace CommonUser.Kerberos
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
             //根节点
-            XmlElement certificationEle = document.CreateElement("as_certification");
+            XmlElement certificationElement = document.CreateElement("as_certification");
             //子节点
-            XmlElement id_cEle = document.CreateElement("id_c");
-            id_cEle.InnerText = ConfigurationManager.AppSettings["My_ID"];
-            XmlElement id_tgsEle = document.CreateElement("id_tgs");
-            id_tgsEle.InnerText = ConfigurationManager.AppSettings["TGS_ID"];
-            XmlElement ts1Ele = document.CreateElement("ts1");
-            ts1Ele.InnerText = Tools.GenerateTS().ToString();
+            XmlElement id_cElement = document.CreateElement("id_c");
+            id_cElement.InnerText = ConfigurationManager.AppSettings["My_ID"];
+            XmlElement id_tgsElement = document.CreateElement("id_tgs");
+            id_tgsElement.InnerText = ConfigurationManager.AppSettings["TGS_ID"];
+            XmlElement ts1Element = document.CreateElement("ts1");
+            ts1Element.InnerText = Tools.GenerateTS().ToString();
             //形成树结构
-            certificationEle.AppendChild(id_cEle);
-            certificationEle.AppendChild(id_tgsEle);
-            certificationEle.AppendChild(ts1Ele);
-            document.AppendChild(certificationEle);
-            Console.WriteLine(document.InnerXml);
+            certificationElement.AppendChild(id_cElement);
+            certificationElement.AppendChild(id_tgsElement);
+            certificationElement.AppendChild(ts1Element);
+            document.AppendChild(certificationElement);
+            
+            Console.WriteLine("ASSend");
+            Console.WriteLine(XMLPhaser.XmlToString(document));
+
             //报文初始化
             TransMessage message = new TransMessage();
             message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
@@ -106,7 +109,11 @@ namespace CommonUser.Kerberos
             string[] contents = null;
             TransMessage message = transceiver.ReceiveMessage();
             message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
-            if(message.errorCode == EnumErrorCode.NoError)
+            
+            Console.WriteLine("ASReceive");
+            Console.WriteLine(message.contents);
+
+            if (message.errorCode == EnumErrorCode.NoError)
             {
                 contents = new string[5];
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);

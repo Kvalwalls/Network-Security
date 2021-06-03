@@ -25,7 +25,7 @@ public class CommonUserVHandler extends VHandler implements Runnable {
 
     }
 
-    private void getTicket(TransMessage transMessage) {
+    private void getReords(TransMessage transMessage) {
 
     }
 

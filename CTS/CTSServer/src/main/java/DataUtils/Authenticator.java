@@ -1,5 +1,12 @@
 package DataUtils;
 
+import SecurityUtils.DESHandler;
+import TransmissionUtils.XMLPhaser;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 public class Authenticator {
     //客户端ID
     private String ID_c;
@@ -11,10 +18,19 @@ public class Authenticator {
     /**
      * 带参数的构造方法
      */
-    public Authenticator(String ID_c, String AD_c, long timestamp) {
-        this.ID_c = ID_c;
-        this.AD_c = AD_c;
-        this.timestamp = timestamp;
+    public Authenticator(String authStr,String enKey) throws Exception {
+        authStr = DESHandler.decrypt(enKey, authStr);
+        Document document = XMLPhaser.stringToDoc(authStr);
+        Element authEle = document.getDocumentElement();
+        NodeList nodeList = authEle.getChildNodes();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "id_c" -> ID_c = childNode.getTextContent();
+                case "ad_c" -> AD_c = childNode.getTextContent();
+                case "ts" -> timestamp = Long.parseLong(childNode.getTextContent());
+            }
+        }
     }
 
     /**

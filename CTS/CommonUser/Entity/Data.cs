@@ -1,5 +1,6 @@
 ﻿using CommonUser.Kerberos;
 using CommonUser.Security;
+using CommonUser.Transmission;
 using System.Xml;
 
 namespace CommonUser.Entity
@@ -225,17 +226,18 @@ namespace CommonUser.Entity
             //根节点
             XmlElement authenticator = document.CreateElement("authenticator");
             //子节点
-            XmlElement ID_cEle = document.CreateElement("id_c");
-            ID_cEle.InnerText = ID_c;
-            XmlElement AD_cEle = document.CreateElement("ad_c");
-            AD_cEle.InnerText = AD_c;
-            XmlElement TS3Ele = document.CreateElement("ts3");
-            TS3Ele.InnerText = Tools.GenerateTS().ToString();
+            XmlElement ID_cElement = document.CreateElement("id_c");
+            ID_cElement.InnerText = ID_c;
+            XmlElement AD_cElement = document.CreateElement("ad_c");
+            AD_cElement.InnerText = AD_c;
+            XmlElement TSElement = document.CreateElement("ts");
+            TSElement.InnerText = Tools.GenerateTS().ToString();
             //形成树结构
-            authenticator.AppendChild(ID_cEle);
-            authenticator.AppendChild(AD_cEle);
-            authenticator.AppendChild(TS3Ele);
-            return DESHandler.Encrypt(enKey, authenticator.InnerXml);
+            authenticator.AppendChild(ID_cElement);
+            authenticator.AppendChild(AD_cElement);
+            authenticator.AppendChild(TSElement);
+            document.AppendChild(authenticator);
+            return DESHandler.Encrypt(enKey,XMLPhaser.XmlToString(document));
         }
     }
 }

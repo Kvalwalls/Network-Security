@@ -21,13 +21,13 @@ public class DBCommand {
     static {
         try {
             //数据库引擎
-            String JDBC_DRIVER = PropertiesHandler.getPropertiesElement("JDBC_Driver");
+            String JDBC_DRIVER = PropertiesHandler.getElement("JDBC_Driver");
             //数据库数据源
-            String DB_URL = PropertiesHandler.getPropertiesElement("DB_URL");
+            String DB_URL = PropertiesHandler.getElement("DB_URL");
             //数据库用户名
-            String USER = PropertiesHandler.getPropertiesElement("User");
+            String USER = PropertiesHandler.getElement("User");
             //数据库密码
-            String PWD = PropertiesHandler.getPropertiesElement("Password");
+            String PWD = PropertiesHandler.getElement("Password");
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL, USER, PWD);
             System.out.println("数据库连接成功！");

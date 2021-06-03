@@ -25,7 +25,7 @@ public class PropertiesHandler {
      * @param tag 配置文件元素名
      * @return 配置文件元素值
      */
-    public static String getPropertiesElement(String tag) {
+    public static String getElement(String tag) {
         return properties.getProperty(tag);
     }
 }
