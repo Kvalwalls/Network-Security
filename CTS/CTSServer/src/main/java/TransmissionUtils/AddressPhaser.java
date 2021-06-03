@@ -7,12 +7,15 @@ public class AddressPhaser {
      * @param addrStr 字符串形式的地址
      * @return 字节流形式的地址
      */
-    public static byte[] stringToBytes(String addrStr) {
-        String[] subAddrStrings = addrStr.replace("\\s", "").split("\\.");
-        byte[] subAddrBytes = new byte[4];
-        for (int i = 0; i < 4; i++)
-            subAddrBytes[i] = Byte.parseByte(subAddrStrings[i]);
-        return subAddrBytes;
+    public static byte[] stringToBytes(String addrString) {
+        String[] subAddrStrings = addrString.replace("\\s", "").split("\\.");
+        byte[] addrBytes = new byte[4];
+        for (int i = 0; i < 4; i++) {
+            int temp = Integer.parseInt(subAddrStrings[i]);
+            temp = temp > 127 ? (temp - 256) : temp;
+            addrBytes[i] = (byte) temp;
+        }
+        return addrBytes;
     }
 
     /**
@@ -22,12 +25,14 @@ public class AddressPhaser {
      * @return 字符串形式的地址
      */
     public static String bytesToString(byte[] addrBytes) {
-        StringBuilder addrStr = new StringBuilder();
+        StringBuilder addrString = new StringBuilder();
         for (int i = 0; i < 4; i++) {
-            addrStr.append(addrBytes[i]);
+            int temp = Integer.parseInt(String.valueOf(addrBytes[i]));
+            temp = temp < 0 ? (temp + 256) : temp;
+            addrString.append(temp);
             if (i != 3)
-                addrStr.append(".");
+                addrString.append(".");
         }
-        return addrStr.toString();
+        return addrString.toString();
     }
 }
