@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MsgShowWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.Background>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态_渐变切片.png" Stretch="UniformToFill"/>
+        </Grid.Background>
     </Grid>
 </Window>

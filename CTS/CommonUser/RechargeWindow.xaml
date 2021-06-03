@@ -12,7 +12,7 @@
             <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <!--账户充值Label-->
-        <Label HorizontalAlignment="Center" Foreground="Black" Content="账户充值" VerticalAlignment="Top" FontSize="36"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="账户充值" VerticalAlignment="Top" FontSize="36" Margin="126,20,113.6,0"/>
         <!--确定Button-->
         <Button Name="Button_Recharge" Content="确定" FontSize="22"  Margin="10,354,249.6,10" Foreground="White" 
                 MouseEnter="Button_MouseEnter"
@@ -43,12 +43,12 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Image Margin="28,65,324.6,315" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
-        <Image Margin="28,135,324.6,245" Source="ImageResources\图标(黑)_余额.png" Stretch="Fill"/>
-        <Image Margin="28,205,324.6,175" Source="ImageResources\图标(黑)_输入.png" Stretch="Fill"/>
-        <TextBlock Name="TextBlock_Id" Text="账号：" VerticalAlignment="Center" FontSize="22" Margin="81,61,53.6,309"/>
-        <TextBlock Name="TextBlock_Money" Text="余额："  VerticalAlignment="Center" FontSize="22" Margin="81,130,53.6,240"/>
-        <TextBox x:Name="TextBox_Input" VerticalContentAlignment="Center" FontSize="26" Margin="81,200,53.6,170">
+        <Image Margin="36,101,316.6,279" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
+        <Image Margin="36,171,316.6,209" Source="ImageResources\图标(黑)_余额.png" Stretch="Fill"/>
+        <Image Margin="36,241,316.6,139" Source="ImageResources\图标(黑)_输入.png" Stretch="Fill"/>
+        <TextBlock Name="TextBlock_Id" Text="账号：" VerticalAlignment="Center" FontSize="22" Margin="89,108,45.6,284"/>
+        <TextBlock Name="TextBlock_Money" Text="余额："  VerticalAlignment="Center" FontSize="22" Margin="89,177,45.6,215"/>
+        <TextBox x:Name="TextBox_Input" VerticalContentAlignment="Center" FontSize="26" Margin="89,236,45.6,134">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>

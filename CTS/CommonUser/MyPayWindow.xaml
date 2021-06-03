@@ -9,10 +9,10 @@
     <Grid>
         <!--GIF背景-->
         <Grid.Background>
-            <ImageBrush ImageSource="ImageResources\背景_界面静态.jpg"/>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态_渐变切片.png"/>
         </Grid.Background>
         <!--账户充值Label-->
-        <Label HorizontalAlignment="Center" Foreground="Black" Content="账户充值" VerticalAlignment="Top" FontSize="36"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="账户充值" VerticalAlignment="Top" FontSize="36" Margin="120,8,119.6,0"/>
         <!--确定Button-->
         <Button Name="Button_Ok" Content="支付完毕" FontSize="22"  Margin="10,354,9.6,10" Foreground="White" 
                 MouseEnter="Button_MouseEnter"
@@ -27,8 +27,8 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Image Margin="28,65,324.6,315" Source="ImageResources\图标(黑)_支付.png" Stretch="Fill"/>
-        <TextBlock Name="TextBlock_Pay" Text="您需要支付：" VerticalAlignment="Center" FontSize="22" Margin="81,61,53.6,309"/>
-        <Image Margin="81,110,81,70" Source="ImageResources\装饰(无)_支付宝.jpg" Stretch="Fill"/>
+        <Image Margin="28,61,324.6,319" Source="ImageResources\图标(黑)_支付.png" Stretch="Fill"/>
+        <TextBlock Name="TextBlock_Pay" Text="您需要支付：" VerticalAlignment="Center" FontSize="22" Margin="81,68,53.6,324"/>
+        <Image Margin="81,106,80.6,74" Source="ImageResources\装饰(无)_支付宝.jpg" Stretch="Fill"/>
     </Grid>
 </Window>
