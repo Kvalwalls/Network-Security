@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdminUser.Entity;
+using AdminUser.Transmission;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -32,9 +34,9 @@ namespace 服务器UI
         private static List<Theater> theaters = new List<Theater>();
         private static List<OnMovie> onmovies = new List<OnMovie>();
         private static List<Record> records = new List<Record>();
-        private static TransMessageR trans;
+        //private static TransMessage trans;
 
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
             InitTextBlock_Time();
@@ -59,18 +61,22 @@ namespace 服务器UI
         private void InitLists()
         {
 
-            User u1 = new User("1", "dx", "123", "普通用户", 100);
-            User u2 = new User("3", "xz", "123", "VIP用户", 100);
-            User u3 = new User("2", "wbc", "123", "SVIP用户", 100);
-            User u4 = new User("4", "zr", "123", "普通管理员", 100);
-            Theater t1 = new Theater("1", "1", 30);
-            Theater t2 = new Theater("2", "1", 10);
-            Movie m1 = new Movie("1", "x", "1", 60, 30, "1", "1");
-            Movie m2 = new Movie("2", "xz", "1", 60, 30, "1", "1");
+            User u1 = new User("1", "dx", "123", 2, 100);
+            u1.UAccess = "普通用户";
+            User u2 = new User("3", "xz", "123", 3, 100);
+            u2.UAccess = "VIP用户";
+            User u3 = new User("2", "wbc", "123", 4, 100);
+            u3.UAccess = "SVIP用户";
+            User u4 = new User("4", "zr", "123", 1, 100);
+            u4.UAccess = "普通管理员";
+            Theater t1 = new Theater("1", 1, 30);
+            Theater t2 = new Theater("2", 1, 10);
+            Movie m1 = new Movie("1", "x", "1", 60, 30, "1");
+            Movie m2 = new Movie("2", "xz", "1", 60, 30, "1");
             OnMovie o1 = new OnMovie("1", "1", "1", DateTime.Now, DateTime.Now.AddMinutes(60), 90);
             OnMovie o2 = new OnMovie("2", "2", "2", DateTime.Now, DateTime.Now, 90);
-            Record r1 = new Record("1", "1", "1", DateTime.Now, 80, "1");
-            Record r2 = new Record("2", "2", "2", DateTime.Now, 90, "1");
+            Record r1 = new Record("1", "1", "1", DateTime.Now, 80, 1);
+            Record r2 = new Record("2", "2", "2", DateTime.Now, 90, 1);
             users.Add(u1);
             users.Add(u2);
             users.Add(u3);
@@ -95,6 +101,17 @@ namespace 服务器UI
             OnMovieList.Items.Add(onmovies[1]);
             TicketList.Items.Add(records[0]);
             TicketList.Items.Add(records[1]);
+
+            //getUserRequest();
+            //getUserReply();
+            //getMovieRequest();
+            //getMovieReply();
+            //getTheaterRequest();
+            //getTheaterReply();
+            //getOnMovieRequest();
+            //getOnMovieReply();
+            //getRecordRequest();
+            //getRecordReply();
         }
 
         private void InitTextBlock_Hello()
@@ -160,6 +177,7 @@ namespace 服务器UI
 
         private void UserSearch_Click(object sender, RoutedEventArgs e)
         {
+            byte acc = 0;
             UserList.Items.Clear();
             if(TextBox_UserSearchid.Text == "" && (ComboBox_Access.SelectedItem == null || ComboBox_Access.Text == ""))
             {
@@ -174,7 +192,7 @@ namespace 服务器UI
                 string sid = TextBox_UserSearchid.Text;
                 for(int i = 0; i < users.Count; i++)
                 {
-                    if(users[i].id == sid)
+                    if(users[i].Uid == sid)
                     {
                         UserList.Items.Add(users[i]);
                     }
@@ -185,9 +203,26 @@ namespace 服务器UI
             if (TextBox_UserSearchid.Text == "" && (ComboBox_Access.SelectedItem != null || ComboBox_Access.Text != ""))
             {
                 string sacc = ComboBox_Access.Text;
+                if(sacc == "普通用户")
+                {
+                    acc = 2;
+                }
+                else if (sacc == "VIP用户")
+                {
+                    acc = 3;
+                }
+                else if(sacc == "SVIP用户")
+                {
+                    acc = 4;
+                }
+                else if(sacc == "普通管理员")
+                {
+                    acc = 1;
+                }
+
                 for (int i = 0; i < users.Count; i++)
                 {
-                    if (users[i].access == sacc)
+                    if (users[i].Uaccess == acc)
                     {
                         UserList.Items.Add(users[i]);
                     }
@@ -199,9 +234,25 @@ namespace 服务器UI
             {
                 string sid = TextBox_UserSearchid.Text;
                 string sacc = ComboBox_Access.Text;
+                if (sacc == "普通用户")
+                {
+                    acc = 2;
+                }
+                else if (sacc == "VIP用户")
+                {
+                    acc = 3;
+                }
+                else if (sacc == "SVIP用户")
+                {
+                    acc = 4;
+                }
+                else if (sacc == "普通管理员")
+                {
+                    acc = 1;
+                }
                 for (int i = 0; i < users.Count; i++)
                 {
-                    if (users[i].id == sid && users[i].access == sacc)
+                    if (users[i].Uid == sid && users[i].Uaccess == acc)
                     {
                         UserList.Items.Add(users[i]);
                     }
@@ -258,6 +309,7 @@ namespace 服务器UI
         private void TheaterSearch_Click(object sender, RoutedEventArgs e)
         {
             TheaterList.Items.Clear();
+            byte type = 0;
             if (TextBox_TheaterSearchid.Text == "" && (ComboBox_TheaterType.SelectedItem == null || ComboBox_TheaterType.Text == "") && (ComboBox_TheaterSize.SelectedItem == null || ComboBox_TheaterSize.Text == ""))
             {
                 for (int i = 0; i < theaters.Count; i++)
@@ -271,7 +323,7 @@ namespace 服务器UI
                 int ssize = int.Parse(ComboBox_TheaterSize.Text);
                 for (int i = 0; i < theaters.Count; i++)
                 {
-                    if (theaters[i].size == ssize)
+                    if (theaters[i].Tsize == ssize)
                     {
                         TheaterList.Items.Add(theaters[i]);
                     }
@@ -282,9 +334,21 @@ namespace 服务器UI
             if (TextBox_TheaterSearchid.Text == "" && (ComboBox_TheaterType.SelectedItem != null || ComboBox_TheaterType.Text != "") && (ComboBox_TheaterSize.SelectedItem == null || ComboBox_TheaterSize.Text == ""))
             { 
                 string stype = ComboBox_TheaterType.Text;
+                if(stype == "普通影厅")
+                {
+                    type = 0;
+                }
+                else if (stype == "VIP影厅")
+                {
+                    type = 1;
+                }
+                else if (stype == "SVIP影厅")
+                {
+                    type = 2;
+                }
                 for (int i = 0; i < theaters.Count; i++)
                 {
-                    if (theaters[i].type == stype)
+                    if (theaters[i].Ttype == type)
                     {
                         TheaterList.Items.Add(theaters[i]);
                     }
@@ -297,7 +361,7 @@ namespace 服务器UI
                 string sid = TextBox_TheaterSearchid.Text;
                 for (int i = 0; i < theaters.Count; i++)
                 {
-                    if (theaters[i].id == sid)
+                    if (theaters[i].Tid == sid)
                     {
                         TheaterList.Items.Add(theaters[i]);
                     }
@@ -309,9 +373,21 @@ namespace 服务器UI
             {
                 string sid = TextBox_TheaterSearchid.Text;
                 string stype = ComboBox_TheaterType.Text;
+                if (stype == "普通影厅")
+                {
+                    type = 0;
+                }
+                else if (stype == "VIP影厅")
+                {
+                    type = 1;
+                }
+                else if (stype == "SVIP影厅")
+                {
+                    type = 2;
+                }
                 for (int i = 0; i < theaters.Count; i++)
                 {
-                    if (theaters[i].id == sid && theaters[i].type == stype)
+                    if (theaters[i].Tid == sid && theaters[i].Ttype == type)
                     {
                         TheaterList.Items.Add(theaters[i]);
                     }
@@ -326,7 +402,7 @@ namespace 服务器UI
                 
                 for (int i = 0; i < theaters.Count; i++)
                 {
-                    if (theaters[i].id == sid && theaters[i].size == ssize)
+                    if (theaters[i].Tid == sid && theaters[i].Tsize == ssize)
                     {
                         TheaterList.Items.Add(theaters[i]);
                     }
@@ -339,9 +415,21 @@ namespace 服务器UI
                 
                 int ssize = int.Parse(ComboBox_TheaterSize.Text);
                 string stype = ComboBox_TheaterType.Text;
+                if (stype == "普通影厅")
+                {
+                    type = 0;
+                }
+                else if (stype == "VIP影厅")
+                {
+                    type = 1;
+                }
+                else if (stype == "SVIP影厅")
+                {
+                    type = 2;
+                }
                 for (int i = 0; i < theaters.Count; i++)
                 {
-                    if (theaters[i].type == stype && theaters[i].size == ssize)
+                    if (theaters[i].Ttype == type && theaters[i].Tsize == ssize)
                     {
                         TheaterList.Items.Add(theaters[i]);
                     }
@@ -354,9 +442,21 @@ namespace 服务器UI
                 string sid = TextBox_TheaterSearchid.Text;
                 int ssize = int.Parse(ComboBox_TheaterSize.Text);
                 string stype = ComboBox_TheaterType.Text;
+                if (stype == "普通影厅")
+                {
+                    type = 0;
+                }
+                else if (stype == "VIP影厅")
+                {
+                    type = 1;
+                }
+                else if (stype == "SVIP影厅")
+                {
+                    type = 2;
+                }
                 for (int i = 0; i < theaters.Count; i++)
                 {
-                    if (theaters[i].id == sid && theaters[i].type == stype && theaters[i].size == ssize)
+                    if (theaters[i].Tid == sid && theaters[i].Ttype == type && theaters[i].Tsize == ssize)
                     {
                         TheaterList.Items.Add(theaters[i]);
                     }
@@ -419,8 +519,8 @@ namespace 服务器UI
             {
                 for (int i = 0; i < movies.Count; i++)
                 {
-                    MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
-                    MovieList.Items.Add(m);
+                    //MovieForShow m = new MovieForShow(movies[i].Mid, movies[i].Mname, movies[i].type, movies[i].time, movies[i].comment);
+                    //MovieList.Items.Add(m);
                 }
                 MovieList.Items.Refresh();
             }
@@ -430,10 +530,10 @@ namespace 服务器UI
 
                 for (int i = 0; i < movies.Count; i++)
                 {
-                    if (movies[i].id == sid)
+                    if (movies[i].Mid == sid)
                     {
-                        MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
-                        MovieList.Items.Add(m);
+                        //MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
+                        //MovieList.Items.Add(m);
                     }
                 }
                 MovieList.Items.Refresh();
@@ -444,10 +544,10 @@ namespace 服务器UI
                 string sname = TextBox_MovieSearchname.Text;
                 for (int i = 0; i < movies.Count; i++)
                 {
-                    if (movies[i].name == sname)
+                    if (movies[i].Mname == sname)
                     {
-                        MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
-                        MovieList.Items.Add(m);
+                        //MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
+                        //MovieList.Items.Add(m);
                     }
                 }
                 MovieList.Items.Refresh();
@@ -459,10 +559,10 @@ namespace 服务器UI
                 string sname = TextBox_MovieSearchname.Text;
                 for (int i = 0; i < theaters.Count; i++)
                 {
-                    if (movies[i].id == sid && movies[i].name == sname)
+                    if (movies[i].Mid == sid && movies[i].Mname == sname)
                     {
-                        MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
-                        MovieList.Items.Add(m);
+                        //MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
+                        //MovieList.Items.Add(m);
                     }
                 }
                 MovieList.Items.Refresh();
@@ -551,7 +651,7 @@ namespace 服务器UI
                
                 for (int i = 0; i < onmovies.Count; i++)
                 {
-                    if (onmovies[i].oid == soid)
+                    if (onmovies[i].Oid == soid)
                     {
                         OnMovieList.Items.Add(onmovies[i]);
                     }
@@ -566,7 +666,7 @@ namespace 服务器UI
                 
                 for (int i = 0; i < onmovies.Count; i++)
                 {
-                    if (onmovies[i].mid == smid)
+                    if (onmovies[i].Mid == smid)
                     {
                         OnMovieList.Items.Add(onmovies[i]);
                     }
@@ -580,7 +680,7 @@ namespace 服务器UI
                 string stid = TextBox_OnMovieSearchpid.Text;
                 for (int i = 0; i < onmovies.Count; i++)
                 {
-                    if (onmovies[i].tid == stid)
+                    if (onmovies[i].Tid == stid)
                     {
                         OnMovieList.Items.Add(onmovies[i]);
                     }
@@ -595,7 +695,7 @@ namespace 服务器UI
                 
                 for (int i = 0; i < onmovies.Count; i++)
                 {
-                    if (onmovies[i].oid == soid && onmovies[i].mid == smid)
+                    if (onmovies[i].Oid == soid && onmovies[i].Mid == smid)
                     {
                         OnMovieList.Items.Add(onmovies[i]);
                     }
@@ -610,7 +710,7 @@ namespace 服务器UI
                 string stid = TextBox_OnMovieSearchpid.Text;
                 for (int i = 0; i < onmovies.Count; i++)
                 {
-                    if (onmovies[i].oid == soid && onmovies[i].tid == stid)
+                    if (onmovies[i].Oid == soid && onmovies[i].Tid == stid)
                     {
                         OnMovieList.Items.Add(onmovies[i]);
                     }
@@ -625,7 +725,7 @@ namespace 服务器UI
                 string stid = TextBox_OnMovieSearchpid.Text;
                 for (int i = 0; i < onmovies.Count; i++)
                 {
-                    if (onmovies[i].mid == smid && onmovies[i].tid == stid)
+                    if (onmovies[i].Mid == smid && onmovies[i].Tid == stid)
                     {
                         OnMovieList.Items.Add(onmovies[i]);
                     }
@@ -640,7 +740,7 @@ namespace 服务器UI
                 string stid = TextBox_OnMovieSearchpid.Text;
                 for (int i = 0; i < onmovies.Count; i++)
                 {
-                    if (onmovies[i].oid == soid && onmovies[i].mid == smid && onmovies[i].tid == stid)
+                    if (onmovies[i].Oid == soid && onmovies[i].Mid == smid && onmovies[i].Tid == stid)
                     {
                         OnMovieList.Items.Add(onmovies[i]);
                     }
@@ -698,6 +798,7 @@ namespace 服务器UI
 
         private void TicketSearch_Click(object sender, RoutedEventArgs e)
         {
+            byte status = 0;
             TicketList.Items.Clear();
             if (TextBox_TicketSearchid.Text == "" && TextBox_TicketSearchoid.Text == "" && (ComboBox_TicketStatus.SelectedItem == null || ComboBox_TicketStatus.Text == ""))
             { 
@@ -713,7 +814,7 @@ namespace 服务器UI
                
                 for (int i = 0; i < records.Count; i++)
                 {
-                    if (records[i].uid == sid)
+                    if (records[i].Uid == sid)
                     {
                         TicketList.Items.Add(records[i]);
                     }
@@ -728,7 +829,7 @@ namespace 服务器UI
                 
                 for (int i = 0; i < records.Count; i++)
                 {
-                    if (records[i].oid == oid)
+                    if (records[i].Oid == oid)
                     {
                         TicketList.Items.Add(records[i]);
                     }
@@ -741,9 +842,21 @@ namespace 服务器UI
                 string sid = TextBox_TicketSearchid.Text;
                 string oid = TextBox_TicketSearchoid.Text;
                 string ssta = ComboBox_TicketStatus.Text;
+                if (ssta == "等待支付")
+                {
+                    status = 0;
+                }
+                else if (ssta == "购票成功")
+                {
+                    status = 1;
+                }
+                else if (ssta == "购票失败")
+                {
+                    status = 2;
+                }
                 for (int i = 0; i < records.Count; i++)
                 {
-                    if (records[i].status == ssta)
+                    if (records[i].Rstatus == status)
                     {
                         TicketList.Items.Add(records[i]);
                     }
@@ -758,7 +871,7 @@ namespace 服务器UI
                 
                 for (int i = 0; i < records.Count; i++)
                 {
-                    if (records[i].uid == sid && records[i].oid == oid)
+                    if (records[i].Uid == sid && records[i].Oid == oid)
                     {
                         TicketList.Items.Add(records[i]);
                     }
@@ -773,7 +886,7 @@ namespace 服务器UI
                 string ssta = ComboBox_TicketStatus.Text;
                 for (int i = 0; i < records.Count; i++)
                 {
-                    if (records[i].uid == sid && records[i].status == ssta)
+                    if (records[i].Uid == sid && records[i].Rstatus == status)
                     {
                         TicketList.Items.Add(records[i]);
                     }
@@ -788,7 +901,7 @@ namespace 服务器UI
                 string ssta = ComboBox_TicketStatus.Text;
                 for (int i = 0; i < records.Count; i++)
                 {
-                    if (records[i].oid == oid && records[i].status == ssta)
+                    if (records[i].Oid == oid && records[i].Rstatus == status)
                     {
                         TicketList.Items.Add(records[i]);
                     }
@@ -803,7 +916,7 @@ namespace 服务器UI
                 string ssta = ComboBox_TicketStatus.Text;
                 for (int i = 0; i < records.Count; i++)
                 {
-                    if (records[i].uid == sid && records[i].oid == oid && records[i].status == ssta)
+                    if (records[i].Uid == sid && records[i].Oid == oid && records[i].Rstatus == status)
                     {
                         TicketList.Items.Add(records[i]);
                     }
@@ -837,7 +950,7 @@ namespace 服务器UI
             {
                 Hide();
                 Record r = TicketList.SelectedItem as Record;
-                new UserSta(r.uid, records).ShowDialog();
+                new UserSta(r.Uid, records).ShowDialog();
                 Show();
             }
             else
@@ -852,7 +965,7 @@ namespace 服务器UI
             {
                 Hide();
                 Record r = TicketList.SelectedItem as Record;
-                new OnMovieSta(r.oid, records).ShowDialog();
+                new OnMovieSta(r.Oid, records).ShowDialog();
                 Show();
             }
             else
@@ -863,7 +976,7 @@ namespace 服务器UI
 
         private void PackageSearch_Click(object sender, RoutedEventArgs e)
         {
-            PackageList.Items.Clear();
+            /*PackageList.Items.Clear();
             if (TextBox_PackageSearchSid.Text == "" && TextBox_PackageSearchDid.Text == "")
             {
                 for (int i = 0; i < records.Count; i++)
@@ -909,13 +1022,13 @@ namespace 服务器UI
                   
                 }
                 PackageList.Items.Refresh();
-            }
+            }*/
         }
 
         private void PackageList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-            TransMessageR select = PackageList.SelectedItem as TransMessageR;
+            //TransMessageR select = PackageList.SelectedItem as TransMessageR;
             //var select = txtBox.DataContext as Movie;
             //ListBox listBox = sender as ListBox;
             //if (listBox == null || listBox.SelectedItem == null)
@@ -924,9 +1037,9 @@ namespace 服务器UI
             //}
             //else
             //{
-            Hide();
-            PackageInfo info = new PackageInfo(select);
-            info.ShowDialog();
+            //Hide();
+            //PackageInfo info = new PackageInfo(select);
+            //info.ShowDialog();
             //}
         }
     }

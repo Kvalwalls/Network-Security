@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using AdminUser.Entity;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AdminUser.Transmission;
 
 namespace 服务器UI
 {
@@ -108,12 +110,14 @@ namespace 服务器UI
             else
             {
                 //MovieForShow n = new MovieForShow(Id, Name, Type, Time, Score);
-                Movie n = new Movie(Id, Name, Type, Time, Score, picture, Description);
+                Movie n = new Movie(Id, Name, Type, Time, Score, Description);
+                //addMovieRequest(n);
+                //addMovieReply();
                 //int result = dgl.CreateStore(s);
                 int result = 1;
                 for (int i = 0; i < SubMovies.Count; i++)
                 {
-                    if (Id == SubMovies[i].id)
+                    if (Id == SubMovies[i].Mid)
                     {
                         MessageBox.Show("已有该影片");
                         result = 0;
@@ -171,7 +175,7 @@ namespace 服务器UI
                     
                     for (int i = 0; i < SubMovies.Count; i++)
                     {
-                        if (Id == SubMovies[i].id)
+                        if (Id == SubMovies[i].Mid)
                         {
                             MidTip.Text = "影片号重复，请重新输入！";
                             MidTip.Visibility = Visibility.Visible;
@@ -196,7 +200,7 @@ namespace 服务器UI
                 
                 for (int i = 0; i < SubMovies.Count; i++)
                 {
-                    if (Id == SubMovies[i].id)
+                    if (Id == SubMovies[i].Mid)
                     {
                         MidTip.Text = "影片号重复，请重新输入！";
                         MidTip.Visibility = Visibility.Visible;

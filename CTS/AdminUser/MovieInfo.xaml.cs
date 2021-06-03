@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminUser.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,13 +25,13 @@ namespace 服务器UI
         {
             InitializeComponent();
             M = m;
-            TextBlock_Mid.Text += M.id;
-            TextBlock_Name.Text += M.name;
-            TextBlock_Type.Text += M.type;
-            TextBlock_Time.Text += M.time;
-            TextBlock_Score.Text += M.comment;
-            TextBlock_Des.Text += M.description;
-            MovieImage.Source = new BitmapImage(new Uri(@"C:\Users\dell\Desktop\网安课设\MoviePictures\" + M.id + ".png"));
+            TextBlock_Mid.Text += M.Mid;
+            TextBlock_Name.Text += M.Mname;
+            TextBlock_Type.Text += M.Mtype;
+            TextBlock_Time.Text += M.Mtime;
+            TextBlock_Score.Text += M.Mcomment;
+            TextBlock_Des.Text += M.Mdescription;
+            MovieImage.Source = new BitmapImage(new Uri(@"C:\Users\dell\Desktop\网安课设\MoviePictures\" + M.Mid + ".png"));
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)

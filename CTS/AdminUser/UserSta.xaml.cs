@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminUser.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,11 +28,10 @@ namespace 服务器UI
             User.Text += uid;
             for(int i = 0; i < records.Count; i++)
             {
-                if (records[i].uid == uid)
+                if (records[i].Uid == uid)
                 {
-                    RecordForUserSta r = new RecordForUserSta(records[i].oid, records[i].sid, records[i].time, records[i].price, records[i].status);
-                    UserStaList.Items.Add(r);
-                    total += r.price;
+                    UserStaList.Items.Add(records[i]);
+                    total += records[i].Rprice;
                 }
             }
             UserStaList.Items.Refresh();
