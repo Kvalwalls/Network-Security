@@ -20,7 +20,7 @@ namespace CommonUser.Kerberos
             if (transceiver == null)
                 throw new Exception("Transceiver错误！");
         }
-        public static ASHandler GetInstatnce()
+        public static ASHandler GetInstance()
         {
             return instance;
         }
@@ -30,21 +30,21 @@ namespace CommonUser.Kerberos
             SendRequest();
             string[] contents = ReceiveReply();
             if (contents == null)
-                keyAndTicket = ASCertification();
+                throw new Exception("AS验证错误！");
             else
             {
                 long ts2 = long.Parse(contents[2]);
                 long lifetime = long.Parse(contents[3]);
-                if (Tools.VerifyTS(ts2, lifetime) && contents[1].Equals(ConfigurationManager.AppSettings["TGS_ID"]))
+                if (ToolsKerberos.VerifyTS(ts2, lifetime) && contents[1].Equals(ConfigurationManager.AppSettings["TGS_ID"]))
                 {
-                    keyAndTicket = new string[2] 
+                    keyAndTicket = new string[2]
                     {
                         contents[0],
                         contents[4]
                     };
                 }
                 else
-                    keyAndTicket = ASCertification();
+                    throw new Exception("AS验证错误！");
             }
             return keyAndTicket;
         }
@@ -83,7 +83,7 @@ namespace CommonUser.Kerberos
             XmlElement id_tgsElement = document.CreateElement("id_tgs");
             id_tgsElement.InnerText = ConfigurationManager.AppSettings["TGS_ID"];
             XmlElement ts1Element = document.CreateElement("ts1");
-            ts1Element.InnerText = Tools.GenerateTS().ToString();
+            ts1Element.InnerText = ToolsKerberos.GenerateTS().ToString();
             //形成树结构
             certificationElement.AppendChild(id_cElement);
             certificationElement.AppendChild(id_tgsElement);

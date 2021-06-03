@@ -15,8 +15,6 @@ import org.w3c.dom.NodeList;
 import java.net.Socket;
 
 public class ASHandler implements Runnable {
-    //生命周期
-    private static final int LIFE_TIME = 60;
     //数据收发器
     private final Transceiver transceiver;
     //连接计数
@@ -59,8 +57,8 @@ public class ASHandler implements Runnable {
                         String id_cStr = null, id_tgsStr = null;
                         long ts1Long = 0;
                         Document document = XMLPhaser.stringToDoc(message.getContents());
-                        Element certificationEle = document.getDocumentElement();
-                        NodeList nodeList = certificationEle.getChildNodes();
+                        Element certification = document.getDocumentElement();
+                        NodeList nodeList = certification.getChildNodes();
                         for (int i = 0; i < nodeList.getLength(); i++) {
                             Node childNode = nodeList.item(i);
                             switch (childNode.getNodeName()) {
@@ -70,28 +68,28 @@ public class ASHandler implements Runnable {
                             }
                         }
                         //报文超过生命周期
-                        if (!Tools.verifyTS(ts1Long, LIFE_TIME)) {
+                        if (!ToolsKerberos.verifyTS(ts1Long, ToolsKerberos.LIFE_TIME)) {
                             replyMessage = generateErrorReply(message.getFromAddress());
                             transceiver.sendMessage(replyMessage);
                             continue;
                         }
                         String key_tgs = DBCommand.getKeyById(id_tgsStr);
                         String key_c = DBCommand.getKeyById(id_cStr);
-                        String sessionKey = Tools.generateSessionK();
-                        long ts2 = Tools.generateTS();
+                        String sessionKey = ToolsKerberos.generateSessionK();
+                        long ts2 = ToolsKerberos.generateTS();
                         Ticket tgsTicket = new Ticket();
                         tgsTicket.setKey(sessionKey);
                         tgsTicket.setID_c(id_cStr);
                         tgsTicket.setAD_c(AddressPhaser.bytesToString(message.getFromAddress()));
                         tgsTicket.setID_dest(id_tgsStr);
                         tgsTicket.setTimestamp(ts2);
-                        tgsTicket.setLifetime(LIFE_TIME);
+                        tgsTicket.setLifetime(ToolsKerberos.LIFE_TIME);
                         String tgsTicketStr = tgsTicket.generateTicket(key_tgs);
                         String[] contents = new String[]{
                                 sessionKey,
                                 id_tgsStr,
                                 String.valueOf(ts2),
-                                String.valueOf(LIFE_TIME),
+                                String.valueOf(ToolsKerberos.LIFE_TIME),
                                 tgsTicketStr
                         };
                         replyMessage = generateNormalReply(message.getFromAddress(), contents, key_c);

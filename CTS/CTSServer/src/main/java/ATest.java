@@ -1,24 +1,7 @@
-import DataBaseUtils.DBCommand;
-import DataUtils.Movie;
-import DataUtils.OnMovie;
-import DataUtils.Record;
-import DataUtils.Theater;
-import DataUtils.User;
-import EnumUtils.EnumRecordStatus;
-import EnumUtils.EnumSeatStatus;
-import EnumUtils.EnumTheaterType;
-import EnumUtils.EnumUserAccess;
-import KerberosUtils.Tools;
-import SecurityUtils.RSAHandler;
 import TransmissionUtils.*;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class ATest {
     public static void main(String[] args) {

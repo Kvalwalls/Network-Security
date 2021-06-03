@@ -16,8 +16,6 @@ import org.w3c.dom.NodeList;
 import java.net.Socket;
 
 public class TGSHandler implements Runnable {
-    //生命周期
-    private static final int LIFE_TIME = 60;
     //数据收发器
     private final Transceiver transceiver;
     //连接计数
@@ -55,8 +53,8 @@ public class TGSHandler implements Runnable {
                         //解析XMLDocument
                         String id_vStr = null, ticket_tgsStr = null, authenticator_cStr = null;
                         Document document = XMLPhaser.stringToDoc(message.getContents());
-                        Element certificationEle = document.getDocumentElement();
-                        NodeList nodeList = certificationEle.getChildNodes();
+                        Element certification = document.getDocumentElement();
+                        NodeList nodeList = certification.getChildNodes();
                         for (int i = 0; i < nodeList.getLength(); i++) {
                             Node childNode = nodeList.item(i);
                             switch (childNode.getNodeName()) {
@@ -67,21 +65,21 @@ public class TGSHandler implements Runnable {
                         }
                         Ticket tgsTicket = new Ticket(ticket_tgsStr, PropertiesHandler.getElement("TGS_Key"));
                         Authenticator authenticator = new Authenticator(authenticator_cStr, tgsTicket.getKey());
-                        if (!verifyTickAndAuth(tgsTicket, authenticator)) {
+                        if (!ToolsKerberos.verifyTicketAndAuthenticator(tgsTicket, authenticator)) {
                             replyMessage = generateErrorReply(message.getFromAddress());
                             transceiver.sendMessage(replyMessage);
                             continue;
                         }
                         String key_v = DBCommand.getKeyById(id_vStr);
-                        String sessionKey = Tools.generateSessionK();
-                        long ts4 = Tools.generateTS();
+                        String sessionKey = ToolsKerberos.generateSessionK();
+                        long ts4 = ToolsKerberos.generateTS();
                         Ticket vTicket = new Ticket();
                         vTicket.setKey(sessionKey);
                         vTicket.setID_c(authenticator.getID_c());
                         vTicket.setAD_c(AddressPhaser.bytesToString(message.getFromAddress()));
                         vTicket.setID_dest(id_vStr);
                         vTicket.setTimestamp(ts4);
-                        vTicket.setLifetime(LIFE_TIME);
+                        vTicket.setLifetime(ToolsKerberos.LIFE_TIME);
                         String vTicketStr = vTicket.generateTicket(key_v);
                         String[] contents = new String[]{
                                 sessionKey,
@@ -104,18 +102,6 @@ public class TGSHandler implements Runnable {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-    }
-
-    private boolean verifyTickAndAuth(Ticket tick,Authenticator auth) {
-        if (!Tools.verifyTS(tick.getTimestamp(), tick.getLifetime()))
-            return false;
-        if (!Tools.verifyTS(auth.getTimestamp(), LIFE_TIME))
-            return false;
-        if (!tick.getAD_c().equals(auth.getAD_c()))
-            return false;
-        if (!tick.getID_c().equals(auth.getID_c()))
-            return false;
-        return true;
     }
 
     private TransMessage generateNormalReply(byte[] toAddr,String[] contents,String key_c_tgs) throws Exception {
@@ -165,7 +151,7 @@ public class TGSHandler implements Runnable {
         message.setServiceType(EnumServiceType.AS);
         message.setSpecificType(EnumKerberos.Error);
         message.setContents(XMLPhaser.docToString(document));
-        message.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk", null);
+        message.enPackage(PropertiesHandler.getElement("TGS_SKeyFile"), null);
         return message;
     }
 }

@@ -21,7 +21,7 @@ namespace CommonUser.Kerberos
             if (transceiver == null)
                 throw new Exception("Transceiver错误！");
         }
-        public static TGSHandler GetInstatnce()
+        public static TGSHandler GetInstance()
         {
             return instance;
         }
@@ -31,11 +31,11 @@ namespace CommonUser.Kerberos
             SendRequest(sessionKey,ticket_tgs);
             string[] contents = ReceiveReply(sessionKey);
             if (contents == null)
-                keyAndTicket = TGSCertification(sessionKey, ticket_tgs);
+                throw new Exception("TGS验证错误！");
             else
             {
                 long ts4 = long.Parse(contents[2]);
-                if (Tools.VerifyTS(ts4, LIFE_TIME) && contents[1].Equals(ConfigurationManager.AppSettings["V_ID"]))
+                if (ToolsKerberos.VerifyTS(ts4, LIFE_TIME) && contents[1].Equals(ConfigurationManager.AppSettings["V_ID"]))
                 {
                     keyAndTicket = new string[2]
                     {
@@ -44,7 +44,7 @@ namespace CommonUser.Kerberos
                     };
                 }
                 else
-                    keyAndTicket = TGSCertification(sessionKey, ticket_tgs);
+                    throw new Exception("TGS验证错误！");
             }
             return keyAndTicket;
         }
@@ -80,7 +80,7 @@ namespace CommonUser.Kerberos
             Authenticator authenticator = new Authenticator();
             authenticator.ID_c = ConfigurationManager.AppSettings["My_ID"];
             authenticator.AD_c = ConfigurationManager.AppSettings["My_IPAddress"];
-            authenticator.timestamp = Tools.GenerateTS();
+            authenticator.timestamp = ToolsKerberos.GenerateTS();
             XmlElement authenticator_cElement = document.CreateElement("authenticator_c");
             authenticator_cElement.InnerText = authenticator.generateAuthenticator(sessionKey);
             //形成树结构

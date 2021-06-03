@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.nio.file.Path;
 
 public class AdminUserVHandler extends VHandler implements Runnable {
-    private final Transceiver transceiver;
+
 
     @Override
     public void run() {

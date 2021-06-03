@@ -231,7 +231,7 @@ namespace CommonUser.Entity
             XmlElement AD_cElement = document.CreateElement("ad_c");
             AD_cElement.InnerText = AD_c;
             XmlElement TSElement = document.CreateElement("ts");
-            TSElement.InnerText = Tools.GenerateTS().ToString();
+            TSElement.InnerText = ToolsKerberos.GenerateTS().ToString();
             //形成树结构
             authenticator.AppendChild(ID_cElement);
             authenticator.AppendChild(AD_cElement);

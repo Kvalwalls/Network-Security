@@ -6,11 +6,22 @@ import TransmissionUtils.Transceiver;
 import java.net.Socket;
 
 public class CommonUserVHandler extends VHandler implements Runnable {
-    private final Transceiver transceiver;
+
 
     @Override
     public void run() {
-
+        try {
+            while (true) {
+                if (VCertification()) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            System.out.println("yes!");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     public CommonUserVHandler(Socket socket) {

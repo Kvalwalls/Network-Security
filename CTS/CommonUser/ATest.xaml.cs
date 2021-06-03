@@ -1,7 +1,5 @@
 ﻿using CommonUser.Kerberos;
-using CommonUser.Transmission;
 using System;
-using System.Net.Sockets;
 using System.Windows;
 
 namespace CommonUser
@@ -15,14 +13,15 @@ namespace CommonUser
         {
             InitializeComponent();
             Hide();
-            ASHandler asHandler = ASHandler.GetInstatnce();
+            ASHandler asHandler = ASHandler.GetInstance();
             string[] ASKeyAndTicket = asHandler.ASCertification();
             asHandler.CloseASConnection();
-            TGSHandler tgsHandler = TGSHandler.GetInstatnce();
+            TGSHandler tgsHandler = TGSHandler.GetInstance();
             string[] TGSKeyAndTicket = tgsHandler.TGSCertification(ASKeyAndTicket[0], ASKeyAndTicket[1]);
             tgsHandler.CloseTGSConnection();
-            Console.WriteLine(TGSKeyAndTicket[0]);
-            Console.WriteLine(TGSKeyAndTicket[1]);
+            VHandler vHandler = VHandler.GetInstance();
+            string sessionKey = vHandler.VCertification(TGSKeyAndTicket[0], TGSKeyAndTicket[1]);
+            Console.WriteLine(sessionKey);
             Close();
 
         }
