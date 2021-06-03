@@ -20,7 +20,6 @@ namespace CommonUser
 			InitializeComponent();
 			Grid_RecordInfo.DataContext = movie;
 			InitData();
-			InitData();
 		}
 
 		private void InitData()
