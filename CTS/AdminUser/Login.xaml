@@ -1,0 +1,86 @@
+﻿<Window x:Class="AdminUser.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdminUser"
+        mc:Ignorable="d"
+        Title="登录" Height="400" Width="600" ShowInTaskbar="False" ResizeMode="NoResize">
+    <Grid>
+        <!--GIF背景-->
+        <Grid.Background>
+            <VisualBrush>
+                <VisualBrush.Visual>
+                    <MediaElement Name="mediaElement" MediaEnded="MediaElement_MediaEnded" Stretch="UniformToFill"/>
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Grid.Background>
+        <!--登录Label-->
+        <Label HorizontalAlignment="Center" Foreground="White" Content="登录"   VerticalAlignment="Top" FontSize="36" Style="{StaticResource LabelPrimary}"/>
+        <!--账号TextBox-->
+        <TextBox Name="TextBox_id" VerticalContentAlignment="Center" Foreground="Black" FontSize="24" Margin="151,80,93.6,230.4">
+            <TextBox.Resources>
+                <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                    <VisualBrush.Visual>
+                        <TextBlock Text="请输入账号" Foreground="White" Opacity="0.5"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </TextBox.Resources>
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter Property="Background" Value="{StaticResource HintText}"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter Property="Background" Value="{StaticResource HintText}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <!--密码TextBox-->
+        <TextBox Name="TextBox_pwd"  VerticalContentAlignment="Center"  TextChanged="TextBox_pwd_TextChanged"  
+                 Foreground="Black" FontSize="24" Margin="151,160,93.6,150.4">
+            <TextBox.Resources>
+                <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                    <VisualBrush.Visual>
+                        <TextBlock Text="请输入密码" Foreground="White" Opacity="0.5"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </TextBox.Resources>
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter Property="Background" Value="{StaticResource HintText}"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter Property="Background" Value="{StaticResource HintText}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <!--登录Button-->
+        <Button Content="登录" FontSize="22"  Margin="250,275,249.6,42.4" Foreground="White" 
+                MouseEnter="Button_MouseEnter"
+                MouseLeave="Button_MouseLeave"
+                Click="Button_Login_Click" Height="53" Width="94" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>#FF69B4</Border.Background>
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <!--账号image-->
+        <Image Margin="91,90,458.6,235.4" Source="ImageResources\图标(白)_账号.png" Stretch="Fill"/>
+        <!--密码image-->
+        <Image Margin="91,170,458.6,155.4" Source="ImageResources\图标(白)_密码.png" Stretch="Fill"/>
+
+
+    </Grid>
+</Window>

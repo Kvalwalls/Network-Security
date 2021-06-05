@@ -1,0 +1,49 @@
+﻿<Window x:Class="AdminUser.OnMovieSta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdminUser"
+        mc:Ignorable="d"
+        Title="OnMovieSta" Height="450" Width="600" ResizeMode="NoResize">
+    <Grid>
+        <!--GIF背景-->
+        <Grid.Background>
+            <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg"/>
+        </Grid.Background>
+        <!--场次统计Label-->
+        <Label HorizontalAlignment="Center" Content="场次统计" VerticalAlignment="Top" FontSize="36" Style="{StaticResource LabelPrimary}"/>
+        <!--返回Button-->
+        <Button x:Name="Button_Return" Content="返回" FontSize="22"  Margin="284,367,9.6,10" Foreground="White" 
+            MouseEnter="Button_MouseEnter"
+            MouseLeave="Button_MouseLeave"
+            Click="Button_Return_Click" Width="100" Height="43" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FF69B4</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <!--场次表ListView-->
+        <ListView Name="OnMovieStaList" HorizontalAlignment="Left" Height="231" Margin="10,118,0,0" VerticalAlignment="Top" Width="574">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="用户号" Width="94" DisplayMemberBinding="{Binding Uid}"></GridViewColumn>
+                    <GridViewColumn Header="座位号" Width="94" DisplayMemberBinding="{Binding Sid}"></GridViewColumn>
+                    <GridViewColumn Header="购票时间" Width="190" DisplayMemberBinding="{Binding Rtime}"></GridViewColumn>
+                    <GridViewColumn Header="实际价格" Width="94" DisplayMemberBinding="{Binding Rprice}"></GridViewColumn>
+                    <GridViewColumn Header="状态" Width="94" DisplayMemberBinding="{Binding RStatus}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBlock x:Name="OnMovie"  Margin="109,61,110.6,307" TextWrapping="Wrap" VerticalAlignment="Center"  Height="52" Width="174" FontSize="22" Text="场次号："/>
+        <TextBlock x:Name="Money"  Margin="10,354,209.6,14" TextWrapping="Wrap" VerticalAlignment="Center"  Height="52" Width="174" FontSize="22" Text="总营业金额："/>
+
+    </Grid>
+</Window>
