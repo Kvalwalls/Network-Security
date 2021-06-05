@@ -13,18 +13,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace 服务器UI
+namespace AdminUser
 {
     /// <summary>
     /// PackageInfo.xaml 的交互逻辑
     /// </summary>
     public partial class PackageInfo : Window
     {
-        //public static TransMessage r;
-        public PackageInfo()
+        private static TransMessage r;
+
+        public PackageInfo(TransMessage t)
         {
             InitializeComponent();
-            //r = t;
+            r = t;
             ShowPackage();
         }
 
@@ -45,27 +46,24 @@ namespace 服务器UI
 
         private void ShowPackage()
         {
-            //TextBlock_Sid.Text += r.Sid;
-            //TextBlock_Did.Text += r.Did;
-            //TextBlock_AppType.Text += r.SerType;
-            //TextBlock_ConType.Text += r.SpeType;
-            //TextBlock_Error.Text += r.Error;
-            /*TextBlock_Crypt.Text += r.Crypt;
-            TextBlock_MLength.Text += r.SLength;
-            TextBlock_CLength.Text += r.CLength;
-            if (true)
-            {
-                Text_Encrypt.Text = r.content;
-            }
-            else
-            {
-                Text_Encrypt.Text = r.content;
+            TextBlock_Sid.Text += System.Text.Encoding.UTF8.GetString(r.fromAddress);
+            TextBlock_Did.Text += System.Text.Encoding.UTF8.GetString(r.toAddress);
+            TextBlock_AppType.Text += r.serviceType;
+            TextBlock_ConType.Text += r.specificType;
+            TextBlock_Error.Text += r.errorCode;
+            TextBlock_Crypt.Text += r.cryptCode;
+            //TextBlock_MLength.Text += r.SLength;
+            //TextBlock_CLength.Text += r.CLength;
+            //if (true)
+            //{
+            //    Text_Encrypt.Text = r.content;
+            //}
+            //else
+            //{
+            //    Text_Encrypt.Text = r.content;
 
-                Text_Decrypt.Text = r.content;
-            }*/
-
-
-
+            //    Text_Decrypt.Text = r.content;
+            //}
         }
     }
 }

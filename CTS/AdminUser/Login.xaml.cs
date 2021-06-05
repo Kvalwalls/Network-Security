@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace 服务器UI
+namespace AdminUser
 {
     /// <summary>
     /// Login.xaml 的交互逻辑

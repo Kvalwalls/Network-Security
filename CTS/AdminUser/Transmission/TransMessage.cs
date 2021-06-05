@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AdminUser.Transmission
 {
-    class TransMessage
+    public class TransMessage
     {
         //目的IP地址
         public byte[] toAddress { get; set; }

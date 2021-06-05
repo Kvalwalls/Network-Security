@@ -13,15 +13,25 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.awt.*;
+
 public abstract class VHandler {
-    protected String sessionKey = null;
+    protected String sessionKey;
+
+    protected String rsaPKFile;
+
+    protected byte[] fromAddr;
+
+    protected byte[] toAddr;
 
     protected Transceiver transceiver;
 
     protected boolean VCertification() throws Exception {
         while (true) {
             TransMessage message = transceiver.receiveMessage();
-            String rsaPKFile = "src\\resourcesV\\KeyFiles\\"
+            toAddr = message.getFromAddress();
+            fromAddr = message.getToAddress();
+            rsaPKFile = "src\\resourcesV\\KeyFiles\\"
                     + PropertiesHandler.getElement(AddressPhaser.bytesToString(message.getFromAddress()))
                     + ".pk";
             message.dePackage(rsaPKFile, null);
@@ -29,7 +39,7 @@ public abstract class VHandler {
                 TransMessage replyMessage = null;
                 //报文有错误
                 if (message.getErrorCode() == EnumErrorCode.Error) {
-                    replyMessage = generateErrorReply(message.getFromAddress(), message.getServiceType());
+                    replyMessage = generateErrorReply(message.getServiceType());
                     transceiver.sendMessage(replyMessage);
                     continue;
                 }
@@ -52,13 +62,12 @@ public abstract class VHandler {
                     vTicket = new Ticket(ticket_vStr, PropertiesHandler.getElement("CUV_Key"));
                 Authenticator authenticator = new Authenticator(authenticator_cStr, vTicket.getKey());
                 if (!ToolsKerberos.verifyTicketAndAuthenticator(vTicket, authenticator)) {
-                    replyMessage = generateErrorReply(message.getFromAddress(), message.getServiceType());
+                    replyMessage = generateErrorReply(message.getServiceType());
                     transceiver.sendMessage(replyMessage);
                     continue;
                 }
                 sessionKey = vTicket.getKey();
-                replyMessage = generateNormalReply(message.getFromAddress(),
-                        vTicket.getTimestamp() + 1,
+                replyMessage = generateNormalReply(vTicket.getTimestamp() + 1,
                         vTicket.getKey(),
                         message.getServiceType());
                 transceiver.sendMessage(replyMessage);
@@ -69,7 +78,7 @@ public abstract class VHandler {
         }
     }
 
-    private TransMessage generateNormalReply(byte[] toAddr,long ts5plus,String key_c_v,byte type) throws Exception {
+    private TransMessage generateNormalReply(long ts5plus,String key_c_v,byte type) throws Exception {
         //创建XMLDocument
         Document document = XMLBuilder.buildXMLDoc();
         //根节点
@@ -82,12 +91,7 @@ public abstract class VHandler {
         //报文初始化
         TransMessage message = new TransMessage();
         message.setToAddress(toAddr);
-        if (type == EnumServiceType.AUV)
-            message.setFromAddress(AddressPhaser.stringToBytes(
-                    PropertiesHandler.getElement("AUV_IPAddress")));
-        else
-            message.setFromAddress(AddressPhaser.stringToBytes(
-                    PropertiesHandler.getElement("CUV_IPAddress")));
+        message.setFromAddress(fromAddr);
         message.setServiceType(type);
         message.setSpecificType(EnumKerberos.Reply);
         message.setContents(XMLPhaser.docToString(document));
@@ -98,7 +102,7 @@ public abstract class VHandler {
         return message;
     }
 
-    private TransMessage generateErrorReply(byte[] toAddr,byte type) throws Exception {
+    private TransMessage generateErrorReply(byte type) throws Exception {
         //创建XMLDocument
         Document document = XMLBuilder.buildXMLDoc();
         //根节点
@@ -107,12 +111,7 @@ public abstract class VHandler {
         //报文初始化
         TransMessage message = new TransMessage();
         message.setToAddress(toAddr);
-        if (type == EnumServiceType.AUV)
-            message.setFromAddress(AddressPhaser.stringToBytes(
-                    PropertiesHandler.getElement("AUV_IPAddress")));
-        else
-            message.setFromAddress(AddressPhaser.stringToBytes(
-                    PropertiesHandler.getElement("CUV_IPAddress")));
+        message.setFromAddress(fromAddr);
         message.setServiceType(type);
         message.setSpecificType(EnumKerberos.Error);
         message.setContents(XMLPhaser.docToString(document));

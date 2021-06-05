@@ -81,9 +81,6 @@
     </ApplicationDefinition>
     <Compile Include="AppServices\AUVHandler.cs" />
     <Compile Include="AppServices\CUVHandler.cs" />
-    <Compile Include="ATest.xaml.cs">
-      <DependentUpon>ATest.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ControlSeat.xaml.cs">
       <DependentUpon>ControlSeat.xaml</DependentUpon>
     </Compile>
@@ -141,10 +138,6 @@
     <Compile Include="UpgradeWindow.xaml.cs">
       <DependentUpon>UpgradeWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="ATest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ControlSeat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

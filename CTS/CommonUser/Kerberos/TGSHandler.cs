@@ -24,7 +24,7 @@ namespace CommonUser.Kerberos
             int.Parse(ConfigurationManager.AppSettings["TGS_Port"]));
             transceiver = new Transceiver(socket);
             if (transceiver == null)
-                throw new Exception("Transceiver错误！");
+                throw new Exception("Transceiver初始化错误！");
         }
 
         /// <summary>

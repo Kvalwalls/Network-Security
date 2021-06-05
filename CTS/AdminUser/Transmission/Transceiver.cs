@@ -1,5 +1,7 @@
-﻿using System.Net.Sockets;
+﻿using System.IO;
+using System.Net.Sockets;
 using System.Text;
+using 服务器UI;
 
 namespace AdminUser.Transmission
 {
@@ -23,6 +25,7 @@ namespace AdminUser.Transmission
         {
             byte[] buffer = message.MessageToBytes();
             socket.Send(buffer);
+            CatchPackage(message);
         }
 
         /// <summary>
@@ -65,6 +68,7 @@ namespace AdminUser.Transmission
             buffer = new byte[contentLen];
             socket.Receive(buffer);
             message.contents = Encoding.UTF8.GetString(buffer);
+            CatchPackage(message);
             return message;
         }
 
@@ -76,6 +80,35 @@ namespace AdminUser.Transmission
             socket.Shutdown(SocketShutdown.Receive);
             socket.Shutdown(SocketShutdown.Send);
             socket.Close();
+        }
+
+        public void CatchPackage(TransMessage transMessage)
+        {
+            string filename = "..\\..\\Package\\package.txt";
+            FileStream fs;
+            try
+            {
+                fs = File.Create(filename);
+            }
+            catch (IOException ex)
+            {
+                return;
+            }
+            
+            try
+            {
+                fs.Write(transMessage.fromAddress, 0, transMessage.fromAddress.Length);
+                fs.Write(transMessage.toAddress, 0, transMessage.fromAddress.Length);
+                fs.Flush();
+            }
+            catch (IOException ex)
+            {
+                //Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                fs.Close();
+            }
         }
     }
 }

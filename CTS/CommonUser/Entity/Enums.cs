@@ -26,6 +26,13 @@
         public const byte End = 3;
     }
 
+    //CommonUser服务具体类型枚举
+    public class EnumCUV
+    {
+        //登录
+        public const byte Login = 0;
+    }
+
     //加密码枚举
     public class EnumCryptCode
     {

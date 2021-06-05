@@ -56,8 +56,8 @@ public class ASHandler implements Runnable {
                         String id_cStr = null, id_tgsStr = null;
                         long ts1Long = 0;
                         Document document = XMLPhaser.stringToDoc(message.getContents());
-                        Element certification = document.getDocumentElement();
-                        NodeList nodeList = certification.getChildNodes();
+                        Element certificationElement = document.getDocumentElement();
+                        NodeList nodeList = certificationElement.getChildNodes();
                         for (int i = 0; i < nodeList.getLength(); i++) {
                             Node childNode = nodeList.item(i);
                             switch (childNode.getNodeName()) {

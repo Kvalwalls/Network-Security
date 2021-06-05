@@ -1,4 +1,5 @@
-﻿using AdminUser.Entity;
+﻿using AdminUser;
+using AdminUser.Entity;
 using AdminUser.Transmission;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace 服务器UI
+namespace AdminUser
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -34,7 +35,7 @@ namespace 服务器UI
         private static List<Theater> theaters = new List<Theater>();
         private static List<OnMovie> onmovies = new List<OnMovie>();
         private static List<Record> records = new List<Record>();
-        //private static TransMessage trans;
+        public static List<TransMessage> trans = new List<TransMessage>();
 
         public MainWindow(User user)
         {
@@ -112,6 +113,7 @@ namespace 服务器UI
             //getOnMovieReply();
             //getRecordRequest();
             //getRecordReply();
+
         }
 
         private void InitTextBlock_Hello()
@@ -976,23 +978,23 @@ namespace 服务器UI
 
         private void PackageSearch_Click(object sender, RoutedEventArgs e)
         {
-            /*PackageList.Items.Clear();
+            PackageList.Items.Clear();
             if (TextBox_PackageSearchSid.Text == "" && TextBox_PackageSearchDid.Text == "")
             {
-                for (int i = 0; i < records.Count; i++)
+                for (int i = 0; i < trans.Count; i++)
                 {
-                    //PackageList.Items.Add(records[i]);
+                    PackageList.Items.Add(trans[i]);
                 }
                 PackageList.Items.Refresh();
             }
 
             if (TextBox_PackageSearchSid.Text != "" && TextBox_PackageSearchDid.Text == "")
             {
-                for (int i = 0; i < records.Count; i++)
+                for (int i = 0; i < trans.Count; i++)
                 {
-                    if(trans.Sid == TextBox_PackageSearchSid.Text)
+                    if(Encoding.UTF8.GetString(trans[i].fromAddress) == TextBox_PackageSearchSid.Text)
                     {
-                        //PackageList.Items.Add(records[i]);
+                        PackageList.Items.Add(trans[i]);
                     }
             
                 }
@@ -1001,11 +1003,11 @@ namespace 服务器UI
 
             if (TextBox_PackageSearchSid.Text == "" && TextBox_PackageSearchDid.Text != "")
             {
-                for (int i = 0; i < records.Count; i++)
+                for (int i = 0; i < trans.Count; i++)
                 {
-                    if (trans.Did == TextBox_PackageSearchDid.Text)
+                    if (Encoding.UTF8.GetString(trans[i].toAddress) == TextBox_PackageSearchDid.Text)
                     {
-                        //PackageList.Items.Add(records[i]);
+                        PackageList.Items.Add(trans[i]);
                     }
                 }
                 PackageList.Items.Refresh();
@@ -1015,21 +1017,21 @@ namespace 服务器UI
             {
                 for (int i = 0; i < records.Count; i++)
                 {
-                    if (trans.Sid == TextBox_PackageSearchSid.Text && trans.Did == TextBox_PackageSearchDid.Text)
+                    if (Encoding.UTF8.GetString(trans[i].fromAddress) == TextBox_PackageSearchSid.Text && Encoding.UTF8.GetString(trans[i].toAddress) == TextBox_PackageSearchDid.Text)
                     {
-                        //PackageList.Items.Add(records[i]);
+                        PackageList.Items.Add(trans[i]);
                     }
                   
                 }
                 PackageList.Items.Refresh();
-            }*/
+            }
         }
 
         private void PackageList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-            //TransMessageR select = PackageList.SelectedItem as TransMessageR;
-            //var select = txtBox.DataContext as Movie;
+            TransMessage select = PackageList.SelectedItem as TransMessage;
+            //var select = txtBox.DataContext as TransMessage;
             //ListBox listBox = sender as ListBox;
             //if (listBox == null || listBox.SelectedItem == null)
             //{
@@ -1037,9 +1039,9 @@ namespace 服务器UI
             //}
             //else
             //{
-            //Hide();
-            //PackageInfo info = new PackageInfo(select);
-            //info.ShowDialog();
+            Hide();
+            PackageInfo info = new PackageInfo(select);
+            info.ShowDialog();
             //}
         }
     }
