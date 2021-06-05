@@ -5,7 +5,6 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWi
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.g.cs
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LoginWindow.g.cs
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MainWindow.g.cs
@@ -22,7 +21,6 @@ C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectOnMovieWi
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\SelectSeatWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\WaitingWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MovieInfoWindow.baml
-C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MsgShowWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MyPayWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\LoginWindow.baml
 C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\obj\Debug\MainWindow.baml

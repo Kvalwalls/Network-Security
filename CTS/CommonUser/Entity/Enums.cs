@@ -31,6 +31,14 @@
     {
         //登录
         public const byte Login = 0;
+        //注册
+        public const byte Register = 1;
+        //找回密码
+        public const byte Refind = 2;
+        //修改名称
+        public const byte ModifyName = 3;
+        //修改密码
+        public const byte ModifyPassword = 4;
     }
 
     //加密码枚举

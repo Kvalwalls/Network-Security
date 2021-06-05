@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Configuration;
-using System.Collections.Generic;
 using CommonUser.Entity;
 using System.IO;
 using CommonUser.AppServices;

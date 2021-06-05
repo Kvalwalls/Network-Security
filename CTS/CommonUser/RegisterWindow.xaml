@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="注册用户" Height="450" Width="400" ResizeMode="NoResize">
     <Grid>
-        <!--GIF背景-->
+        <!--背景图-->
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <!--注册用户Label-->
-        <Label HorizontalAlignment="Center" Foreground="Black" Content="注册用户" VerticalAlignment="Top" FontSize="36" Margin="120,8,119.6,0"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="注册用户" VerticalAlignment="Top" FontSize="36" Margin="100,10,100.6,0" />
         <!--确定Button-->
         <Button Name="Button_Register" Content="确定" FontSize="22"  Margin="10,354,249.6,10" Foreground="White" 
                 MouseEnter="Button_MouseEnter"
@@ -133,7 +133,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <!--各个图标-->
+        <!--各图标-->
         <Image Margin="28,75,324.6,305" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
         <Image Margin="28,145,324.6,235" Source="ImageResources\图标(黑)_用户名.png" Stretch="Fill"/>
         <Image Margin="28,220,324.6,160" Source="ImageResources\图标(黑)_密码.png" Stretch="Fill"/>

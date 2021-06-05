@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="找回密码" Height="450" Width="400" ResizeMode="NoResize">
     <Grid>
-        <!--GIF背景-->
+        <!--背景图片-->
         <Grid.Background>
             <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <!--找回密码Label-->
-        <Label HorizontalAlignment="Center" Foreground="Black" Content="找回密码"   VerticalAlignment="Top" FontSize="36" Margin="120,6,119.6,0"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="找回密码"   VerticalAlignment="Top" FontSize="36" Margin="100,10,100.6,0"/>
         <!--确定Button-->
         <Button Name="Button_Refind" Content="确定" FontSize="22"  Margin="10,354,249.6,10" Foreground="White" 
                 MouseEnter="Button_MouseEnter"
@@ -87,11 +87,31 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
+        <TextBox x:Name="TextBox_pwd" VerticalContentAlignment="Center" FontFamily="Courier New" FontSize="20" Margin="87,223,47.6,147" IsReadOnly="True">
+            <TextBox.Resources>
+                <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
+                    <VisualBrush.Visual>
+                        <TextBlock Text="输入账号和用户名找回密码" Foreground="Black" Opacity="0.5"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </TextBox.Resources>
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter Property="Background" Value="{StaticResource HintText}"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter Property="Background" Value="{StaticResource HintText}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <!--各个图标-->
         <Image Margin="34,107,318.6,273" Source="ImageResources\图标(黑)_账号.png" Stretch="Fill"/>
         <Image Margin="34,167,318.6,213" Source="ImageResources\图标(黑)_用户名.png" Stretch="Fill"/>
-        <Image Margin="34,237,318.6,143" Source="ImageResources\图标(黑)_提示.png" Stretch="Fill"/>
-        <!--提示Label-->
-        <Label Foreground="Black" Content="输入用户名与账号查询密码" FontSize="18" Margin="87,237,47.6,143"/>
+        <Image Margin="34,230,318.6,150" Source="ImageResources\图标(黑)_密码.png" Stretch="Fill"/>
+        
     </Grid>
 </Window>

@@ -25,11 +25,16 @@ public class CommonUserVHandler extends VHandler implements Runnable {
                     break;
             while (true) {
                 TransMessage message = transceiver.receiveMessage();
-                message.dePackage(rsaPKFile, sessionKey);
+                message.dePackage(clientPKeyFile, sessionKey);
                 if (message.getErrorCode() == EnumErrorCode.Error)
                     throw new Exception("报文错误！");
                 switch (message.getSpecificType()) {
                     case EnumCUV.Login -> login(message);
+                    case EnumCUV.Register -> register(message);
+                    case EnumCUV.Refind -> refind(message);
+                    case EnumCUV.ModifyName -> modifyName(message);
+                    case EnumCUV.ModifyPassword -> modifyPassword(message);
+
                 }
             }
 
@@ -62,7 +67,7 @@ public class CommonUserVHandler extends VHandler implements Runnable {
         Element replyRoot = document.createElement("login");
         Element stateElement = document.createElement("state");
         if (user.getUPassword().equals(u_passwordStr) && user.getUAccess() >= EnumUserAccess.U_Comm) {
-            stateElement.setTextContent("ture");
+            stateElement.setTextContent("true");
             Element userElement = document.createElement("user");
             Element u_idElement = document.createElement("u_id");
             u_idElement.setTextContent(user.getUId());
@@ -93,15 +98,137 @@ public class CommonUserVHandler extends VHandler implements Runnable {
         message.setServiceType(EnumServiceType.CUV);
         message.setSpecificType(EnumCUV.Login);
         message.setContents(XMLPhaser.docToString(document));
-        message.enPackage(rsaPKFile, sessionKey);
+        message.enPackage(MySKeyFile, sessionKey);
         transceiver.sendMessage(message);
     }
 
-    private void logOut(TransMessage transMessage) {
-
+    private void register(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        User user = new User();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "u_id" -> user.setUId(childNode.getTextContent());
+                case "u_name" -> user.setUName(childNode.getTextContent());
+                case "u_password" -> user.setUPassword(childNode.getTextContent());
+                case "u_access" -> user.setUAccess(Byte.parseByte(childNode.getTextContent()));
+                case "u_money" -> user.setUMoney(Float.parseFloat(childNode.getTextContent()));
+            }
+        }
+        document = XMLBuilder.buildXMLDoc();
+        Element registerElement = document.createElement("register");
+        Element stateElement = document.createElement("state");
+        stateElement.setTextContent(String.valueOf(DBCommand.insertUser(user)));
+        registerElement.appendChild(stateElement);
+        document.appendChild(registerElement);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.Register);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
     }
 
-    private void getReords(TransMessage transMessage) {
+    private void refind(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String u_idStr = null, u_nameStr = null;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "u_id" -> u_idStr = childNode.getTextContent();
+                case "u_name" -> u_nameStr = childNode.getTextContent();
+            }
+        }
+        User user = DBCommand.getUserById(u_idStr);
+        document = XMLBuilder.buildXMLDoc();
+        Element refindElement = document.createElement("refind");
+        Element stateElement = document.createElement("state");
+        refindElement.appendChild(stateElement);
+        if (user != null) {
+            stateElement.setTextContent(String.valueOf(user.getUName().equals(u_nameStr)));
+            Element u_passwordElement = document.createElement("u_password");
+            u_passwordElement.setTextContent(user.getUPassword());
+            refindElement.appendChild(u_passwordElement);
+        } else
+            stateElement.setTextContent("false");
+        document.appendChild(refindElement);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.Refind);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
+    }
+
+    private void modifyName(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String u_idStr = null, u_nameStr = null;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "u_id" -> u_idStr = childNode.getTextContent();
+                case "u_name" -> u_nameStr = childNode.getTextContent();
+            }
+        }
+        document = XMLBuilder.buildXMLDoc();
+        Element modifyElement = document.createElement("modify_name");
+        Element stateElement = document.createElement("state");
+        stateElement.setTextContent(String.valueOf(DBCommand.updateUName(u_idStr,u_nameStr)));
+        modifyElement.appendChild(stateElement);
+        document.appendChild(modifyElement);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.ModifyName);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
+    }
+
+    private void modifyPassword(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String u_idStr = null, u_passwordStr = null;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "u_id" -> u_idStr = childNode.getTextContent();
+                case "u_password" -> u_passwordStr = childNode.getTextContent();
+            }
+        }
+        document = XMLBuilder.buildXMLDoc();
+        Element modifyElement = document.createElement("modify_password");
+        Element stateElement = document.createElement("state");
+        stateElement.setTextContent(String.valueOf(DBCommand.updatePassword(u_idStr, u_passwordStr)));
+        modifyElement.appendChild(stateElement);
+        document.appendChild(modifyElement);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.ModifyPassword);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
+    }
+
+    private void getRecords(TransMessage transMessage) {
 
     }
 

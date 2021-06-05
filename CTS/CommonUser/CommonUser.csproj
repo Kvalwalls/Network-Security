@@ -61,6 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -113,9 +114,6 @@
     <Compile Include="MovieInfoWindow.xaml.cs">
       <DependentUpon>MovieInfoWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MsgShowWindow.xaml.cs">
-      <DependentUpon>MsgShowWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MyPayWindow.xaml.cs">
       <DependentUpon>MyPayWindow.xaml</DependentUpon>
     </Compile>
@@ -159,10 +157,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MovieInfoWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MsgShowWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

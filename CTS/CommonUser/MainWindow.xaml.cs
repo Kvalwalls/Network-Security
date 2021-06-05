@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using CommonUser.Entity;
+using CommonUser.AppServices;
 
 namespace CommonUser
 {
@@ -24,13 +25,19 @@ namespace CommonUser
         private bool modNameSure;
         private bool modPwdSure;
         private DispatcherTimer showTimer;
+        private CUVHandler handler;
         public MainWindow(User user)
         {
             this.user = user;
+            handler = CUVHandler.GetInstance();
             InitializeComponent();
             InitTextBlock_Time();
-            InitTextBlock_Hello();
-            InitPersonalInfo();
+            SetPersonInfo();
+
+            
+           
+            SetHelloInfo();
+            
             InitMovies();
             InitRecords();
         }
@@ -41,15 +48,13 @@ namespace CommonUser
             showTimer.Tick += new EventHandler
                 (
                     (object sender, EventArgs e) =>
-                    {
-                        this.TextBlock_Time.Text = DateTime.Now.ToString("yyyy年MM月dd日 dddd HH:mm:ss");
-                    }
+                        TextBlock_Time.Text = DateTime.Now.ToString("yyyy/MM/dd dddd HH:mm:ss")
                 );
             showTimer.Interval = new TimeSpan(0, 0, 0, 1, 0);
             showTimer.Start();
         }
 
-        private void InitTextBlock_Hello()
+        private void SetHelloInfo()
         {
             TextBlock_Hello.Text = "欢迎您！";
             switch (user.Uaccess)
@@ -76,11 +81,11 @@ namespace CommonUser
             TextBlock_Hello.Text += user.Uname;
         }
 
-        private void InitPersonalInfo()
+        private void SetPersonInfo()
         {
             TextBox_Id.Text = user.Uid;
             TextBox_Name.Text = user.Uname;
-            string temp = "";
+            string temp = string.Empty;
             for (int i = 0; i < user.Upassword.Length; i++)
                 temp += "*";
             TextBox_Pwd.Text = temp;
@@ -175,9 +180,24 @@ namespace CommonUser
                 Button_ModMoney.IsEnabled = true;
                 Button_Cancel.Opacity = 0;
                 Button_Cancel.IsEnabled = false;
-                /*发送修改请求*/
-                /*更新页面*/
-                InitTextBlock_Hello();
+                if (TextBox_Name.Text.Length > 20)
+                {
+                    MessageBox.Show("用户名长度不得超过20位！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (handler.ModifyName(TextBox_Id.Text, TextBox_Name.Text))
+                {
+                    MessageBox.Show("修改成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    user.Uname = TextBox_Name.Text;
+                    SetHelloInfo();
+                    SetPersonInfo();
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("修改失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
             }
             else
             {
@@ -216,12 +236,24 @@ namespace CommonUser
                 Button_ModMoney.IsEnabled = true;
                 Button_Cancel.Opacity = 0;
                 Button_Cancel.IsEnabled = false;
-                /*发送修改请求*/
-                /*更新页面*/
-                string temp = "";
-                for (int i = 0; i < TextBox_Pwd.Text.Length; i++)
-                    temp += "*";
-                TextBox_Pwd.Text = temp;
+                if (TextBox_Pwd.Text.Length > 20)
+                {
+                    MessageBox.Show("密码长度不得超过20位！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (handler.ModifyPassword(TextBox_Id.Text, TextBox_Pwd.Text))
+                {
+                    MessageBox.Show("修改成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    user.Upassword = TextBox_Pwd.Text;
+                    SetHelloInfo();
+                    SetPersonInfo();
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("修改失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
             }
             else
             {

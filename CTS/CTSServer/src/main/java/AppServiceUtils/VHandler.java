@@ -13,12 +13,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.awt.*;
-
 public abstract class VHandler {
     protected String sessionKey;
 
-    protected String rsaPKFile;
+    protected String clientPKeyFile;
+
+    protected String MySKeyFile = PropertiesHandler.getElement("CUV_SKeyFile");
 
     protected byte[] fromAddr;
 
@@ -31,10 +31,10 @@ public abstract class VHandler {
             TransMessage message = transceiver.receiveMessage();
             toAddr = message.getFromAddress();
             fromAddr = message.getToAddress();
-            rsaPKFile = "src\\resourcesV\\KeyFiles\\"
+            clientPKeyFile = "src\\resourcesV\\KeyFiles\\"
                     + PropertiesHandler.getElement(AddressPhaser.bytesToString(message.getFromAddress()))
                     + ".pk";
-            message.dePackage(rsaPKFile, null);
+            message.dePackage(clientPKeyFile, null);
             if(message.getSpecificType() == EnumKerberos.Request) {
                 TransMessage replyMessage = null;
                 //报文有错误
