@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Net.Sockets;
 using System.Text;
-using 服务器UI;
 
 namespace AdminUser.Transmission
 {
