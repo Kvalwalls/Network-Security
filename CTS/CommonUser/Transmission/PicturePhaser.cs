@@ -24,9 +24,10 @@ namespace CommonUser.Transmission
         /// </summary>
         /// <param name="Base64Str">Base64格式字符串</param>
         /// <param name="Mid">影片号</param>
-        public static void Base64ToPicture(string Base64Str, string Mid)
+        public static void Base64ToPicture(string Base64Str, string picName)
         {
-            string picName = "..\\..\\MoviePictures\\" + Mid + ".jpg";
+            if (File.Exists(picName))
+                return;
             FileStream fs = new FileStream(picName, FileMode.Create);
             byte[] picBytes = Convert.FromBase64String(Base64Str);
             fs.Write(picBytes, 0, picBytes.Length);

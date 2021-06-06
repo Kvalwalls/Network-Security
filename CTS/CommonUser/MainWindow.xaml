@@ -38,7 +38,7 @@
         <!--TabControl-->
         <TabControl Grid.Column="1"  TabStripPlacement="Left" HorizontalAlignment="Left" Height="530" Margin="9.6,59.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1154" Grid.ColumnSpan="4">
             <!--TabItem1-->
-            <TabItem Height="75" Width="150" Header="个人中心">
+            <TabItem Height="75" Width="150" Header="个人中心" MouseLeftButtonUp="PersonTabItem_Selected">
                 <Grid>
                     <!--背景-->
                     <Grid.Background>
@@ -164,7 +164,7 @@
                 </Grid>
             </TabItem>
             <!--TabItem2-->
-            <TabItem Height="75" Width="150" Header="购票中心">
+            <TabItem Height="75" Width="150" Header="购票中心" MouseLeftButtonUp="MovieTabItem_Selected">
                 <Grid>
                     <!--背景-->
                     <Grid.Background>
@@ -210,7 +210,6 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <!--刷新Image-->
                     <!--ListView-->
                     <ListView Name="ListView_Movies" Margin="13,60,14,10" ItemsSource="{Binding}"
                               ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Visible">
@@ -230,7 +229,7 @@
                                             <RowDefinition Height="20"/>
                                             <RowDefinition Height="50"/>
                                         </Grid.RowDefinitions>
-                                        <Image Source="{Binding Path=Mpicture}" VerticalAlignment="Center" Grid.Row="0"/>
+                                        <Image Source="{Binding Path=Mpicture}"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
                                         <TextBlock Text="{Binding Path=Mname}" FontSize="28" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="1" TextWrapping="Wrap"/>
                                         <TextBlock Text="{Binding Path=Mcomment}" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="2"/>
                                         <TextBlock Text="{Binding Path=Mtype}" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="3"/>
@@ -272,7 +271,7 @@
                 </Grid>
             </TabItem>
             <!--TabItem3-->
-            <TabItem Height="75" Width="150" Header="票务中心">
+            <TabItem Height="75" Width="150" Header="票务中心" MouseLeftButtonUp="RecordTabItem_Selected">
                 <Grid>
                     <!--背景-->
                     <Grid.Background>
@@ -347,69 +346,6 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-
-                </Grid>
-            </TabItem>
-            <!--TabItem4-->
-            <TabItem Height="75" Width="150" Header="反馈中心">
-                <Grid>
-                    <!--背景-->
-                    <Grid.Background>
-                        <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg" Opacity="0.8" Stretch="UniformToFill"/>
-                    </Grid.Background>
-                    <Image Margin="60,45,866,410" Source="ImageResources/图标(黑)_反馈.png" Stretch="Fill"/>
-                    <TextBox  Margin="150,45,10,113" FontSize="28" Name="TextBox_Feedback" IsReadOnly="False"
-                              TextWrapping="Wrap" VerticalScrollBarVisibility="Auto">
-                        <TextBox.Resources>
-                            <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None">
-                                <VisualBrush.Visual>
-                                    <TextBlock  FontSize="28" Text="请提出您宝贵的意见！" Foreground="Black" Opacity="0.5"/>
-                                </VisualBrush.Visual>
-                            </VisualBrush>
-                        </TextBox.Resources>
-                        <TextBox.Style>
-                            <Style TargetType="{x:Type TextBox}">
-                                <Style.Triggers>
-                                    <Trigger Property="Text" Value="{x:Null}">
-                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
-                                    </Trigger>
-                                    <Trigger Property="Text" Value="">
-                                        <Setter Property="Background" Value="{StaticResource HintText}"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
-                    <Button x:Name="Button_Commit" Content="确认提交" FontSize="30"  Margin="185,431,621,10" Foreground="White" 
-                        MouseEnter="X_MouseEnter"
-                        MouseLeave="X_MouseLeave"
-                        Click="Button_Commit_Click">
-                        <Button.Template >
-                            <ControlTemplate TargetType="{x:Type Button}" >
-                                <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
-                                    <Border.Background>
-                                        <Brush>Gray</Brush>
-                                    </Border.Background>
-                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button x:Name="Button_Flush" Content="清空内容" FontSize="30"  Margin="796,431,10,10" Foreground="White" 
-                        MouseEnter="X_MouseEnter"
-                        MouseLeave="X_MouseLeave"
-                        Click="Button_Flush_Click">
-                        <Button.Template >
-                            <ControlTemplate TargetType="{x:Type Button}" >
-                                <Border Opacity="0.9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
-                                    <Border.Background>
-                                        <Brush>Gray</Brush>
-                                    </Border.Background>
-                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
                 </Grid>
             </TabItem>
         </TabControl>
@@ -459,5 +395,3 @@
         </Style>
     </Window.Resources>
 </Window>
-
-<!-- -->

@@ -14,10 +14,6 @@ namespace CommonUser
 	/// </summary>
 	public partial class LoginWindow : Window
 	{
-		//账号
-		private string Uid = string.Empty;
-		//密码
-		private string Upassword = string.Empty;
 		//工作路径
 		private readonly string workPath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).ToString()).ToString();
 		//CUVHandler实例
@@ -40,33 +36,31 @@ namespace CommonUser
 		//登录按钮函数
 		private void Button_Login_Click(object sender, RoutedEventArgs e)
 		{
-			Uid = TextBox_id.Text;
-			if (string.Empty.Equals(Uid) && string.Empty.Equals(Upassword))
+			if (string.Empty.Equals(TextBox_id.Text) && string.Empty.Equals(PasswordBox_pwd.Password))
 			{
 				MessageBox.Show("请输入账号和密码！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
 				return;
 			}
-			if (string.Empty.Equals(Uid))
+			if (string.Empty.Equals(TextBox_id.Text))
 			{
 				MessageBox.Show("请输入账号！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
 				return;
 			}
-			if (string.Empty.Equals(Upassword))
+			if (string.Empty.Equals(PasswordBox_pwd.Password))
 			{
 				MessageBox.Show("请输入密码！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
 				return;
 			}
-			User user = handler.Login(Uid, Upassword);
-			if (user == null)
+			if (handler.Login(TextBox_id.Text, PasswordBox_pwd.Password))
 			{
-				MessageBox.Show("登录失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-				return;
+				MessageBox.Show("登录成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+				new MainWindow(TextBox_id.Text).Show();
+				Close();
 			}
 			else
 			{
-				MessageBox.Show("登录成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
-				new MainWindow(user).Show();
-				Close();
+				MessageBox.Show("登录失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
 			}
 		}
 
@@ -106,22 +100,6 @@ namespace CommonUser
 		private void Button_MouseLeave(object sender, MouseEventArgs e)
 		{
 			Cursor = Cursors.Arrow;
-		}
-
-		//密码文本框样式
-		private void TextBox_pwd_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			if (TextBox_pwd.Text.Length <= Upassword.Length)
-			{
-				Upassword = Upassword.Substring(0, TextBox_pwd.Text.Length);
-				return;
-			}
-			Upassword += TextBox_pwd.Text[TextBox_pwd.Text.Length - 1];
-			string temp = "";
-			for (int i = 0; i < TextBox_pwd.Text.Length; i++)
-				temp += "*";
-			TextBox_pwd.Text = temp;
-			TextBox_pwd.Select(TextBox_pwd.Text.Length, 0);
 		}
 	}
 }

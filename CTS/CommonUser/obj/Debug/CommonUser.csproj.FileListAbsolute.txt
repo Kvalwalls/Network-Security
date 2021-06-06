@@ -87,3 +87,4 @@ F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.c
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.csproj.CopyComplete
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.exe
 F:\My FILS\大三\lotSafe\Network-Security\CTS\CommonUser\obj\Debug\CommonUser.pdb
+C:\Users\19705\Desktop\Network-Security\CTS\CommonUser\bin\Debug\Panuon.UI.Silver.dll

@@ -1,4 +1,5 @@
-﻿using CommonUser.Entity;
+﻿using CommonUser.AppServices;
+using CommonUser.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,12 @@ namespace CommonUser
     public partial class RechargeWindow : Window
     {
         private User user;
+        private CUVHandler handler;
 
         public RechargeWindow(User user)
         {
             this.user = user;
+            handler = CUVHandler.GetInstance();
             InitializeComponent();
             TextBlock_Id.Text += user.Uid;
             TextBlock_Money.Text += (user.Umoney + "元");
@@ -50,14 +53,17 @@ namespace CommonUser
             float number = 0.0f;
             if (!IsNumber(TextBox_Input.Text, out number))
             {
-                MessageBox.Show("请输入正确的数字！", "错误",MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("请输入正确的数字！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                TextBox_Input.Text = string.Empty;
                 return;
             }
             else
             {
                 new MyPayWIndow(number).ShowDialog();
-                /*发送请求*/
-                MessageBox.Show("充值成功！", "提示",MessageBoxButton.OK,MessageBoxImage.Information);
+                if (handler.Recharge(user.Uid, number))
+                    MessageBox.Show("充值成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                    MessageBox.Show("充值失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                 Close();
             }
         }

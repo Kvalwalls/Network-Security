@@ -51,19 +51,22 @@ namespace CommonUser.Entity
         public int Mtime { get; set; }
         //评分
         public float Mcomment { get; set; }
+        //图片
+        public string Mpicture { get; set; }
         //简介
         public string Mdescription { get; set; }
 
         /// <summary>
         /// 带参数的构造函数
         /// </summary>
-        public Movie(string mid, string mname, string mtype, int mtime, float mcomment, string mdescription)
+        public Movie(string mid, string mname, string mtype, int mtime, float mcomment, string mpicture, string mdescription)
         {
             Mid = mid;
             Mname = mname;
             Mtype = mtype;
             Mtime = mtime;
             Mcomment = mcomment;
+            Mpicture = mpicture;
             Mdescription = mdescription;
         }
 

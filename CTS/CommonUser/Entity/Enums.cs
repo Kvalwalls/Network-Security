@@ -35,10 +35,22 @@
         public const byte Register = 1;
         //找回密码
         public const byte Refind = 2;
+        //获取个人信息
+        public const byte GetUser = 3;
         //修改名称
-        public const byte ModifyName = 3;
+        public const byte ModifyName = 4;
         //修改密码
-        public const byte ModifyPassword = 4;
+        public const byte ModifyPassword = 5;
+        //升级权限
+        public const byte UpgradeAccess = 6;
+        //金额充值
+        public const byte Recharge = 7;
+        //获取所有影片信息
+        public const byte GetMovies = 8;
+        //获取所有影片图片
+        public const byte GetMoviePictures = 9;
+        //获取所有购票记录
+        public const byte GetRecords = 10;
     }
 
     //加密码枚举

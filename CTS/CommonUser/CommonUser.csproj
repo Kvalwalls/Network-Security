@@ -58,6 +58,9 @@
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>.\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="Panuon.UI.Silver, Version=1.1.3.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Panuon.UI.Silver.1.1.3.4\lib\net45\Panuon.UI.Silver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -224,6 +227,7 @@
     <None Include="KeyFiles\Client1.sk" />
     <None Include="KeyFiles\TGS.pk" />
     <None Include="KeyFiles\V.pk" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -316,16 +320,6 @@
     <Resource Include="ImageResources\图标%28黑%29_搜索.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MoviePictures\M00001.jpg" />
-    <Resource Include="MoviePictures\M00002.jpg" />
-    <Resource Include="MoviePictures\M00003.jpg" />
-    <Resource Include="MoviePictures\M00004.jpg" />
-    <Resource Include="MoviePictures\M00005.jpg" />
-    <Resource Include="MoviePictures\M00006.jpg" />
-    <Resource Include="MoviePictures\M00007.jpg" />
-    <Resource Include="MoviePictures\M00008.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_时长.png" />
     <Resource Include="ImageResources\图标%28黑%29_类型.png" />
     <Resource Include="ImageResources\图标%28黑%29_评分.png" />
@@ -365,7 +359,9 @@
   <ItemGroup>
     <Resource Include="ImageResources\图标%28黑%29_可选座位.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MoviePictures\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageResources\背景_界面静态_蓝色菱形切片.png" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿using CommonUser.Entity;
+﻿using CommonUser.AppServices;
+using CommonUser.Entity;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,10 +11,12 @@ namespace CommonUser
     public partial class UpgradeWindow : Window
     {
         private User user;
+        private CUVHandler handler;
         public UpgradeWindow(User user)
         {
-            InitializeComponent();
             this.user = user;
+            handler = CUVHandler.GetInstance();
+            InitializeComponent();
             TextBlock_Id.Text += user.Uid;
             switch (user.Uaccess)
             {
@@ -46,20 +49,22 @@ namespace CommonUser
 
         private void Button_Upgrade_Click(object sender, RoutedEventArgs e)
         {
-            int newAccess = ComboBox_Access.SelectedIndex + 2;
+            int newAccess = ComboBox_Access.SelectedIndex + 3;
             if (newAccess == 1)
             {
-                MessageBox.Show("请选择正确的权限！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("请选择正确的权限！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (newAccess <= user.Uaccess)
             {
-                MessageBox.Show("请选择更高的权限！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("请选择更高的权限！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             new MyPayWIndow(newAccess * 199).ShowDialog();
-            /*发送请求*/
-            MessageBox.Show("升级成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (handler.UpgradeAccess(user.Uid, (byte)newAccess))
+                MessageBox.Show("升级权限成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show("升级权限失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
             Close();
         }
     }

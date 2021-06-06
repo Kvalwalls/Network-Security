@@ -6,8 +6,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using CommonUser.Entity;
 using CommonUser.AppServices;
 
@@ -18,33 +16,29 @@ namespace CommonUser
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string uid;
         private User user;
-        private List<Movie> movies = new List<Movie>();
-        private List<Record> records = new List<Record>();
+        private List<Movie> movies;
+        private List<Record> records;
         private bool isEyeOpen;
         private bool modNameSure;
         private bool modPwdSure;
-        private DispatcherTimer showTimer;
         private CUVHandler handler;
-        public MainWindow(User user)
+        public MainWindow(string uid)
         {
-            this.user = user;
+            this.uid = uid;
             handler = CUVHandler.GetInstance();
             InitializeComponent();
-            InitTextBlock_Time();
-            SetPersonInfo();
-
-            
-           
+            SetPersonTabInfo();
+            SetMovieTabInfo();
+            SetTimeInfo();
             SetHelloInfo();
-            
-            InitMovies();
-            InitRecords();
         }
 
-        private void InitTextBlock_Time()
+        //设置时间信息
+        private void SetTimeInfo()
         {
-            showTimer = new System.Windows.Threading.DispatcherTimer();
+            DispatcherTimer  showTimer = new System.Windows.Threading.DispatcherTimer();
             showTimer.Tick += new EventHandler
                 (
                     (object sender, EventArgs e) =>
@@ -54,8 +48,12 @@ namespace CommonUser
             showTimer.Start();
         }
 
+        //设置欢迎信息
         private void SetHelloInfo()
         {
+            Image_common.Opacity = 0;
+            Image_vip.Opacity = 0;
+            Image_svip.Opacity = 0;
             TextBlock_Hello.Text = "欢迎您！";
             switch (user.Uaccess)
             {
@@ -81,8 +79,9 @@ namespace CommonUser
             TextBlock_Hello.Text += user.Uname;
         }
 
-        private void SetPersonInfo()
+        private void SetPersonTabInfo()
         {
+            user = handler.GetUser(uid);
             TextBox_Id.Text = user.Uid;
             TextBox_Name.Text = user.Uname;
             string temp = string.Empty;
@@ -104,64 +103,19 @@ namespace CommonUser
             }
         }
 
-        private void InitMovies()
+        private void SetMovieTabInfo()
         {
-            Movie temp = null;
-            temp = ReadMovie("..\\..\\FileInfo\\M00001.txt");
-            movies.Add(temp);
-            temp = ReadMovie("..\\..\\FileInfo\\M00002.txt");
-            movies.Add(temp);
-            temp = ReadMovie("..\\..\\FileInfo\\M00003.txt");
-            movies.Add(temp);
-            temp = ReadMovie("..\\..\\FileInfo\\M00004.txt");
-            movies.Add(temp);
-            temp = ReadMovie("..\\..\\FileInfo\\M00005.txt");
-            movies.Add(temp);
-            temp = ReadMovie("..\\..\\FileInfo\\M00006.txt");
-            movies.Add(temp);
-            temp = ReadMovie("..\\..\\FileInfo\\M00007.txt");
-            movies.Add(temp);
-            temp = ReadMovie("..\\..\\FileInfo\\M00008.txt");
-            movies.Add(temp);
+            movies = handler.GetMovies();
+            handler.GetMoviePictures();
             ListView_Movies.DataContext = movies;
+            ListView_Movies.Items.Refresh();
         }
 
-        private void InitRecords()
+        private void SetRecordTabInfo()
         {
             ListView_Records.ItemsSource = records;
         }
 
-        private Movie ReadMovie(string fileName)
-        {
-            Movie movie = new Movie();
-            try
-            {
-                using (StreamReader sr = new StreamReader(File.OpenRead(fileName)))
-                {
-                    movie.Mid = sr.ReadLine();
-                    movie.Mname = sr.ReadLine();
-                    movie.Mtype = sr.ReadLine();
-                    movie.Mtime = int.Parse(sr.ReadLine());
-                    movie.Mcomment = float.Parse(sr.ReadLine());
-                    movie.Mdescription = sr.ReadLine();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return movie;
-        }
-
-        private void X_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            Cursor = Cursors.Hand;
-        }
-
-        private void X_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            Cursor = Cursors.Arrow;
-        }
 
         private void Button_ModName_Click(object sender, RoutedEventArgs e)
         {
@@ -189,8 +143,8 @@ namespace CommonUser
                 {
                     MessageBox.Show("修改成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                     user.Uname = TextBox_Name.Text;
+                    SetPersonTabInfo();
                     SetHelloInfo();
-                    SetPersonInfo();
                     return;
                 }
                 else
@@ -245,8 +199,7 @@ namespace CommonUser
                 {
                     MessageBox.Show("修改成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                     user.Upassword = TextBox_Pwd.Text;
-                    SetHelloInfo();
-                    SetPersonInfo();
+                    SetPersonTabInfo();
                     return;
                 }
                 else
@@ -280,6 +233,8 @@ namespace CommonUser
         {
             Hide();
             new UpgradeWindow(user).ShowDialog();
+            SetPersonTabInfo();
+            SetHelloInfo();
             Show();
         }
 
@@ -287,6 +242,7 @@ namespace CommonUser
         {
             Hide();
             new RechargeWindow(user).ShowDialog();
+            SetPersonTabInfo();
             Show();
         }
 
@@ -391,7 +347,7 @@ namespace CommonUser
             if (modPwdSure)
             {
                 Image_PwdTrue.Opacity = 1;
-                if (TextBox_Pwd.Text.Length > 20 || TextBox_Pwd.Text.Length == 0 || HasChinese(TextBox_Pwd.Text))
+                if (TextBox_Pwd.Text.Length > 20 || TextBox_Pwd.Text.Length == 0 || Regex.IsMatch(TextBox_Pwd.Text, @"[\u4e00-\u9fa5]"))
                 {
                     Image_PwdTrue.Opacity = 0;
                     Image_PwdFalse.Opacity = 1;
@@ -409,34 +365,23 @@ namespace CommonUser
             }
         }
 
-        private static bool HasChinese(string str)
-        {
-            return Regex.IsMatch(str, @"[\u4e00-\u9fa5]");
-        }
-
         private void Button_Search_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void Button_Commit_Click(object sender, RoutedEventArgs e)
-        {
-            if(TextBox_Feedback.Text.Equals(""))
+            if (string.Empty.Equals(TextBox_Search.Text))
             {
-                MessageBox.Show("请您输入反馈意见内容！", "输入错误");
+                ListView_Movies.DataContext = movies;
+                ListView_Movies.Items.Refresh();
                 return;
             }
-            else
+            List<Movie> tempList = new List<Movie>();
+            foreach (Movie temp in movies)
             {
-                /*发送请求*/
-                MessageBox.Show("感谢您的反馈！", "提示");
-                TextBox_Feedback.Text = null;
+                if (temp.Mname.Contains(TextBox_Search.Text))
+                    tempList.Add(temp);
             }
-        }
-
-        private void Button_Flush_Click(object sender, RoutedEventArgs e)
-        {
-            TextBox_Feedback.Text = null;
+            ListView_Movies.DataContext = tempList;
+            ListView_Movies.Items.Refresh();
         }
 
         private void Button_Buy_Click(object sender, RoutedEventArgs e)
@@ -457,13 +402,15 @@ namespace CommonUser
 
         private void Button_RefreshMList_Click(object sender, RoutedEventArgs e)
         {
-            /*刷新*/
+            ListView_Movies.DataContext = null;
+            ListView_Movies.Items.Refresh();
+            SetMovieTabInfo();
         }
 
         private void Button_ReShowList_Click(object sender, RoutedEventArgs e)
 		{
-			
-		}
+           
+        }
 
 		private void Button_Refund_Click(object sender, RoutedEventArgs e)
 		{
@@ -489,7 +436,32 @@ namespace CommonUser
 
         private void Button_Refresh_RList_Click(object sender, RoutedEventArgs e)
         {
-            InitRecords();
+            SetRecordTabInfo();
+        }
+
+
+        private void PersonTabItem_Selected(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void MovieTabItem_Selected(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void RecordTabItem_Selected(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void X_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+        private void X_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Cursor = Cursors.Arrow;
         }
     }
 }

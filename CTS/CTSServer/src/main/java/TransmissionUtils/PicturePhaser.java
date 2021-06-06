@@ -24,11 +24,10 @@ public class PicturePhaser {
      * Base64转换图片方法
      *
      * @param base64Str Base64格式字符串
-     * @param Mid       影片号
+     * @param picName   图片名
      * @throws Exception IO异常
      */
-    public static void base64ToPicture(String base64Str, String Mid) throws Exception {
-        String picName = "src\\resources\\MoviePictures\\" + Mid + ".jpg";
+    public static void base64ToPicture(String base64Str, String picName) throws Exception {
         OutputStream outputStream = new FileOutputStream(picName);
         Base64.Decoder decoder = Base64.getDecoder();
         byte[] picBytes = decoder.decode(base64Str.getBytes());
