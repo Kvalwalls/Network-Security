@@ -96,6 +96,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppService\VHandler.cs" />
     <Compile Include="Entity\Data.cs" />
     <Compile Include="Entity\Enums.cs" />
     <Compile Include="Kerberos\ASHandler.cs" />
@@ -117,7 +118,7 @@
     <Compile Include="Security\RSAHandler.cs" />
     <Compile Include="Transmission\AddressPhaser.cs" />
     <Compile Include="Transmission\Connection.cs" />
-    <Compile Include="AppService\AdminUserHandler.cs" />
+    <Compile Include="AppService\AUVHandler.cs" />
     <Compile Include="Transmission\IntBytesPhaser.cs" />
     <Compile Include="Transmission\PicturePhaser.cs" />
     <Compile Include="Transmission\Transceiver.cs" />
