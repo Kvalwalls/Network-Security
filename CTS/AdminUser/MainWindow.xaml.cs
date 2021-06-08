@@ -27,7 +27,7 @@ namespace AdminUser
     public partial class MainWindow : Window
     {
         private static User user;
-        private static AdminUserHandler handler;
+        private static AUVHandler handler;
         //private bool isEyeOpen;
         //private bool modNameSure;
         //private bool modPwdSure;
@@ -42,7 +42,7 @@ namespace AdminUser
         public MainWindow(User u)
         {
             InitializeComponent();
-            handler = AdminUserHandler.GetInstatnce();
+            handler = AUVHandler.GetInstance();
             InitTextBlock_Time();
             InitLists();
             InitTextBlock_Hello();

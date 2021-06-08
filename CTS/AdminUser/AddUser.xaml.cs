@@ -21,12 +21,12 @@ namespace AdminUser
     /// </summary>
     public partial class AddUser : Window
     {
-        private static AdminUserHandler handler;
+        private static AUVHandler handler;
         private static List<User> SubUsers;
         public AddUser(List<User> users)
         {
             InitializeComponent();
-            handler = AdminUserHandler.GetInstatnce();
+            handler = AUVHandler.GetInstance();
             SubUsers = users;
             IdTip.Visibility = Visibility.Hidden;
             NameTip.Visibility = Visibility.Hidden;

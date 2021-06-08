@@ -1,4 +1,5 @@
 ﻿using AdminUser.Entity;
+using AdminUser.Transmission;
 using AdminUser.AppService;
 using Microsoft.Win32;
 using System;
@@ -15,13 +16,13 @@ namespace AdminUser
     /// </summary>
     public partial class AddMovie : Window
     {
-        private static AdminUserHandler handler;
+        private static AUVHandler handler;
         private static List<Movie> SubMovies;
         private static string picture;
         public AddMovie(List<Movie> movies)
         {
             InitializeComponent();
-            handler = AdminUserHandler.GetInstatnce();
+            handler = AUVHandler.GetInstance();
             SubMovies = movies;
             MidTip.Visibility = Visibility.Hidden;
             NameTip.Visibility = Visibility.Hidden;
@@ -54,11 +55,11 @@ namespace AdminUser
                 BitmapEncoder encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(image));
 
-                using (var fileStream = new System.IO.FileStream(@"C:\Users\dell\Desktop\网安课设\MoviePictures\" + TextBox_mid.Text + ".png", System.IO.FileMode.Create))
+                using (var fileStream = new System.IO.FileStream("..\\..\\MoviePictures\\" + TextBox_mid.Text + ".jpg", System.IO.FileMode.Create))
                 {
                     encoder.Save(fileStream);
                 }
-                picture = @"C:\Users\dell\Desktop\网安课设\MoviePictures\" + TextBox_mid.Text + ".png";
+                picture = "..\\..\\MoviePictures\\" + TextBox_mid.Text + ".jpg";
             }
 
 
@@ -118,6 +119,7 @@ namespace AdminUser
                 if (result == 1)
                 {
                     handler.addMovieRequest(n);
+                    handler.SendPicture(PicturePhaser.PictureToBase64(picture));
                     if (handler.addMovieReply() == "添加成功")
                     {
                         MessageBox.Show("添加成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);

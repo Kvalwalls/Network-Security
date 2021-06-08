@@ -21,14 +21,14 @@ namespace AdminUser
     /// </summary>
     public partial class Login : Window
     {
-		private static AdminUserHandler handler;
+		private static AUVHandler handler;
 		private string id = "";
 		private string password = "";
 
 		public Login()
         {
             InitializeComponent();
-			handler = AdminUserHandler.GetInstatnce();
+			handler = AUVHandler.GetInstance();
             string path1 = System.IO.Directory.GetCurrentDirectory();
             string path2 = System.IO.Directory.GetParent(path1).ToString();
             string path3 = System.IO.Directory.GetParent(path2).ToString();

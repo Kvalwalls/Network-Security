@@ -1,4 +1,5 @@
-﻿using AdminUser.Entity;
+﻿using AdminUser.AppService;
+using AdminUser.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,17 +22,20 @@ namespace AdminUser
     public partial class MovieInfo : Window
     {
         private static Movie M;
+        private static AUVHandler handler;
         public MovieInfo(Movie m)
         {
             InitializeComponent();
             M = m;
+            handler = AUVHandler.GetInstance();
             TextBlock_Mid.Text += M.Mid;
             TextBlock_Name.Text += M.Mname;
             TextBlock_Type.Text += M.Mtype;
             TextBlock_Time.Text += M.Mtime;
             TextBlock_Score.Text += M.Mcomment;
             TextBlock_Des.Text += M.Mdescription;
-            MovieImage.Source = new BitmapImage(new Uri(@"C:\Users\dell\Desktop\网安课设\MoviePictures\" + M.Mid + ".png"));
+            handler.GetMoviePictures();
+            MovieImage.Source = new BitmapImage(new Uri("..\\..\\MoviePictures\\" + M.Mid + ".jpg"));
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)

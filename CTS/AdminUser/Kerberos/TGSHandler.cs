@@ -20,7 +20,7 @@ namespace AdminUser.Kerberos
             if (transceiver == null)
                 throw new Exception("Transceiver错误！");
         }
-        public static TGSHandler GetInstatnce()
+        public static TGSHandler GetInstance()
         {
             return instance;
         }

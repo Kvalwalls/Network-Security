@@ -21,12 +21,12 @@ namespace AdminUser
     /// </summary>
     public partial class AddTheater : Window
     {
-        private static AdminUserHandler handler;
+        private static AUVHandler handler;
         private static List<Theater> SubTheaters;
         public AddTheater(List<Theater> theaters)
         {
             InitializeComponent();
-            handler = AdminUserHandler.GetInstatnce();
+            handler = AUVHandler.GetInstance();
             SubTheaters = theaters;
             IdTip.Visibility = Visibility.Hidden;
             TypeTip.Visibility = Visibility.Hidden;

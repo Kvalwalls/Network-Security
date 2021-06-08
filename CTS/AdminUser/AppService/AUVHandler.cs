@@ -4,28 +4,58 @@ using AdminUser.Transmission;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace AdminUser.AppService
 {
-    class AdminUserHandler
+    class AUVHandler:VHandler
     {
-        private readonly Transceiver transceiver;
-        private static AdminUserHandler instance = new AdminUserHandler();
-        private AdminUserHandler()
+        //会话DES密钥
+        private readonly string sessionKey;
+        //本机IP地址
+        private byte[] fromAddr = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
+        //CUV服务器IP地址
+        private byte[] toAddr = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+        //本机私钥文件
+        private string mySKeyFile = ConfigurationManager.AppSettings["My_SKeyFile"];
+        //服务器公钥文件
+        private string vPKeyFile = ConfigurationManager.AppSettings["V_PKeyFile"];
+        //AUVHandler实例
+        private static AUVHandler instance = new AUVHandler();
+
+        private AUVHandler()
         {
+            //AS认证过程
+            ASHandler asHandler = ASHandler.GetInstance();
+            string[] ASKeyTicket = asHandler.ASCertification();
+            if (ASKeyTicket == null)
+                throw new Exception("AS认证错误！");
+            asHandler.CloseASConnection();
+            //TGS认证过程
+            TGSHandler tgsHandler = TGSHandler.GetInstance();
+            string[] TGSKeyTicket = tgsHandler.TGSCertification(ASKeyTicket[0], ASKeyTicket[1]);
+            if (TGSKeyTicket == null)
+                throw new Exception("TGS认证错误！");
+            tgsHandler.CloseTGSConnection();
+            //V认证过程
             Socket socket = Connection.ConnectServer(
-               ConfigurationManager.AppSettings["AS_IPAddress"],
-               int.Parse(ConfigurationManager.AppSettings["AS_Port"]));
+               IPStr: ConfigurationManager.AppSettings["V_IPAddress"],
+               int.Parse(ConfigurationManager.AppSettings["V_Port"]));
             transceiver = new Transceiver(socket);
             if (transceiver == null)
-                throw new Exception("Transceiver错误！");
+                throw new Exception("Transceiver初始化错误！");
+            sessionKey = VCertification(TGSKeyTicket[0], TGSKeyTicket[1]);
+            if (sessionKey == null)
+                throw new Exception("V认证错误！");
         }
-        public static AdminUserHandler GetInstatnce()
+    
+        public static AUVHandler GetInstance()
         {
             return instance;
         }
@@ -49,12 +79,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -62,7 +92,7 @@ namespace AdminUser.AppService
         {
             string[] contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 contents = new string[4];
@@ -104,12 +134,12 @@ namespace AdminUser.AppService
 
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -117,7 +147,7 @@ namespace AdminUser.AppService
         {
             string content = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -151,12 +181,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -164,7 +194,7 @@ namespace AdminUser.AppService
         {
             List<User> n = new List<User>();
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -260,12 +290,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -273,7 +303,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -304,12 +334,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -317,7 +347,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -351,12 +381,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -364,7 +394,7 @@ namespace AdminUser.AppService
         {
             List<Theater> n = new List<Theater>();
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -436,12 +466,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -449,7 +479,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -480,12 +510,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -493,7 +523,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -527,12 +557,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -540,7 +570,7 @@ namespace AdminUser.AppService
         {
             List<Movie> n = new List<Movie>();
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -565,6 +595,8 @@ namespace AdminUser.AppService
                                 tem.Mcomment = Convert.ToSingle(node.InnerText.Trim());
                             else if ("Description".Equals(node.Name))
                                 tem.Mdescription = node.InnerText.Trim();
+                            tem.Mpicture = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).ToString()).ToString()
+                    + "\\MoviePictures\\" + tem.Mid + ".jpg";
                             n.Add(tem);
                         }
                     }
@@ -604,12 +636,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -617,7 +649,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -648,12 +680,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -661,7 +693,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -695,12 +727,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -708,7 +740,7 @@ namespace AdminUser.AppService
         {
             List<OnMovie> n = new List<OnMovie>();
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -773,12 +805,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -786,7 +818,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -823,12 +855,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -836,7 +868,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -870,12 +902,12 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
         }
 
@@ -883,7 +915,7 @@ namespace AdminUser.AppService
         {
             List<Record> n = new List<Record>();
             TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
+            message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
@@ -915,6 +947,7 @@ namespace AdminUser.AppService
                                 else if (node.InnerText.Trim() == "2")
                                     tem.Rstatus = 2;
                             }
+
                             n.Add(tem);
                         }
                     }
@@ -924,104 +957,86 @@ namespace AdminUser.AppService
             return n;
         }
 
-        public void getPictureRequest(int num,string Mid)
+        public void GetMoviePictures()
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
             //根节点
-            XmlElement getPicEle = document.CreateElement("GetPicture");
-            //子节点
-            XmlElement Num = document.CreateElement("Picturenum");
-            Num.InnerText = Convert.ToString(num);
-            XmlElement MID = document.CreateElement("Picturemid");
-            MID.InnerText = Mid;
-            //XmlElement Password = document.CreateElement("Password");
-            //Password.InnerText = u.Upassword;
-
+            XmlElement getElement = document.CreateElement("get_movie_pictures");
             //形成树结构
-            getPicEle.AppendChild(Num);
-            getPicEle.AppendChild(MID);
-            document.AppendChild(getPicEle);
-            Console.WriteLine(document.InnerXml);
+            document.AppendChild(getElement);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
-        }
-
-        public string getPictureReply()
-        {
-            string content = null;
-            TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
-            if (message.errorCode == EnumErrorCode.NoError)
+            message = transceiver.ReceiveMessage();
+            message.DePackage(vPKeyFile, sessionKey);
+            document = XMLPhaser.StringToXml(message.contents);
+            if (message.errorCode == EnumErrorCode.Error)
+                throw new Exception("获取所有影片图片函数错误！");
+            XmlElement xmlRoot = document.DocumentElement;
+            int count = int.Parse(xmlRoot["count"].InnerText);
+            for (int i = 0; i < count; i++)
             {
-                XmlDocument document = XMLPhaser.StringToXml(message.contents);
-                XmlElement xmlRoot = document.DocumentElement;
-                XmlNodeList xmlContents = xmlRoot.ChildNodes;
-                foreach (XmlNode node in xmlContents)
+                Thread.Sleep(50);
+                message = transceiver.ReceiveMessage();
+                message.DePackage(vPKeyFile, sessionKey);
+                document = XMLPhaser.StringToXml(message.contents);
+                if (message.errorCode == EnumErrorCode.Error)
+                    throw new Exception("获取所有影片图片函数错误！");
+                xmlRoot = document.DocumentElement;
+                XmlNodeList nodeList = xmlRoot.ChildNodes;
+                string picName = string.Empty;
+                string moviePicture = string.Empty;
+                foreach (XmlNode node in nodeList)
                 {
-                    if ("Pic".Equals(node.Name))
-                        content = node.InnerText.Trim();
-                    
+                    switch (node.Name)
+                    {
+                        case "m_id":
+                            picName = "..\\..\\MoviePictures\\" + node.InnerText + ".jpg";
+                            break;
+                        case "m_picture":
+                            moviePicture = node.InnerText;
+                            break;
+                    }
                 }
+                PicturePhaser.Base64ToPicture(moviePicture, picName);
             }
-            return content;
         }
 
-        public void sendPictureRequest(string Mid, string Pic)
+        public bool SendPicture(string picture)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
             //根节点
-            XmlElement sendPicEle = document.CreateElement("SendPicture");
+            XmlElement sendElement = document.CreateElement("send_movie_picture");
             //子节点
-            XmlElement MID = document.CreateElement("Picturemid");
-            MID.InnerText = Mid;
-            XmlElement PIC = document.CreateElement("Picture");
-            PIC.InnerText = Pic;
-            //XmlElement Password = document.CreateElement("Password");
-            //Password.InnerText = u.Upassword;
-
+            XmlElement pic = document.CreateElement("Picture");
+            pic.InnerText = picture;
             //形成树结构
-            sendPicEle.AppendChild(MID);
-            sendPicEle.AppendChild(PIC);
-            document.AppendChild(sendPicEle);
-            Console.WriteLine(document.InnerXml);
+            sendElement.AppendChild(pic);
+            document.AppendChild(sendElement);
             //报文初始化
             TransMessage message = new TransMessage();
-            message.fromAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-            message.toAddress = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
             message.specificType = EnumKerberos.Request;
             message.contents = XMLPhaser.XmlToString(document);
-            message.EnPackage(ConfigurationManager.AppSettings["My_SKeyFile"], null);
+            message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
-        }
-
-        public string sendPictureReply()
-        {
-            string content = null;
-            TransMessage message = transceiver.ReceiveMessage();
-            message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
-            if (message.errorCode == EnumErrorCode.NoError)
-            {
-                XmlDocument document = XMLPhaser.StringToXml(message.contents);
-                XmlElement xmlRoot = document.DocumentElement;
-                XmlNodeList xmlContents = xmlRoot.ChildNodes;
-                foreach (XmlNode node in xmlContents)
-                {
-                    if ("Status".Equals(node.Name))
-                        content = node.InnerText.Trim();
-
-                }
-            }
-            return content;
+            message = transceiver.ReceiveMessage();
+            message.DePackage(vPKeyFile, sessionKey);
+            document = XMLPhaser.StringToXml(message.contents);
+            if (message.errorCode == EnumErrorCode.Error)
+                throw new Exception("发送影片图片函数错误！");
+            XmlElement xmlRoot = document.DocumentElement;
+            return "true".Equals(xmlRoot["state"].InnerText);
         }
     }
 }

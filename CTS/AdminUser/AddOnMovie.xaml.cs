@@ -21,7 +21,7 @@ namespace AdminUser
     /// </summary>
     public partial class AddOnMovie : Window
     {
-        private static AdminUserHandler handler;
+        private static AUVHandler handler;
         private static List<OnMovie> SubOnMovies;
         private static List<Movie> SubMovies;
         public AddOnMovie(List<OnMovie> onmovies, List<Movie> movies)
@@ -29,7 +29,7 @@ namespace AdminUser
             InitializeComponent();
             SubOnMovies = onmovies;
             SubMovies = movies;
-            handler = AdminUserHandler.GetInstatnce();
+            handler = AUVHandler.GetInstance();
             OidTip.Visibility = Visibility.Hidden;
             MidTip.Visibility = Visibility.Hidden;
             PidTip.Visibility = Visibility.Hidden;

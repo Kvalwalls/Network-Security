@@ -53,6 +53,8 @@ namespace AdminUser.Entity
         public float Mcomment { get; set; }
         //简介
         public string Mdescription { get; set; }
+        //图片
+        public string Mpicture { get; set; }
 
         /// <summary>
         /// 带参数的构造函数
