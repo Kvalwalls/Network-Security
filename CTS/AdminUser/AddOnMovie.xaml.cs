@@ -1,4 +1,5 @@
 ﻿using AdminUser.Entity;
+using AdminUser.AppService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace AdminUser
     /// </summary>
     public partial class AddOnMovie : Window
     {
+        private static AdminUserHandler handler;
         private static List<OnMovie> SubOnMovies;
         private static List<Movie> SubMovies;
         public AddOnMovie(List<OnMovie> onmovies, List<Movie> movies)
@@ -27,6 +29,7 @@ namespace AdminUser
             InitializeComponent();
             SubOnMovies = onmovies;
             SubMovies = movies;
+            handler = AdminUserHandler.GetInstatnce();
             OidTip.Visibility = Visibility.Hidden;
             MidTip.Visibility = Visibility.Hidden;
             PidTip.Visibility = Visibility.Hidden;
@@ -136,14 +139,20 @@ namespace AdminUser
                         else
                         {
                             StimeTip.Text = "该影厅对应时间已有场次，请安排其他时间！";
+                            MessageBox.Show("该影厅对应时间已有场次，请安排其他时间！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                             StimeTip.Visibility = Visibility.Visible;
+                            result = 0;
                         }
                     }
                 }
 
                 if (result == 1)
                 {
-                    MessageBox.Show("添加成功");
+                    handler.addOnMovieRequest(n);
+                    if (handler.addOnMovieReply() == "添加成功")
+                    {
+                        MessageBox.Show("添加成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                     this.Tag = n;//写入窗体的Tag属性中,在主窗体对此进行接收
 
                     //DialogResult = true;//关闭窗体
@@ -151,12 +160,11 @@ namespace AdminUser
                 }
                 else if (result == 0)
                 {
-                    MessageBox.Show("添加失败");
-
+                    MessageBox.Show("添加失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    MessageBox.Show("未知错误");
+                    MessageBox.Show("未知错误！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

@@ -1,4 +1,5 @@
 ﻿using AdminUser.Entity;
+using AdminUser.AppService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,12 @@ namespace AdminUser
     /// </summary>
     public partial class AddUser : Window
     {
+        private static AdminUserHandler handler;
         private static List<User> SubUsers;
         public AddUser(List<User> users)
         {
             InitializeComponent();
+            handler = AdminUserHandler.GetInstatnce();
             SubUsers = users;
             IdTip.Visibility = Visibility.Hidden;
             NameTip.Visibility = Visibility.Hidden;
@@ -81,11 +84,8 @@ namespace AdminUser
                     access = 2;
                 }
                 User n = new User(Id, Name, Password, access, Money);
-                //int result = dgl.CreateStore(s);
-                //addUserRequest();
-                //addUserReply();
                 int result = 1;
-                for (int i=0;i<SubUsers.Count;i++)
+                for (int i=0;i< SubUsers.Count;i++)
                 {
                     if(Id == SubUsers[i].Uid)
                     {
@@ -96,7 +96,11 @@ namespace AdminUser
                 
                 if (result == 1)
                 {
-                    MessageBox.Show("添加成功");
+                    handler.addUserRequest(n);
+                    if (handler.addUserReply() == "添加成功")
+                    {
+                        MessageBox.Show("添加成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                     this.Tag = n;//写入窗体的Tag属性中,在主窗体对此进行接收
 
                     //DialogResult = true;//关闭窗体
@@ -104,12 +108,12 @@ namespace AdminUser
                 }
                 else if (result == 0)
                 {
-                    MessageBox.Show("添加失败");
-                   
+                    MessageBox.Show("添加失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 }
                 else
                 {
-                    MessageBox.Show("未知错误");
+                    MessageBox.Show("未知错误！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

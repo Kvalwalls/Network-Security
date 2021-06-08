@@ -1,4 +1,5 @@
 ﻿using AdminUser.Entity;
+using AdminUser.AppService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,14 @@ namespace AdminUser
     /// </summary>
     public partial class Login : Window
     {
+		private static AdminUserHandler handler;
 		private string id = "";
 		private string password = "";
 
 		public Login()
         {
             InitializeComponent();
+			handler = AdminUserHandler.GetInstatnce();
             string path1 = System.IO.Directory.GetCurrentDirectory();
             string path2 = System.IO.Directory.GetParent(path1).ToString();
             string path3 = System.IO.Directory.GetParent(path2).ToString();
@@ -38,26 +41,72 @@ namespace AdminUser
 
 		private void Button_Login_Click(object sender, RoutedEventArgs e)
 		{
-			id = TextBox_id.Text;
-			if (id == "")
+			User u = new User();
+			if (string.Empty.Equals(TextBox_id.Text) && string.Empty.Equals(TextBox_pwd.Text))
 			{
-				MessageBox.Show("请输入账号！", "输入错误");
+				MessageBox.Show("请输入账号和密码！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
 				return;
 			}
-			if (password == "")
+			if (string.Empty.Equals(TextBox_id.Text))
 			{
-				MessageBox.Show("请输入密码！", "输入错误");
+				MessageBox.Show("请输入账号！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
 				return;
 			}
-			MessageBox.Show("账号：" + id + "\n密码：" + password);
-			User user = new User();
-			user.Uid = id;
-			user.Upassword = password;
-			user.Uname = "汪帮传";
-			user.Umoney = 1000;
-			user.Uaccess = 3;
-			new MainWindow(user).Show();
-			Close();
+			if (string.Empty.Equals(TextBox_pwd.Text))
+			{
+				MessageBox.Show("请输入密码！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+			u.Uid = TextBox_id.Text;
+			u.Upassword = TextBox_pwd.Text;
+			handler.loginRequest(u);
+			string[] reply = handler.loginReply();
+			if (reply[0] == "登录成功")
+			{
+				MessageBox.Show("登录成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+				u.Uname = reply[1];
+				u.Umoney = Convert.ToSingle(reply[2]);
+				switch (reply[3])
+				{
+					case "0":
+						{
+							u.Uaccess = 0;
+							break;
+						}
+					case "1":
+						{
+							u.Uaccess = 1;
+							break;
+						}
+					case "2":
+						{
+							u.Uaccess = 2;
+							break;
+						}
+					case "3":
+						{
+							u.Uaccess = 3;
+							break;
+						}
+					case "4":
+						{
+							u.Uaccess = 4;
+							break;
+						}
+					default:
+						{
+							break;
+						}
+				}
+			
+				new MainWindow(u).Show();
+				Close();
+			}
+			else
+			{
+				MessageBox.Show("登录失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
 		}
 
 		private void TextBlock_MouseEnter(object sender, MouseEventArgs e)

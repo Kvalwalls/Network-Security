@@ -1,5 +1,6 @@
 ﻿using AdminUser.Entity;
 using AdminUser.Kerberos;
+using AdminUser.Transmission;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace AdminUser.Transmission
+namespace AdminUser.AppService
 {
     class AdminUserHandler
     {
@@ -29,7 +30,7 @@ namespace AdminUser.Transmission
             return instance;
         }
 
-        private void logInRequest(User u)
+        public void loginRequest(User u)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -57,14 +58,14 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string[] loginReply()
+        public string[] loginReply()
         {
             string[] contents = null;
             TransMessage message = transceiver.ReceiveMessage();
             message.DePackage(ConfigurationManager.AppSettings["AS_PKeyFile"], ConfigurationManager.AppSettings["My_Key"]);
             if (message.errorCode == EnumErrorCode.NoError)
             {
-                contents = new string[3];
+                contents = new string[4];
                 XmlDocument document = XMLPhaser.StringToXml(message.contents);
                 XmlElement xmlRoot = document.DocumentElement;
                 XmlNodeList xmlContents = xmlRoot.ChildNodes;
@@ -76,12 +77,14 @@ namespace AdminUser.Transmission
                         contents[1] = node.InnerText.Trim();
                     else if ("Money".Equals(node.Name))
                         contents[2] = node.InnerText.Trim();
+                    else if ("Access".Equals(node.Name))
+                        contents[3] = node.InnerText.Trim();
                 }
             }
             return contents;
         }
 
-        private void logOutRequest(User u)
+        public void logOutRequest(User u)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -110,7 +113,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string logoutReply()
+        public string logoutReply()
         {
             string content = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -129,7 +132,7 @@ namespace AdminUser.Transmission
             return content;
         }
 
-        private void getUserRequest()
+        public void getUserRequest()
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -157,7 +160,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private List<User> getUserReply()
+        public List<User> getUserReply()
         {
             List<User> n = new List<User>();
             TransMessage message = transceiver.ReceiveMessage();
@@ -204,7 +207,7 @@ namespace AdminUser.Transmission
             return n;
         }
 
-        private void addUserRequest(User u)
+        public void addUserRequest(User u)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -266,7 +269,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string addUserReply()
+        public string addUserReply()
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -285,7 +288,7 @@ namespace AdminUser.Transmission
             return contents;
         }
 
-        private void delUserRequest(User u)
+        public void delUserRequest(User u)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -310,7 +313,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string delUserReply()
+        public string delUserReply()
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -329,7 +332,7 @@ namespace AdminUser.Transmission
             return contents;
         }
 
-        private void getTheaterRequest()
+        public void getTheaterRequest()
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -357,7 +360,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private List<Theater> getTheaterReply()
+        public List<Theater> getTheaterReply()
         {
             List<Theater> n = new List<Theater>();
             TransMessage message = transceiver.ReceiveMessage();
@@ -398,7 +401,7 @@ namespace AdminUser.Transmission
             return n;
         }
 
-        private void addTheaterRequest(Theater t)
+        public void addTheaterRequest(Theater t)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -442,7 +445,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string addTheaterReply()
+        public string addTheaterReply()
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -461,7 +464,7 @@ namespace AdminUser.Transmission
             return contents;
         }
 
-        private void delTheaterRequest(Theater t)
+        public void delTheaterRequest(Theater t)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -486,7 +489,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string delTheaterReply()
+        public string delTheaterReply()
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -505,7 +508,7 @@ namespace AdminUser.Transmission
             return contents;
         }
 
-        private void getMovieRequest()
+        public void getMovieRequest()
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -533,7 +536,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private List<Movie> getMovieReply()
+        public List<Movie> getMovieReply()
         {
             List<Movie> n = new List<Movie>();
             TransMessage message = transceiver.ReceiveMessage();
@@ -571,7 +574,7 @@ namespace AdminUser.Transmission
             return n;
         }
 
-        private void addMovieRequest(Movie m)
+        public void addMovieRequest(Movie m)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -610,7 +613,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string addMovieReply()
+        public string addMovieReply()
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -629,7 +632,7 @@ namespace AdminUser.Transmission
             return contents;
         }
 
-        private void delMovieRequest(Movie m)
+        public void delMovieRequest(Movie m)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -654,7 +657,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string delMovieReply()
+        public string delMovieReply()
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -673,7 +676,7 @@ namespace AdminUser.Transmission
             return contents;
         }
 
-        private void getOnMovieRequest()
+        public void getOnMovieRequest()
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -701,7 +704,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private List<OnMovie> getOnMovieReply()
+        public List<OnMovie> getOnMovieReply()
         {
             List<OnMovie> n = new List<OnMovie>();
             TransMessage message = transceiver.ReceiveMessage();
@@ -739,7 +742,7 @@ namespace AdminUser.Transmission
             return n;
         }
 
-        private void addOnMovieRequest(OnMovie o)
+        public void addOnMovieRequest(OnMovie o)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -779,7 +782,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string addOnMovieReply()
+        public string addOnMovieReply()
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -798,7 +801,7 @@ namespace AdminUser.Transmission
             return contents;
         }
 
-        private void delOnMovieRequest(OnMovie m)
+        public void delOnMovieRequest(OnMovie m)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -829,7 +832,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string delOnMovieReply()
+        public string delOnMovieReply()
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -848,7 +851,7 @@ namespace AdminUser.Transmission
             return contents;
         }
 
-        private void getRecordRequest()
+        public void getRecordRequest()
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -876,7 +879,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private List<Record> getRecordReply()
+        public List<Record> getRecordReply()
         {
             List<Record> n = new List<Record>();
             TransMessage message = transceiver.ReceiveMessage();
@@ -921,7 +924,7 @@ namespace AdminUser.Transmission
             return n;
         }
 
-        private void getPictureRequest(int num,string Mid)
+        public void getPictureRequest(int num,string Mid)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -951,7 +954,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string getPictureReply()
+        public string getPictureReply()
         {
             string content = null;
             TransMessage message = transceiver.ReceiveMessage();
@@ -971,7 +974,7 @@ namespace AdminUser.Transmission
             return content;
         }
 
-        private void sendPictureRequest(string Mid, string Pic)
+        public void sendPictureRequest(string Mid, string Pic)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
@@ -1001,7 +1004,7 @@ namespace AdminUser.Transmission
             transceiver.SendMessage(message);
         }
 
-        private string sendPictureReply()
+        public string sendPictureReply()
         {
             string content = null;
             TransMessage message = transceiver.ReceiveMessage();

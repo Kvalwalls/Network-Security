@@ -1,4 +1,5 @@
 ﻿using AdminUser;
+using AdminUser.AppService;
 using AdminUser.Entity;
 using AdminUser.Transmission;
 using System;
@@ -25,7 +26,8 @@ namespace AdminUser
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private User user;
+        private static User user;
+        private static AdminUserHandler handler;
         //private bool isEyeOpen;
         //private bool modNameSure;
         //private bool modPwdSure;
@@ -37,12 +39,14 @@ namespace AdminUser
         private static List<Record> records = new List<Record>();
         public static List<TransMessage> trans = new List<TransMessage>();
 
-        public MainWindow(User user)
+        public MainWindow(User u)
         {
             InitializeComponent();
+            handler = AdminUserHandler.GetInstatnce();
             InitTextBlock_Time();
             InitLists();
             InitTextBlock_Hello();
+            user = u;
         }
         
         private void InitTextBlock_Time()
@@ -62,7 +66,7 @@ namespace AdminUser
         private void InitLists()
         {
 
-            User u1 = new User("1", "dx", "123", 2, 100);
+            /*User u1 = new User("1", "dx", "123", 2, 100);
             u1.UAccess = "普通用户";
             User u2 = new User("3", "xz", "123", 3, 100);
             u2.UAccess = "VIP用户";
@@ -101,71 +105,164 @@ namespace AdminUser
             OnMovieList.Items.Add(onmovies[0]);
             OnMovieList.Items.Add(onmovies[1]);
             TicketList.Items.Add(records[0]);
-            TicketList.Items.Add(records[1]);
+            TicketList.Items.Add(records[1]);*/
 
-            //getUserRequest();
-            //getUserReply();
-            //getMovieRequest();
-            //getMovieReply();
-            //getTheaterRequest();
-            //getTheaterReply();
-            //getOnMovieRequest();
-            //getOnMovieReply();
-            //getRecordRequest();
-            //getRecordReply();
+            handler.getUserRequest();
+            users = handler.getUserReply();
+            for(int i = 0; i < users.Count; i++)
+            {
+                switch (users[i].Uaccess)
+                {
+                    case 0:
+                        {
+                            users[i].UAccess = "超级管理员";
+                            break;
+                        }
+                    case 1:
+                        {
+                            users[i].UAccess = "普通管理员";
+                            break;
+                        }
+                    case 2:
+                        {
+                            users[i].UAccess = "普通用户";
+                            break;
+                        }
+                    case 3:
+                        {
+                            users[i].UAccess = "VIP用户";
+                            break;
+                        }
+                    case 4:
+                        {
+                            users[i].UAccess = "SVIP用户";
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+                    
+                UserList.Items.Add(users[i]);
+            }
+
+            handler.getMovieRequest();
+            movies = handler.getMovieReply();
+            for (int i = 0; i < movies.Count; i++)
+            {
+                MovieList.Items.Add(movies[i]);
+            }
+
+            handler.getTheaterRequest();
+            theaters = handler.getTheaterReply();
+            for (int i = 0; i < theaters.Count; i++)
+            {
+                switch (theaters[i].Ttype)
+                {
+                    case 0:
+                        {
+                            theaters[i].TType = "普通影厅";
+                            break;
+                        }
+                    case 1:
+                        {
+                            theaters[i].TType = "VIP影厅";
+                            break;
+                        }
+                    case 2:
+                        {
+                            theaters[i].TType = "SVIP影厅";
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+                TheaterList.Items.Add(theaters[i]);
+            }
+
+            handler.getOnMovieRequest();
+            onmovies = handler.getOnMovieReply();
+            for (int i = 0; i < onmovies.Count; i++)
+            {
+                OnMovieList.Items.Add(onmovies[i]);
+            }
+
+            handler.getRecordRequest();
+            records = handler.getRecordReply();
+            for (int i = 0; i < records.Count; i++)
+            {
+                switch (records[i].Rstatus)
+                {
+                    case 0:
+                        {
+                            records[i].RStatus = "等待支付";
+                            break;
+                        }
+                    case 1:
+                        {
+                            records[i].RStatus = "购票成功";
+                            break;
+                        }
+                    case 2:
+                        {
+                            records[i].RStatus = "购票失败";
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+                TicketList.Items.Add(records[i]);
+            }
 
         }
 
         private void InitTextBlock_Hello()
         {
             TextBlock_Hello.Text = "欢迎您！";
-            /*switch (user.access)
+            switch (user.Uaccess)
             {
-                case "01":
+                case 3:
                     {
                         Image_vip.Opacity = 1;
                         TextBlock_Hello.Text += "VIP用户：";
                         break;
                     }
-                case "02":
+                case 4:
                     {
                         Image_svip.Opacity = 1;
                         TextBlock_Hello.Text += "SVIP用户：";
                         break;
                     }
-                default:
+                case 2:
                     {
                         Image_common.Opacity = 1;
                         TextBlock_Hello.Text += "普通用户：";
                         break;
                     }
-            }
-            TextBlock_Hello.Text += user.name;
-            */
-        }
-
-        /*private void InitPersonalInfo()
-        {
-            TextBox_Id.Text = user.id;
-            TextBox_Name.Text = user.name;
-            string temp = "";
-            for (int i = 0; i < user.password.Length; i++)
-                temp += "*";
-            TextBox_Pwd.Text = temp;
-            TextBox_Money.Text = user.money + "元";
-            switch (user.access)
-            {
-                case "01":
-                    TextBox_Access.Text = "VIP用户";
-                    break;
-                case "02":
-                    TextBox_Access.Text = "SVIP用户";
-                    break;
+                case 1:
+                    {
+                        Image_common.Opacity = 1;
+                        TextBlock_Hello.Text += "普通管理员：";
+                        break;
+                    }
+                case 0:
+                    {
+                        Image_common.Opacity = 1;
+                        TextBlock_Hello.Text += "超级管理员：";
+                        break;
+                    }
                 default:
-                    TextBox_Access.Text = "普通用户";
-                    break;
+                    {
+                        break;
+                    }
             }
-        }*/
+            TextBlock_Hello.Text += user.Uname;
+        }
 
         private void X_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -300,10 +397,19 @@ namespace AdminUser
             //删除选中元素
             users.Remove(u);
             UserList.Items.Remove(UserList.SelectedItem);
-           
-            //send 发送删除请求
-            //删除成功
 
+            //send 发送删除请求
+            handler.delUserRequest(u);
+            string result = handler.delUserReply();
+            //删除成功
+            if(handler.delUserReply() == "删除成功")
+            {
+                MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             //刷新listview
             UserList.Items.Refresh();
         }
@@ -508,7 +614,16 @@ namespace AdminUser
             TheaterList.Items.Remove(TheaterList.SelectedItem);
 
             //send 发送删除请求
+            handler.delTheaterRequest(t);
             //删除成功
+            if (handler.delTheaterReply() == "删除成功")
+            {
+                MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             //刷新listview
             TheaterList.Items.Refresh();
@@ -630,7 +745,16 @@ namespace AdminUser
             MovieList.Items.Remove(MovieList.SelectedItem);
 
             //send 发送删除请求
+            handler.delMovieRequest(m);
             //删除成功
+            if (handler.delMovieReply() == "删除成功")
+            {
+                MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             //刷新listview
             MovieList.Items.Refresh();
@@ -792,7 +916,16 @@ namespace AdminUser
             OnMovieList.Items.Remove(OnMovieList.SelectedItem);
 
             //send 发送删除请求
+            handler.delOnMovieRequest(o);
             //删除成功
+            if (handler.delOnMovieReply() == "删除成功")
+            {
+                MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             //刷新listview
             OnMovieList.Items.Refresh();
