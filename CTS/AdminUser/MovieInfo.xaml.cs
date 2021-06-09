@@ -34,8 +34,9 @@ namespace AdminUser
             TextBlock_Time.Text += M.Mtime;
             TextBlock_Score.Text += M.Mcomment;
             TextBlock_Des.Text += M.Mdescription;
-            handler.GetMoviePictures();
-            MovieImage.Source = new BitmapImage(new Uri("..\\..\\MoviePictures\\" + M.Mid + ".jpg"));
+            string path = System.IO.Path.GetFullPath("../../MoviePictures/" + M.Mid + ".jpg");
+            BitmapImage bt = new BitmapImage(new Uri(path, UriKind.Absolute));
+            MovieImage.Source = bt;
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)

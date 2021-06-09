@@ -51,7 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.10.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>packages\Portable.BouncyCastle.1.8.10\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>..\..\..\..\Network-Security\CTS\CommonUser\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="HandyControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=45be8712787a1e5b, processorArchitecture=MSIL">
       <HintPath>packages\HandyControl.3.1.0\lib\net472\HandyControl.dll</HintPath>
@@ -206,6 +206,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="KeyFiles\AS.pk" />
+    <None Include="KeyFiles\Client1.pk" />
+    <None Include="KeyFiles\Client1.sk" />
+    <None Include="KeyFiles\TGS.pk" />
+    <None Include="KeyFiles\V.pk" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -324,33 +329,6 @@
     <Resource Include="ImageResources\背景_界面静态_云朵.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="KeyFiles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MoviePictures\M00001.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MoviePictures\M00002.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MoviePictures\M00003.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MoviePictures\M00004.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MoviePictures\M00005.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MoviePictures\M00006.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MoviePictures\M00007.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MoviePictures\M00008.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 和 x64%29</ProductName>
@@ -361,6 +339,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MoviePictures\M00001.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MoviePictures\1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

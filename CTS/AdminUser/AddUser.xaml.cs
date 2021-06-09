@@ -73,15 +73,15 @@ namespace AdminUser
                 byte access = 0;
                 if(Access == "普通用户")
                 {
-                    access = 0;
+                    access = 2;
                 }
                 else if (Access == "VIP用户")
                 {
-                    access = 1;
+                    access = 3;
                 }
                 else if (Access == "SVIP用户")
                 {
-                    access = 2;
+                    access = 4;
                 }
                 User n = new User(Id, Name, Password, access, Money);
                 int result = 1;

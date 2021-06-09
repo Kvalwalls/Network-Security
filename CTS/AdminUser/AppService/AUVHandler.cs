@@ -16,11 +16,12 @@ namespace AdminUser.AppService
 {
     class AUVHandler:VHandler
     {
+
         //会话DES密钥
-        private readonly string sessionKey;
+        private readonly string sessionKey = "11111111";
         //本机IP地址
         private byte[] fromAddr = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["My_IPAddress"]);
-        //CUV服务器IP地址
+        //AUV服务器IP地址
         private byte[] toAddr = AddressPhaser.StringToBytes(ConfigurationManager.AppSettings["V_IPAddress"]);
         //本机私钥文件
         private string mySKeyFile = ConfigurationManager.AppSettings["My_SKeyFile"];
@@ -31,6 +32,7 @@ namespace AdminUser.AppService
 
         private AUVHandler()
         {
+            /*
             //AS认证过程
             ASHandler asHandler = ASHandler.GetInstance();
             string[] ASKeyTicket = asHandler.ASCertification();
@@ -53,6 +55,13 @@ namespace AdminUser.AppService
             sessionKey = VCertification(TGSKeyTicket[0], TGSKeyTicket[1]);
             if (sessionKey == null)
                 throw new Exception("V认证错误！");
+            */
+            Socket socket = Connection.ConnectServer(
+              IPStr: ConfigurationManager.AppSettings["V_IPAddress"],
+              int.Parse(ConfigurationManager.AppSettings["V_Port"]));
+            transceiver = new Transceiver(socket);
+            if (transceiver == null)
+                throw new Exception("Transceiver错误！");
         }
     
         public static AUVHandler GetInstance()
@@ -204,9 +213,9 @@ namespace AdminUser.AppService
                 {
                     if ("User".Equals(xnode.Name))
                     {
+                        User tem = new User();
                         foreach (XmlNode node in xnode.ChildNodes)
                         {
-                            User tem = new User();
                             if ("Id".Equals(node.Name))
                                 tem.Uid = node.InnerText.Trim();
                             else if ("Name".Equals(node.Name))
@@ -228,11 +237,10 @@ namespace AdminUser.AppService
                             }
                             else if ("Money".Equals(node.Name))
                                 tem.Umoney = Convert.ToSingle(node.InnerText.Trim());
-                            n.Add(tem);
                         }
+                        n.Add(tem);
                     }
                 }
-                //n.Add(tem);
             }
             return n;
         }
@@ -405,9 +413,10 @@ namespace AdminUser.AppService
 
                     if ("Theater".Equals(xnode.Name))
                     {
+                        Theater tem = new Theater();
                         foreach (XmlNode node in xnode.ChildNodes)
                         {
-                            Theater tem = new Theater();
+                            
                             if ("Id".Equals(node.Name))
                                 tem.Tid = node.InnerText.Trim();
                             else if ("Type".Equals(node.Name))
@@ -422,8 +431,8 @@ namespace AdminUser.AppService
                             }
                             else if ("Size".Equals(node.Name))
                                 tem.Tsize = int.Parse(node.InnerText.Trim());
-                            n.Add(tem);
                         }
+                        n.Add(tem);
                     }
                 }
                 //n.Add(tem);
@@ -580,9 +589,10 @@ namespace AdminUser.AppService
                 { 
                     if ("Movie".Equals(xnode.Name))
                     {
+                        Movie tem = new Movie();
                         foreach (XmlNode node in xnode.ChildNodes)
                         {
-                            Movie tem = new Movie();
+                            
                             if ("Id".Equals(node.Name))
                                 tem.Mid = node.InnerText.Trim();
                             else if ("Name".Equals(node.Name))
@@ -597,8 +607,8 @@ namespace AdminUser.AppService
                                 tem.Mdescription = node.InnerText.Trim();
                             tem.Mpicture = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).ToString()).ToString()
                     + "\\MoviePictures\\" + tem.Mid + ".jpg";
-                            n.Add(tem);
                         }
+                        n.Add(tem);
                     }
                 }
                 //n.Add(tem);
@@ -616,7 +626,7 @@ namespace AdminUser.AppService
             XmlElement Id = document.CreateElement("Id");
             Id.InnerText = m.Mid;
             XmlElement Name = document.CreateElement("Name");
-            Id.InnerText = m.Mname;
+            Name.InnerText = m.Mname;
             XmlElement Type = document.CreateElement("Type");
             Type.InnerText = m.Mtype;
             XmlElement Time = document.CreateElement("Time");
@@ -628,6 +638,7 @@ namespace AdminUser.AppService
 
             //形成树结构
             addMovieEle.AppendChild(Id);
+            addMovieEle.AppendChild(Name);
             addMovieEle.AppendChild(Type);
             addMovieEle.AppendChild(Time);
             addMovieEle.AppendChild(Comment);
@@ -750,9 +761,10 @@ namespace AdminUser.AppService
                 {
                     if ("OnMovie".Equals(xnode.Name))
                     {
+                        OnMovie tem = new OnMovie();
                         foreach (XmlNode node in xnode.ChildNodes)
                         {
-                            OnMovie tem = new OnMovie();
+                            
                             if ("Oid".Equals(node.Name))
                                 tem.Oid = node.InnerText.Trim();
                             else if ("Mid".Equals(node.Name))
@@ -765,8 +777,9 @@ namespace AdminUser.AppService
                                 tem.Oend = Convert.ToDateTime(node.InnerText.Trim());
                             else if ("Oprice".Equals(node.Name))
                                 tem.Oprice = Convert.ToSingle(node.InnerText.Trim());
-                            n.Add(tem);
+                            
                         }
+                        n.Add(tem);
                     }
                 }
                 //n.Add(tem);
@@ -842,15 +855,9 @@ namespace AdminUser.AppService
             //子节点
             XmlElement Oid = document.CreateElement("Oid");
             Oid.InnerText = m.Oid;
-            XmlElement Mid = document.CreateElement("Mid");
-            Mid.InnerText = m.Mid;
-            XmlElement Tid = document.CreateElement("Tid");
-            Tid.InnerText = m.Tid;
 
             //形成树结构
             delOnMovieEle.AppendChild(Oid);
-            delOnMovieEle.AppendChild(Mid);
-            delOnMovieEle.AppendChild(Tid);
             document.AppendChild(delOnMovieEle);
             Console.WriteLine(document.InnerXml);
             //报文初始化
@@ -923,11 +930,12 @@ namespace AdminUser.AppService
                 XmlNodeList xmlContents = xmlRoot.ChildNodes;
                 foreach (XmlNode xnode in xmlContents)
                 {
-                    if ("OnMovie".Equals(xnode.Name))
+                    if ("Ticket".Equals(xnode.Name))
                     {
+                        Record tem = new Record();
                         foreach (XmlNode node in xnode.ChildNodes)
                         {
-                            Record tem = new Record();
+                            
                             if ("Uid".Equals(node.Name))
                                 tem.Uid = node.InnerText.Trim();
                             else if ("Oid".Equals(node.Name))
@@ -948,8 +956,9 @@ namespace AdminUser.AppService
                                     tem.Rstatus = 2;
                             }
 
-                            n.Add(tem);
+                            
                         }
+                        n.Add(tem);
                     }
                 }
                 //n.Add(tem);
@@ -1009,16 +1018,19 @@ namespace AdminUser.AppService
             }
         }
 
-        public bool SendPicture(string picture)
+        public void SendPicture(string picture,string Mid)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
             //根节点
             XmlElement sendElement = document.CreateElement("send_movie_picture");
             //子节点
+            XmlElement mid = document.CreateElement("Mid");
+            mid.InnerText = Mid;
             XmlElement pic = document.CreateElement("Picture");
             pic.InnerText = picture;
             //形成树结构
+            sendElement.AppendChild(mid);
             sendElement.AppendChild(pic);
             document.AppendChild(sendElement);
             //报文初始化
@@ -1030,13 +1042,6 @@ namespace AdminUser.AppService
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
-            message = transceiver.ReceiveMessage();
-            message.DePackage(vPKeyFile, sessionKey);
-            document = XMLPhaser.StringToXml(message.contents);
-            if (message.errorCode == EnumErrorCode.Error)
-                throw new Exception("发送影片图片函数错误！");
-            XmlElement xmlRoot = document.DocumentElement;
-            return "true".Equals(xmlRoot["state"].InnerText);
         }
     }
 }

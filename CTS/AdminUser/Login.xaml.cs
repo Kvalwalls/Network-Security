@@ -104,7 +104,7 @@ namespace AdminUser
 			}
 			else
 			{
-				MessageBox.Show("登录失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+				MessageBox.Show("登录失败！"+ reply[0], "提示", MessageBoxButton.OK, MessageBoxImage.Error);
 				return;
 			}
 		}
