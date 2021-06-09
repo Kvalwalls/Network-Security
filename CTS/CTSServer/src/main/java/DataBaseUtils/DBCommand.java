@@ -768,15 +768,15 @@ public class DBCommand {
         //判断主码不存在
         if (getOnMovieByOId(onMovie.getOId()) != null)
             return false;
-        //判断时间的正确性
-        if (onMovie.getOEnd().before(onMovie.getOBegin()))
-            return false;
         List<OnMovie> onMovies = getOnMoviesByTId(onMovie.getTId());
         //判断是否有时间冲突
         if (onMovies != null)
             for (OnMovie temp : onMovies)
                 if (onMovie.getOBegin().before(DatePhaser.addDateMinutes(temp.getOEnd(), 10)))
                     return false;
+        onMovie.setOEnd(DatePhaser.addDateMinutes(
+                onMovie.getOBegin(),
+                getMovieById(onMovie.getMId()).getMTime()));
         //添加场次
         String sql = "insert into t_onMovie values('" + onMovie.getOId() + "','"
                 + onMovie.getMId() + "','"

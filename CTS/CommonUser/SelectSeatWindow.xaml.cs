@@ -1,4 +1,5 @@
 ﻿using CommonUser;
+using CommonUser.AppServices;
 using CommonUser.Entity;
 using System;
 using System.Collections.Generic;
@@ -16,26 +17,20 @@ namespace CommonUser
     {
         private List<Seat> seats;
         private HashSet<Seat> selectedSeats;
-        private Theater theater;
+        private User user;
         private Movie movie;
+        private Theater theater;
         private OnMovie onMovie;
-        public SelectSeatWindow(OnMovie onMovie, Movie movie, Theater theater)
+        private CUVHandler handler;
+        public SelectSeatWindow(User user, Movie movie, OnMovie onMovie)
         {
-            this.theater = theater;
+            handler = CUVHandler.GetInstance();
+            this.user = user;
             this.movie = movie;
             this.onMovie = onMovie;
-            seats = new List<Seat>(theater.Tsize);
+            theater = handler.GetTheater(onMovie.Tid);
+            seats = handler.GetSeats(onMovie.Oid);
             selectedSeats = new HashSet<Seat>();
-            for (int i = 1; i < 5; i++)
-            {
-                string strRow = string.Format("{0:d3}", i);
-                for (int j = 1; j < 17; j++)
-                {
-                    string strCol = string.Format("{0:d3}", j);
-                    Seat temp = new Seat(strRow + strCol, "O000001", EnumSeatStatus.Unselected);
-                    seats.Add(temp);
-                }
-            }
             seats.Sort(new SIDComparer());
             InitializeComponent();
             InitInfo();
@@ -44,10 +39,10 @@ namespace CommonUser
 
         private void InitInfo()
         {
-            TextBlock_Info.Text = theater.Tid + "号" + TtypeSwitch(theater.Ttype) + " " + movie.Mname;
+            TextBlock_Info.Text = onMovie.Tid + "号" +TtypeSwitch(theater.Ttype) +"厅  " + movie.Mname;
             BitmapImage bmp = new BitmapImage();
             bmp.BeginInit();
-            bmp.UriSource = new Uri("..\\..\\MoviePictures\\" + movie.Mid + ".jpg", UriKind.Relative);
+            bmp.UriSource = new Uri(movie.Mpicture, UriKind.Absolute);
             bmp.EndInit();
             Image_Picture.Source = bmp;
         }
@@ -79,7 +74,7 @@ namespace CommonUser
                 Grid_Seats.Children.Add(tempTB);
                 for (int j = 0; j < column; j++)
                 {
-                    tempCS = new ControlSeat(seats[i].Sstatus);
+                    tempCS = new ControlSeat(seats[i * 16 + j].Sstatus);
                     tempCS.Margin = new Thickness(90 + j * (40 + spanWidth), 10 + i * (40 + spanHeight), 680 - j * (40 * spanWidth), 220 - i * (40 + spanHeight));
                     tempCS.Name = "CS" + seats[i * 16 + j].Sid;
                     tempCS.MouseUp += TempCS_MouseUp;
@@ -91,7 +86,7 @@ namespace CommonUser
         private void TempCS_MouseUp(object sender, MouseButtonEventArgs e)
         {
             ControlSeat controlSeat = sender as ControlSeat;
-            string strRowCol = controlSeat.Name.Substring(2, 6);
+            string strRowCol = controlSeat.Name.Substring(2, 4);
             if (controlSeat.status == EnumSeatStatus.Selecting)
             {  
                 selectedSeats.Add(new Seat(strRowCol, onMovie.Oid, EnumSeatStatus.Selecting));
@@ -102,7 +97,7 @@ namespace CommonUser
             }
             string textTB = null;
             foreach (Seat temp in selectedSeats)
-                textTB += "第" + temp.Sid.Substring(0, 3) + "行第" + temp.Sid.Substring(3, 3) + "列；";
+                textTB += "第" + temp.Sid.Substring(0, 2) + "行第" + temp.Sid.Substring(2, 2) + "列；";
             TextBox_Selected.Text = textTB;
         }
 
@@ -115,9 +110,8 @@ namespace CommonUser
                 temps[i] = temp;
                 i++;
             }
-			Array.Sort(temps, new SIDComparer());
-			//new WaitingWindow(temps).Show();
-			new PayWaitingWindow(onMovie, movie, temps , theater).Show();
+            Array.Sort(temps, new SIDComparer());
+            new WaitingWindow(user, movie, onMovie, temps).Show();
             Close();
         }
 

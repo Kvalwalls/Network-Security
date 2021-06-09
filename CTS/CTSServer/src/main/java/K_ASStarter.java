@@ -1,4 +1,5 @@
 import KerberosUtils.ASHandler;
+import TransmissionUtils.Connection;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -10,7 +11,7 @@ public class K_ASStarter {
     public static void main(String[] args) {
         ServerSocket serverSocket = null;
         try {
-            serverSocket = new ServerSocket(PORT);
+            serverSocket = Connection.bindServer("127.0.0.1",PORT);
             System.out.println("AS服务器开始监听:");
             int counter = 1;
             while (true) {
@@ -19,7 +20,7 @@ public class K_ASStarter {
                 System.out.println("建立第 " + (counter++) + " 个连接!");
                 t.start();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

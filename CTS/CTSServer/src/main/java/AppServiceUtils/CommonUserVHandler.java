@@ -1,9 +1,8 @@
 package AppServiceUtils;
 
 import DataBaseUtils.DBCommand;
-import DataUtils.Movie;
+import DataUtils.*;
 import DataUtils.Record;
-import DataUtils.User;
 import EnumUtils.EnumCUV;
 import EnumUtils.EnumErrorCode;
 import EnumUtils.EnumServiceType;
@@ -17,6 +16,7 @@ import org.w3c.dom.NodeList;
 
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CommonUserVHandler extends VHandler implements Runnable {
     @Override
@@ -42,6 +42,9 @@ public class CommonUserVHandler extends VHandler implements Runnable {
                     case EnumCUV.GetMovies -> getMovies(message);
                     case EnumCUV.GetMoviePictures -> getMoviePictures(message);
                     case EnumCUV.GetRecords -> getRecords(message);
+                    case EnumCUV.GetOnMovies -> getOnMovies(message);
+                    case EnumCUV.GetSeats -> getSeats(message);
+                    case EnumCUV.GetTheater -> getTheater(message);
                 }
             }
 
@@ -405,9 +408,16 @@ public class CommonUserVHandler extends VHandler implements Runnable {
     }
 
     private void getRecords(TransMessage transMessage) throws Exception {
-        Document document = XMLBuilder.buildXMLDoc();
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
         Element recvRoot = document.getDocumentElement();
-        String u_idStr = recvRoot.getFirstChild().getTextContent();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String u_idStr = null;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "u_id" -> u_idStr = childNode.getTextContent();
+            }
+        }
         ArrayList<DataUtils.Record> records = DBCommand.getRecordByUid(u_idStr);
         document = XMLBuilder.buildXMLDoc();
         Element getElement = document.createElement("get_records");
@@ -445,16 +455,132 @@ public class CommonUserVHandler extends VHandler implements Runnable {
         transceiver.sendMessage(message);
     }
 
-    private void getOnMovies(TransMessage transMessage) {
+    private void getOnMovies(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String m_idStr = null;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "m_id" -> m_idStr = childNode.getTextContent();
+            }
+        }
+        ArrayList<OnMovie> onMovies = DBCommand.getOnMoviesByMId(m_idStr);
+        document = XMLBuilder.buildXMLDoc();
+        Element getElement = document.createElement("get_onmovies");
 
+        for (OnMovie temp : onMovies) {
+            Element onMovieElement = document.createElement("onmovie");
+            Element o_idElement = document.createElement("o_id");
+            o_idElement.setTextContent(temp.getOId());
+            Element m_idElement = document.createElement("m_id");
+            m_idElement.setTextContent(temp.getMId());
+            Element t_idElement = document.createElement("t_id");
+            t_idElement.setTextContent(temp.getTId());
+            Element o_begin_timeElement = document.createElement("o_begin_time");
+            o_begin_timeElement.setTextContent(DatePhaser.dateToDateStr(temp.getOBegin()));
+            Element o_end_timeElement = document.createElement("o_end_time");
+            o_end_timeElement.setTextContent(DatePhaser.dateToDateStr(temp.getOEnd()));
+            Element o_priceElement = document.createElement("o_price");
+            o_priceElement.setTextContent(String.valueOf(temp.getOPrice()));
+            onMovieElement.appendChild(o_idElement);
+            onMovieElement.appendChild(m_idElement);
+            onMovieElement.appendChild(t_idElement);
+            onMovieElement.appendChild(o_begin_timeElement);
+            onMovieElement.appendChild(o_end_timeElement);
+            onMovieElement.appendChild(o_priceElement);
+            getElement.appendChild(onMovieElement);
+        }
+        document.appendChild(getElement);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.GetOnMovies);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
     }
 
-    private void refundTicket(TransMessage transMessage) {
+    private void getSeats(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String o_idStr = null;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "o_id" -> o_idStr = childNode.getTextContent();
+            }
+        }
+        ArrayList<Seat> seats = DBCommand.getSeatsByOid(o_idStr);
+        document = XMLBuilder.buildXMLDoc();
+        Element getElement = document.createElement("get_seats");
+        for (Seat temp : seats) {
+            Element seatElement = document.createElement("seat");
+            Element o_idElement = document.createElement("o_id");
+            o_idElement.setTextContent(temp.getOId());
+            Element s_idElement = document.createElement("s_id");
+            s_idElement.setTextContent(temp.getSId());
+            Element s_statusElement = document.createElement("s_status");
+            s_statusElement.setTextContent(String.valueOf(temp.getSStatus()));
 
+            seatElement.appendChild(o_idElement);
+            seatElement.appendChild(s_idElement);
+            seatElement.appendChild(s_statusElement);
+
+            getElement.appendChild(seatElement);
+        }
+        document.appendChild(getElement);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.GetSeats);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
     }
 
-    private void modifyPWD(TransMessage transMessage) {
-
+    private void getTheater(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String t_idStr = null;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "t_id" -> t_idStr = childNode.getTextContent();
+            }
+        }
+        Theater theater = DBCommand.getTheaterById(t_idStr);
+        document = XMLBuilder.buildXMLDoc();
+        Element getElement = document.createElement("get_theater");
+        Element t_idElement = document.createElement("t_id");
+        t_idElement.setTextContent(theater.getTId());
+        Element t_typeElement = document.createElement("t_type");
+        t_typeElement.setTextContent(String.valueOf(theater.getTType()));
+        Element t_sizeElement = document.createElement("t_size");
+        t_sizeElement.setTextContent(String.valueOf(theater.getTSize()));
+        getElement.appendChild(t_idElement);
+        getElement.appendChild(t_typeElement);
+        getElement.appendChild(t_sizeElement);
+        document.appendChild(getElement);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.GetTheater);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
     }
 
+    private void buyTicket(TransMessage transMessage) throws Exception {
+        
+    }
 }

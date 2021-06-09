@@ -51,6 +51,12 @@
         public const byte GetMoviePictures = 9;
         //获取所有购票记录
         public const byte GetRecords = 10;
+        //获取某影片所有场次信息
+        public const byte GetOnMovies = 11;
+        //获取某场次所有座位信息
+        public const byte GetSeats = 12;
+        //获取某场次影厅信息
+        public const byte GetTheater = 13;
     }
 
     //加密码枚举
@@ -91,10 +97,10 @@
     {
         //未选中状态
         public const byte Unselected = 0;
-        //已选中状态
-        public const byte Selected = 1;
         //选中未支付状态
-        public const byte Selecting = 2;
+        public const byte Selecting = 1;
+        //已选中状态
+        public const byte Selected = 2;
     }
 
     //影厅类型枚举

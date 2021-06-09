@@ -11,13 +11,20 @@ namespace CommonUser
     /// </summary>
     public partial class WaitingWindow : Window
     {
-        public WaitingWindow(Seat[] seat)
+        private User user;
+        private Movie movie;
+        private OnMovie onMovie;
+        private Seat[] seats;
+        public WaitingWindow(User user, Movie movie, OnMovie onMovie, Seat[] seats)
         {
+            this.user = user;
+            this.movie = movie;
+            this.onMovie = onMovie;
+            this.seats = seats;
             InitializeComponent();
             mediaElement.Source = new Uri(
                 GetParentDirectory(System.AppDomain.CurrentDomain.BaseDirectory, 3)
-                + "\\ImageResources\\装饰(黑)_等待动态.gif"
-                );
+                + "\\ImageResources\\装饰(黑)_等待动态.gif");
             InitTips();
         }
 
@@ -30,14 +37,23 @@ namespace CommonUser
 
         private void InitTips()
         {
-            string strTips = "购票加载中";
-            int length = 0;
+            int countSeconds = 5;
+            string strTips = "座位锁定中";
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += new EventHandler(
-                (Object o, EventArgs e) =>
+                (object o, EventArgs e) =>
                 {
-                    Label_Tips.Content = strTips.Substring(0, length);
-                    length = (length + 1) % (strTips.Length + 1);
+                    if (countSeconds == 0)
+                    {
+                        new PayWaitingWindow(user, movie, onMovie, seats).Show();
+                        Close();
+                        return;
+                    }
+                    else
+                    {
+                        Label_Tips.Content = strTips.Substring(0, 6 - countSeconds);
+                        countSeconds--;
+                    }
                 }
             );
             timer.Interval = new TimeSpan(5000000);

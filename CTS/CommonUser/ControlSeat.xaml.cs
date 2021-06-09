@@ -34,18 +34,14 @@ namespace CommonUser
 
         private void InitBackImage()
         {
-            if (status == EnumSeatStatus.Selected)
+            if (status != EnumSeatStatus.Unselected)
                 ChangeImageSource(BackImage, "ImageResources\\图标(黑)_已选座位.png", true);
-            else if(status == EnumSeatStatus.Unselected)
+            else
             {
                 ChangeImageSource(BackImage, "ImageResources\\图标(黑)_可选座位.png", true);
                 BackImage.MouseEnter += BackImage_MouseEnter;
                 BackImage.MouseLeave += BackImage_MouseLeave;
                 BackImage.MouseDown += BackImage_MouseDown;
-            }
-            else
-            {
-                throw new Exception("座位状态异常！");
             }
         }
 

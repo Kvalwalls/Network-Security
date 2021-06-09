@@ -25,4 +25,8 @@ public class EnumCUV {
     public static final byte GetRecords = 10;
     //获取某影片所有场次信息
     public static final byte GetOnMovies = 11;
+    //获取某场次所有座位信息
+    public static final byte GetSeats = 12;
+    //获取某场次影厅信息
+    public static final byte GetTheater = 13;
 }

@@ -23,10 +23,9 @@ namespace CommonUser.AppServices
         private string mySKeyFile = ConfigurationManager.AppSettings["My_SKeyFile"];
         //服务器公钥文件
         private string vPKeyFile = ConfigurationManager.AppSettings["V_PKeyFile"];
+
         //CUVHandler实例
         private static CUVHandler instance = new CUVHandler();
-
-
 
         /// <summary>
         /// 私有构造函数
@@ -458,7 +457,7 @@ namespace CommonUser.AppServices
             int count = int.Parse(xmlRoot["count"].InnerText);
             for (int i = 0; i < count; i++)
             {
-                Thread.Sleep(50);
+                Thread.Sleep(100);
                 message = transceiver.ReceiveMessage();
                 message.DePackage(vPKeyFile, sessionKey);
                 document = XMLPhaser.StringToXml(message.contents);
@@ -543,6 +542,192 @@ namespace CommonUser.AppServices
                 records.Add(temp);
             }
             return records;
+        }
+
+        public List<OnMovie> GetOnMovies(string Mid)
+        {
+            //创建XMLDocument
+            XmlDocument document = new XmlDocument();
+            //根节点
+            XmlElement getElement = document.CreateElement("get_onmovies");
+            XmlElement m_idElement = document.CreateElement("m_id");
+            m_idElement.InnerText = Mid;
+            //形成树结构
+            getElement.AppendChild(m_idElement);
+            document.AppendChild(getElement);
+            //报文初始化
+            TransMessage message = new TransMessage();
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
+            message.serviceType = EnumServiceType.CUV;
+            message.specificType = EnumCUV.GetOnMovies;
+            message.contents = XMLPhaser.XmlToString(document);
+            message.EnPackage(mySKeyFile, sessionKey);
+            transceiver.SendMessage(message);
+            message = transceiver.ReceiveMessage();
+            message.DePackage(vPKeyFile, sessionKey);
+            document = XMLPhaser.StringToXml(message.contents);
+            if (message.errorCode == EnumErrorCode.Error)
+                throw new Exception("获取某影片所有场次信息函数错误！");
+            List<OnMovie> onMovies = new List<OnMovie>();
+            XmlElement xmlRoot = document.DocumentElement;
+            XmlNodeList onMovieNodeList = xmlRoot.ChildNodes;
+            foreach (XmlNode onMovieNode in onMovieNodeList)
+            {
+                OnMovie temp = new OnMovie();
+                XmlNodeList nodeList = onMovieNode.ChildNodes;
+                foreach (XmlNode node in nodeList)
+                {
+                    switch (node.Name)
+                    {
+                        case "o_id":
+                            temp.Oid = node.InnerText;
+                            break;
+                        case "m_id":
+                            temp.Mid = node.InnerText;
+                            break;
+                        case "t_id":
+                            temp.Tid = node.InnerText;
+                            break;
+                        case "o_begin_time":
+                            temp.Obegin = node.InnerText;
+                            break;
+                        case "o_end_time":
+                            temp.Oend = node.InnerText;
+                            break;
+                        case "o_price":
+                            temp.Oprice = float.Parse(node.InnerText);
+                            break;
+                    }
+                }
+                onMovies.Add(temp);
+            }
+            return onMovies;
+        }
+
+        public List<Seat> GetSeats(string Oid)
+        {
+            //创建XMLDocument
+            XmlDocument document = new XmlDocument();
+            //根节点
+            XmlElement getElement = document.CreateElement("get_seats");
+            XmlElement o_idElement = document.CreateElement("o_id");
+            o_idElement.InnerText = Oid;
+            //形成树结构
+            getElement.AppendChild(o_idElement);
+            document.AppendChild(getElement);
+            //报文初始化
+            TransMessage message = new TransMessage();
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
+            message.serviceType = EnumServiceType.CUV;
+            message.specificType = EnumCUV.GetSeats;
+            message.contents = XMLPhaser.XmlToString(document);
+            message.EnPackage(mySKeyFile, sessionKey);
+            transceiver.SendMessage(message);
+            message = transceiver.ReceiveMessage();
+            message.DePackage(vPKeyFile, sessionKey);
+            document = XMLPhaser.StringToXml(message.contents);
+            if (message.errorCode == EnumErrorCode.Error)
+                throw new Exception("获取某场次所有座位信息函数错误！");
+            List<Seat> seats = new List<Seat>();
+            XmlElement xmlRoot = document.DocumentElement;
+            XmlNodeList seatNodeList = xmlRoot.ChildNodes;
+            foreach (XmlNode seatNode in seatNodeList)
+            {
+                Seat temp = new Seat();
+                XmlNodeList nodeList = seatNode.ChildNodes;
+                foreach (XmlNode node in nodeList)
+                {
+                    switch (node.Name)
+                    {
+                        case "o_id":
+                            temp.Oid = node.InnerText;
+                            break;
+                        case "s_id":
+                            temp.Sid = node.InnerText;
+                            break;
+                        case "s_status":
+                            temp.Sstatus = byte.Parse(node.InnerText);
+                            break;
+                    }
+                }
+                seats.Add(temp);
+            }
+            return seats;
+        }
+
+        public Theater GetTheater(string Tid)
+        {
+            //创建XMLDocument
+            XmlDocument document = new XmlDocument();
+            //根节点
+            XmlElement getElement = document.CreateElement("get_theater");
+            XmlElement t_idElement = document.CreateElement("t_id");
+            t_idElement.InnerText = Tid;
+            //形成树结构
+            getElement.AppendChild(t_idElement);
+            document.AppendChild(getElement);
+            //报文初始化
+            TransMessage message = new TransMessage();
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
+            message.serviceType = EnumServiceType.CUV;
+            message.specificType = EnumCUV.GetTheater;
+            message.contents = XMLPhaser.XmlToString(document);
+            message.EnPackage(mySKeyFile, sessionKey);
+            transceiver.SendMessage(message);
+            message = transceiver.ReceiveMessage();
+            message.DePackage(vPKeyFile, sessionKey);
+            document = XMLPhaser.StringToXml(message.contents);
+            if (message.errorCode == EnumErrorCode.Error)
+                throw new Exception("获取某场次影厅信息函数错误！");
+            Theater theater = new Theater();
+            XmlElement xmlRoot = document.DocumentElement;
+            XmlNodeList nodeList = xmlRoot.ChildNodes;
+            foreach (XmlNode node in nodeList)
+            {
+                switch (node.Name)
+                {
+                    case "t_id":
+                        theater.Tid = node.InnerText;
+                        break;
+                    case "t_type":
+                        theater.Ttype = byte.Parse(node.InnerText);
+                        break;
+                    case "t_size":
+                        theater.Tsize = int.Parse(node.InnerText);
+                        break;
+                }
+            }
+            return theater;
+        }
+
+        public float BuyTicket(Seat[] seats)
+        {
+            //创建XMLDocument
+            XmlDocument document = new XmlDocument();
+            //根节点
+            XmlElement getElement = document.CreateElement("get_theater");
+            XmlElement t_idElement = document.CreateElement("t_id");
+            t_idElement.InnerText = Tid;
+            //形成树结构
+            getElement.AppendChild(t_idElement);
+            document.AppendChild(getElement);
+            //报文初始化
+            TransMessage message = new TransMessage();
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
+            message.serviceType = EnumServiceType.CUV;
+            message.specificType = EnumCUV.GetTheater;
+            message.contents = XMLPhaser.XmlToString(document);
+            message.EnPackage(mySKeyFile, sessionKey);
+            transceiver.SendMessage(message);
+            message = transceiver.ReceiveMessage();
+            message.DePackage(vPKeyFile, sessionKey);
+            document = XMLPhaser.StringToXml(message.contents);
+            if (message.errorCode == EnumErrorCode.Error)
+                throw new Exception("获取某场次影厅信息函数错误！");
         }
     }
 }

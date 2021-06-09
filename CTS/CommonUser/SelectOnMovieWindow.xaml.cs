@@ -1,4 +1,5 @@
-﻿using CommonUser.Entity;
+﻿using CommonUser.AppServices;
+using CommonUser.Entity;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -12,44 +13,37 @@ namespace CommonUser
     /// </summary>
     public partial class SelectOnMovieWindow : Window
     {
+        private User user;
         private Movie movie;
-        private List<OnMovie> onMovies;
-        public SelectOnMovieWindow(Movie movie)
+        private List<OnMovie> onMovies = new List<OnMovie>();
+        private CUVHandler handler;
+        public SelectOnMovieWindow(User user,Movie movie)
         {
+            this.user = user;
             this.movie = movie;
-            this.onMovies = new List<OnMovie>();
+            handler = CUVHandler.GetInstance();
             InitializeComponent();
             Grid_SelectOnMovie.DataContext = movie;
-            InitTabItem();
-            InitOnMovies();
+            SetTabItem();
+            SetOnMovies();
         }
 
-        private void InitTabItem()
+        private void SetTabItem()
         {
             Tab_Today.Header += "\n(" + DateTime.Now.ToString("MM/dd") + ")";
             Tab_Tomorrow.Header += "\n(" + DateTime.Now.AddDays(1).ToString("MM/dd") + ")";
             Tab_AfterTom.Header += "\n(" + DateTime.Now.AddDays(2).ToString("MM/dd") + ")";
         }
 
-        private void InitOnMovies()
+        private void SetOnMovies()
         {
-            OnMovie temp = new OnMovie("O00001", movie.Mid, "T000001", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), DateTime.Now.AddMinutes(movie.Mtime).ToString("yyyy/MM/dd hh:mm:ss"), 35);
-            onMovies.Add(temp);
-            temp = new OnMovie("O00002", movie.Mid, "T000002", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), DateTime.Now.AddMinutes(movie.Mtime).ToString("yyyy/MM/dd hh:mm:ss"), 35);
-            onMovies.Add(temp);
-            temp = new OnMovie("O00003", movie.Mid, "T000003", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), DateTime.Now.AddMinutes(movie.Mtime).ToString("yyyy/MM/dd hh:mm:ss"), 35);
-            onMovies.Add(temp);
-            temp = new OnMovie("O00004", movie.Mid, "T000001", DateTime.Now.AddDays(1).ToString("yyyy/MM/dd HH:mm:ss"), DateTime.Now.AddDays(1).AddMinutes(movie.Mtime).ToString("yyyy/MM/dd hh:mm:ss"), 35);
-            onMovies.Add(temp);
-            temp = new OnMovie("O00005", movie.Mid, "T000002", DateTime.Now.AddDays(1).ToString("yyyy/MM/dd HH:mm:ss"), DateTime.Now.AddDays(1).AddMinutes(movie.Mtime).ToString("yyyy/MM/dd hh:mm:ss"), 35);
-            onMovies.Add(temp);
-            temp = new OnMovie("O00006", movie.Mid, "T000001", DateTime.Now.AddDays(2).ToString("yyyy/MM/dd HH:mm:ss"), DateTime.Now.AddDays(2).AddMinutes(movie.Mtime).ToString("yyyy/MM/dd hh:mm:ss"), 35);
-            onMovies.Add(temp);
-            temp = new OnMovie("O00007", movie.Mid, "T000002", DateTime.Now.AddDays(2).ToString("yyyy/MM/dd HH:mm:ss"), DateTime.Now.AddDays(2).AddMinutes(movie.Mtime).ToString("yyyy/MM/dd hh:mm:ss"), 35);
-            onMovies.Add(temp);
+            onMovies = handler.GetOnMovies(movie.Mid);
             ListView_OnMoviesToday.DataContext = selectOnMovies(0);
+            ListView_OnMoviesToday.Items.Refresh();
             ListView_OnMoviesTomo.DataContext = selectOnMovies(1);
+            ListView_OnMoviesTomo.Items.Refresh();
             ListView_OnMoviesAfTomo.DataContext = selectOnMovies(2);
+            ListView_OnMoviesAfTomo.Items.Refresh();
         }
 
         private List<OnMovie> selectOnMovies(int time)
@@ -79,27 +73,21 @@ namespace CommonUser
         private void Tab_MouseDoubleClick_Today(object sender, MouseButtonEventArgs e)
         {
             OnMovie temp = ListView_OnMoviesToday.SelectedItem as OnMovie;
-            /*发送请求*/
-            Theater theater = new Theater("T00001", EnumTheaterType.SVIP, 64);
-            new SelectSeatWindow(temp, movie,theater).Show();
+            new SelectSeatWindow(user, movie, temp).Show();
             Close();
         }
 
         private void Tab_MouseDoubleClick_Tomo(object sender, MouseButtonEventArgs e)
         {
             OnMovie temp = ListView_OnMoviesTomo.SelectedItem as OnMovie;
-            /*发送请求*/
-            Theater theater = new Theater("T00001", EnumTheaterType.SVIP, 64);
-            new SelectSeatWindow(temp, movie, theater).Show();
+            new SelectSeatWindow(user, movie, temp).Show();
             Close();
         }
 
         private void Tab_MouseDoubleClick_AfTomo(object sender, MouseButtonEventArgs e)
         {
             OnMovie temp = ListView_OnMoviesAfTomo.SelectedItem as OnMovie;
-            /*发送请求*/
-            Theater theater = new Theater("T00001", EnumTheaterType.SVIP, 64);
-            new SelectSeatWindow(temp, movie, theater).Show();
+            new SelectSeatWindow(user, movie, temp).Show();
             Close();
         }
 
@@ -107,7 +95,5 @@ namespace CommonUser
         {
             Close();
         }
-
-        
     }
 }

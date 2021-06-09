@@ -388,7 +388,7 @@ namespace CommonUser
         {
             Button button = sender as Button;
             Movie movie = button.DataContext as Movie;
-            new SelectOnMovieWindow(movie).Show(); 
+            new SelectOnMovieWindow(user,movie).Show(); 
         }
 
         private void MouseDown_GetMoreMovieInfo(object sender, MouseButtonEventArgs e)
@@ -396,7 +396,7 @@ namespace CommonUser
             Movie movie = ListView_Movies.SelectedItem as Movie;
             if (e.ClickCount == 2)
             {
-                new MovieInfoWindow(movie).Show();
+                new MovieInfoWindow(user,movie).Show();
             }
         }
 

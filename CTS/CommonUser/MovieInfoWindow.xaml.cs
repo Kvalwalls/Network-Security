@@ -20,8 +20,10 @@ namespace CommonUser
     /// </summary>
     public partial class MovieInfoWindow : Window
     {
-        public MovieInfoWindow(Movie movie)
+        private User user;
+        public MovieInfoWindow(User user,Movie movie)
         {
+            this.user = user;
             InitializeComponent();
             Grid_Info.DataContext = movie;
             if (movie.Mcomment >= 2)
@@ -40,7 +42,7 @@ namespace CommonUser
         {
             Button button = sender as Button;
             Movie movie = button.DataContext as Movie;
-            new SelectOnMovieWindow(movie).Show();
+            new SelectOnMovieWindow(user, movie).Show();
             Close();
         }
 

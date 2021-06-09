@@ -21,13 +21,15 @@ namespace CommonUser
     /// </summary>
     public partial class PayWaitingWindow : Window
     {
+		private User user;
 		private Seat[] seat;
 		private Movie movie;
 		private OnMovie onMovie;
 		private Theater theater;
 		private int countSecond = 300; //记录秒数
-		public PayWaitingWindow(OnMovie onMovie, Movie movie, Seat[] seat,Theater theater)
+		public PayWaitingWindow(User user,Movie movie, OnMovie onMovie, Seat[] seat)
         {
+			this.user = user;
 			this.onMovie=onMovie;
 			this.movie=movie;
 			this.seat = seat;
@@ -46,10 +48,9 @@ namespace CommonUser
 			M_name.Text = movie.Mname;
 			O_begin.Text = onMovie.Obegin;
 			O_end.Text = onMovie.Oend;
-			T_id.Text = theater.Tid;
 			for (int i = 0; i < seat.Length; i++)
 			{
-				S_id.Text +=  "第" + seat[i].Sid.Substring(0, 3) + "行第" + seat[i].Sid.Substring(3, 3) + "列；";
+				S_id.Text +=  "第" + seat[i].Sid.Substring(0, 2) + "行第" + seat[i].Sid.Substring(2, 2) + "列；";
 			}
 			O_price.Text = (seat.Length * onMovie.Oprice).ToString();
 		}
