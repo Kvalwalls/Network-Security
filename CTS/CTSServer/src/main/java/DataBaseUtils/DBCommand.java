@@ -816,11 +816,13 @@ public class DBCommand {
      * @return 删除结果
      */
     public static boolean deleteOnMovie(String oid) {
+        String sql1 = "delete from t_seat where o_id='" + oid + "'";
         String sql = "delete from t_onMovie where o_id='" + oid + "'";
         Statement state = null;
         int a = 0;
         try {
             state = connection.createStatement();
+            state.executeUpdate(sql1);
             a = state.executeUpdate(sql);
             state.close();
         } catch (Exception e) {
