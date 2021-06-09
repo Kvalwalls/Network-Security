@@ -82,7 +82,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.Login;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -137,7 +137,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.Login;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -184,7 +184,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.GetUser;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -293,7 +293,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.AddUser;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -337,7 +337,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.DelUser;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -384,7 +384,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.GetTheater;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -469,7 +469,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.AddTheater;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -513,7 +513,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.DelTheater;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -560,7 +560,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.GetMovie;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -639,7 +639,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.AddMovie;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -683,7 +683,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.DelMovie;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -730,7 +730,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.GetOnMovie;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -808,7 +808,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.AddOnMovie;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -858,7 +858,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.DelOnMovie;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -905,7 +905,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.GetRecord;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -970,7 +970,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.GetMoviePic;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
@@ -1026,7 +1026,7 @@ namespace AdminUser.AppService
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
-            message.specificType = EnumKerberos.Request;
+            message.specificType = EnumAUV.SRMoviePic;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);

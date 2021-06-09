@@ -19,6 +19,7 @@ public abstract class VHandler {
     protected String clientPKeyFile;
 
     protected String MySKeyFile = PropertiesHandler.getElement("CUV_SKeyFile");
+    protected String MyAUVSKeyFile = PropertiesHandler.getElement("CUV_SKeyFile");
 
     protected byte[] fromAddr;
 

@@ -1,5 +1,42 @@
 ﻿namespace AdminUser.Entity
 {
+    //AdminUser服务具体类型枚举
+    public class EnumAUV
+    {
+        //登录
+        public const byte Login = 0;
+        //添加用户
+        public const byte AddUser = 1;
+        //删除用户
+        public const byte DelUser = 2;
+        //获取所有用户
+        public const byte GetUser = 3;
+        //添加影片
+        public const byte AddMovie = 4;
+        //删除影片
+        public const byte DelMovie = 5;
+        //获取所有影片
+        public const byte GetMovie = 6;
+        //添加影院
+        public const byte AddTheater = 7;
+        //删除影院
+        public const byte DelTheater = 8;
+        //获取所有影院
+        public const byte GetTheater = 9;
+        //添加场次
+        public const byte AddOnMovie = 10;
+        //删除场次
+        public const byte DelOnMovie = 11;
+        //获取所有场次
+        public const byte GetOnMovie = 12;
+        //获取所有电影票
+        public const byte GetRecord = 13;
+        //获取所有图片
+        public const byte GetMoviePic = 14;
+        //接收图片
+        public const byte SRMoviePic = 15;
+    }
+
     //服务类型枚举
     public class EnumServiceType
     {

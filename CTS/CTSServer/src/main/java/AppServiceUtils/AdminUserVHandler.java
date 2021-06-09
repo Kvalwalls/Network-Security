@@ -3,8 +3,7 @@ package AppServiceUtils;
 import DataBaseUtils.DBCommand;
 import DataUtils.*;
 import DataUtils.Record;
-import EnumUtils.EnumKerberos;
-import EnumUtils.EnumServiceType;
+import EnumUtils.*;
 
 import PropertiesUtils.PropertiesHandler;
 import TransmissionUtils.*;
@@ -20,12 +19,75 @@ import java.util.ArrayList;
 public class AdminUserVHandler extends VHandler implements Runnable {
     private final Transceiver transceiver;
     private final Socket socket;
-    private String DesKey=null;
+    //private String DesKey=null;
 
     @Override
     public void run() {
-
+        try {
+            while (true)
+                if (VCertification())
+                    break;
+            while (true) {
+                TransMessage message = transceiver.receiveMessage();
+                message.dePackage(clientPKeyFile, sessionKey);
+                if (message.getErrorCode() == EnumErrorCode.Error)
+                    throw new Exception("报文错误！");
+                switch (message.getSpecificType()) {
+                    case EnumAUV.Login: {
+                        logIn(message);
+                    }
+                    case EnumAUV.AddUser: {
+                        addUser(message);
+                    }
+                    case EnumAUV.DelUser:{
+                        deleteUser(message);
+                    }
+                    case EnumAUV.GetUser:{
+                        getUser(message);
+                    }
+                    case EnumAUV.AddMovie:{
+                        addMovie(message);
+                    }
+                    case EnumAUV.DelMovie:{
+                        deleteMovie(message);
+                    }
+                    case EnumAUV.GetMovie:{
+                        getMovie(message);
+                    }
+                    case EnumAUV.AddTheater:{
+                        addTheater(message);
+                    }
+                    case EnumAUV.DelTheater:{
+                        deleteTheater(message);
+                    }
+                    case EnumAUV.GetTheater:{
+                        getTheater(message);
+                    }
+                    case EnumAUV.AddOnMovie:{
+                        addOnMovie(message);
+                    }
+                    case EnumAUV.DelOnMovie:{
+                        deleteOnMovie(message);
+                    }
+                    case EnumAUV.GetOnMovie:{
+                        getOnMovie(message);
+                    }
+                    case EnumAUV.GetRecord:{
+                        getTicket(message);
+                    }
+                    case EnumAUV.GetMoviePic:{
+                        getMoviePictures(message);
+                    }
+                    case EnumAUV.SRMoviePic:{
+                        recMoviePicture(message);
+                    }
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
+
     public AdminUserVHandler(Socket socket) {
         this.transceiver = new Transceiver(socket);
         this.socket=socket;
@@ -34,21 +96,20 @@ public class AdminUserVHandler extends VHandler implements Runnable {
     public AdminUserVHandler(Socket socket,String desKey) {
         this.transceiver = new Transceiver(socket);
         this.socket=socket;
-        this.DesKey=desKey;
+        //this.DesKey=desKey;
     }
 
     private byte[] readPicture(Path picName) {
         return null;
     }
 
-    private TransMessage setMessage(byte[] toAddr,String key_c,TransMessage message,Document document) throws Exception {
+    private TransMessage setMessage(TransMessage message, Document document,byte type) throws Exception {
         message.setToAddress(toAddr);
-        message.setFromAddress(AddressPhaser.stringToBytes(
-                PropertiesHandler.getElement("My_IPAddress")));
-        message.setServiceType(EnumServiceType.AUV);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(type);
         message.setSpecificType(EnumKerberos.Reply);
         message.setContents(XMLPhaser.docToString(document));
-        message.enPackage("src\\resourcesAS\\KeyFiles\\AS.sk", key_c);
+        message.enPackage(MyAUVSKeyFile, sessionKey);
         return message;
     }
 
@@ -60,18 +121,18 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         return transMessage.getContents();
     }
 
-    private TransMessage DelOrAddReply(byte[] toAddr, String contents,String key_c) throws Exception{
+    private TransMessage DelOrAddReply(String contents,byte type) throws Exception{
         //构建报文回复内容
         Document document = XMLBuilder.buildXMLDoc();
         //根
-        Element root = document.createElement("addUserResult");
+        Element root = document.createElement("DelOrAddResult");
         Element status=document.createElement("Status");
         status.setTextContent(contents);
         document.appendChild(root);
         root.appendChild(status);
         //构建报文
         TransMessage message = new TransMessage();
-        setMessage(toAddr,key_c,message,document);
+        setMessage(message,document,type);
         return message;
     }
 
@@ -98,7 +159,7 @@ public class AdminUserVHandler extends VHandler implements Runnable {
             else {
                 contents[0]="密码错误";
             }
-            transceiver.sendMessage(LoginReply(transMessage.getFromAddress(),contents,DesKey));
+            transceiver.sendMessage(LoginReply(contents));
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -106,7 +167,7 @@ public class AdminUserVHandler extends VHandler implements Runnable {
 
     }
 
-    private TransMessage LoginReply(byte[] toAddr, String [] contents,String key_c) throws Exception{
+    private TransMessage LoginReply(String[] contents) throws Exception{
         //构建报文回复内容
         Document document = XMLBuilder.buildXMLDoc();
         //根
@@ -123,10 +184,9 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         root.appendChild(money);
         //构建报文
         TransMessage message = new TransMessage();
-        setMessage(toAddr,key_c,message,document);
+        setMessage(message,document,EnumAUV.Login);
         return message;
     }
-
 
 //    private void logOut(TransMessage transMessage) throws Exception {
 //        TransMessage message = transceiver.receiveMessage();
@@ -161,11 +221,11 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         else {
             status="添加失败";
         }
-        transceiver.sendMessage(addUserReply(transMessage.getFromAddress(),status,DesKey));
+        transceiver.sendMessage(addUserReply(status));
     }
 
-    private TransMessage addUserReply(byte[] toAddr, String contents,String key_c) throws Exception {
-        return DelOrAddReply(toAddr,contents,key_c);
+    private TransMessage addUserReply(String contents) throws Exception {
+        return DelOrAddReply(contents,EnumAUV.AddUser);
     }
 
     private void deleteUser(TransMessage transMessage) throws Exception {
@@ -182,20 +242,20 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         else {
             status="删除失败";
         }
-        transceiver.sendMessage(deleteUserReply(transMessage.getFromAddress(),status,DesKey));
+        transceiver.sendMessage(deleteUserReply(status));
     }
 
-    private TransMessage deleteUserReply(byte[] toAddr, String contents,String key_c) throws Exception {
-        return DelOrAddReply(toAddr,contents,key_c);
+    private TransMessage deleteUserReply(String contents) throws Exception {
+        return DelOrAddReply(contents,EnumAUV.DelUser);
     }
 
     private void getUser(TransMessage transMessage) throws Exception {
         ArrayList<User> users;
         users=DBCommand.getAllUsers();
-        transceiver.sendMessage(getAllUserReply(transMessage.getFromAddress(),users,DesKey));
+        transceiver.sendMessage(getAllUserReply(users));
     }
 
-    private TransMessage getAllUserReply(byte[] toAddr, ArrayList<User> users,String key_c) throws Exception{
+    private TransMessage getAllUserReply(ArrayList<User> users) throws Exception{
         int userNumb=users.size();
         Document document = XMLBuilder.buildXMLDoc();
         Element root=document.createElement("GetAllUser");
@@ -207,10 +267,9 @@ public class AdminUserVHandler extends VHandler implements Runnable {
             root.appendChild(elements[i]);
         }
         TransMessage message = new TransMessage();
-        setMessage(toAddr,key_c,message,document);
+        setMessage(message,document,EnumAUV.GetUser);
         return message;
     }
-
 
     private static void setUserElement(User user,Document document,Element userElement){
         Element Id=document.createElement("Id");
@@ -247,11 +306,11 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         else {
             status="添加失败";
         }
-        transceiver.sendMessage(addMovieReply(transMessage.getFromAddress(),status,DesKey));
+        transceiver.sendMessage(addMovieReply(status));
     }
 
-    private TransMessage addMovieReply(byte[] toAddr, String contents,String key_c) throws Exception{
-        return DelOrAddReply(toAddr,contents,key_c);
+    private TransMessage addMovieReply(String contents) throws Exception{
+        return DelOrAddReply(contents,EnumAUV.AddMovie);
     }
 
     private void deleteMovie(TransMessage transMessage) throws Exception {
@@ -268,21 +327,21 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         else {
             status="删除失败";
         }
-        transceiver.sendMessage(delMovieReply(transMessage.getFromAddress(),status,DesKey));
+        transceiver.sendMessage(delMovieReply(status));
     }
 
-    private TransMessage delMovieReply(byte[] toAddr, String contents,String key_c) throws Exception{
-        return DelOrAddReply(toAddr,contents,key_c);
+    private TransMessage delMovieReply(String contents) throws Exception{
+        return DelOrAddReply(contents,EnumAUV.DelMovie);
     }
 
     private void getMovie(TransMessage transMessage) throws Exception {
         ArrayList<Movie> movies;
         movies=DBCommand.getAllMovies();
         assert movies != null;
-        transceiver.sendMessage(getAllMovieReply(transMessage.getFromAddress(),movies,DesKey));
+        transceiver.sendMessage(getAllMovieReply(movies));
     }
 
-    private TransMessage getAllMovieReply(byte[] toAddr, ArrayList<Movie> movies, String key_c) throws Exception{
+    private TransMessage getAllMovieReply(ArrayList<Movie> movies) throws Exception{
         int movieNumb=movies.size();
         Document document = XMLBuilder.buildXMLDoc();
         Element root=document.createElement("GetAllMovie");
@@ -294,9 +353,10 @@ public class AdminUserVHandler extends VHandler implements Runnable {
             root.appendChild(elements[i]);
         }
         TransMessage message = new TransMessage();
-        setMessage(toAddr,key_c,message,document);
+        setMessage(message,document,EnumAUV.GetMovie);
         return message;
     }
+
     private static void setMovieElement(Movie movie,Document document,Element movieElement){
         Element Id=document.createElement("Id");
         Id.setTextContent(movie.getMId());
@@ -318,7 +378,6 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         movieElement.appendChild(Description);
     }
 
-
     private void addTheater(TransMessage transMessage) throws Exception {
         String con=getContent(transMessage);
         Document document= XMLPhaser.stringToDoc(con);
@@ -336,11 +395,11 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         else {
             status="添加失败";
         }
-        transceiver.sendMessage(addTheaterReply(transMessage.getFromAddress(),status,DesKey));
+        transceiver.sendMessage(addTheaterReply(status));
     }
 
-    private TransMessage addTheaterReply(byte[] toAddr, String contents,String key_c) throws Exception{
-        return DelOrAddReply(toAddr,contents,key_c);
+    private TransMessage addTheaterReply(String contents) throws Exception{
+        return DelOrAddReply(contents,EnumAUV.AddTheater);
     }
 
     private void deleteTheater(TransMessage transMessage) throws Exception {
@@ -357,21 +416,21 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         else {
             status="删除失败";
         }
-        transceiver.sendMessage(delTheaterReply(transMessage.getFromAddress(),status,DesKey));
+        transceiver.sendMessage(delTheaterReply(status));
     }
 
-    private TransMessage delTheaterReply(byte[] toAddr, String contents,String key_c) throws Exception{
-        return DelOrAddReply(toAddr,contents,key_c);
+    private TransMessage delTheaterReply(String contents) throws Exception{
+        return DelOrAddReply(contents,EnumAUV.DelTheater);
     }
 
     private void getTheater(TransMessage transMessage) throws Exception {
         ArrayList<Theater> theaters;
         theaters=DBCommand.getAllTheaters();
         assert theaters != null;
-        transceiver.sendMessage(getAllTheaterReply(transMessage.getFromAddress(),theaters,DesKey));
+        transceiver.sendMessage(getAllTheaterReply(theaters));
     }
 
-    private TransMessage getAllTheaterReply(byte[] toAddr, ArrayList<Theater> theaters, String key_c) throws Exception{
+    private TransMessage getAllTheaterReply(ArrayList<Theater> theaters) throws Exception{
         int theaterNumb=theaters.size();
         Document document = XMLBuilder.buildXMLDoc();
         Element root=document.createElement("GetAllTheater");
@@ -383,7 +442,7 @@ public class AdminUserVHandler extends VHandler implements Runnable {
             root.appendChild(elements[i]);
         }
         TransMessage message = new TransMessage();
-        setMessage(toAddr,key_c,message,document);
+        setMessage(message,document,EnumAUV.GetTheater);
         return message;
     }
 
@@ -421,11 +480,11 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         else {
             status="添加失败";
         }
-        transceiver.sendMessage(addTheaterReply(transMessage.getFromAddress(),status,DesKey));
+        transceiver.sendMessage(addTheaterReply(status));
     }
 
-    private TransMessage addOnMovieReply(byte[] toAddr, String contents,String key_c) throws Exception{
-        return DelOrAddReply(toAddr,contents,key_c);
+    private TransMessage addOnMovieReply(String contents) throws Exception{
+        return DelOrAddReply(contents,EnumAUV.AddOnMovie);
     }
 
     private void deleteOnMovie(TransMessage transMessage) throws Exception {
@@ -442,21 +501,21 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         else {
             status="删除失败";
         }
-        transceiver.sendMessage(delOnMovieReply(transMessage.getFromAddress(),status,DesKey));
+        transceiver.sendMessage(delOnMovieReply(status));
     }
 
-    private TransMessage delOnMovieReply(byte[] toAddr, String contents,String key_c) throws Exception{
-        return DelOrAddReply(toAddr,contents,key_c);
+    private TransMessage delOnMovieReply(String contents) throws Exception{
+        return DelOrAddReply(contents,EnumAUV.DelOnMovie);
     }
 
     private void getOnMovie(TransMessage transMessage) throws Exception {
         ArrayList<OnMovie> onMovies;
         onMovies=DBCommand.getAllOnMovies();
         assert onMovies != null;
-        transceiver.sendMessage(getAllOnMovieReply(transMessage.getFromAddress(),onMovies,DesKey));
+        transceiver.sendMessage(getAllOnMovieReply(onMovies));
     }
 
-    private TransMessage getAllOnMovieReply(byte[] toAddr, ArrayList<OnMovie> onMovies, String key_c) throws Exception{
+    private TransMessage getAllOnMovieReply(ArrayList<OnMovie> onMovies) throws Exception{
         int onMovieNumb=onMovies.size();
         Document document = XMLBuilder.buildXMLDoc();
         Element root=document.createElement("GetAllOnMovie");
@@ -468,7 +527,7 @@ public class AdminUserVHandler extends VHandler implements Runnable {
             root.appendChild(elements[i]);
         }
         TransMessage message = new TransMessage();
-        setMessage(toAddr,key_c,message,document);
+        setMessage(message,document,EnumAUV.GetOnMovie);
         return message;
     }
 
@@ -494,15 +553,14 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         onMovieElement.appendChild(Price);
     }
 
-
-
     private void getTicket(TransMessage transMessage) throws Exception {
         ArrayList<Record> record;
         record=DBCommand.getAllRecord();
         assert record != null;
-        transceiver.sendMessage(getAllTicketReply(transMessage.getFromAddress(),record,DesKey));
+        transceiver.sendMessage(getAllTicketReply(record));
     }
-    private TransMessage getAllTicketReply(byte[] toAddr, ArrayList<Record> records, String key_c) throws Exception{
+
+    private TransMessage getAllTicketReply(ArrayList<Record> records) throws Exception{
         int recordNumb=records.size();
         Document document = XMLBuilder.buildXMLDoc();
         Element root=document.createElement("GetAllTicket");
@@ -514,7 +572,7 @@ public class AdminUserVHandler extends VHandler implements Runnable {
             root.appendChild(elements[i]);
         }
         TransMessage message = new TransMessage();
-        setMessage(toAddr,key_c,message,document);
+        setMessage(message,document,EnumAUV.GetRecord);
         return message;
     }
 
@@ -538,5 +596,87 @@ public class AdminUserVHandler extends VHandler implements Runnable {
         recordElement.appendChild(Rtime);
         recordElement.appendChild(Rprice);
         recordElement.appendChild(Rstatus);
+    }
+
+    private void getMoviePictures(TransMessage transMessage) throws Exception {
+        ArrayList<Movie> movies = DBCommand.getAllMovies();
+        Document document = XMLBuilder.buildXMLDoc();
+        Element getElement = document.createElement("get_movie_pictures");
+        Element countElement = document.createElement("count");
+        countElement.setTextContent(String.valueOf(movies.size()));
+        getElement.appendChild(countElement);
+        document.appendChild(getElement);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.AUV);
+        message.setSpecificType(EnumAUV.GetMoviePic);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MyAUVSKeyFile, sessionKey);
+        transceiver.sendMessage(message);
+        for(Movie temp : movies) {
+            document = XMLBuilder.buildXMLDoc();
+            getElement = document.createElement("get_movie_pictures");
+            Element m_idElement = document.createElement("m_id");
+            m_idElement.setTextContent(temp.getMId());
+            getElement.appendChild(m_idElement);
+            String moviePicName = "src\\resourcesV\\MoviePictures\\" + temp.getMId() + ".jpg";
+            String moviePicStr = PicturePhaser.pictureToBase64(moviePicName);
+            Element m_pictureElement = document.createElement("m_picture");
+            m_pictureElement.setTextContent(moviePicStr);
+            getElement.appendChild(m_pictureElement);
+            document.appendChild(getElement);
+            //报文初始化
+            message = new TransMessage();
+            message.setToAddress(toAddr);
+            message.setFromAddress(fromAddr);
+            message.setServiceType(EnumServiceType.CUV);
+            message.setSpecificType(EnumCUV.GetMovies);
+            message.setContents(XMLPhaser.docToString(document));
+            message.enPackage(MySKeyFile, sessionKey);
+            transceiver.sendMessage(message);
+        }
+    }
+
+    private void recMoviePicture(TransMessage transMessage) throws Exception {
+        ArrayList<Movie> movies = DBCommand.getAllMovies();
+        Document document = XMLBuilder.buildXMLDoc();
+        Element getElement = document.createElement("get_movie_pictures");
+        Element countElement = document.createElement("count");
+        countElement.setTextContent(String.valueOf(movies.size()));
+        getElement.appendChild(countElement);
+        document.appendChild(getElement);
+        //报文初始化
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.GetMoviePictures);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MyAUVSKeyFile, sessionKey);
+        transceiver.sendMessage(message);
+        for(Movie temp : movies) {
+            document = XMLBuilder.buildXMLDoc();
+            getElement = document.createElement("get_movie_pictures");
+            Element m_idElement = document.createElement("m_id");
+            m_idElement.setTextContent(temp.getMId());
+            getElement.appendChild(m_idElement);
+            String moviePicName = "src\\resourcesV\\MoviePictures\\" + temp.getMId() + ".jpg";
+            String moviePicStr = PicturePhaser.pictureToBase64(moviePicName);
+            Element m_pictureElement = document.createElement("m_picture");
+            m_pictureElement.setTextContent(moviePicStr);
+            getElement.appendChild(m_pictureElement);
+            document.appendChild(getElement);
+            //报文初始化
+            message = new TransMessage();
+            message.setToAddress(toAddr);
+            message.setFromAddress(fromAddr);
+            message.setServiceType(EnumServiceType.AUV);
+            message.setSpecificType(EnumAUV.SRMoviePic);
+            message.setContents(XMLPhaser.docToString(document));
+            message.enPackage(MySKeyFile, sessionKey);
+            transceiver.sendMessage(message);
+        }
     }
 }
