@@ -561,9 +561,9 @@
                     <ComboBox Name="ComboBox_TicketStatus" FontSize="32" Opacity="1" Text="支付状态" SelectedIndex="-1" Margin="586,10,135.4,449.6">
                         <ComboBoxItem Content="支付状态" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="22"/>
                         <ComboBoxItem Name="TicketStatus_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TicketStatus_no" Content="未支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TicketStatus_wait" Content="待支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
-                        <ComboBoxItem Name="TicketStatus_yes" Content="已支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
+                        <ComboBoxItem Name="TicketStatus_no" Content="等待支付" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
+                        <ComboBoxItem Name="TicketStatus_wait" Content="购票成功" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
+                        <ComboBoxItem Name="TicketStatus_yes" Content="购票失败" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
                     </ComboBox>
 
                 </Grid>

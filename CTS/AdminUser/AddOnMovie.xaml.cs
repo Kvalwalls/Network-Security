@@ -23,17 +23,19 @@ namespace AdminUser
     {
         private static AUVHandler handler;
         private static List<OnMovie> SubOnMovies;
+        private static List<Theater> SubTheaters;
         private static List<Movie> SubMovies;
-        public AddOnMovie(List<OnMovie> onmovies, List<Movie> movies)
+        public AddOnMovie(List<OnMovie> onmovies, List<Movie> movies, List<Theater> theaters)
         {
             InitializeComponent();
             SubOnMovies = onmovies;
             SubMovies = movies;
+            SubTheaters = theaters;
             handler = AUVHandler.GetInstance();
             OidTip.Visibility = Visibility.Hidden;
             MidTip.Visibility = Visibility.Hidden;
             PidTip.Visibility = Visibility.Hidden;
-            StimeTip.Text = "时间格式：2016-5-9 13:00:00";
+            StimeTip.Text = "时间格式：2016/5/9 13:00:00";
             PriceTip.Visibility = Visibility.Hidden;
             
         }
@@ -101,9 +103,9 @@ namespace AdminUser
                     }
                 }
 
-                for (int i = 0; i < SubOnMovies.Count; i++)
+                for (int i = 0; i < SubMovies.Count; i++)
                 {
-                    if (Mid == SubOnMovies[i].Mid)
+                    if (Mid == SubMovies[i].Mid)
                     {
                         mexist = true;
                     }
@@ -115,9 +117,9 @@ namespace AdminUser
                 }
 
 
-                for (int i = 0; i < SubOnMovies.Count; i++)
+                for (int i = 0; i < SubTheaters.Count; i++)
                 {
-                    if (Tid == SubOnMovies[i].Tid)
+                    if (Tid == SubTheaters[i].Tid)
                     {
                         pexist = true;
                     }

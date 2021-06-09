@@ -18,7 +18,7 @@
         <!--登录Label-->
         <Label HorizontalAlignment="Center" Foreground="White" Content="登录"   VerticalAlignment="Top" FontSize="36" Style="{StaticResource LabelPrimary}"/>
         <!--账号TextBox-->
-        <TextBox Name="TextBox_id" VerticalContentAlignment="Center" Foreground="Black" FontSize="24" Margin="151,80,93.6,230.4">
+        <TextBox Name="TextBox_id" VerticalContentAlignment="Center" Foreground="Black" FontSize="24" Margin="151,90,93.6,220.4">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -40,8 +40,7 @@
             </TextBox.Style>
         </TextBox>
         <!--密码TextBox-->
-        <TextBox Name="TextBox_pwd"  VerticalContentAlignment="Center"  TextChanged="TextBox_pwd_TextChanged"  
-                 Foreground="Black" FontSize="24" Margin="151,160,93.6,150.4">
+        <TextBox Name="TextBox_pwd" VerticalContentAlignment="Center" Foreground="Black" FontSize="24" Margin="151,170,93.6,140.4">
             <TextBox.Resources>
                 <VisualBrush x:Key="HintText" TileMode="None" Opacity="1" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -77,9 +76,9 @@
             </Button.Template>
         </Button>
         <!--账号image-->
-        <Image Margin="91,90,458.6,235.4" Source="ImageResources\图标(白)_账号.png" Stretch="Fill"/>
+        <Image Margin="91,96,458.6,229.4" Source="ImageResources\图标(白)_账号.png" Stretch="Fill"/>
         <!--密码image-->
-        <Image Margin="91,170,458.6,155.4" Source="ImageResources\图标(白)_密码.png" Stretch="Fill"/>
+        <Image Margin="91,179,458.6,146.4" Source="ImageResources\图标(白)_密码.png" Stretch="Fill"/>
 
 
     </Grid>

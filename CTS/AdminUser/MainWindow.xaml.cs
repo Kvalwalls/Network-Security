@@ -45,8 +45,8 @@ namespace AdminUser
             handler = AUVHandler.GetInstance();
             InitTextBlock_Time();
             InitLists();
-            InitTextBlock_Hello();
             user = u;
+            InitTextBlock_Hello();
         }
         
         private void InitTextBlock_Time()
@@ -106,7 +106,7 @@ namespace AdminUser
             OnMovieList.Items.Add(onmovies[1]);
             TicketList.Items.Add(records[0]);
             TicketList.Items.Add(records[1]);*/
-
+            //handler.GetMoviePictures();
             handler.getUserRequest();
             users = handler.getUserReply();
             for(int i = 0; i < users.Count; i++)
@@ -378,6 +378,26 @@ namespace AdminUser
             if (add.Tag != null)
             {
                 User model = add.Tag as User;
+                byte sacc = model.Uaccess;
+                if (sacc == 2)
+                {
+                    model.UAccess = "普通用户";
+                }
+                else if (sacc == 3)
+                {
+                    
+                    model.UAccess = "VIP用户";
+                }
+                else if (sacc == 4)
+                {
+                    
+                    model.UAccess = "SVIP用户";
+                }
+                else if (sacc == 1)
+                {
+                    
+                    model.UAccess = "普通管理员";
+                }
                 if (model != null)
                 {
                     users.Add(model);
@@ -390,28 +410,33 @@ namespace AdminUser
         
         private void UserDelete_Click(object sender, RoutedEventArgs e)
         {
-            //选中行数据
-            User u = UserList.SelectedItem as User;
-            //MessageBox.Show("姓名：" + u.name + "\n\n" + "密码：" + u.password);
-
-            //删除选中元素
-            users.Remove(u);
-            UserList.Items.Remove(UserList.SelectedItem);
-
-            //send 发送删除请求
-            handler.delUserRequest(u);
-            string result = handler.delUserReply();
-            //删除成功
-            if(handler.delUserReply() == "删除成功")
+            if (UserList.SelectedItem == null)
             {
-                MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("请选择删除项", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                //选中行数据
+                User u = UserList.SelectedItem as User;
+                //MessageBox.Show("姓名：" + u.name + "\n\n" + "密码：" + u.password);
+
+                //send 发送删除请求
+                handler.delUserRequest(u);
+                //删除成功
+                if (handler.delUserReply() == "删除成功")
+                {
+                    MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //删除选中元素
+                    users.Remove(u);
+                    UserList.Items.Remove(UserList.SelectedItem);
+                }
+                else
+                {
+                    MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                //刷新listview
+                UserList.Items.Refresh();
             }
-            //刷新listview
-            UserList.Items.Refresh();
         }
 
         private void TheaterSearch_Click(object sender, RoutedEventArgs e)
@@ -428,7 +453,20 @@ namespace AdminUser
             }
             if (TextBox_TheaterSearchid.Text == "" && (ComboBox_TheaterType.SelectedItem == null || ComboBox_TheaterType.Text == "") && (ComboBox_TheaterSize.SelectedItem != null || ComboBox_TheaterSize.Text != ""))
             {
-                int ssize = int.Parse(ComboBox_TheaterSize.Text);
+                string size = ComboBox_TheaterSize.Text;
+                int ssize = 0;
+                if (size == "16")
+                {
+                    ssize = 16;
+                }
+                else if (size == "32")
+                {
+                    ssize = 32;
+                }
+                else if (size == "64")
+                {
+                    ssize = 64;
+                }
                 for (int i = 0; i < theaters.Count; i++)
                 {
                     if (theaters[i].Tsize == ssize)
@@ -506,8 +544,20 @@ namespace AdminUser
             if (TextBox_TheaterSearchid.Text != "" && (ComboBox_TheaterType.SelectedItem == null || ComboBox_TheaterType.Text == "") && (ComboBox_TheaterSize.SelectedItem != null || ComboBox_TheaterSize.Text != ""))
             {
                 string sid = TextBox_TheaterSearchid.Text;
-                int ssize = int.Parse(ComboBox_TheaterSize.Text);
-                
+                string size = ComboBox_TheaterSize.Text;
+                int ssize = 0;
+                if (size == "16")
+                {
+                    ssize = 16;
+                }
+                else if (size == "32")
+                {
+                    ssize = 32;
+                }
+                else if (size == "64")
+                {
+                    ssize = 64;
+                }
                 for (int i = 0; i < theaters.Count; i++)
                 {
                     if (theaters[i].Tid == sid && theaters[i].Tsize == ssize)
@@ -520,8 +570,20 @@ namespace AdminUser
 
             if (TextBox_TheaterSearchid.Text == "" && (ComboBox_TheaterType.SelectedItem != null || ComboBox_TheaterType.Text != "") && (ComboBox_TheaterSize.SelectedItem != null || ComboBox_TheaterSize.Text != ""))
             {
-                
-                int ssize = int.Parse(ComboBox_TheaterSize.Text);
+                string size = ComboBox_TheaterSize.Text;
+                int ssize = 0;
+                if (size == "16")
+                {
+                    ssize = 16;
+                }
+                else if (size == "32")
+                {
+                    ssize = 32;
+                }
+                else if (size == "64")
+                {
+                    ssize = 64;
+                }
                 string stype = ComboBox_TheaterType.Text;
                 if (stype == "普通影厅")
                 {
@@ -548,7 +610,20 @@ namespace AdminUser
             if (TextBox_TheaterSearchid.Text != "" && (ComboBox_TheaterType.SelectedItem != null || ComboBox_TheaterType.Text != "") && (ComboBox_TheaterSize.SelectedItem != null || ComboBox_TheaterSize.Text != ""))
             {
                 string sid = TextBox_TheaterSearchid.Text;
-                int ssize = int.Parse(ComboBox_TheaterSize.Text);
+                string size = ComboBox_TheaterSize.Text;
+                int ssize = 0;
+                if (size == "16")
+                {
+                    ssize = 16;
+                }
+                else if (size == "32")
+                {
+                    ssize = 32;
+                }
+                else if (size == "64")
+                {
+                    ssize = 64;
+                }
                 string stype = ComboBox_TheaterType.Text;
                 if (stype == "普通影厅")
                 {
@@ -592,6 +667,19 @@ namespace AdminUser
             if (add.Tag != null)
             {
                 Theater model = add.Tag as Theater;
+                byte stype = model.Ttype;
+                if (stype == 0)
+                {
+                    model.TType = "普通影厅";
+                }
+                else if (stype == 1)
+                {
+                    model.TType = "VIP影厅";
+                }
+                else if (stype == 2)
+                {
+                    model.TType = "SVIP影厅";
+                }
                 if (model != null)
                 {
                     theaters.Add(model);
@@ -605,28 +693,47 @@ namespace AdminUser
 
         private void TheaterDelete_Click(object sender, RoutedEventArgs e)
         {
-            //选中行数据
-            Theater t = TheaterList.SelectedItem as Theater;
-            //MessageBox.Show("姓名：" + u.name + "\n\n" + "密码：" + u.password);
-
-            //删除选中元素
-            theaters.Remove(t);
-            TheaterList.Items.Remove(TheaterList.SelectedItem);
-
-            //send 发送删除请求
-            handler.delTheaterRequest(t);
-            //删除成功
-            if (handler.delTheaterReply() == "删除成功")
+            if (TheaterList.SelectedItem == null)
             {
-                MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("请选择删除项", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
 
-            //刷新listview
-            TheaterList.Items.Refresh();
+                //选中行数据
+                Theater t = TheaterList.SelectedItem as Theater;
+                bool flag = false;
+                //MessageBox.Show("姓名：" + u.name + "\n\n" + "密码：" + u.password);
+                for (int i = 0; i < onmovies.Count; i++)
+                {
+                    if (t.Tid == onmovies[i].Tid)
+                    {
+                        MessageBox.Show("无法删除！该影厅仍有关联场次"+ onmovies[i].Oid + "，请先删除关联场次！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                        flag = true;
+                }
+                if (flag)
+                {
+                    //send 发送删除请求
+                    handler.delTheaterRequest(t);
+                    //删除成功
+                    if (handler.delTheaterReply() == "删除成功")
+                    {
+                        MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                        //删除选中元素
+                        theaters.Remove(t);
+                        TheaterList.Items.Remove(TheaterList.SelectedItem);
+                    }
+                    else
+                    {
+                        MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    //刷新listview
+                    TheaterList.Items.Refresh();
+                }
+            }
         }
 
         private void MovieSearch_Click(object sender, RoutedEventArgs e)
@@ -698,7 +805,6 @@ namespace AdminUser
 
         private void MovieList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
             Movie select = MovieList.SelectedItem as Movie;
             //var select = txtBox.DataContext as Movie;
             //ListBox listBox = sender as ListBox;
@@ -708,9 +814,16 @@ namespace AdminUser
             //}
             //else
             //{
-                Hide();
-                MovieInfo info = new MovieInfo(select);
-                info.ShowDialog();
+            Movie tem = new Movie();
+            for(int i = 0; i < movies.Count; i++)
+            {
+                if (movies[i].Mid == select.Mid)
+                    tem = movies[i];
+            }
+            Hide();
+            MovieInfo info = new MovieInfo(tem);
+            info.ShowDialog();
+            Show();
             //}
         }
 
@@ -736,28 +849,46 @@ namespace AdminUser
 
         private void MovieDelete_Click(object sender, RoutedEventArgs e)
         {
-            //选中行数据
-            Movie m = MovieList.SelectedItem as Movie;
-            //MessageBox.Show("姓名：" + u.name + "\n\n" + "密码：" + u.password);
-
-            //删除选中元素
-            movies.Remove(m);
-            MovieList.Items.Remove(MovieList.SelectedItem);
-
-            //send 发送删除请求
-            handler.delMovieRequest(m);
-            //删除成功
-            if (handler.delMovieReply() == "删除成功")
+            if (MovieList.SelectedItem == null)
             {
-                MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("请选择删除项", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                //选中行数据
+                Movie m = MovieList.SelectedItem as Movie;
+                bool flag = false;
+                //MessageBox.Show("姓名：" + u.name + "\n\n" + "密码：" + u.password);
+                for (int i = 0; i < onmovies.Count; i++)
+                {
+                    if (m.Mid == onmovies[i].Mid)
+                    {
+                        MessageBox.Show("无法删除！该影片仍有关联场次" + onmovies[i].Oid + "，请先删除关联场次！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                        flag = true;
+                }
+                if (flag)
+                {
+                    //send 发送删除请求
+                    handler.delMovieRequest(m);
+                    //删除成功
+                    if (handler.delMovieReply() == "删除成功")
+                    {
+                        MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                        //删除选中元素
+                        movies.Remove(m);
+                        MovieList.Items.Remove(MovieList.SelectedItem);
+                    }
+                    else
+                    {
+                        MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
 
-            //刷新listview
-            MovieList.Items.Refresh();
+                    //刷新listview
+                    MovieList.Items.Refresh();
+                }
+            }
         }
 
         private void OnMovieSearch_Click(object sender, RoutedEventArgs e)
@@ -888,7 +1019,7 @@ namespace AdminUser
         private void OnMovieAdd_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            AddOnMovie add = new AddOnMovie(onmovies,movies);
+            AddOnMovie add = new AddOnMovie(onmovies,movies,theaters);
             add.ShowDialog();
             if (add.Tag != null)
             {
@@ -907,28 +1038,40 @@ namespace AdminUser
 
         private void OnMovieDelete_Click(object sender, RoutedEventArgs e)
         {
-            //选中行数据
-            OnMovie o = OnMovieList.SelectedItem as OnMovie;
-            //MessageBox.Show("姓名：" + u.name + "\n\n" + "密码：" + u.password);
-
-            //删除选中元素
-            onmovies.Remove(o);
-            OnMovieList.Items.Remove(OnMovieList.SelectedItem);
-
-            //send 发送删除请求
-            handler.delOnMovieRequest(o);
-            //删除成功
-            if (handler.delOnMovieReply() == "删除成功")
+            if (OnMovieList.SelectedItem == null)
             {
-                MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("请选择删除项", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("删除失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                //选中行数据
+                OnMovie o = OnMovieList.SelectedItem as OnMovie;
+                //MessageBox.Show("姓名：" + u.name + "\n\n" + "密码：" + u.password);
 
-            //刷新listview
-            OnMovieList.Items.Refresh();
+                //删除选中元素
+                onmovies.Remove(o);
+                OnMovieList.Items.Remove(OnMovieList.SelectedItem);
+
+                //send 发送删除请求
+                handler.delOnMovieRequest(o);
+                //删除成功
+                if (handler.delOnMovieReply() == "删除成功")
+                {
+                    MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //删除选中元素
+                    onmovies.Remove(o);
+                    OnMovieList.Items.Remove(OnMovieList.SelectedItem);
+                }
+                else
+                {
+                    MessageBox.Show("删除成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    onmovies.Remove(o);
+                    OnMovieList.Items.Remove(OnMovieList.SelectedItem);
+                }
+
+                //刷新listview
+                OnMovieList.Items.Refresh();
+            }
         }
 
         private void TicketSearch_Click(object sender, RoutedEventArgs e)

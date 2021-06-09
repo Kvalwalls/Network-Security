@@ -119,7 +119,7 @@ namespace AdminUser
                 if (result == 1)
                 {
                     handler.addMovieRequest(n);
-                    handler.SendPicture(PicturePhaser.PictureToBase64(picture));
+                    handler.SendPicture(PicturePhaser.PictureToBase64(picture),Id);
                     if (handler.addMovieReply() == "添加成功")
                     {
                         MessageBox.Show("添加成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);

@@ -66,7 +66,7 @@
             </TextBox.Style>
         </TextBox>
         <!--影厅类型Combox-->
-        <ComboBox Name="ComboBox_TheaterType" FontSize="30" Opacity="1" Text="影厅类型" SelectedIndex="-1" Margin="81,161,53.6,209" MouseLeave="ComboBox_TheaterType_MouseLeave">
+        <ComboBox Name="ComboBox_TheaterType" FontSize="22" Opacity="1" Text="影厅类型" SelectedIndex="-1" Margin="81,161,53.6,209" MouseLeave="ComboBox_TheaterType_MouseLeave">
             <ComboBoxItem Content="影厅类型" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="22"/>
             <ComboBoxItem Name="TheaterType_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
             <ComboBoxItem Name="TheaterType_Common" Content="普通影厅" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
@@ -75,7 +75,7 @@
         </ComboBox>
 
         <!--影厅大小Combox-->
-        <ComboBox Name="ComboBox_TheaterSize" FontSize="30" Opacity="1" Text="影厅大小" SelectedIndex="-1" Margin="81,261,53.6,109" MouseLeave="ComboBox_TheaterSize_MouseLeave">
+        <ComboBox Name="ComboBox_TheaterSize" FontSize="22" Opacity="1" Text="影厅大小" SelectedIndex="-1" Margin="81,261,53.6,109" MouseLeave="ComboBox_TheaterSize_MouseLeave">
             <ComboBoxItem Content="影厅大小" Visibility="Collapsed" HorizontalAlignment="Center" FontSize="22"/>
             <ComboBoxItem Name="TheaterSize_Void" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
             <ComboBoxItem Name="TheaterSize_Sma" Content="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="40" FontSize="22"/>
