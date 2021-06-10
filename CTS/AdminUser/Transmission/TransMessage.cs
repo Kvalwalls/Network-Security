@@ -82,6 +82,8 @@ namespace AdminUser.Transmission
             {
                 errorCode = EnumErrorCode.Error;
             }
+            message.cryptCode = cryptCode;
+            message.errorCode = errorCode;
             message.contents = contents;
             package.CatchPackage(message);
         }
@@ -107,6 +109,8 @@ namespace AdminUser.Transmission
                 errorCode = EnumErrorCode.Error;
             }
             message.dcontents = contents;
+            message.cryptCode = cryptCode;
+            message.errorCode = errorCode;
             package.CatchPackage(message);
         }
 
