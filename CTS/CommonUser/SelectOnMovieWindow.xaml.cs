@@ -52,7 +52,7 @@ namespace CommonUser
             foreach(OnMovie temp in onMovies)
             {
                 DateTime dateTime = DateTime.ParseExact(temp.Obegin, "yyyy/MM/dd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
-                if (dateTime.Day - DateTime.Now.Day == time)
+                if (dateTime.Day - DateTime.Now.Day == time && dateTime.CompareTo(DateTime.Now) > 0)
                 {
                     myOnMovies.Add(temp);
                 }

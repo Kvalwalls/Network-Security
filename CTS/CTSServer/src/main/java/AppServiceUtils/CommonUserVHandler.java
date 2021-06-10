@@ -10,7 +10,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +44,7 @@ public class CommonUserVHandler extends VHandler implements Runnable {
                     case EnumCUV.SelectSeat -> selectSeat(message);
                     case EnumCUV.PayMoney -> payMoney(message);
                     case EnumCUV.PayTimeout -> payTimeout(message);
+                    case EnumCUV.RefundRecord -> refundRecord(message);
                 }
             }
 
@@ -721,6 +721,39 @@ public class CommonUserVHandler extends VHandler implements Runnable {
         message.setFromAddress(fromAddr);
         message.setServiceType(EnumServiceType.CUV);
         message.setSpecificType(EnumCUV.PayTimeout);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
+    }
+
+    public void refundRecord(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String u_idStr = null, o_idStr = null, s_idStr = null;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "u_id" -> u_idStr = childNode.getTextContent();
+                case "o_id" -> o_idStr = childNode.getTextContent();
+                case "s_id" -> s_idStr = childNode.getTextContent();
+            }
+        }
+        document = XMLBuilder.buildXMLDoc();
+        Element payElement = document.createElement("pay_timeout");
+        Element stateElement = document.createElement("state");
+        Record record = DBCommand.getRecordByUidOidSid(u_idStr,o_idStr,s_idStr);
+        DBCommand.fundMoney(u_idStr,record.getRPrice());
+        DBCommand.updateSeatStatus(o_idStr, s_idStr, EnumSeatStatus.Unselected);
+        DBCommand.updateRecordStatus(u_idStr, s_idStr, o_idStr, EnumRecordStatus.Failed);
+        stateElement.setTextContent("true");
+        payElement.appendChild(stateElement);
+        document.appendChild(payElement);
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.RefundRecord);
         message.setContents(XMLPhaser.docToString(document));
         message.enPackage(MySKeyFile, sessionKey);
         transceiver.sendMessage(message);

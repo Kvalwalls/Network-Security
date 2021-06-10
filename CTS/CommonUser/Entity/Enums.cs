@@ -63,6 +63,8 @@
         public const byte PayMoney = 15;
         //支付超时
         public const byte PayTimeout = 16;
+        //退票
+        public const byte RefundRecord = 17;
     }
 
     //加密码枚举

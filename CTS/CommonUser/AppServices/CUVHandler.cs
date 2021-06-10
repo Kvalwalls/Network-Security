@@ -822,5 +822,39 @@ namespace CommonUser.AppServices
             XmlElement xmlRoot = document.DocumentElement;
             return "true".Equals(xmlRoot["state"].InnerText);
         }
+
+        public bool RefundRecord(string Uid, string Oid, string Sid)
+        {
+            //创建XMLDocument
+            XmlDocument document = new XmlDocument();
+            //根节点
+            XmlElement payElement = document.CreateElement("refund_record");
+            XmlElement u_idElement = document.CreateElement("u_id");
+            u_idElement.InnerText = Uid;
+            payElement.AppendChild(u_idElement);
+            XmlElement o_idElement = document.CreateElement("o_id");
+            o_idElement.InnerText = Oid;
+            payElement.AppendChild(o_idElement);
+            XmlElement s_idElement = document.CreateElement("s_id");
+            s_idElement.InnerText = Sid;
+            payElement.AppendChild(s_idElement);
+            document.AppendChild(payElement);
+            //报文初始化
+            TransMessage message = new TransMessage();
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
+            message.serviceType = EnumServiceType.CUV;
+            message.specificType = EnumCUV.RefundRecord;
+            message.contents = XMLPhaser.XmlToString(document);
+            message.EnPackage(mySKeyFile, sessionKey);
+            transceiver.SendMessage(message);
+            message = transceiver.ReceiveMessage();
+            message.DePackage(vPKeyFile, sessionKey);
+            if (message.errorCode == EnumErrorCode.Error)
+                throw new Exception("退票函数错误！");
+            document = XMLPhaser.StringToXml(message.contents);
+            XmlElement xmlRoot = document.DocumentElement;
+            return "true".Equals(xmlRoot["state"].InnerText);
+        }
     }
 }

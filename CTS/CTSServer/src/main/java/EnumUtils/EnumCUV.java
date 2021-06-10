@@ -35,4 +35,6 @@ public class EnumCUV {
     public static final byte PayMoney = 15;
     //支付超时
     public static final byte PayTimeout = 16;
+    //退票
+    public static final byte RefundRecord = 17;
 }

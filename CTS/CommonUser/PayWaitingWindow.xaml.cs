@@ -30,6 +30,7 @@ namespace CommonUser
 		private Theater theater;
 		private int countSecond = 5;
 		private CUVHandler handler;
+		private DispatcherTimer timeCounter;
 		public PayWaitingWindow(User user, Movie movie, Theater theater, OnMovie onMovie, string[] sids, float price)
 		{
 			this.price = price;
@@ -38,10 +39,15 @@ namespace CommonUser
 			this.movie = movie;
 			this.sids = sids;
 			this.theater = theater;
+			timeCounter = new DispatcherTimer
+			{
+				Interval = new TimeSpan(0, 0, 0, 1)
+			};
 			handler = CUVHandler.GetInstance();
 			InitializeComponent();
 			InitInfo();
 			InitCounter();
+			
 		}
 
 		private void InitInfo()
@@ -58,32 +64,34 @@ namespace CommonUser
 
 		void InitCounter()
 		{
-			DispatcherTimer timeCounter = new DispatcherTimer();
-			timeCounter.Interval = new TimeSpan(0, 0, 0, 1);
+			
 			timeCounter.Tick += new EventHandler(
-				(object o, EventArgs e) =>
-				{
-					if (countSecond == 0)
+					(object o, EventArgs e) =>
 					{
-						if (handler.PayTimeout(user.Uid, onMovie.Oid, sids))
-							MessageBox.Show("支付超时！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-						timeCounter.Stop();
-						Close();
-						return;
-					}
-					else
-					{
-						if (Label_Time.Dispatcher.CheckAccess())
-							Label_Time.Content = countSecond.ToString();
+						if (countSecond == 0)
+						{
+							if (handler.PayTimeout(user.Uid, onMovie.Oid, sids))
+								MessageBox.Show("支付超时！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+							timeCounter.Stop();
+							Close();
+							return;
+						}
 						else
-							Label_Time.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action)(
-								() =>
-								{
-									Label_Time.Content = countSecond.ToString();
-								}));
-						countSecond--;
+						{
+							if (Label_Time.Dispatcher.CheckAccess())
+								Label_Time.Content = countSecond.ToString();
+							else
+								Label_Time.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action)(
+											() =>
+											{
+												Label_Time.Content = countSecond.ToString();
+											}
+										)
+									);
+							countSecond--;
+						}
 					}
-				});
+				);
 			timeCounter.Start();
 		}
 
@@ -103,6 +111,7 @@ namespace CommonUser
 				MessageBox.Show("支付成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
 			else
 				MessageBox.Show("支付失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+			timeCounter.Stop();
 			Close();
 		}
 

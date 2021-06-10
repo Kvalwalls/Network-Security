@@ -31,6 +31,7 @@ namespace CommonUser
             InitializeComponent();
             SetPersonTabInfo();
             SetMovieTabInfo();
+            SetRecordTabInfo();
             SetTimeInfo();
             SetHelloInfo();
         }
@@ -389,7 +390,9 @@ namespace CommonUser
         {
             Button button = sender as Button;
             Movie movie = button.DataContext as Movie;
-            new SelectOnMovieWindow(user,movie).Show(); 
+            Hide();
+            new SelectOnMovieWindow(user, movie).ShowDialog();
+            Show();
         }
 
         private void MouseDown_GetMoreMovieInfo(object sender, MouseButtonEventArgs e)
@@ -397,7 +400,9 @@ namespace CommonUser
             Movie movie = ListView_Movies.SelectedItem as Movie;
             if (e.ClickCount == 2)
             {
-                new MovieInfoWindow(user,movie).Show();
+                Hide();
+                new MovieInfoWindow(user,movie).ShowDialog();
+                Show();
             }
         }
 
@@ -416,26 +421,24 @@ namespace CommonUser
         }
 
         private void Button_Refund_Click(object sender, RoutedEventArgs e)
-		{
-			Record u = ListView_Records.SelectedItem as Record;
-			DateTime dt1 = Convert.ToDateTime(u.Rtime);
-			DateTime dt2 = DateTime.Now;
-			if(DateTime.Compare(dt1,dt2)<0)
-			{
-				MessageBox.Show("电影已开场，无法退票！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-			}
-			else
-			{
-				MessageBox.Show("已成功为您退票，退款会在十五分钟内退回您的账户！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
-			}
-		}
+        {
+            Record u = ListView_Records.SelectedItem as Record;
+            DateTime dt1 = Convert.ToDateTime(u.Rtime);
+            DateTime dt2 = DateTime.Now;
+            if (DateTime.Compare(dt1, dt2) < 0)
+                MessageBox.Show("电影已开场，无法退票！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+                if (handler.RefundRecord(u.Uid, u.Oid, u.Sid))
+                MessageBox.Show("已成功退票！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
 
-		private void Button_ShowTicketInfo_Click(object sender, RoutedEventArgs e)
+        private void Button_ShowTicketInfo_Click(object sender, RoutedEventArgs e)
 		{
 			Record u = ListView_Records.SelectedItem as Record;
 			Window a = new RecordInfoWindow(u);
 			a.ShowDialog();
-		}
+            Show();
+        }
 
         
 
