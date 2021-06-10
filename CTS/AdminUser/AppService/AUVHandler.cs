@@ -30,6 +30,8 @@ namespace AdminUser.AppService
         //AUVHandler实例
         private static AUVHandler instance = new AUVHandler();
 
+        public static Package package;
+
         private AUVHandler()
         {
             /*
@@ -62,11 +64,17 @@ namespace AdminUser.AppService
             transceiver = new Transceiver(socket);
             if (transceiver == null)
                 throw new Exception("Transceiver错误！");
+
         }
     
         public static AUVHandler GetInstance()
         {
             return instance;
+        }
+
+        public void SetPackage(Package p)
+        {
+            package = p;
         }
 
         public void loginRequest(User u)
@@ -88,6 +96,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -101,6 +110,7 @@ namespace AdminUser.AppService
         {
             string[] contents = null;
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -143,6 +153,7 @@ namespace AdminUser.AppService
 
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -156,6 +167,7 @@ namespace AdminUser.AppService
         {
             string content = null;
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -190,6 +202,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -203,6 +216,7 @@ namespace AdminUser.AppService
         {
             List<User> n = new List<User>();
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -298,6 +312,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -311,6 +326,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -342,6 +358,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -355,6 +372,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -389,6 +407,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -402,6 +421,7 @@ namespace AdminUser.AppService
         {
             List<Theater> n = new List<Theater>();
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -475,6 +495,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -488,6 +509,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -519,6 +541,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -532,6 +555,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -566,6 +590,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -579,6 +604,7 @@ namespace AdminUser.AppService
         {
             List<Movie> n = new List<Movie>();
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -647,6 +673,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -660,6 +687,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -691,6 +719,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -704,6 +733,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -738,6 +768,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -751,6 +782,7 @@ namespace AdminUser.AppService
         {
             List<OnMovie> n = new List<OnMovie>();
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -818,6 +850,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -831,6 +864,7 @@ namespace AdminUser.AppService
         {
             string contents = null;
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -862,6 +896,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -874,7 +909,8 @@ namespace AdminUser.AppService
         public string delOnMovieReply()
         {
             string contents = null;
-            TransMessage message = transceiver.ReceiveMessage();
+            TransMessage message = transceiver.ReceiveMessage(); 
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -909,6 +945,7 @@ namespace AdminUser.AppService
             Console.WriteLine(document.InnerXml);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -922,6 +959,7 @@ namespace AdminUser.AppService
         {
             List<Record> n = new List<Record>();
             TransMessage message = transceiver.ReceiveMessage();
+            message.package = package;
             message.DePackage(vPKeyFile, sessionKey);
             if (message.errorCode == EnumErrorCode.NoError)
             {
@@ -976,6 +1014,7 @@ namespace AdminUser.AppService
             document.AppendChild(getElement);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;
@@ -1035,6 +1074,7 @@ namespace AdminUser.AppService
             document.AppendChild(sendElement);
             //报文初始化
             TransMessage message = new TransMessage();
+            message.package = package;
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.AUV;

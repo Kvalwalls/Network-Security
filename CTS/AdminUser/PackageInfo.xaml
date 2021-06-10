@@ -12,7 +12,7 @@
             <ImageBrush ImageSource="ImageResources\背景_界面静态_云朵.jpg"/>
         </Grid.Background>
         <!--添加影片Label-->
-        <Label HorizontalAlignment="Center" Foreground="Black" Content="包详情" VerticalAlignment="Top" FontSize="36" Style="{StaticResource LabelPrimary}"/>
+        <Label HorizontalAlignment="Center" Foreground="Black" Content="包详情" VerticalAlignment="Top" FontSize="36"/>
         <!--返回Button-->
         <Button x:Name="Button_Return" Content="返回" FontSize="22"  Margin="684,567,9.6,10" Foreground="White" 
             MouseEnter="Button_MouseEnter"
@@ -43,17 +43,15 @@
         <!--加密码TextBlock-->
         <TextBlock Name="TextBlock_Crypt" Text="加密码：" VerticalAlignment="Center" FontSize="24" Margin="464,132,9.6,457"/>
         <!--签名长度TextBlock-->
-        <TextBlock Name="TextBlock_MLength" Text="数字签名长度：" VerticalAlignment="Center" FontSize="24" Margin="64,168,409.6,422"/>
         <!--报文内容长度TextBlock-->
-        <TextBlock Name="TextBlock_CLength" Text="报文内容长度：" VerticalAlignment="Center" FontSize="24" Margin="464,168,9.6,422"/>
 
-        <TextBlock HorizontalAlignment="Center" Foreground="Black" Text="报文内容：" VerticalAlignment="Top" FontSize="24" Margin="64,203,609.6,0"/>
+        <TextBlock HorizontalAlignment="Center" Foreground="Black" Text="报文内容：" VerticalAlignment="Top" FontSize="24" Margin="64,168,609.6,0"/>
 
-        <TextBlock HorizontalAlignment="Center" Foreground="Black" Text="解密内容：" VerticalAlignment="Top" FontSize="24" Margin="64,419,609.6,0"/>
+        <TextBlock HorizontalAlignment="Center" Foreground="Black" Text="解密内容：" VerticalAlignment="Top" FontSize="24" Margin="64,364,609.6,0"/>
 
-        <TextBox Name="Text_Encrypt" HorizontalAlignment="Left" Height="156" Margin="64,248,0,0" TextWrapping="Wrap" Text="报文" VerticalAlignment="Top" Width="580"/>
+        <TextBox Name="Text_Encrypt" HorizontalAlignment="Left" Height="156" Margin="64,203,0,0" TextWrapping="Wrap" Text="报文" VerticalAlignment="Top" Width="580"/>
 
-        <TextBox Name="Text_Decrypt" HorizontalAlignment="Left" Height="156" Margin="64,454,0,0" TextWrapping="Wrap" Text="解密后明文" VerticalAlignment="Top" Width="580"/>
+        <TextBox Name="Text_Decrypt" HorizontalAlignment="Left" Height="156" Margin="64,400,0,0" TextWrapping="Wrap" Text="解密后明文" VerticalAlignment="Top" Width="580"/>
 
     </Grid>
 </Window>

@@ -24,6 +24,7 @@ namespace AdminUser
 		private static AUVHandler handler;
 		private string id = "";
 		private string password = "";
+		public static Package package;
 
 		public Login()
         {
@@ -33,7 +34,10 @@ namespace AdminUser
             string path2 = System.IO.Directory.GetParent(path1).ToString();
             string path3 = System.IO.Directory.GetParent(path2).ToString();
             mediaElement.Source = new Uri(path3 + "//ImageResources//背景_登录动态.gif");
-        }
+			package = new Package();
+			package.Show();
+			handler.SetPackage(package);
+		}
 		private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
 		{
 			((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
@@ -41,6 +45,7 @@ namespace AdminUser
 
 		private void Button_Login_Click(object sender, RoutedEventArgs e)
 		{
+			
 			User u = new User();
 			if (string.Empty.Equals(TextBox_id.Text) && string.Empty.Equals(TextBox_pwd.Text))
 			{
@@ -98,8 +103,8 @@ namespace AdminUser
 							break;
 						}
 				}
-			
-				new MainWindow(u).Show();
+
+				new MainWindow(u,package).Show();
 				Close();
 			}
 			else
@@ -147,5 +152,10 @@ namespace AdminUser
 			TextBox_pwd.Text = temp;
 			TextBox_pwd.Select(TextBox_pwd.Text.Length, 0);
 		}
+
+		public Package RePackage()
+        {
+			return package;
+        }
 	}
 }

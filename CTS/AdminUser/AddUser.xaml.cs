@@ -23,11 +23,14 @@ namespace AdminUser
     {
         private static AUVHandler handler;
         private static List<User> SubUsers;
-        public AddUser(List<User> users)
+        public static Package package;
+        public AddUser(List<User> users,Package p)
         {
             InitializeComponent();
             handler = AUVHandler.GetInstance();
             SubUsers = users;
+            package = p;
+            handler.SetPackage(package);
             IdTip.Visibility = Visibility.Hidden;
             NameTip.Visibility = Visibility.Hidden;
             PasTip.Visibility = Visibility.Hidden;

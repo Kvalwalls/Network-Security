@@ -25,13 +25,16 @@ namespace AdminUser
         private static List<OnMovie> SubOnMovies;
         private static List<Theater> SubTheaters;
         private static List<Movie> SubMovies;
-        public AddOnMovie(List<OnMovie> onmovies, List<Movie> movies, List<Theater> theaters)
+        public static Package package;
+        public AddOnMovie(List<OnMovie> onmovies, List<Movie> movies, List<Theater> theaters,Package p)
         {
             InitializeComponent();
             SubOnMovies = onmovies;
             SubMovies = movies;
             SubTheaters = theaters;
             handler = AUVHandler.GetInstance();
+            handler.SetPackage(package);
+            package = p;
             OidTip.Visibility = Visibility.Hidden;
             MidTip.Visibility = Visibility.Hidden;
             PidTip.Visibility = Visibility.Hidden;

@@ -572,11 +572,10 @@
             <TabItem Height="75" Width="150" Header="加解密" FontSize="20">
                 <Grid Background="#FFE5E5E5">
 
-                    <ListView Name="PackageList" HorizontalAlignment="Left" Height="435" Margin="10,85,0,0" VerticalAlignment="Top" Width="982">
+                    <ListView x:Name="PackageList" HorizontalAlignment="Left" Height="435" Margin="10,85,0,0" VerticalAlignment="Top" Width="982" x:FieldModifier="public">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="序号" Width="108" DisplayMemberBinding="{Binding uid}"></GridViewColumn>
-                                <GridViewColumn Header="时间" Width="109" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
+                                
                                 <GridViewColumn Header="源IP" Width="108" DisplayMemberBinding="{Binding uid}"></GridViewColumn>
                                 <GridViewColumn Header="目的IP" Width="108" DisplayMemberBinding="{Binding oid}"></GridViewColumn>
                                 <GridViewColumn Header="应用类型" Width="108" DisplayMemberBinding="{Binding sid}"></GridViewColumn>

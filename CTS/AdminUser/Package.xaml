@@ -1,0 +1,30 @@
+﻿<Window x:Class="AdminUser.Package"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdminUser"
+        mc:Ignorable="d"
+        Title="Package" Height="450" Width="800">
+    <Grid>
+        <!--GIF背景-->
+        <Grid.Background>
+            <ImageBrush ImageSource="ImageResources\背景.jpg"/>
+        </Grid.Background>
+
+        <ListView Name="PackageList" HorizontalAlignment="Left" Height="400" Margin="24,10,0,0" VerticalAlignment="Top" Width="744" x:FieldModifier="public" MouseDoubleClick="PackageList_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="时间" Width="108" DisplayMemberBinding="{Binding Time}"></GridViewColumn>
+                    <GridViewColumn Header="源IP" Width="108" DisplayMemberBinding="{Binding fromA}"></GridViewColumn>
+                    <GridViewColumn Header="目的IP" Width="108" DisplayMemberBinding="{Binding toA}"></GridViewColumn>
+                    <GridViewColumn Header="应用类型" Width="108" DisplayMemberBinding="{Binding serviceType}"></GridViewColumn>
+                    <GridViewColumn Header="具体类型" Width="108" DisplayMemberBinding="{Binding specificType}"></GridViewColumn>
+                    <GridViewColumn Header="错误码" Width="108" DisplayMemberBinding="{Binding errorCode}"></GridViewColumn>
+                    <GridViewColumn Header="加密码" Width="108" DisplayMemberBinding="{Binding cryptCode}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>

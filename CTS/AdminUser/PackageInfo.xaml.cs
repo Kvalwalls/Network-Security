@@ -46,24 +46,18 @@ namespace AdminUser
 
         private void ShowPackage()
         {
-            TextBlock_Sid.Text += System.Text.Encoding.UTF8.GetString(r.fromAddress);
-            TextBlock_Did.Text += System.Text.Encoding.UTF8.GetString(r.toAddress);
+            TextBlock_Sid.Text += AddressPhaser.BytesToString(r.fromAddress);
+            TextBlock_Did.Text += AddressPhaser.BytesToString(r.toAddress);
             TextBlock_AppType.Text += r.serviceType;
             TextBlock_ConType.Text += r.specificType;
             TextBlock_Error.Text += r.errorCode;
             TextBlock_Crypt.Text += r.cryptCode;
             //TextBlock_MLength.Text += r.SLength;
             //TextBlock_CLength.Text += r.CLength;
-            //if (true)
-            //{
-            //    Text_Encrypt.Text = r.content;
-            //}
-            //else
-            //{
-            //    Text_Encrypt.Text = r.content;
 
-            //    Text_Decrypt.Text = r.content;
-            //}
+            Text_Encrypt.Text = r.contents;
+            Text_Decrypt.Text = r.dcontents;
+
         }
     }
 }
