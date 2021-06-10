@@ -1,13 +1,16 @@
 ﻿using AdminUser.Entity;
 using AdminUser.Security;
+using AdminUser;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Controls;
 
 namespace AdminUser.Transmission
 {
     public class TransMessage
     {
+        public DateTime Time { get; set; }
         //目的IP地址
         public byte[] toAddress { get; set; }
         //源IP地址
@@ -24,6 +27,14 @@ namespace AdminUser.Transmission
         public string signature { get; set; }
         //报文内容
         public string contents { get; set; }
+
+        public string dcontents { get; set; }
+
+        public Package package;
+
+        public string toA { get; set; }
+
+        public string fromA { get; set; }
 
         /// <summary>
         /// 构造函数
@@ -53,6 +64,8 @@ namespace AdminUser.Transmission
         /// <param name="desKey">DES密钥</param>
         public void EnPackage(string rsaSKeyFile, string desKey)
         {
+            TransMessage message = new TransMessage(toAddress, fromAddress, serviceType, specificType,contents);
+            message.dcontents = contents;
             try
             {
                 signature = RSAHandler.GenerateSign(rsaSKeyFile, contents);
@@ -69,6 +82,8 @@ namespace AdminUser.Transmission
             {
                 errorCode = EnumErrorCode.Error;
             }
+            message.contents = contents;
+            package.CatchPackage(message);
         }
 
         /// <summary>
@@ -78,6 +93,8 @@ namespace AdminUser.Transmission
         /// <param name="desKey">DES密钥</param>
         public void DePackage(string rsaPKeyFile, string desKey)
         {
+            TransMessage message = new TransMessage(toAddress,fromAddress,serviceType,specificType,contents);
+            
             try
             {
                 if (cryptCode == EnumCryptCode.Crypt)
@@ -89,6 +106,8 @@ namespace AdminUser.Transmission
             {
                 errorCode = EnumErrorCode.Error;
             }
+            message.dcontents = contents;
+            package.CatchPackage(message);
         }
 
         /// <summary>

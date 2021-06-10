@@ -96,6 +96,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppService\Monitor.cs" />
     <Compile Include="AppService\VHandler.cs" />
     <Compile Include="Entity\Data.cs" />
     <Compile Include="Entity\Enums.cs" />
@@ -110,6 +111,9 @@
     </Compile>
     <Compile Include="OnMovieSta.xaml.cs">
       <DependentUpon>OnMovieSta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Package.xaml.cs">
+      <DependentUpon>Package.xaml</DependentUpon>
     </Compile>
     <Compile Include="PackageInfo.xaml.cs">
       <DependentUpon>PackageInfo.xaml</DependentUpon>
@@ -176,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OnMovieSta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Package.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -342,9 +350,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="MoviePictures\M00001.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MoviePictures\1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

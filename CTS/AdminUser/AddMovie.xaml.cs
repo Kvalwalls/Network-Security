@@ -19,11 +19,14 @@ namespace AdminUser
         private static AUVHandler handler;
         private static List<Movie> SubMovies;
         private static string picture;
-        public AddMovie(List<Movie> movies)
+        public static Package package;
+        public AddMovie(List<Movie> movies,Package p)
         {
             InitializeComponent();
+            package = p;
             handler = AUVHandler.GetInstance();
             SubMovies = movies;
+            handler.SetPackage(package);
             MidTip.Visibility = Visibility.Hidden;
             NameTip.Visibility = Visibility.Hidden;
             Type1Tip.Visibility = Visibility.Hidden;

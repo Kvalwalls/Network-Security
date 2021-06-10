@@ -23,10 +23,13 @@ namespace AdminUser
     {
         private static AUVHandler handler;
         private static List<Theater> SubTheaters;
-        public AddTheater(List<Theater> theaters)
+        public static Package package;
+        public AddTheater(List<Theater> theaters,Package p)
         {
             InitializeComponent();
+            package = p;
             handler = AUVHandler.GetInstance();
+            handler.SetPackage(package);
             SubTheaters = theaters;
             IdTip.Visibility = Visibility.Hidden;
             TypeTip.Visibility = Visibility.Hidden;

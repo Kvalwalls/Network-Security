@@ -38,17 +38,26 @@ namespace AdminUser
         private static List<OnMovie> onmovies = new List<OnMovie>();
         private static List<Record> records = new List<Record>();
         public static List<TransMessage> trans = new List<TransMessage>();
+        public static Package package;
 
-        public MainWindow(User u)
+        public MainWindow(User u,Package p)
         {
             InitializeComponent();
             handler = AUVHandler.GetInstance();
             InitTextBlock_Time();
             InitLists();
             user = u;
+            package = p;
+            handler.SetPackage(package);
             InitTextBlock_Hello();
+            //Monitor.PartEvent += OnStep;//将该类中的函数注册到Monitor静态类的PartEvent事件中。
         }
-        
+
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
         private void InitTextBlock_Time()
         {
             showTimer = new System.Windows.Threading.DispatcherTimer();
@@ -373,7 +382,7 @@ namespace AdminUser
         private void UserAdd_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            AddUser add = new AddUser(users);
+            AddUser add = new AddUser(users,package);
             add.ShowDialog();
             if (add.Tag != null)
             {
@@ -662,7 +671,7 @@ namespace AdminUser
         private void TheaterAdd_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            AddTheater add = new AddTheater(theaters);
+            AddTheater add = new AddTheater(theaters,package);
             add.ShowDialog();
             if (add.Tag != null)
             {
@@ -743,8 +752,8 @@ namespace AdminUser
             {
                 for (int i = 0; i < movies.Count; i++)
                 {
-                    //MovieForShow m = new MovieForShow(movies[i].Mid, movies[i].Mname, movies[i].type, movies[i].time, movies[i].comment);
-                    //MovieList.Items.Add(m);
+                    
+                    MovieList.Items.Add(movies[i]);
                 }
                 MovieList.Items.Refresh();
             }
@@ -756,8 +765,8 @@ namespace AdminUser
                 {
                     if (movies[i].Mid == sid)
                     {
-                        //MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
-                        //MovieList.Items.Add(m);
+                        
+                        MovieList.Items.Add(movies[i]);
                     }
                 }
                 MovieList.Items.Refresh();
@@ -771,7 +780,7 @@ namespace AdminUser
                     if (movies[i].Mname == sname)
                     {
                         //MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
-                        //MovieList.Items.Add(m);
+                        MovieList.Items.Add(movies[i]);
                     }
                 }
                 MovieList.Items.Refresh();
@@ -786,7 +795,7 @@ namespace AdminUser
                     if (movies[i].Mid == sid && movies[i].Mname == sname)
                     {
                         //MovieForShow m = new MovieForShow(movies[i].id, movies[i].name, movies[i].type, movies[i].time, movies[i].comment);
-                        //MovieList.Items.Add(m);
+                        MovieList.Items.Add(movies[i]);
                     }
                 }
                 MovieList.Items.Refresh();
@@ -831,7 +840,7 @@ namespace AdminUser
         {
 
             Hide();
-            AddMovie add = new AddMovie(movies);
+            AddMovie add = new AddMovie(movies,package);
             add.ShowDialog();
             if (add.Tag != null)
             {
@@ -1019,7 +1028,7 @@ namespace AdminUser
         private void OnMovieAdd_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            AddOnMovie add = new AddOnMovie(onmovies,movies,theaters);
+            AddOnMovie add = new AddOnMovie(onmovies,movies,theaters,package);
             add.ShowDialog();
             if (add.Tag != null)
             {
@@ -1320,5 +1329,12 @@ namespace AdminUser
             info.ShowDialog();
             //}
         }
+        
+        public void CatchPackage()
+        {
+
+        }
+
+       
     }
 }
