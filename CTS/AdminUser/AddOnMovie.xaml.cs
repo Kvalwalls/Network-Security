@@ -33,8 +33,8 @@ namespace AdminUser
             SubMovies = movies;
             SubTheaters = theaters;
             handler = AUVHandler.GetInstance();
-            handler.SetPackage(package);
             package = p;
+            handler.SetPackage(package);
             OidTip.Visibility = Visibility.Hidden;
             MidTip.Visibility = Visibility.Hidden;
             PidTip.Visibility = Visibility.Hidden;
@@ -252,9 +252,9 @@ namespace AdminUser
                     MidTip.Visibility = Visibility.Hidden;
                     string Id = TextBox_mid.Text;
                     bool exist = false;
-                    for (int i = 0; i < SubOnMovies.Count; i++)
+                    for (int i = 0; i < SubMovies.Count; i++)
                     {
-                        if (Id == SubOnMovies[i].Mid)
+                        if (Id == SubMovies[i].Mid)
                         {
                             exist = true;
                         }
@@ -280,9 +280,9 @@ namespace AdminUser
                 MidTip.Visibility = Visibility.Hidden;
                 string Id = TextBox_mid.Text;
                 bool exist = false;
-                for (int i = 0; i < SubOnMovies.Count; i++)
+                for (int i = 0; i < SubMovies.Count; i++)
                 {
-                    if (Id == SubOnMovies[i].Mid)
+                    if (Id == SubMovies[i].Mid)
                     {
                         exist = true;
                     }
@@ -309,9 +309,9 @@ namespace AdminUser
                     PidTip.Visibility = Visibility.Hidden;
                     string Id = TextBox_pid.Text;
                     bool exist = false;
-                    for (int i = 0; i < SubOnMovies.Count; i++)
+                    for (int i = 0; i < SubTheaters.Count; i++)
                     {
-                        if (Id == SubOnMovies[i].Tid)
+                        if (Id == SubTheaters[i].Tid)
                         {
                             exist = true;
                         }
@@ -337,9 +337,9 @@ namespace AdminUser
                 PidTip.Visibility = Visibility.Hidden;
                 string Id = TextBox_pid.Text;
                 bool exist = false;
-                for (int i = 0; i < SubOnMovies.Count; i++)
+                for (int i = 0; i < SubTheaters.Count; i++)
                 {
-                    if (Id == SubOnMovies[i].Tid)
+                    if (Id == SubTheaters[i].Tid)
                     {
                         exist = true;
                     }

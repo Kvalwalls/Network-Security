@@ -236,8 +236,8 @@
                                 <GridViewColumn Header="影片号" Width="170" DisplayMemberBinding="{Binding Mid}"></GridViewColumn>
                                 <GridViewColumn Header="影片名称" Width="170" DisplayMemberBinding="{Binding Mname}"></GridViewColumn>
                                 <GridViewColumn Header="影片类型" Width="170" DisplayMemberBinding="{Binding Mtype}"></GridViewColumn>
-                                <GridViewColumn Header="影片评分" Width="170" DisplayMemberBinding="{Binding Mtime}"></GridViewColumn>
-                                <GridViewColumn Header="影片时长" Width="170" DisplayMemberBinding="{Binding Mcomment}"></GridViewColumn>
+                                <GridViewColumn Header="影片评分" Width="170" DisplayMemberBinding="{Binding Mcomment}"></GridViewColumn>
+                                <GridViewColumn Header="影片时长" Width="170" DisplayMemberBinding="{Binding Mtime}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
