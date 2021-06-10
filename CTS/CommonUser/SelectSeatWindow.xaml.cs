@@ -16,7 +16,7 @@ namespace CommonUser
     public partial class SelectSeatWindow : Window
     {
         private List<Seat> seats;
-        private HashSet<Seat> selectedSeats;
+        private HashSet<string> selectedSids;
         private User user;
         private Movie movie;
         private Theater theater;
@@ -30,8 +30,8 @@ namespace CommonUser
             this.onMovie = onMovie;
             theater = handler.GetTheater(onMovie.Tid);
             seats = handler.GetSeats(onMovie.Oid);
-            selectedSeats = new HashSet<Seat>();
-            seats.Sort(new SIDComparer());
+            selectedSids = new HashSet<string>();
+            seats.Sort(new SeatComparer());
             InitializeComponent();
             InitInfo();
             InitSeats();
@@ -88,29 +88,29 @@ namespace CommonUser
             ControlSeat controlSeat = sender as ControlSeat;
             string strRowCol = controlSeat.Name.Substring(2, 4);
             if (controlSeat.status == EnumSeatStatus.Selecting)
-            {  
-                selectedSeats.Add(new Seat(strRowCol, onMovie.Oid, EnumSeatStatus.Selecting));
+            {
+                selectedSids.Add(strRowCol);
             }
             else
             {
-                selectedSeats.RemoveWhere((Seat s) => s.Sid.Equals(strRowCol));
+                selectedSids.RemoveWhere((string s) => s.Equals(strRowCol));
             }
             string textTB = null;
-            foreach (Seat temp in selectedSeats)
-                textTB += "第" + temp.Sid.Substring(0, 2) + "行第" + temp.Sid.Substring(2, 2) + "列；";
+            foreach (string temp in selectedSids)
+                textTB += "第" + temp.Substring(0, 2) + "行第" + temp.Substring(2, 2) + "列；";
             TextBox_Selected.Text = textTB;
         }
 
         private void Button_Buy_Click(object sender, RoutedEventArgs e)
         {
             int i = 0;
-            Seat[] temps = new Seat[selectedSeats.Count];
-            foreach (Seat temp in selectedSeats)
+            string[] temps = new string[selectedSids.Count];
+            foreach (string temp in selectedSids)
             {
                 temps[i] = temp;
                 i++;
             }
-            Array.Sort(temps, new SIDComparer());
+            Array.Sort(temps, new SidComparer());
             new WaitingWindow(user, movie, onMovie, temps).Show();
             Close();
         }
@@ -131,11 +131,19 @@ namespace CommonUser
         }
     }
 
-    public class SIDComparer : IComparer<Seat>
+    public class SeatComparer : IComparer<Seat>
     {
         public int Compare(Seat x, Seat y)
         {
             return x.Sid.CompareTo(y.Sid);
+        }
+    }
+
+    public class SidComparer : IComparer<string>
+    {
+        public int Compare(string x, string y)
+        {
+            return x.CompareTo(y);
         }
     }
 }

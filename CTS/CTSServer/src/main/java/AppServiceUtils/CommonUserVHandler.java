@@ -3,10 +3,7 @@ package AppServiceUtils;
 import DataBaseUtils.DBCommand;
 import DataUtils.*;
 import DataUtils.Record;
-import EnumUtils.EnumCUV;
-import EnumUtils.EnumErrorCode;
-import EnumUtils.EnumServiceType;
-import EnumUtils.EnumUserAccess;
+import EnumUtils.*;
 import TransmissionUtils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,7 +13,7 @@ import org.w3c.dom.NodeList;
 
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class CommonUserVHandler extends VHandler implements Runnable {
     @Override
@@ -45,6 +42,9 @@ public class CommonUserVHandler extends VHandler implements Runnable {
                     case EnumCUV.GetOnMovies -> getOnMovies(message);
                     case EnumCUV.GetSeats -> getSeats(message);
                     case EnumCUV.GetTheater -> getTheater(message);
+                    case EnumCUV.SelectSeat -> selectSeat(message);
+                    case EnumCUV.PayMoney -> payMoney(message);
+                    case EnumCUV.PayTimeout -> payTimeout(message);
                 }
             }
 
@@ -225,7 +225,7 @@ public class CommonUserVHandler extends VHandler implements Runnable {
         document = XMLBuilder.buildXMLDoc();
         Element modifyElement = document.createElement("modify_name");
         Element stateElement = document.createElement("state");
-        stateElement.setTextContent(String.valueOf(DBCommand.updateUName(u_idStr,u_nameStr)));
+        stateElement.setTextContent(String.valueOf(DBCommand.updateUName(u_idStr, u_nameStr)));
         modifyElement.appendChild(stateElement);
         document.appendChild(modifyElement);
         //报文初始化
@@ -332,7 +332,7 @@ public class CommonUserVHandler extends VHandler implements Runnable {
         ArrayList<Movie> movies = DBCommand.getAllMovies();
         Document document = XMLBuilder.buildXMLDoc();
         Element getElement = document.createElement("get_movies");
-        for(Movie temp : movies) {
+        for (Movie temp : movies) {
             Element movieElement = document.createElement("movie");
             Element m_idElement = document.createElement("m_id");
             m_idElement.setTextContent(temp.getMId());
@@ -383,7 +383,7 @@ public class CommonUserVHandler extends VHandler implements Runnable {
         message.setContents(XMLPhaser.docToString(document));
         message.enPackage(MySKeyFile, sessionKey);
         transceiver.sendMessage(message);
-        for(Movie temp : movies) {
+        for (Movie temp : movies) {
             document = XMLBuilder.buildXMLDoc();
             getElement = document.createElement("get_movie_pictures");
             Element m_idElement = document.createElement("m_id");
@@ -580,7 +580,149 @@ public class CommonUserVHandler extends VHandler implements Runnable {
         transceiver.sendMessage(message);
     }
 
-    private void buyTicket(TransMessage transMessage) throws Exception {
-        
+    private void selectSeat(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String u_idStr = null, o_idStr = null, r_timeStr = null;
+        List<String> s_idList = new ArrayList<>();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "u_id" -> u_idStr = childNode.getTextContent();
+                case "o_id" -> o_idStr = childNode.getTextContent();
+                case "r_time" -> r_timeStr = childNode.getTextContent();
+                case "s_id" -> s_idList.add(childNode.getTextContent());
+            }
+        }
+        int selectCount = 0;
+        for (String tempS_id : s_idList)
+            if (DBCommand.getSeatsByOidSid(o_idStr, tempS_id).getSStatus() != EnumSeatStatus.Unselected)
+                break;
+            else if (DBCommand.updateSeatStatus(o_idStr, tempS_id, EnumSeatStatus.Selecting))
+                selectCount++;
+        if (selectCount != s_idList.size()) {
+            for (int i = 0; i < selectCount; i++)
+                DBCommand.updateSeatStatus(o_idStr, s_idList.get(i), EnumSeatStatus.Unselected);
+            document = XMLBuilder.buildXMLDoc();
+            Element selectElement = document.createElement("select_seat");
+            Element stateElement = document.createElement("state");
+            stateElement.setTextContent("false");
+            selectElement.appendChild(stateElement);
+            document.appendChild(selectElement);
+        } else {
+            for (String tempS_id : s_idList)
+                DBCommand.updateSeatStatus(o_idStr, tempS_id, EnumSeatStatus.Selected);
+            Record[] records = new Record[selectCount];
+            User user = DBCommand.getUserById(u_idStr);
+            float price = DBCommand.getOnMovieByOId(o_idStr).getOPrice() * selectCount;
+            if (user.getUAccess() == EnumUserAccess.U_VIP)
+                price = price * (float) 0.9;
+            else if (user.getUAccess() == EnumUserAccess.U_SVIP)
+                price = price * (float) 0.8;
+            for (int i = 0; i < selectCount; i++) {
+                records[i] = new Record();
+                records[i].setUId(u_idStr);
+                records[i].setOId(o_idStr);
+                records[i].setSId(s_idList.get(i));
+                records[i].setStatus(EnumRecordStatus.Waiting);
+                records[i].setRTime(DatePhaser.dateStrToDate(r_timeStr));
+                records[i].setRPrice(price);
+                DBCommand.insertRecord(records[i]);
+            }
+            document = XMLBuilder.buildXMLDoc();
+            Element selectElement = document.createElement("select_seat");
+            Element stateElement = document.createElement("state");
+            stateElement.setTextContent("true");
+            selectElement.appendChild(stateElement);
+            Element priceElement = document.createElement("price");
+            priceElement.setTextContent(String.valueOf(price));
+            selectElement.appendChild(priceElement);
+            document.appendChild(selectElement);
+        }
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.SelectSeat);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
+    }
+
+    private void payMoney(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        float money = 0;
+        String u_idStr = null, o_idStr = null;
+        List<String> s_idList = new ArrayList<>();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "u_id" -> u_idStr = childNode.getTextContent();
+                case "o_id" -> o_idStr = childNode.getTextContent();
+                case "money" -> money = Float.parseFloat(childNode.getTextContent());
+                case "s_id" -> s_idList.add(childNode.getTextContent());
+            }
+        }
+        document = XMLBuilder.buildXMLDoc();
+        Element payElement = document.createElement("pay_money");
+        Element stateElement = document.createElement("state");
+        if (DBCommand.payMoney(u_idStr, money)) {
+            for (String tempS_id : s_idList) {
+                DBCommand.updateSeatStatus(o_idStr, tempS_id, EnumSeatStatus.Unselected);
+                DBCommand.updateRecordStatus(u_idStr, tempS_id, o_idStr, EnumRecordStatus.Success);
+            }
+            stateElement.setTextContent("true");
+        } else {
+            for (String tempS_id : s_idList)
+                DBCommand.updateRecordStatus(u_idStr, tempS_id, o_idStr, EnumRecordStatus.Failed);
+            stateElement.setTextContent("false");
+        }
+        payElement.appendChild(stateElement);
+        document.appendChild(payElement);
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.PayMoney);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
+    }
+
+    public void payTimeout(TransMessage transMessage) throws Exception {
+        Document document = XMLPhaser.stringToDoc(transMessage.getContents());
+        Element recvRoot = document.getDocumentElement();
+        NodeList nodeList = recvRoot.getChildNodes();
+        String u_idStr = null, o_idStr = null;
+        List<String> s_idList = new ArrayList<>();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node childNode = nodeList.item(i);
+            switch (childNode.getNodeName()) {
+                case "u_id" -> u_idStr = childNode.getTextContent();
+                case "o_id" -> o_idStr = childNode.getTextContent();
+                case "s_id" -> s_idList.add(childNode.getTextContent());
+            }
+        }
+        document = XMLBuilder.buildXMLDoc();
+        Element payElement = document.createElement("pay_timeout");
+        Element stateElement = document.createElement("state");
+        for (String tempS_id : s_idList) {
+            DBCommand.updateSeatStatus(o_idStr, tempS_id, EnumSeatStatus.Unselected);
+            DBCommand.updateRecordStatus(u_idStr, tempS_id, o_idStr, EnumRecordStatus.Failed);
+        }
+        stateElement.setTextContent("true");
+        payElement.appendChild(stateElement);
+        document.appendChild(payElement);
+        TransMessage message = new TransMessage();
+        message.setToAddress(toAddr);
+        message.setFromAddress(fromAddr);
+        message.setServiceType(EnumServiceType.CUV);
+        message.setSpecificType(EnumCUV.PayTimeout);
+        message.setContents(XMLPhaser.docToString(document));
+        message.enPackage(MySKeyFile, sessionKey);
+        transceiver.sendMessage(message);
     }
 }

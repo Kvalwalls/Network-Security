@@ -29,4 +29,10 @@ public class EnumCUV {
     public static final byte GetSeats = 12;
     //获取某场次影厅信息
     public static final byte GetTheater = 13;
+    //选择座位
+    public static final byte SelectSeat = 14;
+    //支付金额
+    public static final byte PayMoney = 15;
+    //支付超时
+    public static final byte PayTimeout = 16;
 }

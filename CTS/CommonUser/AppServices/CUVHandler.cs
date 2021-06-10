@@ -679,9 +679,9 @@ namespace CommonUser.AppServices
             transceiver.SendMessage(message);
             message = transceiver.ReceiveMessage();
             message.DePackage(vPKeyFile, sessionKey);
-            document = XMLPhaser.StringToXml(message.contents);
             if (message.errorCode == EnumErrorCode.Error)
                 throw new Exception("获取某场次影厅信息函数错误！");
+            document = XMLPhaser.StringToXml(message.contents);
             Theater theater = new Theater();
             XmlElement xmlRoot = document.DocumentElement;
             XmlNodeList nodeList = xmlRoot.ChildNodes;
@@ -703,31 +703,124 @@ namespace CommonUser.AppServices
             return theater;
         }
 
-        public float BuyTicket(Seat[] seats)
+        public float SelectSeat(string Uid, string Oid, string[] sids)
         {
             //创建XMLDocument
             XmlDocument document = new XmlDocument();
             //根节点
-            XmlElement getElement = document.CreateElement("get_theater");
-            XmlElement t_idElement = document.CreateElement("t_id");
-            t_idElement.InnerText = Tid;
-            //形成树结构
-            getElement.AppendChild(t_idElement);
-            document.AppendChild(getElement);
+            XmlElement buyElement = document.CreateElement("select_seat");
+            XmlElement u_idElement = document.CreateElement("u_id");
+            u_idElement.InnerText = Uid;
+            buyElement.AppendChild(u_idElement);
+            XmlElement o_idElement = document.CreateElement("o_id");
+            o_idElement.InnerText = Oid;
+            buyElement.AppendChild(o_idElement);
+            XmlElement r_timeElement = document.CreateElement("r_time");
+            r_timeElement.InnerText = DateTime.UtcNow.ToString();
+            buyElement.AppendChild(r_timeElement);
+            foreach (string temp in sids)
+            {
+                XmlElement s_idElement = document.CreateElement("s_id");
+                s_idElement.InnerText = temp;
+                buyElement.AppendChild(s_idElement);
+            }
+            document.AppendChild(buyElement);
             //报文初始化
             TransMessage message = new TransMessage();
             message.fromAddress = fromAddr;
             message.toAddress = toAddr;
             message.serviceType = EnumServiceType.CUV;
-            message.specificType = EnumCUV.GetTheater;
+            message.specificType = EnumCUV.SelectSeat;
             message.contents = XMLPhaser.XmlToString(document);
             message.EnPackage(mySKeyFile, sessionKey);
             transceiver.SendMessage(message);
             message = transceiver.ReceiveMessage();
             message.DePackage(vPKeyFile, sessionKey);
-            document = XMLPhaser.StringToXml(message.contents);
             if (message.errorCode == EnumErrorCode.Error)
-                throw new Exception("获取某场次影厅信息函数错误！");
+                throw new Exception("购票信息函数错误！");
+            document = XMLPhaser.StringToXml(message.contents);
+            XmlElement xmlRoot = document.DocumentElement;
+            if ("true".Equals(xmlRoot["state"].InnerText))
+                return float.Parse(xmlRoot["price"].InnerText);
+            else
+                return 0;
+        }
+
+        public bool PayMoney(string Uid, string Oid, string[] sids, float price)
+        {
+            //创建XMLDocument
+            XmlDocument document = new XmlDocument();
+            //根节点
+            XmlElement payElement = document.CreateElement("pay_money");
+            XmlElement moneyElement = document.CreateElement("money");
+            moneyElement.InnerText = price.ToString();
+            payElement.AppendChild(moneyElement);
+            XmlElement u_idElement = document.CreateElement("u_id");
+            u_idElement.InnerText = Uid;
+            payElement.AppendChild(u_idElement);
+            XmlElement o_idElement = document.CreateElement("o_id");
+            o_idElement.InnerText = Oid;
+            payElement.AppendChild(o_idElement);
+            foreach (string temp in sids)
+            {
+                XmlElement s_idElement = document.CreateElement("s_id");
+                s_idElement.InnerText = temp;
+                payElement.AppendChild(s_idElement);
+            }
+            document.AppendChild(payElement);
+            //报文初始化
+            TransMessage message = new TransMessage();
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
+            message.serviceType = EnumServiceType.CUV;
+            message.specificType = EnumCUV.PayMoney;
+            message.contents = XMLPhaser.XmlToString(document);
+            message.EnPackage(mySKeyFile, sessionKey);
+            transceiver.SendMessage(message);
+            message = transceiver.ReceiveMessage();
+            message.DePackage(vPKeyFile, sessionKey);
+            if (message.errorCode == EnumErrorCode.Error)
+                throw new Exception("支付金额函数错误！");
+            document = XMLPhaser.StringToXml(message.contents);
+            XmlElement xmlRoot = document.DocumentElement;
+            return "true".Equals(xmlRoot["state"].InnerText);
+        }
+
+        public bool PayTimeout(string Uid, string Oid, string[] sids)
+        {
+            //创建XMLDocument
+            XmlDocument document = new XmlDocument();
+            //根节点
+            XmlElement payElement = document.CreateElement("pay_timeout");
+            XmlElement u_idElement = document.CreateElement("u_id");
+            u_idElement.InnerText = Uid;
+            payElement.AppendChild(u_idElement);
+            XmlElement o_idElement = document.CreateElement("o_id");
+            o_idElement.InnerText = Oid;
+            payElement.AppendChild(o_idElement);
+            foreach (string temp in sids)
+            {
+                XmlElement s_idElement = document.CreateElement("s_id");
+                s_idElement.InnerText = temp;
+                payElement.AppendChild(s_idElement);
+            }
+            document.AppendChild(payElement);
+            //报文初始化
+            TransMessage message = new TransMessage();
+            message.fromAddress = fromAddr;
+            message.toAddress = toAddr;
+            message.serviceType = EnumServiceType.CUV;
+            message.specificType = EnumCUV.PayTimeout;
+            message.contents = XMLPhaser.XmlToString(document);
+            message.EnPackage(mySKeyFile, sessionKey);
+            transceiver.SendMessage(message);
+            message = transceiver.ReceiveMessage();
+            message.DePackage(vPKeyFile, sessionKey);
+            if (message.errorCode == EnumErrorCode.Error)
+                throw new Exception("支付超时函数错误！");
+            document = XMLPhaser.StringToXml(message.contents);
+            XmlElement xmlRoot = document.DocumentElement;
+            return "true".Equals(xmlRoot["state"].InnerText);
         }
     }
 }

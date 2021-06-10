@@ -113,9 +113,10 @@ namespace CommonUser
 
         private void SetRecordTabInfo()
         {
+            records = handler.GetRecords(user.Uid);
             ListView_Records.ItemsSource = records;
+            ListView_Movies.Items.Refresh();
         }
-
 
         private void Button_ModName_Click(object sender, RoutedEventArgs e)
         {
@@ -377,7 +378,7 @@ namespace CommonUser
             List<Movie> tempList = new List<Movie>();
             foreach (Movie temp in movies)
             {
-                if (temp.Mname.Contains(TextBox_Search.Text))
+                if (temp.Mname.Contains(TextBox_Search.Text) || temp.Mtype.Contains(TextBox_Search.Text))
                     tempList.Add(temp);
             }
             ListView_Movies.DataContext = tempList;
@@ -407,12 +408,14 @@ namespace CommonUser
             SetMovieTabInfo();
         }
 
-        private void Button_ReShowList_Click(object sender, RoutedEventArgs e)
-		{
-           
+        private void Button_RefreshRList_Click(object sender, RoutedEventArgs e)
+        {
+            ListView_Records.DataContext = null;
+            ListView_Records.Items.Refresh();
+            SetRecordTabInfo();
         }
 
-		private void Button_Refund_Click(object sender, RoutedEventArgs e)
+        private void Button_Refund_Click(object sender, RoutedEventArgs e)
 		{
 			Record u = ListView_Records.SelectedItem as Record;
 			DateTime dt1 = Convert.ToDateTime(u.Rtime);
@@ -434,10 +437,7 @@ namespace CommonUser
 			a.ShowDialog();
 		}
 
-        private void Button_Refresh_RList_Click(object sender, RoutedEventArgs e)
-        {
-            SetRecordTabInfo();
-        }
+        
 
 
         private void PersonTabItem_Selected(object sender, MouseButtonEventArgs e)
