@@ -45,9 +45,9 @@
         <!--签名长度TextBlock-->
         <!--报文内容长度TextBlock-->
 
-        <TextBlock HorizontalAlignment="Center" Foreground="Black" Text="报文内容：" VerticalAlignment="Top" FontSize="24" Margin="64,168,609.6,0"/>
+        <TextBlock Name="TextBlock_EnCrypt" Text="报文内容：" VerticalAlignment="Center" FontSize="24" Margin="64,168,409.6,421"/>
 
-        <TextBlock HorizontalAlignment="Center" Foreground="Black" Text="解密内容：" VerticalAlignment="Top" FontSize="24" Margin="64,364,609.6,0"/>
+        <TextBlock Name="TextBlock_DeCrypt" Text="解密内容：" VerticalAlignment="Center" FontSize="24" Margin="64,364,409.6,224"/>
 
         <TextBox Name="Text_Encrypt" HorizontalAlignment="Left" Height="156" Margin="64,203,0,0" TextWrapping="Wrap" Text="报文" VerticalAlignment="Top" Width="580"/>
 
