@@ -32,7 +32,7 @@ namespace CommonUser
 			Label_Begin.Content = *.Obegin;
 			Label_End.Content = *.Oend;
 			Label_Tid.Content = "影厅" + *.Tid;*/
-			Label_Sid.Content = "第" + record.Sid.Substring(0, 3) + "行 第" + record.Sid.Substring(3, 3) + "列";
+			Label_Sid.Content = "第" + record.Sid.Substring(0, 2) + "行 第" + record.Sid.Substring(2, 2) + "列";
 			Label_Price.Content = record.Rprice + "元";
 		}
 

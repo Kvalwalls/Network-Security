@@ -57,6 +57,12 @@
         public const byte GetSeats = 12;
         //获取某场次影厅信息
         public const byte GetTheater = 13;
+        //选择座位
+        public const byte SelectSeat = 14;
+        //支付金额
+        public const byte PayMoney = 15;
+        //支付超时
+        public const byte PayTimeout = 16;
     }
 
     //加密码枚举

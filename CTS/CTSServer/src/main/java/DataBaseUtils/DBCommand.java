@@ -1122,7 +1122,7 @@ public class DBCommand {
      * @param newStatus 新状态
      * @return 修改结果
      */
-    public static boolean updateRecordStatus(String uid, String sid, String oid, String newStatus) {
+    public static boolean updateRecordStatus(String uid, String sid, String oid, byte newStatus) {
         String sql = "update T_Record set r_status = '" + newStatus + "'"
                 + " where u_id = '" + uid
                 + "' and s_id = '" + sid

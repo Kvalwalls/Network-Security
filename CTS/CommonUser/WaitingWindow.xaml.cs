@@ -1,4 +1,5 @@
-﻿using CommonUser.Entity;
+﻿using CommonUser.AppServices;
+using CommonUser.Entity;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,16 +15,17 @@ namespace CommonUser
         private User user;
         private Movie movie;
         private OnMovie onMovie;
-        private Seat[] seats;
-        public WaitingWindow(User user, Movie movie, OnMovie onMovie, Seat[] seats)
+        private string[] sids;
+        private CUVHandler handler;
+        public WaitingWindow(User user, Movie movie, OnMovie onMovie, string[] sids)
         {
             this.user = user;
             this.movie = movie;
             this.onMovie = onMovie;
-            this.seats = seats;
+            this.sids = sids;
+            handler = CUVHandler.GetInstance();
             InitializeComponent();
-            mediaElement.Source = new Uri(
-                GetParentDirectory(System.AppDomain.CurrentDomain.BaseDirectory, 3)
+            mediaElement.Source = new Uri(GetParentDirectory(System.AppDomain.CurrentDomain.BaseDirectory, 3)
                 + "\\ImageResources\\装饰(黑)_等待动态.gif");
             InitTips();
         }
@@ -38,6 +40,8 @@ namespace CommonUser
         private void InitTips()
         {
             int countSeconds = 5;
+            float price = handler.SelectSeat(user.Uid,onMovie.Oid, sids);
+            Theater theater = handler.GetTheater(onMovie.Tid);
             string strTips = "座位锁定中";
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += new EventHandler(
@@ -45,8 +49,12 @@ namespace CommonUser
                 {
                     if (countSeconds == 0)
                     {
-                        new PayWaitingWindow(user, movie, onMovie, seats).Show();
+                        timer.Stop();
                         Close();
+                        if (price == 0)
+                            MessageBox.Show("购票失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        else
+                            new PayWaitingWindow(user, movie, theater, onMovie, sids, price).Show();
                         return;
                     }
                     else
